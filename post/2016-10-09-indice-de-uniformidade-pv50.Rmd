@@ -228,7 +228,7 @@ ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
   theme(legend.justification = "top")
 ```
 
-Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura \@ref(fig:12-pv50-idade)). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, *E. dunnii*, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que noaos 7anos, as 50% menores árvores da parcela de *E. dunnii* representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.
+Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura \@ref(fig:12-pv50-idade)). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, *E. dunnii*, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de *E. dunnii* representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.
 
 ```{r 12-pv50-idade, fig.cap="Variação do PV50 por espécies em função da idade."}
 ggplot(dados_pv50, aes(I_meses, PV50, color = Esp)) +

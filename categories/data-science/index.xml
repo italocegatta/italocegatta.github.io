@@ -750,11 +750,11 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 
 GET(&amp;quot;https://goo.gl/Av1fHP&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/blog/master/content/post/dados/base_vespa1.xlsx]
-##   Date: 2017-01-14 14:21
+##   Date: 2017-01-14 15:52
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 20.7 kB
-## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\Rtmpg5t7y3\file9a812585e8b.xlsx&lt;/code&gt;&lt;/pre&gt;
+## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\RtmpyU6EiF\file18146ccb12ab.xlsx&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma lista para receber os tabelas que serão importadas
 
 dados1 &amp;lt;- list() 

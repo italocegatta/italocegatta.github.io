@@ -458,7 +458,7 @@ dados_pv50</code></pre>
 Figura  1: Crescimento em volume por hectare em função da idade.
 </p>
 </div>
-<p>Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura <a href="#fig:12-pv50-idade">2</a>). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, <em>E. dunnii</em>, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que noaos 7anos, as 50% menores árvores da parcela de <em>E. dunnii</em> representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.</p>
+<p>Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura <a href="#fig:12-pv50-idade">2</a>). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, <em>E. dunnii</em>, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de <em>E. dunnii</em> representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.</p>
 <pre class="r"><code>ggplot(dados_pv50, aes(I_meses, PV50, color = Esp)) +
   geom_point() +
   geom_line() +
