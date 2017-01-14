@@ -412,6 +412,12 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       </li>
     
     
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
     <li class="post-action">
       
         <a class="post-action-btn btn btn--default" href="#">
@@ -424,6 +430,10 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 
 
             
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
               
             
           </div>
@@ -482,6 +492,12 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
         </a>
       </li>
     
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
     
     <li class="post-action">
       
@@ -791,6 +807,28 @@ $(document).ready(function() {
 </script>
 
   
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/o-r-e-para-voce\/';
+          
+            this.page.identifier = '\/o-r-e-para-voce\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'italocegatta';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
     
   
 
