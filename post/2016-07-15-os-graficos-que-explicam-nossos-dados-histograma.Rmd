@@ -32,7 +32,7 @@ p_load(readr, dplyr, ggplot2, ggthemes)
 ```
 
 ```{r dados, message=FALSE}
-dados <- read_csv2("https://goo.gl/Fyyd9F")
+dados <- read_csv2("https://goo.gl/ezA3hH")
 
 dados
 ```

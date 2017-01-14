@@ -157,7 +157,7 @@ str(b1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pv50(b1) # Ok!&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 38.88889&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente ao &lt;a href=&#34;http://www.projetotume.com/tume134&#34;&gt;TUME 134&lt;/a&gt; plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/uU9bzY&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/oOMB69&amp;quot;)
 
 glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Observations: 1,222

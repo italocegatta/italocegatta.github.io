@@ -39,7 +39,7 @@ p_load(readr, dplyr, ggplot2, ggthemes, viridis)
 ```
 
 ```{r dados, message=FALSE}
-dados <- read_csv2("https://goo.gl/y1uVLW")
+dados <- read_csv2("https://goo.gl/6Me1u8")
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.

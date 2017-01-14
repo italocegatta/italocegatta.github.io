@@ -72,7 +72,7 @@ Como são apenas 4 abas, podemos importá-las usando um comando por linha.
 ```{r, nclude=FALSE}
 # Faz o download da arquivo base_vespa1.xlxs para a memória temporária
 
-GET("https://goo.gl/Av1fHP", write_disk(base_vespa1 <- tempfile(fileext = ".xlsx")))
+GET("https://goo.gl/uasbWk", write_disk(base_vespa1 <- tempfile(fileext = ".xlsx")))
 
 
 # Cria uma lista para receber os tabelas que serão importadas
@@ -140,9 +140,9 @@ knitr::include_graphics("http://i.imgur.com/YGY8pvV.png")
 Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.
 
 ```{r, include=FALSE}
-# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
+# Faz o download da arquivo base_vespa2.xlxs para a memória temporária
 
-GET("https://goo.gl/2AOmhx", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx")))
+GET("https://goo.gl/Rmgn5B", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx")))
 ```
 
 ```{r}

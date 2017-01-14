@@ -24,7 +24,7 @@
 &lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/kyoomd&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/b37dVN&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 30 × 3

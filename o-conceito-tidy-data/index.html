@@ -296,13 +296,13 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 <p>Como são apenas 4 abas, podemos importá-las usando um comando por linha.</p>
 <pre class="r"><code># Faz o download da arquivo base_vespa1.xlxs para a memória temporária
 
-GET(&quot;https://goo.gl/Av1fHP&quot;, write_disk(base_vespa1 &lt;- tempfile(fileext = &quot;.xlsx&quot;)))</code></pre>
-<pre><code>## Response [https://raw.githubusercontent.com/italocegatta/blog/master/content/post/dados/base_vespa1.xlsx]
-##   Date: 2017-01-14 15:52
+GET(&quot;https://goo.gl/uasbWk&quot;, write_disk(base_vespa1 &lt;- tempfile(fileext = &quot;.xlsx&quot;)))</code></pre>
+<pre><code>## Response [https://raw.githubusercontent.com/italocegatta/dados_blog/master/base_vespa1.xlsx]
+##   Date: 2017-01-14 16:26
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 20.7 kB
-## &lt;ON DISK&gt;  C:\Users\Italo\AppData\Local\Temp\RtmpyU6EiF\file18146ccb12ab.xlsx</code></pre>
+## &lt;ON DISK&gt;  C:\Users\Italo\AppData\Local\Temp\RtmpQRl5eC\file1df8361a5a0c.xlsx</code></pre>
 <pre class="r"><code># Cria uma lista para receber os tabelas que serão importadas
 
 dados1 &lt;- list() 

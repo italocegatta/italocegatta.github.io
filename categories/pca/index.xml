@@ -23,7 +23,7 @@
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggrepel)
 p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/I577FK&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/OfumGV&amp;quot;)
 
 print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 31 × 6

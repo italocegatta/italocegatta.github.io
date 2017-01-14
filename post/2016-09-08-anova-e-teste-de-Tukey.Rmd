@@ -39,7 +39,7 @@ p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)
 ```
 
 ```{r, message=FALSE}
-dados <- read_csv2("https://goo.gl/kyoomd")
+dados <- read_csv2("https://goo.gl/b37dVN")
 
 dados
 ```

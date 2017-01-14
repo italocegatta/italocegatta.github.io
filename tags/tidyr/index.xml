@@ -29,7 +29,7 @@
 &lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/NIdvu1&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/e8aWm0&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 9
@@ -226,7 +226,7 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Vamos trabalhar com os dados que apresentei no post anterior sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, tidyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/9cL8zC&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/lPfEKX&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
@@ -434,13 +434,13 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 &lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
 
-GET(&amp;quot;https://goo.gl/Av1fHP&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/blog/master/content/post/dados/base_vespa1.xlsx]
-##   Date: 2017-01-14 15:52
+GET(&amp;quot;https://goo.gl/uasbWk&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/dados_blog/master/base_vespa1.xlsx]
+##   Date: 2017-01-14 16:26
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 20.7 kB
-## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\RtmpyU6EiF\file18146ccb12ab.xlsx&lt;/code&gt;&lt;/pre&gt;
+## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\RtmpQRl5eC\file1df8361a5a0c.xlsx&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma lista para receber os tabelas que serão importadas
 
 dados1 &amp;lt;- list() 

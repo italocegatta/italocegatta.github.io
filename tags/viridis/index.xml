@@ -24,7 +24,7 @@
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/y1uVLW&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/6Me1u8&amp;quot;)
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.

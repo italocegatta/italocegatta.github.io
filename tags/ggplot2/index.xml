@@ -24,7 +24,7 @@
 &lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/kyoomd&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/b37dVN&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 30 × 3
@@ -159,7 +159,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 &lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/NIdvu1&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/e8aWm0&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 9
@@ -354,7 +354,7 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggrepel)
 p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/I577FK&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/OfumGV&amp;quot;)
 
 print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 31 × 6
@@ -480,7 +480,7 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
 &lt;p&gt;Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/Fyyd9F&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/ezA3hH&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 276 × 7
@@ -587,7 +587,7 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/y1uVLW&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/6Me1u8&amp;quot;)
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.
@@ -711,7 +711,7 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 &lt;p&gt;Continuaremos com o banco de dados apresentado no post sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/9cL8zC&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/lPfEKX&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
@@ -999,7 +999,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
 &lt;p&gt;Vamos trabalhar com os dados que apresentei no post anterior sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
 p_load(readr, dplyr, tidyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/9cL8zC&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/lPfEKX&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
