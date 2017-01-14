@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Car on Ítalo Cegatta</title>
+    <link>/tags/car/index.xml</link>
+    <description>Recent content in Car on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <atom:link href="/tags/car/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ANOVA e teste de Tukey</title>
+      <link>/anova-e-teste-de-tukey/</link>
+      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/anova-e-teste-de-tukey/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
+&lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/kyoomd&amp;quot;)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 30 × 3
+##    repeticao progenie volume
+##        &amp;lt;int&amp;gt;    &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+## 1          1        A    212
+## 2          2        A    206
+## 3          3        A    224
+## 4          4        A    289
+## 5          5        A    324
+## 6          6        A    219
+## 7          1        B    108
+## 8          2        B    194
+## 9          3        B    163
+## 10         4        B    111
+## # ... with 20 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(progenie, volume)) +
+  geom_boxplot() +
+  theme_bw() +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Variabilidade do volume por hectare de cada tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A ANOVA é um método bastante consolidado no meio acadêmico. Basicamente, este método informa se existe um tratamento discrepante dentre os demais. Entretanto, ele exige que algumas premissas sejam atendidas, como: distribuição normal dos resíduos e homogeneidade de variância.&lt;/p&gt;
+&lt;p&gt;Primeiro, vamos utilizar o teste de Levene para verificar se há homogeneidade de variância, ou homocedasticidade. Como o p-valor é maior que 5% não temos evidência significativa para rejeitar a hipótese nula de homogeneidade, ou seja, nossos dados tem homogeneidade de variância.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;leveneTest(volume ~ factor(progenie), data=dados)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Levene&amp;#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&amp;gt;F)  
+## group  4  2.4677 0.07086 .
+##       25                  
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O segundo pressuposto é a normalidade dos resíduos. Utilizaremos o teste de Shapiro-Wilk cuja hipótese nula é a de que os dados seguem uma distribuição normal. Como o p-valor é superior ao limite de 5%, podemos aceitar a hipótese nula e considerar nossos dados normais.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;anova &amp;lt;-  aov(volume ~ progenie, data=dados)
+
+shapiro.test(resid(anova))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(anova)
+## W = 0.96097, p-value = 0.3279&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Uma vez que os pressupostos foram atendidos, seguiremos para a ANOVA. Note que, caso os testes de Levene e Shapiro-Wilk resultassem em um p-valor significante, ou seja, menor que 5%, teríamos que utilizar outro método estatístico para analisar nossos dados. Nesse caso, uma alternativa é utilizar testes não-paramétricos, uma vez que eles não exigem os pressupostos que acabamos de testar.&lt;/p&gt;
+&lt;p&gt;Nossa ANOVA resultou em um p-valor menor que 5%, portanto, temos evidências de que ao menos um tratamento se diferencia dos demais. Isso já é uma resposta, mas pouco acrescenta à nossa pesquisa pois queremos saber quem é este tratamento discrepante. Ou melhor, queremos poder comparar os tratamentos entre si e verificar quais são estatisticamente iguais ou diferentes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(anova)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##             Df Sum Sq Mean Sq F value   Pr(&amp;gt;F)    
+## progenie     4  86726   21681    8.89 0.000131 ***
+## Residuals   25  60974    2439                     
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para esta abordagem existem alguns testes de médias e cada um tem uma particularidade, mas de longe o mais utilizado é o de Tukey.&lt;/p&gt;
+&lt;p&gt;A interpretação do teste de Tukey é simples. Após determinarmos a diferença mínima significativa (ou Honest Significant Difference - HSD), podemos julgar se as médias são iguais ou não. Em termos práticos, esse valor nos dá uma margem de igualdade, pois se a diferença entre dois tratamentos for maior do que isso, os médias são diferentes.&lt;/p&gt;
+&lt;p&gt;A análise começa sempre pela maior média, no nosso caso a progênie A (245, 66). Com uma continha rápida, a média do tratamento A menos a diferença mínima significativa &lt;code&gt;245,66 - 83,73 = 161,93&lt;/code&gt;, aceitaremos que um tratamento é igual ao A se a média dele for maior que 161,93. O tratamento subsequente (o segundo do ranking) é a progênie D e como sua média é maior que 161,93 podemos dizer que ela é estatisticamente igual a progênie A.&lt;/p&gt;
+&lt;p&gt;As próximas comparações seguem a mesma lógica. Quando registramos que duas médias são iguais, nós as rotulamos com a mesma letra para facilitar a identificação. Veja no fim do output as letras evidenciando a igualdade entre os tratamentos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey &amp;lt;- HSD.test(anova, &amp;quot;progenie&amp;quot;)
+
+tukey&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $statistics
+##       Mean       CV  MSerror      HSD
+##   165.7667 29.79233 2438.953 83.73866
+## 
+## $parameters
+##   Df ntr StudentizedRange alpha  test   name.t
+##   25   5         4.153363  0.05 Tukey progenie
+## 
+## $means
+##     volume      std r Min Max
+## A 245.6667 48.78798 6 206 324
+## B 159.6667 49.47996 6 108 236
+## C  80.5000 15.60449 6  63 100
+## D 190.1667 75.37484 6 100 267
+## E 152.8333 37.96534 6 106 210
+## 
+## $comparison
+## NULL
+## 
+## $groups
+##   trt    means  M
+## 1   A 245.6667  a
+## 2   D 190.1667 ab
+## 3   B 159.6667 bc
+## 4   E 152.8333 bc
+## 5   C  80.5000  c&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey (Figura &lt;a href=&#34;#fig:10-barras-tukey&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey$groups %&amp;gt;% 
+  ggplot(aes(reorder(trt, means, function(x) -mean(x)), means)) +
+    geom_bar(stat = &amp;quot;identity&amp;quot;) +
+    geom_text(aes(label = M), vjust = 1.8, size = 9, color = &amp;quot;white&amp;quot;) +
+    labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
+    theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

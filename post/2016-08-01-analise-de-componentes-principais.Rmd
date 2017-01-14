@@ -1,0 +1,87 @@
+---
+title: Análise de componentes principais
+date: 2016-08-01
+tags:
+  - readr
+  - dplyr
+  - ggplot2
+  - ggrepel
+  - ggbiplot
+categories:
+  - Gráficos
+  - PCA
+thumbnailImage: http://i.imgur.com/OPrvWib.png
+coverImage: http://i.imgur.com/YH4OI6J.png
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas). 
+
+No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.
+
+```{r}
+library(pacman)
+p_load(readr, dplyr, ggplot2, ggrepel)
+p_load_gh("vqv/ggbiplot")
+```
+
+```{r, message=FALSE}
+dados <- read_csv2("https://goo.gl/I577FK")
+
+print(dados, n=31)
+```
+
+A análise de componentes principais nos mostra o quanto cada grupo de variáveis explicam a variabilidade total dados. No nosso caso, o primeiro componente responde por 72% da variabilidade e tem efeito quase que igual da temperatura (Tmed), evapotranspiração (ETP) e déficit hídrico (DEF). O segundo componente é majoritariamente o efeito da chuva (PPT). Juntos, os dois componente explicam 95% dos dados.
+
+```{r}
+pca <- select(dados, Tmed:DEF) %>%
+  princomp(cor = T)
+
+summary(pca); loadings(pca)
+```
+
+A Figura \@ref(fig:8-pca) ajuda-nos a visualizar a disposição das cidades em função dos dois principais componentes. Se analisarmos por quadrantes, podemos agrupar as cidades de clima semelhante e ainda verificar a relação com as variáveis de clima. As setas indicam o efeito positivo ou negativo da variável. Por exemplo, o quadrante Q4 é caracterizado por valores altos de chuva e praticamente nenhum deficit hídrico. No oposto, temos o Q2 com baixa precipitação e alto déficit hídrico.
+
+```{r 8-pca, fig.width=8, fig.height=8, warning=FALSE, fig.cap="Representação gráfica dos componentes principais."}
+ggbiplot(pca) +
+  geom_point() +
+  geom_vline(xintercept = 0, size = 1.2, linetype = 6) +
+  geom_hline(yintercept = 0, size = 1.2, linetype = 6) +
+  geom_label_repel(aes(label = dados$Cidade), size = 3, nudge_x = .2) +
+  annotate(
+    "text",
+    x = c(-2, 2, 2, -2),
+    y = c(2, 2, -2, -2), 
+    label = paste0("Q", 1:4), size = 6
+  ) +
+  lims(x = c(-2,2), y = c(-2,2)) +
+  theme_bw()
+```
+
+Como também temos a informação do clima Koppen, podemos colorir o gráfico em função deste atributo (Figura \@ref(fig:8-pca-koppen)).
+
+```{r 8-pca-koppen, fig.width=8, fig.height=8, fig.cap="Representação gráfica dos componentes principais com classificação Koppen."}
+ggbiplot(pca) +
+  geom_point(aes(color = dados$Koppen)) +
+  geom_vline(xintercept = 0, size = 1.2, linetype = 6) +
+  geom_hline(yintercept = 0, size = 1.2, linetype = 6) +
+  geom_label_repel(
+    aes(color = dados$Koppen, label = dados$Cidade),
+    size = 3, nudge_x = .2, show.legend = F
+  ) +
+  lims(x = c(-2,2), y = c(-2,2)) +
+  scale_color_brewer("Clima Koppen", palette = "Dark2") +
+  theme_bw()+
+  theme(legend.position = "top")
+```
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.

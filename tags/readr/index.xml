@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Readr on Ítalo Cegatta</title>
+    <link>/tags/readr/index.xml</link>
+    <description>Recent content in Readr on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <atom:link href="/tags/readr/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ANOVA e teste de Tukey</title>
+      <link>/anova-e-teste-de-tukey/</link>
+      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/anova-e-teste-de-tukey/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
+&lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/kyoomd&amp;quot;)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 30 × 3
+##    repeticao progenie volume
+##        &amp;lt;int&amp;gt;    &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+## 1          1        A    212
+## 2          2        A    206
+## 3          3        A    224
+## 4          4        A    289
+## 5          5        A    324
+## 6          6        A    219
+## 7          1        B    108
+## 8          2        B    194
+## 9          3        B    163
+## 10         4        B    111
+## # ... with 20 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(progenie, volume)) +
+  geom_boxplot() +
+  theme_bw() +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Variabilidade do volume por hectare de cada tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A ANOVA é um método bastante consolidado no meio acadêmico. Basicamente, este método informa se existe um tratamento discrepante dentre os demais. Entretanto, ele exige que algumas premissas sejam atendidas, como: distribuição normal dos resíduos e homogeneidade de variância.&lt;/p&gt;
+&lt;p&gt;Primeiro, vamos utilizar o teste de Levene para verificar se há homogeneidade de variância, ou homocedasticidade. Como o p-valor é maior que 5% não temos evidência significativa para rejeitar a hipótese nula de homogeneidade, ou seja, nossos dados tem homogeneidade de variância.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;leveneTest(volume ~ factor(progenie), data=dados)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Levene&amp;#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&amp;gt;F)  
+## group  4  2.4677 0.07086 .
+##       25                  
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O segundo pressuposto é a normalidade dos resíduos. Utilizaremos o teste de Shapiro-Wilk cuja hipótese nula é a de que os dados seguem uma distribuição normal. Como o p-valor é superior ao limite de 5%, podemos aceitar a hipótese nula e considerar nossos dados normais.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;anova &amp;lt;-  aov(volume ~ progenie, data=dados)
+
+shapiro.test(resid(anova))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(anova)
+## W = 0.96097, p-value = 0.3279&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Uma vez que os pressupostos foram atendidos, seguiremos para a ANOVA. Note que, caso os testes de Levene e Shapiro-Wilk resultassem em um p-valor significante, ou seja, menor que 5%, teríamos que utilizar outro método estatístico para analisar nossos dados. Nesse caso, uma alternativa é utilizar testes não-paramétricos, uma vez que eles não exigem os pressupostos que acabamos de testar.&lt;/p&gt;
+&lt;p&gt;Nossa ANOVA resultou em um p-valor menor que 5%, portanto, temos evidências de que ao menos um tratamento se diferencia dos demais. Isso já é uma resposta, mas pouco acrescenta à nossa pesquisa pois queremos saber quem é este tratamento discrepante. Ou melhor, queremos poder comparar os tratamentos entre si e verificar quais são estatisticamente iguais ou diferentes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(anova)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##             Df Sum Sq Mean Sq F value   Pr(&amp;gt;F)    
+## progenie     4  86726   21681    8.89 0.000131 ***
+## Residuals   25  60974    2439                     
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para esta abordagem existem alguns testes de médias e cada um tem uma particularidade, mas de longe o mais utilizado é o de Tukey.&lt;/p&gt;
+&lt;p&gt;A interpretação do teste de Tukey é simples. Após determinarmos a diferença mínima significativa (ou Honest Significant Difference - HSD), podemos julgar se as médias são iguais ou não. Em termos práticos, esse valor nos dá uma margem de igualdade, pois se a diferença entre dois tratamentos for maior do que isso, os médias são diferentes.&lt;/p&gt;
+&lt;p&gt;A análise começa sempre pela maior média, no nosso caso a progênie A (245, 66). Com uma continha rápida, a média do tratamento A menos a diferença mínima significativa &lt;code&gt;245,66 - 83,73 = 161,93&lt;/code&gt;, aceitaremos que um tratamento é igual ao A se a média dele for maior que 161,93. O tratamento subsequente (o segundo do ranking) é a progênie D e como sua média é maior que 161,93 podemos dizer que ela é estatisticamente igual a progênie A.&lt;/p&gt;
+&lt;p&gt;As próximas comparações seguem a mesma lógica. Quando registramos que duas médias são iguais, nós as rotulamos com a mesma letra para facilitar a identificação. Veja no fim do output as letras evidenciando a igualdade entre os tratamentos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey &amp;lt;- HSD.test(anova, &amp;quot;progenie&amp;quot;)
+
+tukey&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $statistics
+##       Mean       CV  MSerror      HSD
+##   165.7667 29.79233 2438.953 83.73866
+## 
+## $parameters
+##   Df ntr StudentizedRange alpha  test   name.t
+##   25   5         4.153363  0.05 Tukey progenie
+## 
+## $means
+##     volume      std r Min Max
+## A 245.6667 48.78798 6 206 324
+## B 159.6667 49.47996 6 108 236
+## C  80.5000 15.60449 6  63 100
+## D 190.1667 75.37484 6 100 267
+## E 152.8333 37.96534 6 106 210
+## 
+## $comparison
+## NULL
+## 
+## $groups
+##   trt    means  M
+## 1   A 245.6667  a
+## 2   D 190.1667 ab
+## 3   B 159.6667 bc
+## 4   E 152.8333 bc
+## 5   C  80.5000  c&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey (Figura &lt;a href=&#34;#fig:10-barras-tukey&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey$groups %&amp;gt;% 
+  ggplot(aes(reorder(trt, means, function(x) -mean(x)), means)) +
+    geom_bar(stat = &amp;quot;identity&amp;quot;) +
+    geom_text(aes(label = M), vjust = 1.8, size = 9, color = &amp;quot;white&amp;quot;) +
+    labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
+    theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ajuste de um modelo linear para vários fatores</title>
+      <link>/ajuste-de-um-modelo-linear-para-varios-fatores/</link>
+      <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+&lt;!-- more --&gt;&lt;/p&gt;
+&lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don’t Repeat Yourself (DRY)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
+&lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
+&lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/NIdvu1&amp;quot;)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 9
+##    N_tume I_meses          Esp Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
+##     &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;        &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+## 1      55      24 E_botryoides     600     1    4.1   6.5    NA    NA
+## 2      55      24 E_botryoides     600     2    9.7   8.0    NA    NA
+## 3      55      24 E_botryoides     600     3     NA    NA     5    NA
+## 4      55      24 E_botryoides     600     4    7.6   7.5     2    NA
+## 5      55      24 E_botryoides     600     5    3.8   5.0    NA    NA
+## 6      55      24 E_botryoides     600     6     NA    NA     1    NA
+## 7      55      24 E_botryoides     600     7   12.6   9.0     6    NA
+## 8      55      24 E_botryoides     600     8     NA    NA     1    NA
+## 9      55      24 E_botryoides     600     9    7.0   8.0    NA    NA
+## 10     55      24 E_botryoides     600    10    7.5   7.5    NA    NA
+## # ... with 1,871 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura &lt;a href=&#34;#fig:9-dap-h&#34;&gt;1&lt;/a&gt; mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Mas na prática, a relação diâmetro-altura é diferente entre espécie, como pode ser notado na Figura &lt;a href=&#34;#fig:9-dap-h-spp&#34;&gt;2&lt;/a&gt;. Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  facet_wrap(~Esp) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Relação entre o diâmetro e a altura por espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A primeira etapa é entender que um data.frame pode conter vários tipos de elementos, como números, caracteres, listas e também outros data.frames. Para isso utilizaremos a função &lt;code&gt;nest()&lt;/code&gt; do pacote &lt;code&gt;tidyr&lt;/code&gt; e aninharemos os dados em função das espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 2
+##                        Esp              data
+##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;
+## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt;
+## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt;
+## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
+## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt;
+## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt;
+## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt;
+## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt;
+## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt;
+## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt;
+## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função &lt;code&gt;map&lt;/code&gt;,do pacote &lt;code&gt;purrr&lt;/code&gt;. Podemos ainda extrair as informações desses modelos com as funções &lt;code&gt;glance&lt;/code&gt;, &lt;code&gt;tidy&lt;/code&gt; e &lt;code&gt;augment&lt;/code&gt;, do pacote &lt;code&gt;broom&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl &amp;lt;- dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest() %&amp;gt;% 
+  mutate(
+    ajuste = data %&amp;gt;% map(~ lm(log(H_m) ~ I(1/DAP_cm), data = .)),
+    resumo = map(ajuste, glance),
+    coef = map(ajuste, tidy),
+    resid = map(ajuste, augment)
+  )
+
+dados_modl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 6
+##                        Esp              data   ajuste
+##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;   &amp;lt;list&amp;gt;
+## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## # ... with 14 more rows, and 3 more variables: resumo &amp;lt;list&amp;gt;, coef &amp;lt;list&amp;gt;,
+## #   resid &amp;lt;list&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resumo) %&amp;gt;% 
+  unnest(resumo)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 12
+##                        Esp r.squared adj.r.squared      sigma statistic
+##                      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+## 1             E_botryoides 0.7865503     0.7832152 0.13638082 235.83647
+## 2              E_brassiana 0.7034805     0.6984547 0.16015749 139.97510
+## 3          E_camaldulensis 0.7193692     0.7156767 0.12781229 194.81849
+## 4             E_citriodora 0.6017939     0.5958506 0.10226763 101.25459
+## 5              E_cloeziana 0.2595328     0.2339995 0.16724765  10.16446
+## 6       E_dunnii_urophylla 0.7199293     0.7159283 0.16115569 179.93693
+## 7                E_exserta 0.5897407     0.5837949 0.19572456  99.18630
+## 8             E_grandis_AT 0.7472094     0.7438832 0.07718312 224.64407
+## 9  E_grandis_camaldulensis 0.8290924     0.8265415 0.16085772 325.02460
+## 10            E_grandis_CH 0.7764890     0.7731530 0.10465726 232.76148
+## # ... with 14 more rows, and 7 more variables: p.value &amp;lt;dbl&amp;gt;, df &amp;lt;int&amp;gt;,
+## #   logLik &amp;lt;dbl&amp;gt;, AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;, df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, coef ) %&amp;gt;% 
+  unnest(coef)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 48 × 6
+##                Esp        term  estimate  std.error  statistic
+##              &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1     E_botryoides (Intercept)  2.633365 0.04223569  62.349272
+## 2     E_botryoides I(1/DAP_cm) -4.129688 0.26891300 -15.356968
+## 3      E_brassiana (Intercept)  2.014323 0.05110864  39.412563
+## 4      E_brassiana I(1/DAP_cm) -2.373711 0.20063302 -11.831107
+## 5  E_camaldulensis (Intercept)  2.727702 0.04605191  59.231027
+## 6  E_camaldulensis I(1/DAP_cm) -4.792441 0.34335365 -13.957740
+## 7     E_citriodora (Intercept)  2.553408 0.05513037  46.315809
+## 8     E_citriodora I(1/DAP_cm) -3.802655 0.37790230 -10.062534
+## 9      E_cloeziana (Intercept)  2.323552 0.11578912  20.067098
+## 10     E_cloeziana I(1/DAP_cm) -2.842311 0.89151651  -3.188176
+## # ... with 38 more rows, and 1 more variables: p.value &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resid) %&amp;gt;% 
+  unnest(resid)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,633 × 11
+##             Esp .rownames log.H_m. I.1.DAP_cm.  .fitted    .se.fit
+##           &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1  E_botryoides         1 1.871802  0.24390244 1.626124 0.03165108
+## 2  E_botryoides         2 2.079442  0.10309278 2.207624 0.02008843
+## 3  E_botryoides         4 2.014903  0.13157895 2.089985 0.01712280
+## 4  E_botryoides         5 1.609438  0.26315789 1.546605 0.03614528
+## 5  E_botryoides         7 2.197225  0.07936508 2.305612 0.02418794
+## 6  E_botryoides         9 2.079442  0.14285714 2.043409 0.01679076
+## 7  E_botryoides        10 2.014903  0.13333333 2.082740 0.01703615
+## 8  E_botryoides        13 1.609438  0.16666667 1.945083 0.01784853
+## 9  E_botryoides        14 2.302585  0.09803922 2.228493 0.02086574
+## 10 E_botryoides        15 2.140066  0.12048193 2.135812 0.01795064
+## # ... with 1,623 more rows, and 5 more variables: .resid &amp;lt;dbl&amp;gt;,
+## #   .hat &amp;lt;dbl&amp;gt;, .sigma &amp;lt;dbl&amp;gt;, .cooksd &amp;lt;dbl&amp;gt;, .std.resid &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Após o ajuste do modelo, temos de predizer as alturas. O único adendo para esse comando é que precisamos fazer em duas etapas, uma utilizando a função &lt;code&gt;predict&lt;/code&gt; e outra para trazer o valor predito para a escala natural, pois o modelo foi ajustado na escala logarítmica.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_pred &amp;lt;- dados_modl %&amp;gt;% 
+  mutate(
+    hpred = map2(ajuste, data, predict),
+    hpred = map(hpred, exp)
+  ) %&amp;gt;%
+  select(Esp, data, hpred)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, temos de volta um data.frame com as alturas preditas. Por mais que o ajuste tenha ficado razoável, na prática a construção de modelos de relação hipsométrica envolvem outras etapas e um maior rigor em termos estatísticos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_compl &amp;lt;- dados_pred %&amp;gt;%
+  unnest(hpred, data)
+
+dados_compl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 10
+##             Esp     hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod
+##           &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+## 1  E_botryoides  5.084129     55      24     600     1    4.1   6.5    NA
+## 2  E_botryoides  9.094080     55      24     600     2    9.7   8.0    NA
+## 3  E_botryoides        NA     55      24     600     3     NA    NA     5
+## 4  E_botryoides  8.084791     55      24     600     4    7.6   7.5     2
+## 5  E_botryoides  4.695500     55      24     600     5    3.8   5.0    NA
+## 6  E_botryoides        NA     55      24     600     6     NA    NA     1
+## 7  E_botryoides 10.030312     55      24     600     7   12.6   9.0     6
+## 8  E_botryoides        NA     55      24     600     8     NA    NA     1
+## 9  E_botryoides  7.716873     55      24     600     9    7.0   8.0    NA
+## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
+## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Análise de componentes principais</title>
+      <link>/analise-de-componentes-principais/</link>
+      <pubDate>Mon, 01 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/analise-de-componentes-principais/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, ggplot2, ggrepel)
+p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/I577FK&amp;quot;)
+
+print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 31 × 6
+##                Cidade Koppen  Tmed    PPT    ETP   DEF
+##                 &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+## 1        Bom Despacho    Cwa 22.64  801.8 1112.1 238.4
+## 2         Niquelandia     Aw 24.63  562.2 1372.5 655.7
+## 3             Arapoti    Cfb 18.48 1367.0  669.7  25.4
+## 4           Rio Verde     Aw 23.34 1244.8 1196.2 425.4
+## 5        Belo Oriente     Aw 22.56 1053.5 1104.8 125.4
+## 6            Guanhaes    Cwa 20.62  817.6  866.0 187.9
+## 7     Eldorado do Sul    Cfa 20.58 1787.4  858.7  10.7
+## 8         Sao Gabriel    Cfa 20.23 1782.6  927.4   2.8
+## 9           Inhambupe     As 24.23  715.2 1318.4 607.4
+## 10           Botucatu    Cfb 21.94 1012.8 1030.0 184.1
+## 11     Estrela do Sul    Cwa 23.41 1133.6 1208.4 206.2
+## 12               Buri    Cfa 19.98 1404.4  805.0   3.6
+## 13          Inocencia     Am 24.48 1019.6 1374.8 389.2
+## 14    Chapadao do Sul     Am 22.62 1026.6 1097.7 325.8
+## 15            Aracruz     Aw 23.89  849.4 1276.9 335.5
+## 16        Tres Lagoas     Aw 25.23  943.8 1501.6 538.4
+## 17        Tres Marias     Aw 22.25  811.4 1052.1 404.8
+## 18              Peixe     Aw 26.29 1207.6 1630.3 674.5
+## 19         Mogi Guacu    Cwa 22.40  923.6 1100.4 209.9
+## 20 Brejinho de Nazare     Aw 25.88 1507.2 1563.4 495.7
+## 21      Monte Dourado     Am 27.38 2528.7 1820.6 529.7
+## 22     Otacilio Costa    Cfb 16.91 2092.2  547.8   0.0
+## 23     Telemaco Borba    Cfa 18.48 1367.0  669.7  28.0
+## 24             Borebi    Cfa 22.12  947.6 1057.8 200.9
+## 25   Coracao de Jesus     As 23.91  413.4 1275.1 743.7
+## 26     Antonio Olinto    Cfb 17.67 1740.2  615.8   0.0
+## 27        Tres Barras    Cfb 17.30 1122.8  581.0  16.5
+## 28      Urbano Santos     Aw 27.05 1437.8 1750.3 935.0
+## 29          Eunapolis     Am 22.88 1419.2 1127.6  31.2
+## 30         Itagimirim     Aw 25.18  490.6 1460.3 869.5
+## 31           Bocaiuva     Aw 23.91  413.4 1275.5 641.8&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A análise de componentes principais nos mostra o quanto cada grupo de variáveis explicam a variabilidade total dados. No nosso caso, o primeiro componente responde por 72% da variabilidade e tem efeito quase que igual da temperatura (Tmed), evapotranspiração (ETP) e déficit hídrico (DEF). O segundo componente é majoritariamente o efeito da chuva (PPT). Juntos, os dois componente explicam 95% dos dados.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pca &amp;lt;- select(dados, Tmed:DEF) %&amp;gt;%
+  princomp(cor = T)
+
+summary(pca); loadings(pca)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Importance of components:
+##                           Comp.1    Comp.2     Comp.3       Comp.4
+## Standard deviation     1.7007490 0.9709348 0.40137904 0.0602784852
+## Proportion of Variance 0.7231368 0.2356786 0.04027628 0.0009083739
+## Cumulative Proportion  0.7231368 0.9588153 0.99909163 1.0000000000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Loadings:
+##      Comp.1 Comp.2 Comp.3 Comp.4
+## Tmed  0.567 -0.201 -0.437  0.668
+## PPT  -0.241 -0.933  0.251       
+## ETP   0.561 -0.284 -0.261 -0.732
+## DEF   0.553         0.823       
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4
+## SS loadings      1.00   1.00   1.00   1.00
+## Proportion Var   0.25   0.25   0.25   0.25
+## Cumulative Var   0.25   0.50   0.75   1.00&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A Figura &lt;a href=&#34;#fig:8-pca&#34;&gt;1&lt;/a&gt; ajuda-nos a visualizar a disposição das cidades em função dos dois principais componentes. Se analisarmos por quadrantes, podemos agrupar as cidades de clima semelhante e ainda verificar a relação com as variáveis de clima. As setas indicam o efeito positivo ou negativo da variável. Por exemplo, o quadrante Q4 é caracterizado por valores altos de chuva e praticamente nenhum deficit hídrico. No oposto, temos o Q2 com baixa precipitação e alto déficit hídrico.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggbiplot(pca) +
+  geom_point() +
+  geom_vline(xintercept = 0, size = 1.2, linetype = 6) +
+  geom_hline(yintercept = 0, size = 1.2, linetype = 6) +
+  geom_label_repel(aes(label = dados$Cidade), size = 3, nudge_x = .2) +
+  annotate(
+    &amp;quot;text&amp;quot;,
+    x = c(-2, 2, 2, -2),
+    y = c(2, 2, -2, -2), 
+    label = paste0(&amp;quot;Q&amp;quot;, 1:4), size = 6
+  ) +
+  lims(x = c(-2,2), y = c(-2,2)) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png&#34; alt=&#34;Representação gráfica dos componentes principais.&#34; width=&#34;3200&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Representação gráfica dos componentes principais.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como também temos a informação do clima Koppen, podemos colorir o gráfico em função deste atributo (Figura &lt;a href=&#34;#fig:8-pca-koppen&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggbiplot(pca) +
+  geom_point(aes(color = dados$Koppen)) +
+  geom_vline(xintercept = 0, size = 1.2, linetype = 6) +
+  geom_hline(yintercept = 0, size = 1.2, linetype = 6) +
+  geom_label_repel(
+    aes(color = dados$Koppen, label = dados$Cidade),
+    size = 3, nudge_x = .2, show.legend = F
+  ) +
+  lims(x = c(-2,2), y = c(-2,2)) +
+  scale_color_brewer(&amp;quot;Clima Koppen&amp;quot;, palette = &amp;quot;Dark2&amp;quot;) +
+  theme_bw()+
+  theme(legend.position = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca-koppen&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png&#34; alt=&#34;Representação gráfica dos componentes principais com classificação Koppen.&#34; width=&#34;3200&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Representação gráfica dos componentes principais com classificação Koppen.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

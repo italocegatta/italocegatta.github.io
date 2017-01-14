@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/indice-de-uniformidade-pv50/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/anova-e-teste-de-tukey/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/ajuste-de-um-modelo-linear-para-varios-fatores/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/analise-de-componentes-principais/</loc>
+    <lastmod>2016-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/os-graficos-que-explicam-nossos-dados-histograma/</loc>
+    <lastmod>2016-07-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/os-graficos-que-explicam-nossos-dados-heatmap/</loc>
+    <lastmod>2016-07-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/os-graficos-que-explicam-nossos-dados-barras/</loc>
+    <lastmod>2016-05-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/os-graficos-que-explicam-nossos-dados-boxplot/</loc>
+    <lastmod>2016-05-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/o-conceito-tidy-data/</loc>
+    <lastmod>2016-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/o-r-e-para-voce/</loc>
+    <lastmod>2016-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/sobre-esse-blog/</loc>
+    <lastmod>2016-04-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/sobre/</loc>
+    <lastmod>1992-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/agricolae/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/broom/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/car/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/data-science/</loc>
+    <lastmod>2016-07-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dplyr/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/forcats/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ggbiplot/</loc>
+    <lastmod>2016-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ggrepel/</loc>
+    <lastmod>2016-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ggthemes/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/graficos/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/modelos/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/pca/</loc>
+    <lastmod>2016-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/purrr/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/pv50/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2016-04-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/readr/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/readxl/</loc>
+    <lastmod>2016-07-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/teste-estatistico/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyr/</loc>
+    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/viridis/</loc>
+    <lastmod>2016-07-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

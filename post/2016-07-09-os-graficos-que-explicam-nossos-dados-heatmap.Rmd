@@ -1,0 +1,116 @@
+---
+title: Os gráficos que explicam nossos dados (heatmap)
+date: 2016-07-09
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+  - viridis
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/6ukFJh0.png
+coverImage: http://i.imgur.com/jur9Sh3.png
+coverCaption: "http://graphics.wsj.com"
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.
+
+<!-- more -->
+
+Vamos trabalhar com os dados do [Projeto TUME](http://www.projetotume.com/), especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de *Eucalyptus* no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.
+
+Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna `Esp` informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.
+
+```{r pacotes}
+library(pacman)
+p_load(readr, dplyr, ggplot2, ggthemes, viridis)
+```
+
+```{r dados, message=FALSE}
+dados <- read_csv2("https://goo.gl/y1uVLW")
+
+# Cria um fator com o atributo para a variável Esp que informa a ordem crescente
+# das espécies em função da altura dominante.
+
+
+dados <- dados %>% 
+  mutate(
+    Esp = reorder(Esp, Hdom, function(x) max(x)),
+    Idade = round(I_meses/12,1)
+  )
+dados
+```
+
+Se fizermos a seguinte pergunta: qual gráfico podemos utilizar para mostrar o crescimento da altura dominantes dos materiais? Penso que a resposta rápida seria, um gráfico de linhas! Ok, vamos tentar, veja a Figura \@ref(fig:6-linhas).
+
+```{r 6-linhas, fig.cap="Aumento da altura dominante utilizando gráficos de linhas."}
+ggplot(dados, aes(Idade, Hdom, color = Esp)) +
+  geom_line(size=1.5) +
+  labs(x = "Idade (anos)", y = "Altura dominante (m)") +
+  theme_few() +
+  scale_color_viridis(
+    name = "Materiais genéticos",
+    direction = -1, discrete = T
+  ) +
+  guides(col = guide_legend(ncol = 1, reverse = TRUE))
+```
+
+Muito bem, o gráfico consegue mostar a tendência e o padrão de crescimento. Mas se alguém perguntar sobre o *Eucaluptus dunnii*, capaz de demorarmos um tempo para encontrar a linha correspondente. Capaz ainda de não conseguirmos distinguir entre uma cor e outra. Essa é uma limitação do gráfico de linhas, quanto temos muitos fatores na legenda fica difícil a distinção entre eles. E quando se tem uma restrição de cor e o gráfico precisa estar em escala de cinza? Esquece! Há quem tente utilizar símbolos ou tipos de traços para distinguir os fatores, mas mesmo assim, não é uma tarefa fácil.
+
+É neste momento que podemos nos aproveitar do heatmap. Agora a intencidade de cor indica a variável resposta (Figura \@ref(fig:6-heatmap-cont)). Veja que fica mais fácil acompanhar o crescimento de uma espécies em especial.
+
+```{r 6-heatmap-cont, fig.cap="Aumento da altura dominante utilizando heatmap com escala de cor contínua."}
+ggplot(dados, aes(factor(Idade), Esp, fill = Hdom)) +
+  geom_tile() +
+  labs(x = "Idade (anos)", y = "Materiais genéticos") +
+  theme_few() +
+  scale_fill_viridis(name = "Altura dominante (m)", direction = -1) +
+  guides(col = guide_legend(reverse = TRUE))
+```
+
+Se for do interesse controlar a escala de cor em intervalos e classes, a alteração é simples (Figura \@ref(fig:6-heatmap-discr)). Se reduzirmos as classes de cor, perdemos resolução na escala da variável resposta. Dependendo do objetivo do gráfico isso pode ser bom ou ruim. Neste caso, escolhi intervalos de 2 metros, pois achei mais adequado.
+
+```{r 6-heatmap-discr, fig.cap="Aumento da altura dominante utilizando heatmap com escala de cor discreta."}
+ggplot(dados, aes(factor(Idade),
+       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+ geom_tile() +
+ labs(x = "Idade (anos)", y = "Materiais genéticos") +
+ theme_few() +
+ scale_fill_viridis(
+   name = "Altura dominante (m)",
+   discrete = T, direction = -1
+ ) +
+ guides(col = guide_legend(reverse = TRUE))
+```
+
+Se quisermos deixar explícito o valor da variável resposta podemos indicá-la no gráfico, como na Figura \@ref(fig:6-heatmap-discr-label). Eu particularmente acho que fica muito poluído, mas em alguns casos pode ser interessante.
+
+```{r 6-heatmap-discr-label, fig.cap="Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid."}
+ggplot(dados, aes(factor(Idade),
+       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+ geom_tile() +
+ geom_text(aes(label = Hdom), color = "white") +
+ labs(x = "Idade (anos)", y = "Materiais genéticos") +
+ theme_few() +
+ scale_fill_viridis(
+   name = "Altura dominante (m)",
+   discrete = T, direction = -1
+ ) +
+ guides(col = guide_legend(reverse = TRUE))
+```
+
+Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.

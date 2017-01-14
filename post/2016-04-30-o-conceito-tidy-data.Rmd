@@ -1,0 +1,167 @@
+---
+title: O conceito tidy data
+date: 2016-04-30
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+categories:
+  - Data Science
+bibliography: ["bib/biblio.bib"]
+link-citations: true
+thumbnailImage: http://i.imgur.com/kZcMzcp.png
+coverImage: http://i.imgur.com/0TxarVh.png
+coverCaption: "http://r4ds.had.co.nz"
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r set, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+
+<!-- more -->
+
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto [@cegatta_eficiencia_2013]. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.
+
+Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.
+
+No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.
+
+<br>
+```{r fig-base, echo=FALSE, fig.cap="Dados brutos. Como não organizar seu banco de dados."}
+knitr::include_graphics("http://i.imgur.com/JsYqVH7.png")
+```
+
+A estrutura do banco de dados que obtive no fim do experimento está apresentada na Figura \@ref(fig:fig-base). Para a época, foi o melhor que consegui fazer e pela inexperiência cometi os seguintes erros:
+  
+1. Uso de caracteres especiais.
+2. Uso de espaço entre as palavras.
+3. Células mescladas.
+4. Observações (Nº de galhas no pecíolo, nervura e caule) organizadas em colunas.
+
+O uso de caracteres especiais não é recomentado em muitas ocasiões, essa dica vale para quase tudo que envolve computação. O mesmo se aplica para os espaços entre as palavras, mas podemos ser mais flexíveis neste caso. Mesclar uma célula será o seu maior problema em uma planilha eletrônica, cuidado com isso! Recomendo mesclar células em raríssimas exceções, como formatação de tabelas em Word ou PowerPoint. O meu último erro foi o maior deles, confundi observações com variáveis. Em minha defesa, o inexperiente Ítalo tentou organizar os dados em um layout de fácil visualização. Veja que é fácil acompanhar a evolução das galhas ao longo do tempo. Para a percepção humana, organização de dados no formato longitudinal é muito prática e rápida. Mas temos que pensar em como o computador trabalha e como ele faz todos os cálculos que precisamos. No fim, eu consegui fazer tudo que eu queria com os dados nesse formato, mas acredite, foi sofrível e muito ineficiente. 
+
+O conceito tidy data está muito bem descrito por @wickham_tidy_2014, onde ele apresenta o pacote [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html) que contém uma gama de funções muito úteis para esse fim. Wickham também dedicou um capítulo específico sobre esse conceito em seu [livro](http://r4ds.had.co.nz/) [@grolemund_r_2016]. Por tidy data, entendemos que:
+  
+* Variáveis estão dispostas em colunas.
+* Observações estão dispostas em linhas.
+* Os valores atribuídos às variáveis em cada observação formam a tabela.
+
+Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.
+
+```{r pacotes}
+library(pacman)
+p_load(readxl, dplyr, tidyr, httr)
+```
+
+# Método 1
+
+Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura \@ref(fig:fig-entrada1)).
+
+<br>
+```{r fig-entrada1, echo=FALSE, fig.cap="Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas."}
+knitr::include_graphics("http://i.imgur.com/3AsFpmQ.png")
+```
+
+Como são apenas 4 abas, podemos importá-las usando um comando por linha.
+
+```{r, nclude=FALSE}
+# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
+
+GET("https://goo.gl/Av1fHP", write_disk(base_vespa1 <- tempfile(fileext = ".xlsx")))
+
+
+# Cria uma lista para receber os tabelas que serão importadas
+
+dados1 <- list() 
+
+
+# Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
+# armazena dentro da lista
+
+dados1$c1 <- read_excel(base_vespa1, "Coleta1")
+dados1$c2 <- read_excel(base_vespa1, "Coleta2")
+dados1$c3 <- read_excel(base_vespa1, "Coleta3")
+dados1$c4 <- read_excel(base_vespa1, "Coleta4")
+dados1$c5 <- read_excel(base_vespa1, "Coleta5")
+```
+
+Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.
+
+```{r}
+# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
+# o precesso em todas as abas. 
+
+dados1 <- list()
+
+for(i in 1:5) {
+ dados1[[paste0("c",i)]] <- read_excel(base_vespa1, paste0("Coleta", i))
+}
+```
+
+Agora precisamos de um fator (nº da coleta) para diferenciarmos cada medição e colocar tudo em um único data frame.
+
+```{r}
+# Cria um fator para diferenciar as medições medições 
+for(i in names(dados1)) {
+  dados1[[i]][ , "Coleta"] = i  
+}
+
+dados1 <- bind_rows(dados1)
+```
+
+Como minhas análises vão considerar o local da galha como o variável, devo organizar *Peciolo*, *Nervura* e *Caule* em uma só coluna denominada *Local*.
+
+```{r}
+# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
+# denominada ´Local´.
+
+dados1 <- gather(
+  dados1, "Local",
+  "Galhas", c(Peciolo, Nervura, Caule)
+)
+
+dados1
+```
+
+# Método 2
+
+Nesse método, não fiz nenhuma grande alteração na base de dados. Apenas corrigi o nome das colunas com um fator que indica o número da coleta e em seguida o local (Figura \@ref(fig:fig-entrada2)).
+
+<br>
+```{r fig-entrada2, echo=FALSE, fig.cap="Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas."}
+knitr::include_graphics("http://i.imgur.com/YGY8pvV.png")
+```
+
+Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.
+
+```{r, include=FALSE}
+# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
+
+GET("https://goo.gl/2AOmhx", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx")))
+```
+
+```{r}
+# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
+# Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
+# ´Coleta´ e ´Local´.
+
+dados2 <- read_excel(base_vespa2) %>%
+  gather("Local", "Galhas", 3:dim(.)[2]) %>%
+  separate(Local, c("Coleta", "Local"))
+
+dados2
+```
+
+Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+Os arquivos utilizados nesse post pode ser baixados nesses links: [base_vespa1](https://goo.gl/Av1fHP) e [base_vespa2](https://goo.gl/2AOmhx)
+
+# Referências
+

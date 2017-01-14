@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tidyr on Ítalo Cegatta</title>
+    <link>/tags/tidyr/index.xml</link>
+    <description>Recent content in Tidyr on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <atom:link href="/tags/tidyr/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ajuste de um modelo linear para vários fatores</title>
+      <link>/ajuste-de-um-modelo-linear-para-varios-fatores/</link>
+      <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+&lt;!-- more --&gt;&lt;/p&gt;
+&lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don’t Repeat Yourself (DRY)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
+&lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
+&lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/NIdvu1&amp;quot;)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 9
+##    N_tume I_meses          Esp Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
+##     &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;        &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+## 1      55      24 E_botryoides     600     1    4.1   6.5    NA    NA
+## 2      55      24 E_botryoides     600     2    9.7   8.0    NA    NA
+## 3      55      24 E_botryoides     600     3     NA    NA     5    NA
+## 4      55      24 E_botryoides     600     4    7.6   7.5     2    NA
+## 5      55      24 E_botryoides     600     5    3.8   5.0    NA    NA
+## 6      55      24 E_botryoides     600     6     NA    NA     1    NA
+## 7      55      24 E_botryoides     600     7   12.6   9.0     6    NA
+## 8      55      24 E_botryoides     600     8     NA    NA     1    NA
+## 9      55      24 E_botryoides     600     9    7.0   8.0    NA    NA
+## 10     55      24 E_botryoides     600    10    7.5   7.5    NA    NA
+## # ... with 1,871 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura &lt;a href=&#34;#fig:9-dap-h&#34;&gt;1&lt;/a&gt; mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Mas na prática, a relação diâmetro-altura é diferente entre espécie, como pode ser notado na Figura &lt;a href=&#34;#fig:9-dap-h-spp&#34;&gt;2&lt;/a&gt;. Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  facet_wrap(~Esp) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Relação entre o diâmetro e a altura por espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A primeira etapa é entender que um data.frame pode conter vários tipos de elementos, como números, caracteres, listas e também outros data.frames. Para isso utilizaremos a função &lt;code&gt;nest()&lt;/code&gt; do pacote &lt;code&gt;tidyr&lt;/code&gt; e aninharemos os dados em função das espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 2
+##                        Esp              data
+##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;
+## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt;
+## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt;
+## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
+## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt;
+## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt;
+## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt;
+## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt;
+## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt;
+## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt;
+## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função &lt;code&gt;map&lt;/code&gt;,do pacote &lt;code&gt;purrr&lt;/code&gt;. Podemos ainda extrair as informações desses modelos com as funções &lt;code&gt;glance&lt;/code&gt;, &lt;code&gt;tidy&lt;/code&gt; e &lt;code&gt;augment&lt;/code&gt;, do pacote &lt;code&gt;broom&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl &amp;lt;- dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest() %&amp;gt;% 
+  mutate(
+    ajuste = data %&amp;gt;% map(~ lm(log(H_m) ~ I(1/DAP_cm), data = .)),
+    resumo = map(ajuste, glance),
+    coef = map(ajuste, tidy),
+    resid = map(ajuste, augment)
+  )
+
+dados_modl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 6
+##                        Esp              data   ajuste
+##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;   &amp;lt;list&amp;gt;
+## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## # ... with 14 more rows, and 3 more variables: resumo &amp;lt;list&amp;gt;, coef &amp;lt;list&amp;gt;,
+## #   resid &amp;lt;list&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resumo) %&amp;gt;% 
+  unnest(resumo)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 12
+##                        Esp r.squared adj.r.squared      sigma statistic
+##                      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+## 1             E_botryoides 0.7865503     0.7832152 0.13638082 235.83647
+## 2              E_brassiana 0.7034805     0.6984547 0.16015749 139.97510
+## 3          E_camaldulensis 0.7193692     0.7156767 0.12781229 194.81849
+## 4             E_citriodora 0.6017939     0.5958506 0.10226763 101.25459
+## 5              E_cloeziana 0.2595328     0.2339995 0.16724765  10.16446
+## 6       E_dunnii_urophylla 0.7199293     0.7159283 0.16115569 179.93693
+## 7                E_exserta 0.5897407     0.5837949 0.19572456  99.18630
+## 8             E_grandis_AT 0.7472094     0.7438832 0.07718312 224.64407
+## 9  E_grandis_camaldulensis 0.8290924     0.8265415 0.16085772 325.02460
+## 10            E_grandis_CH 0.7764890     0.7731530 0.10465726 232.76148
+## # ... with 14 more rows, and 7 more variables: p.value &amp;lt;dbl&amp;gt;, df &amp;lt;int&amp;gt;,
+## #   logLik &amp;lt;dbl&amp;gt;, AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;, df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, coef ) %&amp;gt;% 
+  unnest(coef)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 48 × 6
+##                Esp        term  estimate  std.error  statistic
+##              &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1     E_botryoides (Intercept)  2.633365 0.04223569  62.349272
+## 2     E_botryoides I(1/DAP_cm) -4.129688 0.26891300 -15.356968
+## 3      E_brassiana (Intercept)  2.014323 0.05110864  39.412563
+## 4      E_brassiana I(1/DAP_cm) -2.373711 0.20063302 -11.831107
+## 5  E_camaldulensis (Intercept)  2.727702 0.04605191  59.231027
+## 6  E_camaldulensis I(1/DAP_cm) -4.792441 0.34335365 -13.957740
+## 7     E_citriodora (Intercept)  2.553408 0.05513037  46.315809
+## 8     E_citriodora I(1/DAP_cm) -3.802655 0.37790230 -10.062534
+## 9      E_cloeziana (Intercept)  2.323552 0.11578912  20.067098
+## 10     E_cloeziana I(1/DAP_cm) -2.842311 0.89151651  -3.188176
+## # ... with 38 more rows, and 1 more variables: p.value &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resid) %&amp;gt;% 
+  unnest(resid)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,633 × 11
+##             Esp .rownames log.H_m. I.1.DAP_cm.  .fitted    .se.fit
+##           &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1  E_botryoides         1 1.871802  0.24390244 1.626124 0.03165108
+## 2  E_botryoides         2 2.079442  0.10309278 2.207624 0.02008843
+## 3  E_botryoides         4 2.014903  0.13157895 2.089985 0.01712280
+## 4  E_botryoides         5 1.609438  0.26315789 1.546605 0.03614528
+## 5  E_botryoides         7 2.197225  0.07936508 2.305612 0.02418794
+## 6  E_botryoides         9 2.079442  0.14285714 2.043409 0.01679076
+## 7  E_botryoides        10 2.014903  0.13333333 2.082740 0.01703615
+## 8  E_botryoides        13 1.609438  0.16666667 1.945083 0.01784853
+## 9  E_botryoides        14 2.302585  0.09803922 2.228493 0.02086574
+## 10 E_botryoides        15 2.140066  0.12048193 2.135812 0.01795064
+## # ... with 1,623 more rows, and 5 more variables: .resid &amp;lt;dbl&amp;gt;,
+## #   .hat &amp;lt;dbl&amp;gt;, .sigma &amp;lt;dbl&amp;gt;, .cooksd &amp;lt;dbl&amp;gt;, .std.resid &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Após o ajuste do modelo, temos de predizer as alturas. O único adendo para esse comando é que precisamos fazer em duas etapas, uma utilizando a função &lt;code&gt;predict&lt;/code&gt; e outra para trazer o valor predito para a escala natural, pois o modelo foi ajustado na escala logarítmica.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_pred &amp;lt;- dados_modl %&amp;gt;% 
+  mutate(
+    hpred = map2(ajuste, data, predict),
+    hpred = map(hpred, exp)
+  ) %&amp;gt;%
+  select(Esp, data, hpred)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, temos de volta um data.frame com as alturas preditas. Por mais que o ajuste tenha ficado razoável, na prática a construção de modelos de relação hipsométrica envolvem outras etapas e um maior rigor em termos estatísticos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_compl &amp;lt;- dados_pred %&amp;gt;%
+  unnest(hpred, data)
+
+dados_compl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 10
+##             Esp     hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod
+##           &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+## 1  E_botryoides  5.084129     55      24     600     1    4.1   6.5    NA
+## 2  E_botryoides  9.094080     55      24     600     2    9.7   8.0    NA
+## 3  E_botryoides        NA     55      24     600     3     NA    NA     5
+## 4  E_botryoides  8.084791     55      24     600     4    7.6   7.5     2
+## 5  E_botryoides  4.695500     55      24     600     5    3.8   5.0    NA
+## 6  E_botryoides        NA     55      24     600     6     NA    NA     1
+## 7  E_botryoides 10.030312     55      24     600     7   12.6   9.0     6
+## 8  E_botryoides        NA     55      24     600     8     NA    NA     1
+## 9  E_botryoides  7.716873     55      24     600     9    7.0   8.0    NA
+## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
+## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Os gráficos que explicam nossos dados (boxplot)</title>
+      <link>/os-graficos-que-explicam-nossos-dados-boxplot/</link>
+      <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse &lt;a href=&#34;https://italocegatta.github.io/sobre-esse-blog.html&#34;&gt;blog&lt;/a&gt;, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.&lt;/p&gt;
+&lt;p&gt;Para iniciar, escolhi o gráfico boxplot. É um gráfico muito útil para entender a variabilidade das nossas observações. No boxplot temos 5 informações básicas: valor mínimo, primeiro quartil, mediana, terceiro quartil e valor máximo. Há ainda a notificação de &lt;em&gt;outliers&lt;/em&gt;, quando a observação é maior ou menor que 1,5 vezes a distância interquartílica.&lt;/p&gt;
+&lt;p&gt;Vamos trabalhar com os dados que apresentei no post anterior sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readr, dplyr, tidyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/9cL8zC&amp;quot;)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+## 1   Actara d1         1      1 Peciolo      1
+## 2   Actara d1         2      1 Peciolo     NA
+## 3   Actara d1         3      1 Peciolo     NA
+## 4   Actara d1         4      1 Peciolo     NA
+## 5   Actara d1         5      1 Peciolo     NA
+## 6   Actara d1         6      1 Peciolo     NA
+## 7   Actara d1         7      1 Peciolo     NA
+## 8   Actara d1         8      1 Peciolo     NA
+## 9   Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Primeiro vamos processar os dados da última medição (Coleta 5) para verificar o nº total de galhas de cada tratamento, desconsiderando o local da galha. Nesse caso estou considerando apenas as mudas que foram atacadas e tiveram o desenvolvimento de galhas.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# seleciona apenas as Coletas de numero 5, em seguida monta um fator de 
+# agrupamento em função de Tratamento e Individuo. Aplica a soma de todas as
+# observações (Galhas) de acordo com o fator de agrupamento. Troca os valores
+# 0 (quando não há galhas) por NA.
+
+total &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento, Individuo) %&amp;gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %&amp;gt;%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+total&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Source: local data frame [140 x 3]
+## Groups: Tratamento [7]
+## 
+##    Tratamento Individuo Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;
+## 1   Actara d1         1     11
+## 2   Actara d1         2     NA
+## 3   Actara d1         3      4
+## 4   Actara d1         4     NA
+## 5   Actara d1         5     NA
+## 6   Actara d1         6     NA
+## 7   Actara d1         7     30
+## 8   Actara d1         8     NA
+## 9   Actara d1         9     NA
+## 10  Actara d1        10     NA
+## # ... with 130 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O boxplot é um gráfico unidimensional, ou seja, precisamos de apenas uma variável para construí-lo. Entretanto, podemos usar variáveis categóricas para servir de agrupamento e replicar o gráfico para todos os níveis da variável. Por exemplo, no nosso banco de dados temos &lt;code&gt;Galhas&lt;/code&gt; como variável quantitativa e &lt;code&gt;Tratamento&lt;/code&gt;, &lt;code&gt;Coleta&lt;/code&gt; e &lt;code&gt;Local&lt;/code&gt; como variável qualitativa.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total, aes(&amp;quot;Total&amp;quot;, Galhas)) +
+  geom_boxplot() +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-total&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A Figura &lt;a href=&#34;#fig:4-boxplot-total&#34;&gt;1&lt;/a&gt; dá uma visão geral de todas as observações em um único boxplot, mas não nos explica muita coisa. No caso da Figura &lt;a href=&#34;#fig:4-boxplot-trat&#34;&gt;2&lt;/a&gt;, &lt;code&gt;Tratamento&lt;/code&gt; tratamento é uma variável categórica e nos permite subdividir os boxplots para todos os níveis e assim podemos compará-los.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total, aes(Tratamento, Galhas)) +
+  geom_boxplot() +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-trat&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Boxplot que mostra o nº de galhas em função de cada tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Note que no tratamento &lt;em&gt;Actara d1&lt;/em&gt;, há um indivíduo discrepante (&lt;em&gt;outlier&lt;/em&gt;) que se destaca com 30 galhas. Note também a grande variabilidade entre os tratamentos, muito comum em experimentos envolvendo insetos. Normalmente o coeficiente de variação é extremamente alto e dificilmente há homogeneidade de variância. Um comentário interessante sobre o boxplot é que a caixa, valores entre o 1º e 3º quartil, corresponde a 50% das observações.&lt;/p&gt;
+&lt;p&gt;Podemos também avaliar a variabilidade do nº de galhas por local. Para isso vamos incluir a variável &lt;code&gt;Local&lt;/code&gt; no agrupamento (Figura &lt;a href=&#34;#fig:4-boxplot-local&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Adiciona mais um fator de agrupamento para o resumo. Nesse caso cada
+# indivíduo terá o nº de galhas explicito em cada local.
+
+local &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento, Individuo, Local) %&amp;gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %&amp;gt;%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+local&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Source: local data frame [420 x 4]
+## Groups: Tratamento, Individuo [140]
+## 
+##    Tratamento Individuo   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+## 1   Actara d1         1   Caule      2
+## 2   Actara d1         1 Nervura      3
+## 3   Actara d1         1 Peciolo      6
+## 4   Actara d1         2   Caule     NA
+## 5   Actara d1         2 Nervura     NA
+## 6   Actara d1         2 Peciolo     NA
+## 7   Actara d1         3   Caule      1
+## 8   Actara d1         3 Nervura      1
+## 9   Actara d1         3 Peciolo      2
+## 10  Actara d1         4   Caule     NA
+## # ... with 410 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_boxplot() +
+  theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-local&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Boxplot que mostra o nº de galhas por local e tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Uma outra perspectiva é avaliar a evolução do total de galhas por coleta. Para isto basta incluir a variável &lt;code&gt;Coleta&lt;/code&gt; no agrupamento (Figura &lt;a href=&#34;#fig:4-boxplot-coleta&#34;&gt;4&lt;/a&gt;). Para facilitar a visualização, vou excluir a primeira coleta. Podemos ainda adicionar os pontos que representam as observações para poder identificar quantas observações tem cada tratamento.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;total_coleta &amp;lt;- dados %&amp;gt;%
+  filter(Coleta != 1 ) %&amp;gt;%
+  group_by(Tratamento, Coleta, Individuo) %&amp;gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %&amp;gt;%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+total_coleta&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Source: local data frame [560 x 4]
+## Groups: Tratamento, Coleta [28]
+## 
+##    Tratamento Coleta Individuo Galhas
+##         &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;
+## 1   Actara d1      2         1      3
+## 2   Actara d1      2         2     NA
+## 3   Actara d1      2         3     NA
+## 4   Actara d1      2         4     NA
+## 5   Actara d1      2         5     NA
+## 6   Actara d1      2         6     NA
+## 7   Actara d1      2         7      2
+## 8   Actara d1      2         8     NA
+## 9   Actara d1      2         9     NA
+## 10  Actara d1      2        10     NA
+## # ... with 550 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_coleta, aes(Tratamento, Galhas)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.4) +
+  facet_wrap(~ Coleta, labeller = label_both) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-coleta&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.png&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;É importante destacar que o gráfico da Figura &lt;a href=&#34;#fig:4-boxplot-coleta&#34;&gt;4&lt;/a&gt; não é adequado para esse tipo de informação. Nesse caso seria mais interessante um gráfico de linhas em que cada linha representa um tratamento (veremos esse gráfico em um futuro post).&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>O conceito tidy data</title>
+      <link>/o-conceito-tidy-data/</link>
+      <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/o-conceito-tidy-data/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
+&lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
+&lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-base&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/JsYqVH7.png&#34; alt=&#34;Dados brutos. Como não organizar seu banco de dados.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Dados brutos. Como não organizar seu banco de dados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A estrutura do banco de dados que obtive no fim do experimento está apresentada na Figura &lt;a href=&#34;#fig:fig-base&#34;&gt;1&lt;/a&gt;. Para a época, foi o melhor que consegui fazer e pela inexperiência cometi os seguintes erros:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Uso de caracteres especiais.&lt;/li&gt;
+&lt;li&gt;Uso de espaço entre as palavras.&lt;/li&gt;
+&lt;li&gt;Células mescladas.&lt;/li&gt;
+&lt;li&gt;Observações (Nº de galhas no pecíolo, nervura e caule) organizadas em colunas.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;O uso de caracteres especiais não é recomentado em muitas ocasiões, essa dica vale para quase tudo que envolve computação. O mesmo se aplica para os espaços entre as palavras, mas podemos ser mais flexíveis neste caso. Mesclar uma célula será o seu maior problema em uma planilha eletrônica, cuidado com isso! Recomendo mesclar células em raríssimas exceções, como formatação de tabelas em Word ou PowerPoint. O meu último erro foi o maior deles, confundi observações com variáveis. Em minha defesa, o inexperiente Ítalo tentou organizar os dados em um layout de fácil visualização. Veja que é fácil acompanhar a evolução das galhas ao longo do tempo. Para a percepção humana, organização de dados no formato longitudinal é muito prática e rápida. Mas temos que pensar em como o computador trabalha e como ele faz todos os cálculos que precisamos. No fim, eu consegui fazer tudo que eu queria com os dados nesse formato, mas acredite, foi sofrível e muito ineficiente.&lt;/p&gt;
+&lt;p&gt;O conceito tidy data está muito bem descrito por &lt;span class=&#34;citation&#34;&gt;Wickham (&lt;a href=&#34;#ref-wickham_tidy_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;, onde ele apresenta o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/tidyr/index.html&#34;&gt;tidyr&lt;/a&gt; que contém uma gama de funções muito úteis para esse fim. Wickham também dedicou um capítulo específico sobre esse conceito em seu &lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;livro&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(Grolemund and Wickham &lt;a href=&#34;#ref-grolemund_r_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt;. Por tidy data, entendemos que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variáveis estão dispostas em colunas.&lt;/li&gt;
+&lt;li&gt;Observações estão dispostas em linhas.&lt;/li&gt;
+&lt;li&gt;Os valores atribuídos às variáveis em cada observação formam a tabela.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;metodo-1&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 1&lt;/h1&gt;
+&lt;p&gt;Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura &lt;a href=&#34;#fig:fig-entrada1&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada1&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/3AsFpmQ.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
+
+GET(&amp;quot;https://goo.gl/Av1fHP&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/blog/master/content/post/dados/base_vespa1.xlsx]
+##   Date: 2017-01-14 14:21
+##   Status: 200
+##   Content-Type: application/octet-stream
+##   Size: 20.7 kB
+## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\Rtmpg5t7y3\file9a812585e8b.xlsx&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma lista para receber os tabelas que serão importadas
+
+dados1 &amp;lt;- list() 
+
+
+# Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
+# armazena dentro da lista
+
+dados1$c1 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta1&amp;quot;)
+dados1$c2 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta2&amp;quot;)
+dados1$c3 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta3&amp;quot;)
+dados1$c4 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta4&amp;quot;)
+dados1$c5 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta5&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
+# o precesso em todas as abas. 
+
+dados1 &amp;lt;- list()
+
+for(i in 1:5) {
+ dados1[[paste0(&amp;quot;c&amp;quot;,i)]] &amp;lt;- read_excel(base_vespa1, paste0(&amp;quot;Coleta&amp;quot;, i))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora precisamos de um fator (nº da coleta) para diferenciarmos cada medição e colocar tudo em um único data frame.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria um fator para diferenciar as medições medições 
+for(i in names(dados1)) {
+  dados1[[i]][ , &amp;quot;Coleta&amp;quot;] = i  
+}
+
+dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
+# denominada ´Local´.
+
+dados1 &amp;lt;- gather(
+  dados1, &amp;quot;Local&amp;quot;,
+  &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
+)
+
+dados1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1   Actara d1         1     c1 Peciolo      1
+## 2   Actara d1         2     c1 Peciolo     NA
+## 3   Actara d1         3     c1 Peciolo     NA
+## 4   Actara d1         4     c1 Peciolo     NA
+## 5   Actara d1         5     c1 Peciolo     NA
+## 6   Actara d1         6     c1 Peciolo     NA
+## 7   Actara d1         7     c1 Peciolo     NA
+## 8   Actara d1         8     c1 Peciolo     NA
+## 9   Actara d1         9     c1 Peciolo     NA
+## 10  Actara d1        10     c1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;metodo-2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 2&lt;/h1&gt;
+&lt;p&gt;Nesse método, não fiz nenhuma grande alteração na base de dados. Apenas corrigi o nome das colunas com um fator que indica o número da coleta e em seguida o local (Figura &lt;a href=&#34;#fig:fig-entrada2&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada2&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/YGY8pvV.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
+# Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
+# ´Coleta´ e ´Local´.
+
+dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
+  gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
+  separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
+
+dados2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
+##    Tratamento Individuo Coleta   Local Galhas
+## *       &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1   Actara d1         1      1 Peciolo      1
+## 2   Actara d1         2      1 Peciolo     NA
+## 3   Actara d1         3      1 Peciolo     NA
+## 4   Actara d1         4      1 Peciolo     NA
+## 5   Actara d1         5      1 Peciolo     NA
+## 6   Actara d1         6      1 Peciolo     NA
+## 7   Actara d1         7      1 Peciolo     NA
+## 8   Actara d1         8      1 Peciolo     NA
+## 9   Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Os arquivos utilizados nesse post pode ser baixados nesses links: &lt;a href=&#34;https://goo.gl/Av1fHP&#34;&gt;base_vespa1&lt;/a&gt; e &lt;a href=&#34;https://goo.gl/2AOmhx&#34;&gt;base_vespa2&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
+&lt;h1&gt;Referências&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-cegatta_eficiencia_2013&#34;&gt;
+&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34; class=&#34;uri&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-grolemund_r_2016&#34;&gt;
+&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34; class=&#34;uri&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-wickham_tidy_2014&#34;&gt;
+&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34; class=&#34;uri&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

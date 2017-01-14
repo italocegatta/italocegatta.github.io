@@ -1,0 +1,982 @@
+
+
+  
+    
+  
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.18.1">
+    <title>Os gráficos que explicam nossos dados (barras)</title>
+    <meta name="author" content="Ítalo Cegatta">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="../favicon.png">
+    
+
+    
+    <meta name="description" content="Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.">
+    <meta property="og:description" content="Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Os gráficos que explicam nossos dados (barras)">
+    <meta property="og:url" content="/os-graficos-que-explicam-nossos-dados-barras/">
+    <meta property="og:site_name" content="Ítalo Cegatta">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ítalo Cegatta">
+    <meta name="twitter:description" content="Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="http://i.imgur.com/9MOS3vs.png">
+    
+
+    
+      <meta property="og:image" content="http://i.imgur.com/xlBBvE4.png">
+    
+    
+      <meta property="og:image" content="http://i.imgur.com/aXLil3u.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="../css/style-gwlo24d2hxipxk8bi1sxik0zhlpn9t7ebcmgp9kubmmcjfzlavuyhvbqumhn.min.css" />
+    
+    
+    
+      
+    
+    
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="../">Ítalo Cegatta</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="../#about">
+    
+    
+    
+      
+        <img class="header-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="../#about">
+          <img class="sidebar-profile-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+        </a>
+        <h4 class="sidebar-profile-name">Ítalo Cegatta</h4>
+        
+          <h5 class="sidebar-profile-bio">R, Floresta e Data Science</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Início</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categorias</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../sobre">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">Sobre</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="mailto:italocegatta@gmail.com">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
+      
+      <span class="sidebar-button-desc">Email</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/italocegatta">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/italocegatta">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('http://i.imgur.com/aXLil3u.png')"
+       data-behavior="5">
+    
+  </div>
+
+
+      <div id="main" data-behavior="5"
+        class="hasCover
+               hasCoverMetaOut
+               hasCoverCaption">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+            <span class="post-header-cover-caption caption"><a href="https://corpuslinguisticmethods.wordpress.com">https://corpuslinguisticmethods.wordpress.com</a></span>
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title" itemprop="headline">
+      Os gráficos que explicam nossos dados (barras)
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  <time itemprop="datePublished" datetime="2016-05-14T00:00:00Z">
+    
+  Maio 14, 2016
+
+  </time>
+  
+  
+  
+    <span>em</span>
+    
+      <a class="category-link" href="../categories/data-science">Data Science</a>, 
+    
+      <a class="category-link" href="../categories/graficos">Gráficos</a>
+    
+  
+
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+
+
+<p>Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o <a href="https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot">boxplot</a> e agora vamos ao gráfico de barras.</p>
+<!-- more -->
+<p>Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</p>
+<p>Continuaremos com o banco de dados apresentado no post sobre <a href="https://italocegatta.github.io/o-conceito-tidy-data.html">tidy data</a>.</p>
+<pre class="r"><code>library(pacman)
+p_load(readr, dplyr, ggplot2, ggthemes)</code></pre>
+<pre class="r"><code>dados &lt;- read_csv2(&quot;https://goo.gl/9cL8zC&quot;)
+
+dados</code></pre>
+<pre><code>## # A tibble: 2,100 × 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;   &lt;chr&gt;  &lt;int&gt;
+## 1   Actara d1         1      1 Peciolo      1
+## 2   Actara d1         2      1 Peciolo     NA
+## 3   Actara d1         3      1 Peciolo     NA
+## 4   Actara d1         4      1 Peciolo     NA
+## 5   Actara d1         5      1 Peciolo     NA
+## 6   Actara d1         6      1 Peciolo     NA
+## 7   Actara d1         7      1 Peciolo     NA
+## 8   Actara d1         8      1 Peciolo     NA
+## 9   Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows</code></pre>
+<div id="basico" class="section level2">
+<h2>Básico</h2>
+<p>A primeira sequência de gráficos está relacionada ao total de galhas encontradas nas mudas de cada tratamento. Nessa comparação, temos de considerar tratamentos como fatores e os locais onde a galha foi encontrada como níveis do fator local. Essa distinção vai nos ajuda a escolher a melhor forma de construir um gráfico de acordo com o que queremos mostrar.</p>
+<pre class="r"><code># seleciona apenas as Coletas de numero 5, em seguida monta um fator de 
+# agrupamento em função de Tratamento. Aplica a soma de todas as
+# observações (Galhas) de acordo com o fator de agrupamento.
+
+total_trat &lt;- dados %&gt;%
+  filter(Coleta == 5) %&gt;%
+  group_by(Tratamento) %&gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat</code></pre>
+<pre><code>## # A tibble: 7 × 2
+##    Tratamento Galhas
+##         &lt;chr&gt;  &lt;int&gt;
+## 1   Actara d1     73
+## 2   Actara d2     57
+## 3   Actara d3     30
+## 4 Evidence d1     27
+## 5 Evidence d2     21
+## 6 Evidence d3     12
+## 7  Testemunha     77</code></pre>
+<p>Agora já podemos fazer o primeiro gráfico simples e básico (Figura <a href="#fig:5-bar-basico">1</a>).</p>
+<pre class="r"><code>ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  theme_few()</code></pre>
+<div class="figure"><span id="fig:5-bar-basico"></span>
+<img src="figures/5-bar-basico-1.png" alt="Número total de galhas de cada tratamento." width="4000" />
+<p class="caption">
+Figura  1: Número total de galhas de cada tratamento.
+</p>
+</div>
+<p>Mas ainda temos a variável <code>Local</code>, certo? Podemos apresentá-la sem muito esforço.</p>
+<pre class="r"><code>total_trat_local &lt;- dados %&gt;%
+  filter(Coleta == 5) %&gt;%
+  group_by(Tratamento, Local) %&gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat_local</code></pre>
+<pre><code>## Source: local data frame [21 x 3]
+## Groups: Tratamento [?]
+## 
+##     Tratamento   Local Galhas
+##          &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+## 1    Actara d1   Caule     13
+## 2    Actara d1 Nervura     19
+## 3    Actara d1 Peciolo     41
+## 4    Actara d2   Caule     10
+## 5    Actara d2 Nervura      9
+## 6    Actara d2 Peciolo     38
+## 7    Actara d3   Caule      7
+## 8    Actara d3 Nervura      6
+## 9    Actara d3 Peciolo     17
+## 10 Evidence d1   Caule      6
+## # ... with 11 more rows</code></pre>
+<pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  theme_few() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<div class="figure"><span id="fig:5-bar-local"></span>
+<img src="figures/5-bar-local-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis agrupados." width="4000" />
+<p class="caption">
+Figura  2: Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.
+</p>
+</div>
+<p>No caso da Figura <a href="#fig:5-bar-local">2</a>, à primeira vista comparamos as barras (fatores) e depois as cores (níveis). Podemos dar mais evidência aos níveis, transformando-os em barras como na Figura <a href="#fig:5-bar-local-dodge">3</a>.</p>
+<pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  theme_few() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<div class="figure"><span id="fig:5-bar-local-dodge"></span>
+<img src="figures/5-bar-local-dodge-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados." width="4000" />
+<p class="caption">
+Figura  3: Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.
+</p>
+</div>
+<p>Como alternativa, podemos subdividir os níveis em painéis e deixar o gráfico mais balanceado, ou seja, sem concentrar a informação em fatores ou níveis (Figura <a href="#fig:5-bar-local-facet">4</a>).</p>
+<pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+<div class="figure"><span id="fig:5-bar-local-facet"></span>
+<img src="figures/5-bar-local-facet-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis em painel." width="4000" />
+<p class="caption">
+Figura  4: Número total de galhas de cada tratamento em diferentes locais - níveis em painel.
+</p>
+</div>
+<p>Note que nos 3 gráficos anteriores o banco de dados para formação do gráfico é o mesmo, mas cada um dá ênfase em um aspecto diferente. A parte boa é que podemos modificá-los de acordo com o nosso interesse de uma forma rápida e bem simples.</p>
+</div>
+<div id="adicionando-valores-as-barras" class="section level2">
+<h2>Adicionando valores às barras</h2>
+<p>Se quisermos adicionar o valor de cada nível ou fator na barra, temos de alterar o banco de dados para que ele coincida com o que queremos mostrar.</p>
+<p>Para a Figura <a href="#fig:5-bar-basico-annot">5</a>, modificamos apenas o código do gráfico.</p>
+<pre class="r"><code>ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  geom_text(aes(label = Galhas), size = 6, vjust = -0.2) +
+  theme_few()</code></pre>
+<div class="figure"><span id="fig:5-bar-basico-annot"></span>
+<img src="figures/5-bar-basico-annot-1.png" alt="Número total de galhas de cada tratamento com o valor na respectiva barra." width="4000" />
+<p class="caption">
+Figura  5: Número total de galhas de cada tratamento com o valor na respectiva barra.
+</p>
+</div>
+<p>Para a próxima figura temos de criar uma coluna que informa a posição em que o valor deve ficar no eixo y, uma vez que ele deve estar exatamente no centro do respectivo compartimento da barra. Como resultado temos a Figura <a href="#fig:5-bar-local-annot">6</a>.</p>
+<pre class="r"><code># Cria uma nova coluna que contem a posição no eixo y que corresponde ao centro
+# da barra. Esta posição correnponde ao local onde o label de cada barra
+# será mostrado
+
+total_trat_local_y &lt;- total_trat_local %&gt;%
+  mutate(Galhas_y = replace(cumsum(Galhas) - (0.5*Galhas),
+    Galhas  ==  0, NA))
+
+ggplot(total_trat_local_y, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  geom_text(aes(label = Galhas, y = Galhas_y)) +
+  theme_few() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<div class="figure"><span id="fig:5-bar-local-annot"></span>
+<img src="figures/5-bar-local-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados." width="4000" />
+<p class="caption">
+Figura  6: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.
+</p>
+</div>
+<p>As Figuras <a href="#fig:5-bar-local-dodge-annot">7</a> e <a href="#fig:5-bar-local-facet-annot">8</a> foram criadas apenas alterando o código do gráfico.</p>
+<pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  geom_text(aes(label = Galhas),
+    position = position_dodge(width=0.9), vjust = -0.2) +
+  theme_few() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<div class="figure"><span id="fig:5-bar-local-dodge-annot"></span>
+<img src="figures/5-bar-local-dodge-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados." width="4000" />
+<p class="caption">
+Figura  7: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.
+</p>
+</div>
+<pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+    geom_text(aes(label = Galhas), vjust = -0.2) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+<div class="figure"><span id="fig:5-bar-local-facet-annot"></span>
+<img src="figures/5-bar-local-facet-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel." width="4000" />
+<p class="caption">
+Figura  8: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.
+</p>
+</div>
+</div>
+<div id="barra-de-desvio" class="section level2">
+<h2>Barra de desvio</h2>
+<p>Uma outra informação interessante para o gráfico de barras é a barra de erro ou desvio. Com ela, além de informarmos o valor que queremos, também informamos uma medida de dispersão associada a esse valor. Nos gráficos anteriores apresentei o total de galhas por tratamento e local. Não faz sentido, nesse caso, colocar uma barra de desvio, pois a soma não é uma medida de posição. Portanto, vamos resumir novamente os dados em função da média e acrescentar o erro padrão da média.</p>
+<pre class="r"><code># Seleciona apenas as Coletas de numero 5, em seguida calcula a média e o
+# desvio padrão de cada Tratamento.
+
+media_trat_desv &lt;- dados %&gt;%
+  filter(Coleta == 5) %&gt;%
+  group_by(Tratamento) %&gt;%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = mean(Galhas, na.rm=T))
+
+media_trat_desv</code></pre>
+<pre><code>## # A tibble: 7 × 3
+##    Tratamento      desv   Galhas
+##         &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1   Actara d1 0.4799351 4.055556
+## 2   Actara d2 0.4893473 3.352941
+## 3   Actara d3 0.1331730 2.307692
+## 4 Evidence d1 0.5889188 3.857143
+## 5 Evidence d2 0.2667039 2.625000
+## 6 Evidence d3 0.1632993 2.000000
+## 7  Testemunha 0.3601529 3.347826</code></pre>
+<p>Após criar o <em>data frame</em> com o desvio, a Figura <a href="#fig:5-bar-basico-desv">9</a> é facilmente criada com o código abaixo.</p>
+<pre class="r"><code>ggplot(media_trat_desv, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv,
+     ymax = Galhas + desv), width = 0.4) +
+  theme_few()</code></pre>
+<div class="figure"><span id="fig:5-bar-basico-desv"></span>
+<img src="figures/5-bar-basico-desv-1.png" alt="Número total de galhas de cada tratamento com barra de desvio." width="4000" />
+<p class="caption">
+Figura  9: Número total de galhas de cada tratamento com barra de desvio.
+</p>
+</div>
+<p>No caso das Figuras <a href="#fig:5-bar-local-dodge-desv">10</a> e <a href="#fig:5-bar-local-facet-desv">11</a>, precisamos dados dados agrupados por <code>Tratamento</code> e <code>Local</code>. O código para o gráfico é muito semelhante aos anteriores. Em alguns tratamentos há somente um indivíduo indivídio com contagem de galhas. Nesta situação não há barra de desvio.</p>
+<pre class="r"><code># Seleciona apenas as Coletas de numero 5, em seguida calcula a mediana e o
+# desvio padrão em função de cada Trtatamento e Local.
+
+mediana_trat_local_desv &lt;- dados %&gt;%
+  filter(Coleta == 5) %&gt;%
+  group_by(Tratamento, Local) %&gt;%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = median(Galhas, na.rm=T))
+
+mediana_trat_local_desv</code></pre>
+<pre><code>## Source: local data frame [21 x 4]
+## Groups: Tratamento [?]
+## 
+##     Tratamento   Local      desv Galhas
+##          &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+## 1    Actara d1   Caule 0.3291403      2
+## 2    Actara d1 Nervura 0.8276473      3
+## 3    Actara d1 Peciolo 1.0200373      4
+## 4    Actara d2   Caule 0.2708013      1
+## 5    Actara d2 Nervura 0.2813657      2
+## 6    Actara d2 Peciolo 1.1751393      4
+## 7    Actara d3   Caule 0.1118034      2
+## 8    Actara d3 Nervura 0.0000000      2
+## 9    Actara d3 Peciolo 0.2972092      3
+## 10 Evidence d1   Caule 0.2236068      2
+## # ... with 11 more rows</code></pre>
+<pre class="r"><code>ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv, ymax = Galhas + desv),
+    position = position_dodge(width=0.9), width = 0.4) +
+  theme_few() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<div class="figure"><span id="fig:5-bar-local-dodge-desv"></span>
+<img src="figures/5-bar-local-dodge-desv-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados." width="4000" />
+<p class="caption">
+Figura  10: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.
+</p>
+</div>
+<pre class="r"><code>ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv,
+    ymax = Galhas + desv), width = 0.4) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+<div class="figure"><span id="fig:5-bar-local-facet-desv"></span>
+<img src="figures/5-bar-local-facet-desv-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel." width="4000" />
+<p class="caption">
+Figura  11: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.
+</p>
+</div>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+</div>
+
+
+
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">ETIQUETADO em</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="//tags/readxl/">readxl</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/dplyr/">dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/ggplot2/">ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/ggthemes/">ggthemes</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="../os-graficos-que-explicam-nossos-dados-heatmap/" data-tooltip="Os gráficos que explicam nossos dados (heatmap)">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="../os-graficos-que-explicam-nossos-dados-boxplot/" data-tooltip="Os gráficos que explicam nossos dados (boxplot)">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Ítalo Cegatta. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="../os-graficos-que-explicam-nossos-dados-heatmap/" data-tooltip="Os gráficos que explicam nossos dados (heatmap)">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="../os-graficos-que-explicam-nossos-dados-boxplot/" data-tooltip="Os gráficos que explicam nossos dados (boxplot)">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+        <i class="fa fa-google-plus"></i><span>Partilhar no Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+        <i class="fa fa-facebook-official"></i><span>Partilhar no Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2fos-graficos-que-explicam-nossos-dados-barras%2f">
+        <i class="fa fa-twitter"></i><span>Partilhar no Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+    
+    <h4 id="about-card-name">Ítalo Cegatta</h4>
+    
+      <div id="about-card-bio">R, Floresta e Data Science</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Eng. Florestal
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Itapetininga-SP
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Pesquisar" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center"></div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../indice-de-uniformidade-pv50/">
+                <h3 class="media-heading">Índice de uniformidade (PV50)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../ajuste-de-um-modelo-linear-para-varios-fatores/">
+                <h3 class="media-heading">Ajuste de um modelo linear para vários fatores</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.
+Mas felizmente existe uma máxima muito interessante entre programadores que é:</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../analise-de-componentes-principais/">
+                <h3 class="media-heading">Análise de componentes principais</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do INMET.
+No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-histograma/">
+                <h3 class="media-heading">Os gráficos que explicam nossos dados (histograma)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-heatmap/">
+                <h3 class="media-heading">Os gráficos que explicam nossos dados (heatmap)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-barras/">
+                <h3 class="media-heading">Os gráficos que explicam nossos dados (barras)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-boxplot/">
+                <h3 class="media-heading">Os gráficos que explicam nossos dados (boxplot)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?
+Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse blog, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../o-conceito-tidy-data/">
+                <h3 class="media-heading">O conceito tidy data</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../o-r-e-para-voce/">
+                <h3 class="media-heading">O R é para você</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
+Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero=""
+         data-message-one=""
+         data-message-other="">
+         11 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://i.imgur.com/ZDKz06u.png');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="../js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+  
+
+
+    
+  </body>
+</html>
+
