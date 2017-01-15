@@ -19,7 +19,6 @@
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;Vamos trabalhar com os dados do &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;Projeto TUME&lt;/a&gt;, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de &lt;em&gt;Eucalyptus&lt;/em&gt; no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.&lt;/p&gt;
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
@@ -28,8 +27,6 @@ p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.
-
-
 dados &amp;lt;- dados %&amp;gt;% 
   mutate(
     Esp = reorder(Esp, Hdom, function(x) max(x)),

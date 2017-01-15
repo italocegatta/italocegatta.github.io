@@ -46,7 +46,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   theme_bw() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Variabilidade do volume por hectare de cada tratamento.
 &lt;/p&gt;
@@ -118,7 +118,7 @@ tukey&lt;/code&gt;&lt;/pre&gt;
     labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
     theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
 &lt;/p&gt;

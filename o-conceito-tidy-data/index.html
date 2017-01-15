@@ -137,16 +137,6 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../tags">
-    
-      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-      
-      <span class="sidebar-button-desc">Tags</span>
-    </a>
-  </li>
-
-  <li class="sidebar-button">
-    
       <a class="sidebar-button-link " href="../sobre">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
@@ -221,7 +211,7 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
                hasCoverCaption">
         <article class="post" itemscope itemType="http://schema.org/BlogPosting">
           
-            <span class="post-header-cover-caption caption"><a href="http://r4ds.had.co.nz">http://r4ds.had.co.nz</a></span>
+            <span class="post-header-cover-caption caption">Imagem: (Grolemund and Wickham 2016)</span>
           
           
             <div class="post-header main-content-wrap text-center">
@@ -233,7 +223,12 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
   <div class="postShorten-meta post-meta">
   <time itemprop="datePublished" datetime="2016-04-30T00:00:00Z">
     
-  Abril 30, 2016
+  
+  
+  
+  
+    30 Abril 2016
+  
 
   </time>
   
@@ -255,7 +250,6 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
 
 
 <p>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!</p>
-<!-- more -->
 <p>Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto <span class="citation">(Cegatta and Villegas <a href="#ref-cegatta_eficiencia_2013">2013</a>)</span>. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</p>
 <p>Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.</p>
 <p>No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.</p>
@@ -294,32 +288,9 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 </p>
 </div>
 <p>Como são apenas 4 abas, podemos importá-las usando um comando por linha.</p>
-<pre class="r"><code># Faz o download da arquivo base_vespa1.xlxs para a memória temporária
-
-GET(&quot;https://goo.gl/uasbWk&quot;, write_disk(base_vespa1 &lt;- tempfile(fileext = &quot;.xlsx&quot;)))</code></pre>
-<pre><code>## Response [https://raw.githubusercontent.com/italocegatta/dados_blog/master/base_vespa1.xlsx]
-##   Date: 2017-01-14 16:26
-##   Status: 200
-##   Content-Type: application/octet-stream
-##   Size: 20.7 kB
-## &lt;ON DISK&gt;  C:\Users\Italo\AppData\Local\Temp\RtmpQRl5eC\file1df8361a5a0c.xlsx</code></pre>
-<pre class="r"><code># Cria uma lista para receber os tabelas que serão importadas
-
-dados1 &lt;- list() 
-
-
-# Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
-# armazena dentro da lista
-
-dados1$c1 &lt;- read_excel(base_vespa1, &quot;Coleta1&quot;)
-dados1$c2 &lt;- read_excel(base_vespa1, &quot;Coleta2&quot;)
-dados1$c3 &lt;- read_excel(base_vespa1, &quot;Coleta3&quot;)
-dados1$c4 &lt;- read_excel(base_vespa1, &quot;Coleta4&quot;)
-dados1$c5 &lt;- read_excel(base_vespa1, &quot;Coleta5&quot;)</code></pre>
 <p>Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.</p>
 <pre class="r"><code># Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
 # o precesso em todas as abas. 
-
 dados1 &lt;- list()
 
 for(i in 1:5) {
@@ -335,7 +306,6 @@ dados1 &lt;- bind_rows(dados1)</code></pre>
 <p>Como minhas análises vão considerar o local da galha como o variável, devo organizar <em>Peciolo</em>, <em>Nervura</em> e <em>Caule</em> em uma só coluna denominada <em>Local</em>.</p>
 <pre class="r"><code># Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
 # denominada ´Local´.
-
 dados1 &lt;- gather(
   dados1, &quot;Local&quot;,
   &quot;Galhas&quot;, c(Peciolo, Nervura, Caule)
@@ -371,7 +341,6 @@ Figura  3: Modificação do banco de dados original para ser importado no R. Alt
 <pre class="r"><code># Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
 # Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
 # ´Coleta´ e ´Local´.
-
 dados2 &lt;- read_excel(base_vespa2) %&gt;%
   gather(&quot;Local&quot;, &quot;Galhas&quot;, 3:dim(.)[2]) %&gt;%
   separate(Local, c(&quot;Coleta&quot;, &quot;Local&quot;))
@@ -393,7 +362,6 @@ dados2</code></pre>
 ## # ... with 2,090 more rows</code></pre>
 <p>Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
-<p>Os arquivos utilizados nesse post pode ser baixados nesses links: <a href="https://goo.gl/Av1fHP">base_vespa1</a> e <a href="https://goo.gl/2AOmhx">base_vespa2</a></p>
 </div>
 <div id="referencias" class="section level1 unnumbered">
 <h1>Referências</h1>
@@ -481,12 +449,6 @@ dados2</code></pre>
       </li>
     
     
-      <li class="post-action">
-        <a class="post-action-btn btn btn--default" href="#disqus_thread">
-          <i class="fa fa-comment-o"></i>
-        </a>
-      </li>
-    
     <li class="post-action">
       
         <a class="post-action-btn btn btn--default" href="#">
@@ -499,10 +461,6 @@ dados2</code></pre>
 
 
             
-              
-                <div id="disqus_thread">
-  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
               
             
           </div>
@@ -561,12 +519,6 @@ dados2</code></pre>
         </a>
       </li>
     
-    
-      <li class="post-action">
-        <a class="post-action-btn btn btn--default" href="#disqus_thread">
-          <i class="fa fa-comment-o"></i>
-        </a>
-      </li>
     
     <li class="post-action">
       
@@ -649,6 +601,24 @@ dados2</code></pre>
       <div class="no-result text-color-light text-center"></div>
       <div class="results">
         
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../download-automatico-de-imagens-modis/">
+                <h3 class="media-heading">Download automático de imagens MODIS</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.
+O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do produto MOD13Q1, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
         
           <div class="media">
             
@@ -810,24 +780,6 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="../o-r-e-para-voce/">
-                <h3 class="media-heading">O R é para você</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Apr 4, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -835,7 +787,7 @@ Vou tentar focar esse texto em duas perguntas muito importantes para quem está 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         11 posts found
+         12 posts found
       </p>
     </div>
   </div>
@@ -876,28 +828,6 @@ $(document).ready(function() {
 </script>
 
   
-    
-      <script>
-        var disqus_config = function () {
-          this.page.url = '\/o-conceito-tidy-data\/';
-          
-            this.page.identifier = '\/o-conceito-tidy-data\/'
-          
-        };
-        (function() {
-          
-          
-          if (window.location.hostname == "localhost") {
-            return;
-          }
-          var d = document, s = d.createElement('script');
-          var disqus_shortname = 'italocegatta';
-          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      </script>
     
   
 

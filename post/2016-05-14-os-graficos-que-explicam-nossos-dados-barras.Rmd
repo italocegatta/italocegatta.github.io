@@ -11,7 +11,7 @@ categories:
   - Gráficos
 thumbnailImage: http://i.imgur.com/xlBBvE4.png
 coverImage: http://i.imgur.com/aXLil3u.png
-coverCaption: "https://corpuslinguisticmethods.wordpress.com"
+coverCaption: "Imagem: https://corpuslinguisticmethods.wordpress.com"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out

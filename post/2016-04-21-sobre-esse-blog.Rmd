@@ -5,7 +5,7 @@ categories:
   - R
 thumbnailImage: http://i.imgur.com/ezw3fwm.png
 coverImage: http://i.imgur.com/J1yIjQf.jpg
-coverCaption: "https://unsplash.com"
+coverCaption: "Imagem: https://unsplash.com"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out

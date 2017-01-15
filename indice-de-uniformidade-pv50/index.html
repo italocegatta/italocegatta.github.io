@@ -137,16 +137,6 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../tags">
-    
-      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-      
-      <span class="sidebar-button-desc">Tags</span>
-    </a>
-  </li>
-
-  <li class="sidebar-button">
-    
       <a class="sidebar-button-link " href="../sobre">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
@@ -221,7 +211,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
                hasCoverCaption">
         <article class="post" itemscope itemType="http://schema.org/BlogPosting">
           
-            <span class="post-header-cover-caption caption">Hakamada (2015)</span>
+            <span class="post-header-cover-caption caption">Imagem: Hakamada (2015)</span>
           
           
             <div class="post-header main-content-wrap text-center">
@@ -233,7 +223,12 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
   <div class="postShorten-meta post-meta">
   <time itemprop="datePublished" datetime="2016-10-09T00:00:00Z">
     
-  Outubro 9, 2016
+  
+  
+  
+  
+    9 Outubro 2016
+  
 
   </time>
   
@@ -255,14 +250,15 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
 
 <p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
-<!-- more -->
 <p>O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</p>
 <p>O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas <span class="citation">(Hakamada et al. <a href="#ref-Hakamada2015">2015</a>)</span>. A expressão do índice é dada da seguinte forma:</p>
 <p><span class="math display">\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]</span> Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).</p>
 <p>Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.</p>
-<pre class="r"><code>library(pacman)
-p_load(tidyverse, forcats)
+<pre class="r"><code># carrega os pacotes necessários
+library(pacman)
+p_load(readr, dplyr, ggplot2, forcats)
 
+# exemplo com número par
 arv10 &lt;- rep(0.1, 10)
 str(arv10)</code></pre>
 <pre><code>##  num [1:10] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1</code></pre>
@@ -275,7 +271,7 @@ metade</code></pre>
 soma_todas &lt;- sum(arv10, na.rm = TRUE)
 soma_todas</code></pre>
 <pre><code>## [1] 1</code></pre>
-<pre class="r"><code># soma a metade das árvores
+<pre class="r"><code># soma o valor de metade das árvores em ordem crescente
 soma_metade &lt;- sum(sort(arv10)[1:metade], na.rm = TRUE)
 soma_metade</code></pre>
 <pre><code>## [1] 0.5</code></pre>
@@ -284,69 +280,88 @@ PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 50</code></pre>
 <p>Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.</p>
-<pre class="r"><code>arv11 &lt;- rep(0.1, 11)
+<pre class="r"><code># exemplo com número impar
+arv11 &lt;- rep(0.1, 11)
 str(arv11)</code></pre>
 <pre><code>##  num [1:11] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
-<pre class="r"><code>metade &lt;- length(arv11)/2
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11)/2
 metade</code></pre>
 <pre><code>## [1] 5.5</code></pre>
-<pre class="r"><code>#
+<pre class="r"><code># soma todas as árvores
 soma_todas &lt;- sum(arv11, na.rm = TRUE)
 soma_todas</code></pre>
 <pre><code>## [1] 1.1</code></pre>
-<pre class="r"><code>soma_metade &lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
+<pre class="r"><code># soma o valor de metade das árvores em ordem crescente
+soma_metade &lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
 soma_metade</code></pre>
 <pre><code>## [1] 0.5</code></pre>
-<pre class="r"><code>PV50 &lt;- soma_metade / soma_todas * 100
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 45.45455</code></pre>
 <p>O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).</p>
-<pre class="r"><code>soma_acumulada &lt;- cumsum(sort(arv11))
+<pre class="r"><code># vetor de soma acumulada
+soma_acumulada &lt;- cumsum(sort(arv11))
 soma_acumulada</code></pre>
 <pre><code>##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1</code></pre>
-<pre class="r"><code>soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade</code></pre>
 <pre><code>## [1] 0.55</code></pre>
-<pre class="r"><code>PV50 &lt;- soma_metade / soma_todas * 100
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 50</code></pre>
 <p>Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo <code>NA</code> no R. Veja que o resultado não está consistente pois a <code>soma_acumulada</code> ignorou as árvores mortas.</p>
-<pre class="r"><code>arv11_na &lt;- rep(0.1, 11)
+<pre class="r"><code># exemplo com valores perdidos
+arv11_na &lt;- rep(0.1, 11)
 arv11_na[c(3,4)] &lt;- NA
 str(arv11_na)</code></pre>
 <pre><code>##  num [1:11] 0.1 0.1 NA NA 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
-<pre class="r"><code>metade &lt;- length(arv11_na)/2
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11_na)/2
 metade</code></pre>
 <pre><code>## [1] 5.5</code></pre>
-<pre class="r"><code>soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas</code></pre>
 <pre><code>## [1] 0.9</code></pre>
-<pre class="r"><code>soma_acumulada &lt;- cumsum(sort(arv11_na))
+<pre class="r"><code># vetor de soma acumulada
+soma_acumulada &lt;- cumsum(sort(arv11_na))
 soma_acumulada</code></pre>
 <pre><code>## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</code></pre>
-<pre class="r"><code>soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade</code></pre>
 <pre><code>## [1] 0.55</code></pre>
-<pre class="r"><code>PV50 &lt;- soma_metade / soma_todas * 100
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 61.11111</code></pre>
 <p>Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.</p>
-<pre class="r"><code>mortas &lt;- arv11_na[is.na(arv11_na)]
+<pre class="r"><code># vetor de valores perdidos
+mortas &lt;- arv11_na[is.na(arv11_na)]
 mortas</code></pre>
 <pre><code>## [1] NA NA</code></pre>
-<pre class="r"><code>metade &lt;- length(arv11_na)/2
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11_na)/2
 metade</code></pre>
 <pre><code>## [1] 5.5</code></pre>
-<pre class="r"><code>soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas</code></pre>
 <pre><code>## [1] 0.9</code></pre>
-<pre class="r"><code>soma_acumulada &lt;- c(mortas, cumsum(sort(arv11_na)))
+<pre class="r"><code># vetor de soma acumulada com valores perdidos
+soma_acumulada &lt;- c(mortas, cumsum(sort(arv11_na)))
 soma_acumulada</code></pre>
 <pre><code>##  [1]  NA  NA 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</code></pre>
-<pre class="r"><code>soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade</code></pre>
 <pre><code>## [1] 0.35</code></pre>
-<pre class="r"><code>PV50 &lt;- soma_metade / soma_todas * 100
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 38.88889</code></pre>
 <p>Agora eu vou dar aquele passo mágico dos livros de matemática e física, em que o autor diz “é fácil notar que o resultado leva a …” e apresentar uma função que lida com as questões que mostramos acima e retorna o PV50 do nosso conjunto de dados de forma correta.</p>
@@ -393,7 +408,8 @@ str(b1)</code></pre>
 <pre class="r"><code>pv50(b1) # Ok!</code></pre>
 <pre><code>## [1] 38.88889</code></pre>
 <p>Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do <a href="www.projetotume.com">Projeto TUME</a>, referente ao <a href="http://www.projetotume.com/tume134">TUME 134</a> plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.</p>
-<pre class="r"><code>dados &lt;- read_csv2(&quot;https://goo.gl/oOMB69&quot;)
+<pre class="r"><code># importa o arquivo tume_55.csv
+dados &lt;- read_csv2(&quot;https://goo.gl/oOMB69&quot;)
 
 glimpse(dados)</code></pre>
 <pre><code>## Observations: 1,222
@@ -406,7 +422,9 @@ glimpse(dados)</code></pre>
 ## $ H_m     &lt;dbl&gt; 7.651490, 11.424046, 5.909205, 8.572873, 10.498957, 7....
 ## $ Vol     &lt;dbl&gt; 0.008798406, 0.067375427, 0.003673747, 0.013918399, 0....</code></pre>
 <p>Iremos calcular o PV50 e o volume por hectare para cada fator <code>Esp</code> e <code>I_meses</code> e em seguida ordenar as espécies pelo PV50.</p>
-<pre class="r"><code>dados_pv50 &lt;- dados %&gt;% 
+<pre class="r"><code># agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
+dados_pv50 &lt;- dados %&gt;% 
   group_by(Esp, I_meses) %&gt;% 
   summarise(
     Parc_m2 = mean( Parc_m2),
@@ -414,6 +432,7 @@ glimpse(dados)</code></pre>
     Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
   ) %&gt;%
   ungroup() %&gt;% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
   mutate(Esp = fct_reorder(Esp, -PV50))
 
 dados_pv50</code></pre>
@@ -545,7 +564,11 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">ETIQUETADO em</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="//tags/tidyverse/">tidyverse</a>
+  <a class="tag tag--primary tag--small" href="//tags/readr/">readr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/dplyr/">dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/ggplot2/">ggplot2</a>
 
   <a class="tag tag--primary tag--small" href="//tags/forcats/">forcats</a>
 
@@ -559,7 +582,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="../download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -600,12 +623,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       </li>
     
     
-      <li class="post-action">
-        <a class="post-action-btn btn btn--default" href="#disqus_thread">
-          <i class="fa fa-comment-o"></i>
-        </a>
-      </li>
-    
     <li class="post-action">
       
         <a class="post-action-btn btn btn--default" href="#">
@@ -618,10 +635,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 
 
             
-              
-                <div id="disqus_thread">
-  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
               
             
           </div>
@@ -640,7 +653,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="../download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -680,12 +693,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
         </a>
       </li>
     
-    
-      <li class="post-action">
-        <a class="post-action-btn btn btn--default" href="#disqus_thread">
-          <i class="fa fa-comment-o"></i>
-        </a>
-      </li>
     
     <li class="post-action">
       
@@ -768,6 +775,24 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       <div class="no-result text-color-light text-center"></div>
       <div class="results">
         
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../download-automatico-de-imagens-modis/">
+                <h3 class="media-heading">Download automático de imagens MODIS</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.
+O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do produto MOD13Q1, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
         
           <div class="media">
             
@@ -929,24 +954,6 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="../o-r-e-para-voce/">
-                <h3 class="media-heading">O R é para você</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Apr 4, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -954,7 +961,7 @@ Vou tentar focar esse texto em duas perguntas muito importantes para quem está 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         11 posts found
+         12 posts found
       </p>
     </div>
   </div>
@@ -995,28 +1002,6 @@ $(document).ready(function() {
 </script>
 
   
-    
-      <script>
-        var disqus_config = function () {
-          this.page.url = '\/indice-de-uniformidade-pv50\/';
-          
-            this.page.identifier = '\/indice-de-uniformidade-pv50\/'
-          
-        };
-        (function() {
-          
-          
-          if (window.location.hostname == "localhost") {
-            return;
-          }
-          var d = document, s = d.createElement('script');
-          var disqus_shortname = 'italocegatta';
-          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      </script>
     
   
 

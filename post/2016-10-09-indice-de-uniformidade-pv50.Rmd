@@ -2,7 +2,9 @@
 title: Índice de uniformidade (PV50)
 date: 2016-10-09
 tags:
-  - tidyverse
+  - readr
+  - dplyr
+  - ggplot2
   - forcats
 categories:
   - PV50
@@ -10,7 +12,7 @@ bibliography: ["bib/biblio.bib"]
 link-citations: true
 thumbnailImage: http://i.imgur.com/IvEZeXd.png
 coverImage: http://i.imgur.com/jFQYdwi.png
-coverCaption: "Hakamada (2015)"
+coverCaption: "Imagem: Hakamada (2015)"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out
@@ -25,8 +27,6 @@ knitr::opts_chunk$set(
 
 O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. @Hakamada2012 apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de *Eucalyptus*.
 
-<!-- more -->
-
 O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.
 
 O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas [@Hakamada2015]. A expressão do índice é dada da seguinte forma:
@@ -37,9 +37,11 @@ Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas;
 Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.
 
 ```{r, message=FALSE}
+# carrega os pacotes necessários
 library(pacman)
-p_load(tidyverse, forcats)
+p_load(readr, dplyr, ggplot2, forcats)
 
+# exemplo com número par
 arv10 <- rep(0.1, 10)
 str(arv10)
 ```
@@ -55,7 +57,7 @@ metade
 soma_todas <- sum(arv10, na.rm = TRUE)
 soma_todas
 
-# soma a metade das árvores
+# soma o valor de metade das árvores em ordem crescente
 soma_metade <- sum(sort(arv10)[1:metade], na.rm = TRUE)
 soma_metade
 
@@ -67,19 +69,23 @@ PV50
 Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.
 
 ```{r}
+# exemplo com número impar
 arv11 <- rep(0.1, 11)
 str(arv11)
 
+# metade do numero de árvores
 metade <- length(arv11)/2
 metade
 
-#
+# soma todas as árvores
 soma_todas <- sum(arv11, na.rm = TRUE)
 soma_todas
 
+# soma o valor de metade das árvores em ordem crescente
 soma_metade <- sum(sort(arv11)[1:metade], na.rm = TRUE)
 soma_metade
 
+# calcula o PV50
 PV50 <- soma_metade / soma_todas * 100
 PV50
 ```
@@ -87,12 +93,15 @@ PV50
 O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).
 
 ```{r}
+# vetor de soma acumulada
 soma_acumulada <- cumsum(sort(arv11))
 soma_acumulada
 
+# soma a metade do vetor de soma acumulada
 soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade
 
+# calcula o PV50
 PV50 <- soma_metade / soma_todas * 100
 PV50
 ```
@@ -100,22 +109,28 @@ PV50
 Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo `NA` no R. Veja que o resultado não está consistente pois a `soma_acumulada` ignorou as árvores mortas.
 
 ```{r}
+# exemplo com valores perdidos
 arv11_na <- rep(0.1, 11)
 arv11_na[c(3,4)] <- NA
 str(arv11_na)
 
+# metade do numero de árvores
 metade <- length(arv11_na)/2
 metade
 
+# soma todas as árvores
 soma_todas <- sum(arv11_na, na.rm = TRUE)
 soma_todas
 
+# vetor de soma acumulada
 soma_acumulada <- cumsum(sort(arv11_na))
 soma_acumulada
 
+# soma a metade do vetor de soma acumulada
 soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade
 
+# calcula o PV50
 PV50 <- soma_metade / soma_todas * 100
 PV50
 ```
@@ -123,21 +138,27 @@ PV50
 Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.
 
 ```{r}
+# vetor de valores perdidos
 mortas <- arv11_na[is.na(arv11_na)]
 mortas
 
+# metade do numero de árvores
 metade <- length(arv11_na)/2
 metade
 
+# soma todas as árvores
 soma_todas <- sum(arv11_na, na.rm = TRUE)
 soma_todas
 
+# vetor de soma acumulada com valores perdidos
 soma_acumulada <- c(mortas, cumsum(sort(arv11_na)))
 soma_acumulada
 
+# soma a metade do vetor de soma acumulada
 soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade
 
+# calcula o PV50
 PV50 <- soma_metade / soma_todas * 100
 PV50
 ```
@@ -191,6 +212,7 @@ pv50(b1) # Ok!
 Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do [Projeto TUME](www.projetotume.com), referente ao [TUME 134](http://www.projetotume.com/tume134) plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.
 
 ```{r, message=FALSE, warning=FALSE}
+# importa o arquivo tume_55.csv
 dados <- read_csv2("https://goo.gl/oOMB69")
 
 glimpse(dados)
@@ -199,6 +221,8 @@ glimpse(dados)
 Iremos calcular o PV50 e o volume por hectare para cada fator `Esp` e `I_meses` e em seguida ordenar as espécies pelo PV50.
 
 ```{r}
+# agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
 dados_pv50 <- dados %>% 
   group_by(Esp, I_meses) %>% 
   summarise(
@@ -207,6 +231,7 @@ dados_pv50 <- dados %>%
     Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
   ) %>%
   ungroup() %>% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
   mutate(Esp = fct_reorder(Esp, -PV50))
 
 dados_pv50

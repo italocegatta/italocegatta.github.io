@@ -393,7 +393,6 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
 &lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
 &lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
@@ -432,32 +431,9 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
-
-GET(&amp;quot;https://goo.gl/uasbWk&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/dados_blog/master/base_vespa1.xlsx]
-##   Date: 2017-01-14 16:26
-##   Status: 200
-##   Content-Type: application/octet-stream
-##   Size: 20.7 kB
-## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\RtmpQRl5eC\file1df8361a5a0c.xlsx&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma lista para receber os tabelas que serão importadas
-
-dados1 &amp;lt;- list() 
-
-
-# Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
-# armazena dentro da lista
-
-dados1$c1 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta1&amp;quot;)
-dados1$c2 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta2&amp;quot;)
-dados1$c3 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta3&amp;quot;)
-dados1$c4 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta4&amp;quot;)
-dados1$c5 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta5&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
 # o precesso em todas as abas. 
-
 dados1 &amp;lt;- list()
 
 for(i in 1:5) {
@@ -473,7 +449,6 @@ dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
 # denominada ´Local´.
-
 dados1 &amp;lt;- gather(
   dados1, &amp;quot;Local&amp;quot;,
   &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
@@ -509,7 +484,6 @@ Figura  3: Modificação do banco de dados original para ser importado no R. Alt
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
 # Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
 # ´Coleta´ e ´Local´.
-
 dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
   gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
   separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
@@ -531,7 +505,6 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-&lt;p&gt;Os arquivos utilizados nesse post pode ser baixados nesses links: &lt;a href=&#34;https://goo.gl/Av1fHP&#34;&gt;base_vespa1&lt;/a&gt; e &lt;a href=&#34;https://goo.gl/2AOmhx&#34;&gt;base_vespa2&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;

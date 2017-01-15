@@ -12,7 +12,7 @@ categories:
   - Gráficos
 thumbnailImage: http://i.imgur.com/1BbJSMj.png
 coverImage: http://i.imgur.com/qdrAptA.png
-coverCaption: "https://www.leansigmacorporation.com"
+coverCaption: "Imagem: https://www.leansigmacorporation.com"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out

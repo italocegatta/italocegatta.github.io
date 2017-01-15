@@ -6,8 +6,90 @@
     <description>Recent content on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 09 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Download automático de imagens MODIS</title>
+      <link>/download-automatico-de-imagens-modis/</link>
+      <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/download-automatico-de-imagens-modis/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+
+/BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.&lt;/p&gt;
+&lt;p&gt;O MODOIS tem diversos &lt;a href=&#34;https://modis.gsfc.nasa.gov/data/&#34;&gt;produtos&lt;/a&gt;, mas neste post vamos tratar especificamente do produto &lt;a href=&#34;https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006&#34;&gt;MOD13Q1&lt;/a&gt;, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m. Bom, se você está acostumado com imagens de satélite/drone/vant com resolução submétrica, pode ser que no primeiro momento esta escala te assuste. Mas vale lembrar que é um serviço gratuito e e de ótima qualidade.&lt;/p&gt;
+&lt;p&gt;As cenas do MODIS ficam disponíveis em um &lt;a href=&#34;https://e4ftl01.cr.usgs.gov/&#34;&gt;ftp&lt;/a&gt; e navegando por lá podemos chegar na pasta do produto que nos &lt;a href=&#34;http://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.006&#34;&gt;interessa&lt;/a&gt;. Temos então imagens de satélite processadas, com correção atmosférica, sem deslocamento espacial e com regularidade. O satélite varre a terra a cada dois dias e as melhores visadas são utilizadas para compor o produto que é disponibilizado a cada 16 dias. Há casos (de baixa frequência) em que a nebulosidade é tanta que não é possível compor a informação do pixel dentro desta janela&lt;/p&gt;
+&lt;p&gt;Nosso objetivo para este poste é fazer o download das cenas de forma automática, um web scraping. No R há diversos pacotes que nos auxiliam neste processo. A primeira etapa é acessar o ftp que contém as cenas e extrair as datas das cenas disponíveis.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
+p_load(dplyr, xml2, rvest, httr, stringr, methods)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# url do ftp que contém as cenas
+path_root &amp;lt;- &amp;quot;http://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.006&amp;quot;
+
+# carrega a raiz do ftp
+page_root &amp;lt;- read_html(path_root)
+
+# extrai os dias das cenas
+scene_days &amp;lt;- page_root %&amp;gt;% 
+ html_nodes(&amp;quot;a&amp;quot;) %&amp;gt;% 
+  html_text(trim = T) %&amp;gt;%
+  &amp;#39;[&amp;#39;(-c(1:7)) %&amp;gt;%
+  str_replace_all(&amp;quot;\\/&amp;quot;, &amp;quot;&amp;quot;)
+
+glimpse(scene_days)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  chr [1:388] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Muito bem, temos até a data da ultima atualização deste post 388 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# inicio do 1º loop - dias
+for (i in seq_along(scene_days)) {
+  # cria a pasta para receber os tiles
+  if(!dir.exists(scene_days[i])) dir.create(scene_days[i])
+
+  # ideintificador de iteração
+  day &amp;lt;- scene_days[i]
+  
+  # carrega a pagina do dia da cena
+  page_tiles &amp;lt;- read_html(paste(path_root, day, sep = &amp;quot;/&amp;quot;))
+  
+  # extrai os tiles de interesse
+  path_tiles &amp;lt;- page_tiles %&amp;gt;% 
+    html_nodes(&amp;quot;a&amp;quot;) %&amp;gt;% 
+    html_text(trim = T) %&amp;gt;%
+    &amp;#39;[&amp;#39;(str_detect(., &amp;quot;[hdf]$&amp;quot;)) %&amp;gt;% 
+    &amp;#39;[&amp;#39;(str_detect(., &amp;quot;h13v11|h14v10&amp;quot;))
+  
+  # inicio do 2º loop - tiles
+  for (j in seq_along(path_tiles)) {
+    # url do tile
+    path_tile &amp;lt;- paste(path_root, day, path_tiles[j], sep = &amp;quot;/&amp;quot;)
+
+    # id do tile
+    tile &amp;lt;- paste(day, path_tiles[j], sep = &amp;quot;/&amp;quot;)
+    
+    # download do arquivo
+    if (!file.exists(tile)) {
+      temp &amp;lt;- GET(path_tile, authenticate(&amp;quot;LOGIN&amp;quot;, &amp;quot;SENHA&amp;quot;))
+      writeBin(content(temp, &amp;quot;raw&amp;quot;), tile)
+      rm(temp)
+    }
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como tudo que está neste blog, este script foi escrito para resolver um problema específico e com certeza tem muito espaço para melhoria. Os próximos passos da análise, extração dos rasters e processamento da imagem serão abordados em posts separados. No futuro, caso exista uma demanda, pode ser que as funções sejam reunidas em um pacote específico sobre isso.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+
+
+
+&lt;!-- BLOGDOWN-HEAD
+
+
+
+
+
+
+/BLOGDOWN-HEAD --&gt;
+</description>
+    </item>
     
     <item>
       <title>Índice de uniformidade (PV50)</title>
@@ -20,14 +102,15 @@
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]&lt;/span&gt; Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).&lt;/p&gt;
 &lt;p&gt;Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(tidyverse, forcats)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# carrega os pacotes necessários
+library(pacman)
+p_load(readr, dplyr, ggplot2, forcats)
 
+# exemplo com número par
 arv10 &amp;lt;- rep(0.1, 10)
 str(arv10)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:10] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1&lt;/code&gt;&lt;/pre&gt;
@@ -40,7 +123,7 @@ metade&lt;/code&gt;&lt;/pre&gt;
 soma_todas &amp;lt;- sum(arv10, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade das árvores
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma o valor de metade das árvores em ordem crescente
 soma_metade &amp;lt;- sum(sort(arv10)[1:metade], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.5&lt;/code&gt;&lt;/pre&gt;
@@ -49,69 +132,88 @@ PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arv11 &amp;lt;- rep(0.1, 11)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# exemplo com número impar
+arv11 &amp;lt;- rep(0.1, 11)
 str(arv11)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:11] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
 soma_todas &amp;lt;- sum(arv11, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 1.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma o valor de metade das árvores em ordem crescente
+soma_metade &amp;lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 45.45455&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- cumsum(sort(arv11))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada
+soma_acumulada &amp;lt;- cumsum(sort(arv11))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.55&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo &lt;code&gt;NA&lt;/code&gt; no R. Veja que o resultado não está consistente pois a &lt;code&gt;soma_acumulada&lt;/code&gt; ignorou as árvores mortas.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arv11_na &amp;lt;- rep(0.1, 11)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# exemplo com valores perdidos
+arv11_na &amp;lt;- rep(0.1, 11)
 arv11_na[c(3,4)] &amp;lt;- NA
 str(arv11_na)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:11] 0.1 0.1 NA NA 0.1 0.1 0.1 0.1 0.1 0.1 ...&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11_na)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11_na)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
+soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- cumsum(sort(arv11_na))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada
+soma_acumulada &amp;lt;- cumsum(sort(arv11_na))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.55&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 61.11111&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mortas &amp;lt;- arv11_na[is.na(arv11_na)]
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de valores perdidos
+mortas &amp;lt;- arv11_na[is.na(arv11_na)]
 mortas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] NA NA&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11_na)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11_na)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
+soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- c(mortas, cumsum(sort(arv11_na)))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada com valores perdidos
+soma_acumulada &amp;lt;- c(mortas, cumsum(sort(arv11_na)))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1]  NA  NA 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.35&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 38.88889&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora eu vou dar aquele passo mágico dos livros de matemática e física, em que o autor diz “é fácil notar que o resultado leva a …” e apresentar uma função que lida com as questões que mostramos acima e retorna o PV50 do nosso conjunto de dados de forma correta.&lt;/p&gt;
@@ -158,7 +260,8 @@ str(b1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pv50(b1) # Ok!&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 38.88889&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente ao &lt;a href=&#34;http://www.projetotume.com/tume134&#34;&gt;TUME 134&lt;/a&gt; plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/oOMB69&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# importa o arquivo tume_55.csv
+dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/oOMB69&amp;quot;)
 
 glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Observations: 1,222
@@ -171,7 +274,9 @@ glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
 ## $ H_m     &amp;lt;dbl&amp;gt; 7.651490, 11.424046, 5.909205, 8.572873, 10.498957, 7....
 ## $ Vol     &amp;lt;dbl&amp;gt; 0.008798406, 0.067375427, 0.003673747, 0.013918399, 0....&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Iremos calcular o PV50 e o volume por hectare para cada fator &lt;code&gt;Esp&lt;/code&gt; e &lt;code&gt;I_meses&lt;/code&gt; e em seguida ordenar as espécies pelo PV50.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_pv50 &amp;lt;- dados %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
+dados_pv50 &amp;lt;- dados %&amp;gt;% 
   group_by(Esp, I_meses) %&amp;gt;% 
   summarise(
     Parc_m2 = mean( Parc_m2),
@@ -179,6 +284,7 @@ glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
     Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
   ) %&amp;gt;%
   ungroup() %&amp;gt;% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
   mutate(Esp = fct_reorder(Esp, -PV50))
 
 dados_pv50&lt;/code&gt;&lt;/pre&gt;
@@ -347,7 +453,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   theme_bw() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Variabilidade do volume por hectare de cada tratamento.
 &lt;/p&gt;
@@ -419,7 +525,7 @@ tukey&lt;/code&gt;&lt;/pre&gt;
     labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
     theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-Tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
 &lt;/p&gt;
@@ -883,7 +989,6 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;Vamos trabalhar com os dados do &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;Projeto TUME&lt;/a&gt;, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de &lt;em&gt;Eucalyptus&lt;/em&gt; no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.&lt;/p&gt;
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
@@ -892,8 +997,6 @@ p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.
-
-
 dados &amp;lt;- dados %&amp;gt;% 
   mutate(
     Esp = reorder(Esp, Hdom, function(x) max(x)),
@@ -1467,7 +1570,6 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
 &lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
 &lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
@@ -1506,32 +1608,9 @@ Figura  2: Modificação do banco de dados original para ser importado no R. Div
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o download da arquivo base_vespa1.xlxs para a memória temporária
-
-GET(&amp;quot;https://goo.gl/uasbWk&amp;quot;, write_disk(base_vespa1 &amp;lt;- tempfile(fileext = &amp;quot;.xlsx&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Response [https://raw.githubusercontent.com/italocegatta/dados_blog/master/base_vespa1.xlsx]
-##   Date: 2017-01-14 16:26
-##   Status: 200
-##   Content-Type: application/octet-stream
-##   Size: 20.7 kB
-## &amp;lt;ON DISK&amp;gt;  C:\Users\Italo\AppData\Local\Temp\RtmpQRl5eC\file1df8361a5a0c.xlsx&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma lista para receber os tabelas que serão importadas
-
-dados1 &amp;lt;- list() 
-
-
-# Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
-# armazena dentro da lista
-
-dados1$c1 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta1&amp;quot;)
-dados1$c2 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta2&amp;quot;)
-dados1$c3 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta3&amp;quot;)
-dados1$c4 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta4&amp;quot;)
-dados1$c5 &amp;lt;- read_excel(base_vespa1, &amp;quot;Coleta5&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
 # o precesso em todas as abas. 
-
 dados1 &amp;lt;- list()
 
 for(i in 1:5) {
@@ -1547,7 +1626,6 @@ dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
 # denominada ´Local´.
-
 dados1 &amp;lt;- gather(
   dados1, &amp;quot;Local&amp;quot;,
   &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
@@ -1583,7 +1661,6 @@ Figura  3: Modificação do banco de dados original para ser importado no R. Alt
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
 # Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
 # ´Coleta´ e ´Local´.
-
 dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
   gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
   separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
@@ -1605,7 +1682,6 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-&lt;p&gt;Os arquivos utilizados nesse post pode ser baixados nesses links: &lt;a href=&#34;https://goo.gl/Av1fHP&#34;&gt;base_vespa1&lt;/a&gt; e &lt;a href=&#34;https://goo.gl/2AOmhx&#34;&gt;base_vespa2&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;

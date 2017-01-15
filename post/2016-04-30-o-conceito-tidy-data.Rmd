@@ -11,7 +11,7 @@ bibliography: ["bib/biblio.bib"]
 link-citations: true
 thumbnailImage: http://i.imgur.com/kZcMzcp.png
 coverImage: http://i.imgur.com/0TxarVh.png
-coverCaption: "http://r4ds.had.co.nz"
+coverCaption: "Imagem: (Grolemund and Wickham 2016)"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out
@@ -22,8 +22,6 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
 A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
-
-<!-- more -->
 
 Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto [@cegatta_eficiencia_2013]. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.
 
@@ -69,20 +67,16 @@ knitr::include_graphics("http://i.imgur.com/3AsFpmQ.png")
 
 Como são apenas 4 abas, podemos importá-las usando um comando por linha.
 
-```{r, nclude=FALSE}
+```{r, include=FALSE}
 # Faz o download da arquivo base_vespa1.xlxs para a memória temporária
-
 GET("https://goo.gl/uasbWk", write_disk(base_vespa1 <- tempfile(fileext = ".xlsx")))
 
-
 # Cria uma lista para receber os tabelas que serão importadas
-
 dados1 <- list() 
 
 
 # Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
 # armazena dentro da lista
-
 dados1$c1 <- read_excel(base_vespa1, "Coleta1")
 dados1$c2 <- read_excel(base_vespa1, "Coleta2")
 dados1$c3 <- read_excel(base_vespa1, "Coleta3")
@@ -95,7 +89,6 @@ Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e 
 ```{r}
 # Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
 # o precesso em todas as abas. 
-
 dados1 <- list()
 
 for(i in 1:5) {
@@ -119,7 +112,6 @@ Como minhas análises vão considerar o local da galha como o variável, devo or
 ```{r}
 # Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
 # denominada ´Local´.
-
 dados1 <- gather(
   dados1, "Local",
   "Galhas", c(Peciolo, Nervura, Caule)
@@ -141,7 +133,6 @@ Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas
 
 ```{r, include=FALSE}
 # Faz o download da arquivo base_vespa2.xlxs para a memória temporária
-
 GET("https://goo.gl/Rmgn5B", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx")))
 ```
 
@@ -149,7 +140,6 @@ GET("https://goo.gl/Rmgn5B", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx
 # Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
 # Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
 # ´Coleta´ e ´Local´.
-
 dados2 <- read_excel(base_vespa2) %>%
   gather("Local", "Galhas", 3:dim(.)[2]) %>%
   separate(Local, c("Coleta", "Local"))
@@ -160,8 +150,6 @@ dados2
 Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
-
-Os arquivos utilizados nesse post pode ser baixados nesses links: [base_vespa1](https://goo.gl/Av1fHP) e [base_vespa2](https://goo.gl/2AOmhx)
 
 # Referências
 

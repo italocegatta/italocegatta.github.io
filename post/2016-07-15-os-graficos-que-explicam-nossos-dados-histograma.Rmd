@@ -11,7 +11,7 @@ categories:
   - Gráficos
 thumbnailImage: http://i.imgur.com/K3yIExe.png
 coverImage: http://i.imgur.com/uZgwJc6.png
-coverCaption: "Antü Plasma Suite"
+coverCaption: "Imagem: Antü Plasma Suite"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out

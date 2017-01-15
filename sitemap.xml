@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/download-automatico-de-imagens-modis/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/indice-de-uniformidade-pv50/</loc>
     <lastmod>2016-10-09T00:00:00+00:00</lastmod>
   </url>
@@ -92,7 +97,7 @@
   
   <url>
     <loc>/tags/dplyr/</loc>
-    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -110,7 +115,7 @@
   
   <url>
     <loc>/tags/ggplot2/</loc>
-    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -133,8 +138,20 @@
   </url>
   
   <url>
+    <loc>/tags/httr/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/modelos/</loc>
     <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/modis/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -146,7 +163,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -170,13 +187,25 @@
   
   <url>
     <loc>/tags/readr/</loc>
-    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/readxl/</loc>
     <lastmod>2016-07-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rvest/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/stringr/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -198,20 +227,20 @@
   </url>
   
   <url>
-    <loc>/tags/tidyverse/</loc>
-    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/viridis/</loc>
     <lastmod>2016-07-09T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>/tags/xml2/</loc>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

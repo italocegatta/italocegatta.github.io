@@ -19,14 +19,15 @@
 /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
-&lt;!-- more --&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]&lt;/span&gt; Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).&lt;/p&gt;
 &lt;p&gt;Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(tidyverse, forcats)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# carrega os pacotes necessários
+library(pacman)
+p_load(readr, dplyr, ggplot2, forcats)
 
+# exemplo com número par
 arv10 &amp;lt;- rep(0.1, 10)
 str(arv10)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:10] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1&lt;/code&gt;&lt;/pre&gt;
@@ -39,7 +40,7 @@ metade&lt;/code&gt;&lt;/pre&gt;
 soma_todas &amp;lt;- sum(arv10, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade das árvores
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma o valor de metade das árvores em ordem crescente
 soma_metade &amp;lt;- sum(sort(arv10)[1:metade], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.5&lt;/code&gt;&lt;/pre&gt;
@@ -48,69 +49,88 @@ PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arv11 &amp;lt;- rep(0.1, 11)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# exemplo com número impar
+arv11 &amp;lt;- rep(0.1, 11)
 str(arv11)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:11] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
 soma_todas &amp;lt;- sum(arv11, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 1.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma o valor de metade das árvores em ordem crescente
+soma_metade &amp;lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 45.45455&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- cumsum(sort(arv11))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada
+soma_acumulada &amp;lt;- cumsum(sort(arv11))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.55&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo &lt;code&gt;NA&lt;/code&gt; no R. Veja que o resultado não está consistente pois a &lt;code&gt;soma_acumulada&lt;/code&gt; ignorou as árvores mortas.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;arv11_na &amp;lt;- rep(0.1, 11)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# exemplo com valores perdidos
+arv11_na &amp;lt;- rep(0.1, 11)
 arv11_na[c(3,4)] &amp;lt;- NA
 str(arv11_na)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  num [1:11] 0.1 0.1 NA NA 0.1 0.1 0.1 0.1 0.1 0.1 ...&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11_na)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11_na)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
+soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- cumsum(sort(arv11_na))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada
+soma_acumulada &amp;lt;- cumsum(sort(arv11_na))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.55&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 61.11111&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mortas &amp;lt;- arv11_na[is.na(arv11_na)]
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de valores perdidos
+mortas &amp;lt;- arv11_na[is.na(arv11_na)]
 mortas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] NA NA&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;metade &amp;lt;- length(arv11_na)/2
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# metade do numero de árvores
+metade &amp;lt;- length(arv11_na)/2
 metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.5&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma todas as árvores
+soma_todas &amp;lt;- sum(arv11_na, na.rm = TRUE)
 soma_todas&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_acumulada &amp;lt;- c(mortas, cumsum(sort(arv11_na)))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# vetor de soma acumulada com valores perdidos
+soma_acumulada &amp;lt;- c(mortas, cumsum(sort(arv11_na)))
 soma_acumulada&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1]  NA  NA 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# soma a metade do vetor de soma acumulada
+soma_metade &amp;lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
 soma_metade&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.35&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PV50 &amp;lt;- soma_metade / soma_todas * 100
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# calcula o PV50
+PV50 &amp;lt;- soma_metade / soma_todas * 100
 PV50&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 38.88889&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora eu vou dar aquele passo mágico dos livros de matemática e física, em que o autor diz “é fácil notar que o resultado leva a …” e apresentar uma função que lida com as questões que mostramos acima e retorna o PV50 do nosso conjunto de dados de forma correta.&lt;/p&gt;
@@ -157,7 +177,8 @@ str(b1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pv50(b1) # Ok!&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 38.88889&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente ao &lt;a href=&#34;http://www.projetotume.com/tume134&#34;&gt;TUME 134&lt;/a&gt; plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/oOMB69&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# importa o arquivo tume_55.csv
+dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/oOMB69&amp;quot;)
 
 glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Observations: 1,222
@@ -170,7 +191,9 @@ glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
 ## $ H_m     &amp;lt;dbl&amp;gt; 7.651490, 11.424046, 5.909205, 8.572873, 10.498957, 7....
 ## $ Vol     &amp;lt;dbl&amp;gt; 0.008798406, 0.067375427, 0.003673747, 0.013918399, 0....&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Iremos calcular o PV50 e o volume por hectare para cada fator &lt;code&gt;Esp&lt;/code&gt; e &lt;code&gt;I_meses&lt;/code&gt; e em seguida ordenar as espécies pelo PV50.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_pv50 &amp;lt;- dados %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
+dados_pv50 &amp;lt;- dados %&amp;gt;% 
   group_by(Esp, I_meses) %&amp;gt;% 
   summarise(
     Parc_m2 = mean( Parc_m2),
@@ -178,6 +201,7 @@ glimpse(dados)&lt;/code&gt;&lt;/pre&gt;
     Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
   ) %&amp;gt;%
   ungroup() %&amp;gt;% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
   mutate(Esp = fct_reorder(Esp, -PV50))
 
 dados_pv50&lt;/code&gt;&lt;/pre&gt;
