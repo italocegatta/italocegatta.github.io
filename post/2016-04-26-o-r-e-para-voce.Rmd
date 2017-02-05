@@ -1,6 +1,7 @@
 ---
 title: O R é para você
 date: 2016-04-26
+author: Ítalo Cegatta
 categories:
   - R
   - Data Science

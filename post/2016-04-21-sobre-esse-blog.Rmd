@@ -1,6 +1,7 @@
 ---
 title: Sobre esse blog
 date: 2016-04-21
+author: Ítalo Cegatta
 categories:
   - R
 thumbnailImage: http://i.imgur.com/ezw3fwm.png

@@ -215,7 +215,28 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (boxplot)
+date: 2016-05-06
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/1BbJSMj.png
+coverImage: http://i.imgur.com/qdrAptA.png
+coverCaption: &#34;Imagem: https://www.leansigmacorporation.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -388,7 +409,27 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: O conceito tidy data
+date: 2016-04-30
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+categories:
+  - Data Science
+bibliography: [&#34;bib/biblio.bib&#34;]
+link-citations: true
+thumbnailImage: http://i.imgur.com/kZcMzcp.png
+coverImage: http://i.imgur.com/0TxarVh.png
+coverCaption: &#34;Imagem: (Grolemund and Wickham 2016)&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 

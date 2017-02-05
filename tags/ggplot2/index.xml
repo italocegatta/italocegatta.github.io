@@ -797,7 +797,27 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-histograma/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (histograma)
+date: 2016-07-15
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/K3yIExe.png
+coverImage: http://i.imgur.com/uZgwJc6.png
+coverCaption: &#34;Imagem: Antü Plasma Suite&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -901,7 +921,28 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (heatmap)
+date: 2016-07-09
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+  - viridis
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/6ukFJh0.png
+coverImage: http://i.imgur.com/jur9Sh3.png
+coverCaption: &#34;Imagem: http://graphics.wsj.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1022,7 +1063,27 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
       <pubDate>Sat, 14 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-barras/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (barras)
+date: 2016-05-14
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/xlBBvE4.png
+coverImage: http://i.imgur.com/aXLil3u.png
+coverCaption: &#34;Imagem: https://corpuslinguisticmethods.wordpress.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1309,7 +1370,28 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (boxplot)
+date: 2016-05-06
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/1BbJSMj.png
+coverImage: http://i.imgur.com/qdrAptA.png
+coverCaption: &#34;Imagem: https://www.leansigmacorporation.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 

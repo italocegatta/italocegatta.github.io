@@ -14,7 +14,28 @@
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (heatmap)
+date: 2016-07-09
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+  - viridis
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/6ukFJh0.png
+coverImage: http://i.imgur.com/jur9Sh3.png
+coverCaption: &#34;Imagem: http://graphics.wsj.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 

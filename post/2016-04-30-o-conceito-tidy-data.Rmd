@@ -1,6 +1,7 @@
 ---
 title: O conceito tidy data
 date: 2016-04-30
+author: Ítalo Cegatta
 tags:
   - readxl
   - dplyr

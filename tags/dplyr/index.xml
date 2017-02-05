@@ -38,8 +38,8 @@ scene_days &amp;lt;- page_root %&amp;gt;%
   str_replace_all(&amp;quot;\\/&amp;quot;, &amp;quot;&amp;quot;)
 
 glimpse(scene_days)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  chr [1:388] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bem, temos até a data da ultima atualização deste post 388 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##  chr [1:390] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Muito bem, temos até a data da ultima atualização deste post 390 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -879,7 +879,27 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-histograma/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (histograma)
+date: 2016-07-15
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/K3yIExe.png
+coverImage: http://i.imgur.com/uZgwJc6.png
+coverCaption: &#34;Imagem: Antü Plasma Suite&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -983,7 +1003,28 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (heatmap)
+date: 2016-07-09
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+  - viridis
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/6ukFJh0.png
+coverImage: http://i.imgur.com/jur9Sh3.png
+coverCaption: &#34;Imagem: http://graphics.wsj.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1104,7 +1145,27 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
       <pubDate>Sat, 14 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-barras/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (barras)
+date: 2016-05-14
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/xlBBvE4.png
+coverImage: http://i.imgur.com/aXLil3u.png
+coverCaption: &#34;Imagem: https://corpuslinguisticmethods.wordpress.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1391,7 +1452,28 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: Os gráficos que explicam nossos dados (boxplot)
+date: 2016-05-06
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Data Science
+  - Gráficos
+thumbnailImage: http://i.imgur.com/1BbJSMj.png
+coverImage: http://i.imgur.com/qdrAptA.png
+coverCaption: &#34;Imagem: https://www.leansigmacorporation.com&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1564,7 +1646,27 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>---
+title: O conceito tidy data
+date: 2016-04-30
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+categories:
+  - Data Science
+bibliography: [&#34;bib/biblio.bib&#34;]
+link-citations: true
+thumbnailImage: http://i.imgur.com/kZcMzcp.png
+coverImage: http://i.imgur.com/0TxarVh.png
+coverCaption: &#34;Imagem: (Grolemund and Wickham 2016)&#34;
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+
+&lt;!-- BLOGDOWN-BODY-BEFORE
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 

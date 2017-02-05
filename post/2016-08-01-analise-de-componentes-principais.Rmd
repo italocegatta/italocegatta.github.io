@@ -1,6 +1,7 @@
 ---
 title: Análise de componentes principais
 date: 2016-08-01
+author: Ítalo Cegatta
 tags:
   - readr
   - dplyr

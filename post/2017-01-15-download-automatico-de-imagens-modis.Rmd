@@ -1,6 +1,7 @@
 ---
 title: "Download automático de imagens MODIS"
 date: 2017-01-15
+author: Ítalo Cegatta
 tags:
   - dplyr
   - xml2

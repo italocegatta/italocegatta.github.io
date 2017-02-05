@@ -1,6 +1,7 @@
 ---
 title: Ajuste de um modelo linear para vários fatores
 date: 2016-08-27
+author: Ítalo Cegatta
 tags:
   - readr
   - dplyr

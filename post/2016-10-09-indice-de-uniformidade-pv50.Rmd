@@ -1,6 +1,7 @@
 ---
 title: Índice de uniformidade (PV50)
 date: 2016-10-09
+author: Ítalo Cegatta
 tags:
   - readr
   - dplyr

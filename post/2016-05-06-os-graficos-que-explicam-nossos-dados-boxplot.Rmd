@@ -1,6 +1,7 @@
 ---
 title: Os gráficos que explicam nossos dados (boxplot)
 date: 2016-05-06
+author: Ítalo Cegatta
 tags:
   - readxl
   - dplyr
