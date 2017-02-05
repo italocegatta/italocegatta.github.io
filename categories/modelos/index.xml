@@ -18,7 +18,7 @@
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
-&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
 &lt;!-- more --&gt;&lt;/p&gt;
 &lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
 &lt;blockquote&gt;

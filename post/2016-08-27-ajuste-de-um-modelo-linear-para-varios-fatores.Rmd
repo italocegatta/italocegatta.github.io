@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.   
+Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.   
 <!-- more -->
 
 Mas felizmente existe uma máxima muito interessante entre programadores que é:

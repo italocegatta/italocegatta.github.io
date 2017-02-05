@@ -555,7 +555,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 
 /BLOGDOWN-BODY-BEFORE --&gt;
 
-&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da qunatidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
 &lt;!-- more --&gt;&lt;/p&gt;
 &lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1876,11 +1876,11 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       <guid>/sobre/</guid>
       <description>
 
-&lt;p&gt;Estou no 5º ano do curso de Eng. Florestal na Universidade de São (&lt;a href=&#34;http://www4.esalq.usp.br/&#34;&gt;ESALQ/USP&lt;/a&gt;), em Piracicaba. Realizo meu estágio profissionalizante na Suzano Papel e Celulose em Itapetininga-SP&lt;/p&gt;
-
-&lt;p&gt;Na graduação, fui estagiário do Instituto de Pesquisas e Estudos Florestais (&lt;a href=&#34;https://www.ipef.br/&#34;&gt;IPEF&lt;/a&gt;), atuando na área de biometria florestal do Programa Cooperativo &lt;a href=&#34;http://www.ipef.br/techs/&#34;&gt;TECHS&lt;/a&gt;. Participei ativamente no Grupo Florestal Monte Olimpo (&lt;a href=&#34;http://gfmoesalq.wix.com/gfmo&#34;&gt;GFMO&lt;/a&gt;) e no Projeto &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;TUME&lt;/a&gt; enquanto estive na ESALQ. Também fui bolsista por 3 anos no Programa Cargill Global Scholars (&lt;a href=&#34;https://www.cargillglobalscholars.com/&#34;&gt;CGS&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Sou engenheiro florestal formado pela Universidade de São (&lt;a href=&#34;http://www4.esalq.usp.br/&#34;&gt;ESALQ/USP&lt;/a&gt;). Trabalho com modelagem ecofisiológica na &lt;a href=&#34;http://www.suzano.com.br/&#34;&gt;Suzano Papel e Celuose&lt;/a&gt;, em Itapetininga, SP. Grande parte das minhas atividades estão relacionadas à métodos computacionais aplicados à pesquisa florestal.&lt;/p&gt;
 
 &lt;p&gt;Durante a graduação tive a sorte de me engajar em diversos projetos de pesquisa e em um deles conheci o &lt;a href=&#34;https://cran.r-project.org/&#34;&gt;Software R&lt;/a&gt;. Desde então, venho adquirindo experiência no desenvolvimento de rotinas para problemas relacionados às ciências florestais.&lt;/p&gt;
+
+&lt;p&gt;Na graduação, fui estagiário do Instituto de Pesquisas e Estudos Florestais (&lt;a href=&#34;https://www.ipef.br/&#34;&gt;IPEF&lt;/a&gt;), atuando na área de biometria florestal do Programa Cooperativo &lt;a href=&#34;http://www.ipef.br/techs/&#34;&gt;TECHS&lt;/a&gt;. Participei ativamente no Grupo Florestal Monte Olimpo (&lt;a href=&#34;http://gfmoesalq.wix.com/gfmo&#34;&gt;GFMO&lt;/a&gt;) e no Projeto &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;TUME&lt;/a&gt; enquanto estive na ESALQ. Também fui bolsista por 3 anos no Programa Cargill Global Scholars (&lt;a href=&#34;https://www.cargillglobalscholars.com/&#34;&gt;CGS&lt;/a&gt;. Como trabalho de conclusão de curso, desenvolvi um pacote em R para o cálculo de índices de competição de árvores individuais chamado &lt;a href=&#34;https://github.com/italocegatta/comp3&#34;&gt;comp3&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;atividades-acadêmicas-e-profissionais&#34;&gt;Atividades acadêmicas e profissionais&lt;/h3&gt;
 
