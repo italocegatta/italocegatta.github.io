@@ -14,18 +14,14 @@
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>/indice-de-uniformidade-pv50/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]&lt;/span&gt; Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).&lt;/p&gt;
 &lt;p&gt;Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# carrega os pacotes necessários
-library(pacman)
-p_load(readr, dplyr, ggplot2, forcats)
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, forcats)
 
 # exemplo com número par
 arv10 &amp;lt;- rep(0.1, 10)
@@ -241,7 +237,7 @@ dados_pv50&lt;/code&gt;&lt;/pre&gt;
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Crescimento em volume por hectare em função da idade.
 &lt;/p&gt;
@@ -256,7 +252,7 @@ Figura  1: Crescimento em volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Variação do PV50 por espécies em função da idade.
 &lt;/p&gt;
@@ -271,7 +267,7 @@ Figura  2: Variação do PV50 por espécies em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-vol&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 &lt;/p&gt;
@@ -290,7 +286,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 &lt;/p&gt;
@@ -307,28 +303,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-
-&lt;!-- dynamically load mathjax for compatibility with self-contained --&gt;
-&lt;script&gt;
-  (function () {
-    var script = document.createElement(&#34;script&#34;);
-    script.type = &#34;text/javascript&#34;;
-    script.src  = &#34;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;;
-    if (location.protocol !== &#34;file:&#34; &amp;&amp; /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, &#39;&#39;);
-    document.getElementsByTagName(&#34;head&#34;)[0].appendChild(script);
-  })();
-&lt;/script&gt;
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

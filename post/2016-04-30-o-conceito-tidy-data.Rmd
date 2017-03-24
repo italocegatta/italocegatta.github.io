@@ -53,8 +53,8 @@ O conceito tidy data está muito bem descrito por @wickham_tidy_2014, onde ele a
 Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.
 
 ```{r pacotes}
-library(pacman)
-p_load(readxl, dplyr, tidyr, httr)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readxl, dplyr, tidyr, httr)
 ```
 
 # Método 1

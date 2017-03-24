@@ -14,18 +14,14 @@
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>/indice-de-uniformidade-pv50/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]&lt;/span&gt; Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).&lt;/p&gt;
 &lt;p&gt;Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# carrega os pacotes necessários
-library(pacman)
-p_load(readr, dplyr, ggplot2, forcats)
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, forcats)
 
 # exemplo com número par
 arv10 &amp;lt;- rep(0.1, 10)
@@ -241,7 +237,7 @@ dados_pv50&lt;/code&gt;&lt;/pre&gt;
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Crescimento em volume por hectare em função da idade.
 &lt;/p&gt;
@@ -256,7 +252,7 @@ Figura  1: Crescimento em volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Variação do PV50 por espécies em função da idade.
 &lt;/p&gt;
@@ -271,7 +267,7 @@ Figura  2: Variação do PV50 por espécies em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-vol&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 &lt;/p&gt;
@@ -290,7 +286,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 &lt;/p&gt;
@@ -307,28 +303,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-
-&lt;!-- dynamically load mathjax for compatibility with self-contained --&gt;
-&lt;script&gt;
-  (function () {
-    var script = document.createElement(&#34;script&#34;);
-    script.type = &#34;text/javascript&#34;;
-    script.src  = &#34;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;;
-    if (location.protocol !== &#34;file:&#34; &amp;&amp; /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, &#39;&#39;);
-    document.getElementsByTagName(&#34;head&#34;)[0].appendChild(script);
-  })();
-&lt;/script&gt;
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -338,16 +312,12 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>/anova-e-teste-de-tukey/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
+      <description>&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
 &lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/b37dVN&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -370,7 +340,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   theme_bw() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Variabilidade do volume por hectare de cada tratamento.
 &lt;/p&gt;
@@ -442,23 +412,12 @@ tukey&lt;/code&gt;&lt;/pre&gt;
     labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
     theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -468,11 +427,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+      <description>&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
 &lt;!-- more --&gt;&lt;/p&gt;
 &lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -481,8 +436,8 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 &lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
 &lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
 &lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/e8aWm0&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -506,7 +461,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   geom_smooth(method=&amp;quot;lm&amp;quot;) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
 &lt;/p&gt;
@@ -518,7 +473,7 @@ Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
   facet_wrap(~Esp) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Relação entre o diâmetro e a altura por espécie.
 &lt;/p&gt;
@@ -649,17 +604,6 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
 ## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -669,15 +613,11 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Mon, 01 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>/analise-de-componentes-principais/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggrepel)
-p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggrepel)
+pacman::p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/OfumGV&amp;quot;)
 
 print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
@@ -752,7 +692,7 @@ summary(pca); loadings(pca)&lt;/code&gt;&lt;/pre&gt;
   lims(x = c(-2,2), y = c(-2,2)) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png&#34; alt=&#34;Representação gráfica dos componentes principais.&#34; width=&#34;3200&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png&#34; alt=&#34;Representação gráfica dos componentes principais.&#34; width=&#34;3200&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Representação gráfica dos componentes principais.
 &lt;/p&gt;
@@ -771,23 +711,12 @@ Figura  1: Representação gráfica dos componentes principais.
   theme_bw()+
   theme(legend.position = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca-koppen&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png&#34; alt=&#34;Representação gráfica dos componentes principais com classificação Koppen.&#34; width=&#34;3200&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png&#34; alt=&#34;Representação gráfica dos componentes principais com classificação Koppen.&#34; width=&#34;3200&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Representação gráfica dos componentes principais com classificação Koppen.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -797,33 +726,9 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-histograma/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (histograma)
-date: 2016-07-15
-tags:
-  - readxl
-  - dplyr
-  - ggplot2
-  - ggthemes
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/K3yIExe.png
-coverImage: http://i.imgur.com/uZgwJc6.png
-coverCaption: &#34;Imagem: Antü Plasma Suite&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
+      <description>&lt;p&gt;Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/ezA3hH&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -848,7 +753,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   scale_x_continuous(breaks = seq(0, 100,10)) +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-dap&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Histograma com a frequência absoluta por classes de diâmetro.
 &lt;/p&gt;
@@ -862,7 +767,7 @@ Figura  1: Histograma com a frequência absoluta por classes de diâmetro.
   theme(legend.position = c(.9, .9)) +
   scale_fill_hue(&amp;quot;Comercial?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-dap-comerc&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-comerc-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-comerc-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.
 &lt;/p&gt;
@@ -877,7 +782,7 @@ Figura  2: Histograma com a frequência absoluta por classes de diâmetro e sepa
   theme(legend.position = c(.9, .9)) +
   scale_fill_hue(&amp;quot;Pode explorar?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-vol-exp&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
 &lt;/p&gt;
@@ -895,23 +800,12 @@ Figura  3: Histograma com a frequência absoluta por classes de volume individua
   theme(legend.position = c(.9, .9)) +
   scale_fill_hue(&amp;quot;Pode explorar?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-vol-exp-rel&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-rel-1.png&#34; alt=&#34;Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-rel-1.png&#34; alt=&#34;Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -921,36 +815,11 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (heatmap)
-date: 2016-07-09
-tags:
-  - readxl
-  - dplyr
-  - ggplot2
-  - ggthemes
-  - viridis
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/6ukFJh0.png
-coverImage: http://i.imgur.com/jur9Sh3.png
-coverCaption: &#34;Imagem: http://graphics.wsj.com&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
+      <description>&lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
 &lt;p&gt;Vamos trabalhar com os dados do &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;Projeto TUME&lt;/a&gt;, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de &lt;em&gt;Eucalyptus&lt;/em&gt; no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.&lt;/p&gt;
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/6Me1u8&amp;quot;)
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
@@ -987,7 +856,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   ) +
   guides(col = guide_legend(ncol = 1, reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-linhas&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png&#34; alt=&#34;Aumento da altura dominante utilizando gráficos de linhas.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png&#34; alt=&#34;Aumento da altura dominante utilizando gráficos de linhas.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
 &lt;/p&gt;
@@ -1001,7 +870,7 @@ Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
   scale_fill_viridis(name = &amp;quot;Altura dominante (m)&amp;quot;, direction = -1) +
   guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-cont&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor contínua.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor contínua.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor contínua.
 &lt;/p&gt;
@@ -1018,7 +887,7 @@ Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor cont
  ) +
  guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor discreta.
 &lt;/p&gt;
@@ -1036,24 +905,13 @@ Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor disc
  ) +
  guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr-label&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -1063,36 +921,12 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
       <pubDate>Sat, 14 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-barras/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (barras)
-date: 2016-05-14
-tags:
-  - readxl
-  - dplyr
-  - ggplot2
-  - ggthemes
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/xlBBvE4.png
-coverImage: http://i.imgur.com/aXLil3u.png
-coverCaption: &#34;Imagem: https://corpuslinguisticmethods.wordpress.com&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;boxplot&lt;/a&gt; e agora vamos ao gráfico de barras.&lt;/p&gt;
+      <description>&lt;p&gt;Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;boxplot&lt;/a&gt; e agora vamos ao gráfico de barras.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.&lt;/p&gt;
 &lt;p&gt;Continuaremos com o banco de dados apresentado no post sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/lPfEKX&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -1138,7 +972,7 @@ total_trat&lt;/code&gt;&lt;/pre&gt;
   geom_bar(stat = &amp;quot;identity&amp;quot;) +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-1.png&#34; alt=&#34;Número total de galhas de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-1.png&#34; alt=&#34;Número total de galhas de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Número total de galhas de cada tratamento.
 &lt;/p&gt;
@@ -1171,7 +1005,7 @@ total_trat_local&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.
 &lt;/p&gt;
@@ -1182,7 +1016,7 @@ Figura  2: Número total de galhas de cada tratamento em diferentes locais - ní
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.
 &lt;/p&gt;
@@ -1194,7 +1028,7 @@ Figura  3: Número total de galhas de cada tratamento em diferentes locais - ní
   theme_few() +
   theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Número total de galhas de cada tratamento em diferentes locais - níveis em painel.
 &lt;/p&gt;
@@ -1210,7 +1044,7 @@ Figura  4: Número total de galhas de cada tratamento em diferentes locais - ní
   geom_text(aes(label = Galhas), size = 6, vjust = -0.2) +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico-annot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com o valor na respectiva barra.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com o valor na respectiva barra.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  5: Número total de galhas de cada tratamento com o valor na respectiva barra.
 &lt;/p&gt;
@@ -1230,7 +1064,7 @@ ggplot(total_trat_local_y, aes(Tratamento, Galhas, fill = Local)) +
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-annot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  6: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.
 &lt;/p&gt;
@@ -1243,7 +1077,7 @@ Figura  6: Número total de galhas de cada tratamento em diferentes locais com o
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge-annot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  7: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.
 &lt;/p&gt;
@@ -1255,7 +1089,7 @@ Figura  7: Número total de galhas de cada tratamento em diferentes locais com o
   theme_few() +
   theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet-annot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  8: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.
 &lt;/p&gt;
@@ -1291,7 +1125,7 @@ media_trat_desv&lt;/code&gt;&lt;/pre&gt;
      ymax = Galhas + desv), width = 0.4) +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico-desv&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com barra de desvio.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com barra de desvio.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  9: Número total de galhas de cada tratamento com barra de desvio.
 &lt;/p&gt;
@@ -1330,7 +1164,7 @@ mediana_trat_local_desv&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge-desv&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  10: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.
 &lt;/p&gt;
@@ -1343,24 +1177,13 @@ Figura  10: Número total de galhas de cada tratamento em diferentes locais com 
   theme_few() +
   theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet-desv&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  11: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
 &lt;/div&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -1370,32 +1193,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (boxplot)
-date: 2016-05-06
-tags:
-  - readxl
-  - dplyr
-  - tidyr
-  - ggplot2
-  - ggthemes
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/1BbJSMj.png
-coverImage: http://i.imgur.com/qdrAptA.png
-coverCaption: &#34;Imagem: https://www.leansigmacorporation.com&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?&lt;/p&gt;
+      <description>&lt;p&gt;Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse &lt;a href=&#34;https://italocegatta.github.io/sobre-esse-blog.html&#34;&gt;blog&lt;/a&gt;, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.&lt;/p&gt;
 &lt;p&gt;Para iniciar, escolhi o gráfico boxplot. É um gráfico muito útil para entender a variabilidade das nossas observações. No boxplot temos 5 informações básicas: valor mínimo, primeiro quartil, mediana, terceiro quartil e valor máximo. Há ainda a notificação de &lt;em&gt;outliers&lt;/em&gt;, quando a observação é maior ou menor que 1,5 vezes a distância interquartílica.&lt;/p&gt;
@@ -1453,7 +1251,7 @@ total&lt;/code&gt;&lt;/pre&gt;
   geom_boxplot() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-total&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
 &lt;/p&gt;
@@ -1463,7 +1261,7 @@ Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
   geom_boxplot() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-trat&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Boxplot que mostra o nº de galhas em função de cada tratamento.
 &lt;/p&gt;
@@ -1501,7 +1299,7 @@ local&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-local&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Boxplot que mostra o nº de galhas por local e tratamento.
 &lt;/p&gt;
@@ -1537,24 +1335,13 @@ total_coleta&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-coleta&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.png&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.png&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;É importante destacar que o gráfico da Figura &lt;a href=&#34;#fig:4-boxplot-coleta&#34;&gt;4&lt;/a&gt; não é adequado para esse tipo de informação. Nesse caso seria mais interessante um gráfico de linhas em que cada linha representa um tratamento (veremos esse gráfico em um futuro post).&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

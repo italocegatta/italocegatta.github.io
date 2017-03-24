@@ -27,8 +27,8 @@ As cenas do MODIS ficam disponíveis em um [ftp](https://e4ftl01.cr.usgs.gov/) e
 Nosso objetivo para este poste é fazer o download das cenas de forma automática, um web scraping. No R há diversos pacotes que nos auxiliam neste processo. A primeira etapa é acessar o ftp que contém as cenas e extrair as datas das cenas disponíveis.
 
 ```{r}
-library(pacman)
-p_load(dplyr, xml2, rvest, httr, stringr, methods)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, xml2, rvest, httr, stringr, methods)
 ```
 
 ```{r}

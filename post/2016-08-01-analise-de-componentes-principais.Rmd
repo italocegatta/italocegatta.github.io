@@ -30,9 +30,9 @@ Quando temos dados multivariados, a análise de componentes principais (PCA) é 
 No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.
 
 ```{r}
-library(pacman)
-p_load(readr, dplyr, ggplot2, ggrepel)
-p_load_gh("vqv/ggbiplot")
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, ggrepel)
+pacman::p_load_gh("vqv/ggbiplot")
 ```
 
 ```{r, message=FALSE}

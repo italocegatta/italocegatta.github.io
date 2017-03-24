@@ -14,18 +14,14 @@
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>/indice-de-uniformidade-pv50/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]&lt;/span&gt; Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).&lt;/p&gt;
 &lt;p&gt;Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# carrega os pacotes necessários
-library(pacman)
-p_load(readr, dplyr, ggplot2, forcats)
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, forcats)
 
 # exemplo com número par
 arv10 &amp;lt;- rep(0.1, 10)
@@ -241,7 +237,7 @@ dados_pv50&lt;/code&gt;&lt;/pre&gt;
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Crescimento em volume por hectare em função da idade.
 &lt;/p&gt;
@@ -256,7 +252,7 @@ Figura  1: Crescimento em volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Variação do PV50 por espécies em função da idade.
 &lt;/p&gt;
@@ -271,7 +267,7 @@ Figura  2: Variação do PV50 por espécies em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-vol&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 &lt;/p&gt;
@@ -290,7 +286,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 &lt;/p&gt;
@@ -307,28 +303,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-
-&lt;!-- dynamically load mathjax for compatibility with self-contained --&gt;
-&lt;script&gt;
-  (function () {
-    var script = document.createElement(&#34;script&#34;);
-    script.type = &#34;text/javascript&#34;;
-    script.src  = &#34;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;;
-    if (location.protocol !== &#34;file:&#34; &amp;&amp; /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, &#39;&#39;);
-    document.getElementsByTagName(&#34;head&#34;)[0].appendChild(script);
-  })();
-&lt;/script&gt;
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -338,16 +312,12 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>/anova-e-teste-de-tukey/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
+      <description>&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
 &lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/b37dVN&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -370,7 +340,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   theme_bw() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.png&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Variabilidade do volume por hectare de cada tratamento.
 &lt;/p&gt;
@@ -442,23 +412,12 @@ tukey&lt;/code&gt;&lt;/pre&gt;
     labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
     theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.png&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -468,11 +427,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+      <description>&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
 &lt;!-- more --&gt;&lt;/p&gt;
 &lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -481,8 +436,8 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 &lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
 &lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
 &lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/e8aWm0&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -506,7 +461,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   geom_smooth(method=&amp;quot;lm&amp;quot;) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
 &lt;/p&gt;
@@ -518,7 +473,7 @@ Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
   facet_wrap(~Esp) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Relação entre o diâmetro e a altura por espécie.
 &lt;/p&gt;
@@ -649,17 +604,6 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
 ## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -669,15 +613,11 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Mon, 01 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>/analise-de-componentes-principais/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggrepel)
-p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggrepel)
+pacman::p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/OfumGV&amp;quot;)
 
 print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
@@ -752,7 +692,7 @@ summary(pca); loadings(pca)&lt;/code&gt;&lt;/pre&gt;
   lims(x = c(-2,2), y = c(-2,2)) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png&#34; alt=&#34;Representação gráfica dos componentes principais.&#34; width=&#34;3200&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png&#34; alt=&#34;Representação gráfica dos componentes principais.&#34; width=&#34;3200&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Representação gráfica dos componentes principais.
 &lt;/p&gt;
@@ -771,23 +711,12 @@ Figura  1: Representação gráfica dos componentes principais.
   theme_bw()+
   theme(legend.position = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:8-pca-koppen&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png&#34; alt=&#34;Representação gráfica dos componentes principais com classificação Koppen.&#34; width=&#34;3200&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png&#34; alt=&#34;Representação gráfica dos componentes principais com classificação Koppen.&#34; width=&#34;3200&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Representação gráfica dos componentes principais com classificação Koppen.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

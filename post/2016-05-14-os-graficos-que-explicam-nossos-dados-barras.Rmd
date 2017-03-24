@@ -8,7 +8,6 @@ tags:
   - ggplot2
   - ggthemes
 categories:
-  - Data Science
   - Gráficos
 thumbnailImage: http://i.imgur.com/xlBBvE4.png
 coverImage: http://i.imgur.com/aXLil3u.png
@@ -34,8 +33,8 @@ Gráficos de barras são muito úteis para podermos comparar fatores. Quando est
 Continuaremos com o banco de dados apresentado no post sobre [tidy data](https://italocegatta.github.io/o-conceito-tidy-data.html).
 
 ```{r pacotes}
-library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)
 ```
 
 ```{r dados, message=FALSE}

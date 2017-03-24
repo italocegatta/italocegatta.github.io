@@ -14,36 +14,11 @@
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (heatmap)
-date: 2016-07-09
-tags:
-  - readxl
-  - dplyr
-  - ggplot2
-  - ggthemes
-  - viridis
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/6ukFJh0.png
-coverImage: http://i.imgur.com/jur9Sh3.png
-coverCaption: &#34;Imagem: http://graphics.wsj.com&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
+      <description>&lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
 &lt;p&gt;Vamos trabalhar com os dados do &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;Projeto TUME&lt;/a&gt;, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de &lt;em&gt;Eucalyptus&lt;/em&gt; no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.&lt;/p&gt;
 &lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/6Me1u8&amp;quot;)
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
@@ -80,7 +55,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   ) +
   guides(col = guide_legend(ncol = 1, reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-linhas&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png&#34; alt=&#34;Aumento da altura dominante utilizando gráficos de linhas.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png&#34; alt=&#34;Aumento da altura dominante utilizando gráficos de linhas.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
 &lt;/p&gt;
@@ -94,7 +69,7 @@ Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
   scale_fill_viridis(name = &amp;quot;Altura dominante (m)&amp;quot;, direction = -1) +
   guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-cont&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor contínua.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor contínua.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor contínua.
 &lt;/p&gt;
@@ -111,7 +86,7 @@ Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor cont
  ) +
  guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor discreta.
 &lt;/p&gt;
@@ -129,24 +104,13 @@ Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor disc
  ) +
  guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr-label&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

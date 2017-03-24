@@ -14,16 +14,18 @@
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>/download-automatico-de-imagens-modis/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
 
-/BLOGDOWN-BODY-BEFORE --&gt;
-
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 &lt;p&gt;O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.&lt;/p&gt;
 &lt;p&gt;O MODOIS tem diversos &lt;a href=&#34;https://modis.gsfc.nasa.gov/data/&#34;&gt;produtos&lt;/a&gt;, mas neste post vamos tratar especificamente do produto &lt;a href=&#34;https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006&#34;&gt;MOD13Q1&lt;/a&gt;, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m. Bom, se você está acostumado com imagens de satélite/drone/vant com resolução submétrica, pode ser que no primeiro momento esta escala te assuste. Mas vale lembrar que é um serviço gratuito e e de ótima qualidade.&lt;/p&gt;
 &lt;p&gt;As cenas do MODIS ficam disponíveis em um &lt;a href=&#34;https://e4ftl01.cr.usgs.gov/&#34;&gt;ftp&lt;/a&gt; e navegando por lá podemos chegar na pasta do produto que nos &lt;a href=&#34;http://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.006&#34;&gt;interessa&lt;/a&gt;. Temos então imagens de satélite processadas, com correção atmosférica, sem deslocamento espacial e com regularidade. O satélite varre a terra a cada dois dias e as melhores visadas são utilizadas para compor o produto que é disponibilizado a cada 16 dias. Há casos (de baixa frequência) em que a nebulosidade é tanta que não é possível compor a informação do pixel dentro desta janela&lt;/p&gt;
 &lt;p&gt;Nosso objetivo para este poste é fazer o download das cenas de forma automática, um web scraping. No R há diversos pacotes que nos auxiliam neste processo. A primeira etapa é acessar o ftp que contém as cenas e extrair as datas das cenas disponíveis.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(dplyr, xml2, rvest, httr, stringr, methods)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: pacman&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pacman::p_load(dplyr, xml2, rvest, httr, stringr, methods)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# url do ftp que contém as cenas
 path_root &amp;lt;- &amp;quot;http://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.006&amp;quot;
 
@@ -38,8 +40,8 @@ scene_days &amp;lt;- page_root %&amp;gt;%
   str_replace_all(&amp;quot;\\/&amp;quot;, &amp;quot;&amp;quot;)
 
 glimpse(scene_days)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  chr [1:390] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bem, temos até a data da ultima atualização deste post 390 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##  chr [1:393] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Muito bem, temos até a data da ultima atualização deste post 393 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -76,17 +78,6 @@ for (i in seq_along(scene_days)) {
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Como tudo que está neste blog, este script foi escrito para resolver um problema específico e com certeza tem muito espaço para melhoria. Os próximos passos da análise, extração dos rasters e processamento da imagem serão abordados em posts separados. No futuro, caso exista uma demanda, pode ser que as funções sejam reunidas em um pacote específico sobre isso.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

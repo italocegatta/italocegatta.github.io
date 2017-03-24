@@ -40,8 +40,8 @@ Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é
 Utilizaremos mais uma vez os dados do [Projeto TUME](www.projetotume.com), referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.
 
 ```{r}
-library(pacman)
-p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)
 ```
 
 ```{r, message=FALSE}

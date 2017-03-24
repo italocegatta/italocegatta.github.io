@@ -14,10 +14,11 @@
       <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-r-e-para-voce/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
 
-/BLOGDOWN-BODY-BEFORE --&gt;
-
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 &lt;p&gt;Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?&lt;/p&gt;
@@ -116,17 +117,6 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -136,10 +126,11 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       <pubDate>Thu, 21 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/sobre-esse-blog/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
 
-/BLOGDOWN-BODY-BEFORE --&gt;
-
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 &lt;p&gt;Algumas situações me motivaram a criar esse site e alimentá-lo como um blog. Provavelmente os motivos para que eu o continue atualizando vão mudar e na medida que isso acontecer, atualizarei esse post.&lt;/p&gt;
 &lt;p&gt;Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais.Para um florestal essa não é uma tarefa fácil, pois meu curso não tem relação com tecnologia da informações ou computação&lt;/p&gt;
 &lt;p&gt;Tiva ideia de criar o blog numa terça-feira, na quarta ele já estava online. As principais motivações foram:&lt;/p&gt;
@@ -151,17 +142,6 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 &lt;li&gt;&lt;p&gt;E por último, mas não menos importante, espero que os posts possam ajudar as pessoas a resolverem problemas parecidos. Durante todo o tempo em que trabalho com o R (e tantos outros assuntos do dia a dia) preciso recorrer a fóruns e blogs para conseguir avançar. Nesse sentido, tentar ajudar os outros que estão com problemas semelhantes aos que eu tive no passado é o mínimo que posso fazer em respeito à todos aqueles que, anonimamente, me ajudaram.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Um forte abraço a todos e vamos aos posts sobre o R, Floresta e Data Science.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     

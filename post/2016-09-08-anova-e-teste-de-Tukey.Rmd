@@ -35,8 +35,8 @@ Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se
 Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura \@ref(fig:10-boxplot)). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o [post sobre ele](https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot).
 
 ```{r}
-library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)
 ```
 
 ```{r, message=FALSE}

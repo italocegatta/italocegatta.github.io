@@ -39,8 +39,8 @@ Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores
 
 ```{r, message=FALSE}
 # carrega os pacotes necessários
-library(pacman)
-p_load(readr, dplyr, ggplot2, forcats)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, forcats)
 
 # exemplo com número par
 arv10 <- rep(0.1, 10)

@@ -9,7 +9,6 @@ tags:
   - ggplot2
   - ggthemes
 categories:
-  - Data Science
   - Gráficos
 thumbnailImage: http://i.imgur.com/1BbJSMj.png
 coverImage: http://i.imgur.com/qdrAptA.png

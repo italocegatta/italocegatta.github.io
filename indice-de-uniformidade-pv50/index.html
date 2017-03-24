@@ -8,6 +8,9 @@
   
 
 
+
+
+
   
 
 <!DOCTYPE html>
@@ -16,12 +19,12 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.18.1">
+    <meta name="generator" content="Hugo 0.19">
     <title>Índice de uniformidade (PV50)</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
 
-    <link rel="icon" href="../favicon.png">
+    <link rel="icon" href="/favicon.png">
     
 
     
@@ -63,19 +66,13 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
     
     
-    <link rel="stylesheet" href="../css/style-gwlo24d2hxipxk8bi1sxik0zhlpn9t7ebcmgp9kubmmcjfzlavuyhvbqumhn.min.css" />
+    <link rel="stylesheet" href="/css/style-gwlo24d2hxipxk8bi1sxik0zhlpn9t7ebcmgp9kubmmcjfzlavuyhvbqumhn.min.css" />
     
     
     
       
     
     
-
-
-
-
-
-
   </head>
 
   <body>
@@ -83,12 +80,12 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
       <header id="header" data-behavior="5">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="../">Ítalo Cegatta</a>
+    <a class="header-title-link" href="/">Ítalo Cegatta</a>
   </div>
   
     
       <a class="header-right-picture "
-         href="../#about">
+         href="/#about">
     
     
     
@@ -104,7 +101,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
-        <a href="../#about">
+        <a href="/#about">
           <img class="sidebar-profile-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
         </a>
         <h4 class="sidebar-profile-name">Ítalo Cegatta</h4>
@@ -117,7 +114,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../">
+      <a class="sidebar-button-link " href="/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -127,7 +124,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../categories">
+      <a class="sidebar-button-link " href="/categories">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
@@ -137,7 +134,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../sobre">
+      <a class="sidebar-button-link " href="/sobre">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
       
@@ -183,7 +180,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../index.xml">
+      <a class="sidebar-button-link " href="/index.xml">
     
       <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
       
@@ -221,8 +218,9 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
     </h1>
   
   <div class="postShorten-meta post-meta">
-  <time itemprop="datePublished" datetime="2016-10-09T00:00:00Z">
-    
+  
+    <time itemprop="datePublished" datetime="2016-10-09T00:00:00Z">
+      
   
   
   
@@ -230,13 +228,14 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
     9 Outubro 2016
   
 
-  </time>
+    </time>
+  
   
   
   
     <span>em</span>
     
-      <a class="category-link" href="../categories/pv50">PV50</a>
+      <a class="category-link" href="/categories/pv50">PV50</a>
     
   
 
@@ -247,16 +246,14 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-
-
-<p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
+              <p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
 <p>O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</p>
 <p>O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas <span class="citation">(Hakamada et al. <a href="#ref-Hakamada2015">2015</a>)</span>. A expressão do índice é dada da seguinte forma:</p>
 <p><span class="math display">\[ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} \]</span> Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).</p>
 <p>Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.</p>
 <pre class="r"><code># carrega os pacotes necessários
-library(pacman)
-p_load(readr, dplyr, ggplot2, forcats)
+if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
+pacman::p_load(readr, dplyr, ggplot2, forcats)
 
 # exemplo com número par
 arv10 &lt;- rep(0.1, 10)
@@ -472,7 +469,7 @@ dados_pv50</code></pre>
   theme_bw(base_size = 16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-vol-idade"></span>
-<img src="figures/12-vol-idade-1.png" alt="Crescimento em volume por hectare em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png" alt="Crescimento em volume por hectare em função da idade." width="4000" />
 <p class="caption">
 Figura  1: Crescimento em volume por hectare em função da idade.
 </p>
@@ -487,7 +484,7 @@ Figura  1: Crescimento em volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-pv50-idade"></span>
-<img src="figures/12-pv50-idade-1.png" alt="Variação do PV50 por espécies em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png" alt="Variação do PV50 por espécies em função da idade." width="4000" />
 <p class="caption">
 Figura  2: Variação do PV50 por espécies em função da idade.
 </p>
@@ -502,7 +499,7 @@ Figura  2: Variação do PV50 por espécies em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-pv50-vol"></span>
-<img src="figures/12-pv50-vol-1.png" alt="Relação entre o PV50 e volume por hectare em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png" alt="Relação entre o PV50 e volume por hectare em função da idade." width="4000" />
 <p class="caption">
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 </p>
@@ -521,7 +518,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
   theme_bw(base_size = 16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-vol-pv50-idade"></span>
-<img src="figures/12-vol-pv50-idade-1.png" alt="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png" alt="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto." width="4000" />
 <p class="caption">
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 </p>
@@ -538,20 +535,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 </div>
 </div>
 </div>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-
 
               
             </div>
@@ -582,7 +565,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="../download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -590,7 +573,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="../anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
           
             <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
             <i class="fa fa-angle-right"></i>
@@ -623,6 +606,12 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       </li>
     
     
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
     <li class="post-action">
       
         <a class="post-action-btn btn btn--default" href="#">
@@ -635,6 +624,10 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 
 
             
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
               
             
           </div>
@@ -653,7 +646,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="../download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -661,7 +654,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="../anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
           
             <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
             <i class="fa fa-angle-right"></i>
@@ -694,6 +687,12 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       </li>
     
     
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
     <li class="post-action">
       
         <a class="post-action-btn btn btn--default" href="#">
@@ -710,17 +709,17 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
   <ul class="share-options">
     <li class="share-option">
       <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2findice-de-uniformidade-pv50%2f">
-        <i class="fa fa-google-plus"></i><span>Partilhar no Google Plus</span>
+        <i class="fa fa-google-plus"></i><span>Compartilhar no Google Plus</span>
       </a>
     </li>
     <li class="share-option">
       <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2findice-de-uniformidade-pv50%2f">
-        <i class="fa fa-facebook-official"></i><span>Partilhar no Facebook</span>
+        <i class="fa fa-facebook-official"></i><span>Compartilhar no Facebook</span>
       </a>
     </li>
     <li class="share-option">
       <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2findice-de-uniformidade-pv50%2f">
-        <i class="fa fa-twitter"></i><span>Partilhar no Twitter</span>
+        <i class="fa fa-twitter"></i><span>Compartilhar no Twitter</span>
       </a>
     </li>
   </ul>
@@ -744,7 +743,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
       <div id="about-card-job">
         <i class="fa fa-briefcase"></i>
         <br/>
-        Eng. Florestal
+        Suzano Papel e celulose
       </div>
     
     
@@ -779,7 +778,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../download-automatico-de-imagens-modis/">
+              <a class="link-unstyled" href="/download-automatico-de-imagens-modis/">
                 <h3 class="media-heading">Download automático de imagens MODIS</h3>
               </a>
               <span class="media-meta">
@@ -797,7 +796,7 @@ O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do p
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../indice-de-uniformidade-pv50/">
+              <a class="link-unstyled" href="/indice-de-uniformidade-pv50/">
                 <h3 class="media-heading">Índice de uniformidade (PV50)</h3>
               </a>
               <span class="media-meta">
@@ -815,7 +814,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../anova-e-teste-de-tukey/">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
                 <h3 class="media-heading">ANOVA e teste de Tukey</h3>
               </a>
               <span class="media-meta">
@@ -833,7 +832,7 @@ Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../ajuste-de-um-modelo-linear-para-varios-fatores/">
+              <a class="link-unstyled" href="/ajuste-de-um-modelo-linear-para-varios-fatores/">
                 <h3 class="media-heading">Ajuste de um modelo linear para vários fatores</h3>
               </a>
               <span class="media-meta">
@@ -851,7 +850,7 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../analise-de-componentes-principais/">
+              <a class="link-unstyled" href="/analise-de-componentes-principais/">
                 <h3 class="media-heading">Análise de componentes principais</h3>
               </a>
               <span class="media-meta">
@@ -869,7 +868,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-histograma/">
+              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-histograma/">
                 <h3 class="media-heading">Os gráficos que explicam nossos dados (histograma)</h3>
               </a>
               <span class="media-meta">
@@ -877,25 +876,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
                   Jul 7, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">---
-title: Os gráficos que explicam nossos dados (histograma)
-date: 2016-07-15
-tags:
-- readxl
-- dplyr
-- ggplot2
-- ggthemes
-categories:
-- Data Science
-- Gráficos
-thumbnailImage: http://i.imgur.com/K3yIExe.png
-coverImage: http://i.imgur.com/uZgwJc6.png
-coverCaption: "Imagem: Antü Plasma Suite"
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada.</div>
+              <div class="media-content hide-xs font-merryweather">Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -904,7 +885,7 @@ Histogramas são usados para mostrar a frequência com que uma variável ocorre.
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-heatmap/">
+              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-heatmap/">
                 <h3 class="media-heading">Os gráficos que explicam nossos dados (heatmap)</h3>
               </a>
               <span class="media-meta">
@@ -912,26 +893,7 @@ Histogramas são usados para mostrar a frequência com que uma variável ocorre.
                   Jul 7, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">---
-title: Os gráficos que explicam nossos dados (heatmap)
-date: 2016-07-09
-tags:
-- readxl
-- dplyr
-- ggplot2
-- ggthemes
-- viridis
-categories:
-- Data Science
-- Gráficos
-thumbnailImage: http://i.imgur.com/6ukFJh0.png
-coverImage: http://i.imgur.com/jur9Sh3.png
-coverCaption: "Imagem: http://graphics.wsj.com"
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y.</div>
+              <div class="media-content hide-xs font-merryweather">O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -940,7 +902,7 @@ O heatmap é um gráfico muito útil para identificar padrões, principalmente q
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-barras/">
+              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-barras/">
                 <h3 class="media-heading">Os gráficos que explicam nossos dados (barras)</h3>
               </a>
               <span class="media-meta">
@@ -948,26 +910,8 @@ O heatmap é um gráfico muito útil para identificar padrões, principalmente q
                   May 5, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">---
-title: Os gráficos que explicam nossos dados (barras)
-date: 2016-05-14
-tags:
-- readxl
-- dplyr
-- ggplot2
-- ggthemes
-categories:
-- Data Science
-- Gráficos
-thumbnailImage: http://i.imgur.com/xlBBvE4.png
-coverImage: http://i.imgur.com/aXLil3u.png
-coverCaption: "Imagem: https://corpuslinguisticmethods.wordpress.com"
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
-Gráficos de barras são muito úteis para podermos comparar fatores.</div>
+              <div class="media-content hide-xs font-merryweather">Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -976,7 +920,7 @@ Gráficos de barras são muito úteis para podermos comparar fatores.</div>
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../os-graficos-que-explicam-nossos-dados-boxplot/">
+              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-boxplot/">
                 <h3 class="media-heading">Os gráficos que explicam nossos dados (boxplot)</h3>
               </a>
               <span class="media-meta">
@@ -984,26 +928,8 @@ Gráficos de barras são muito úteis para podermos comparar fatores.</div>
                   May 5, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">---
-title: Os gráficos que explicam nossos dados (boxplot)
-date: 2016-05-06
-tags:
-- readxl
-- dplyr
-- tidyr
-- ggplot2
-- ggthemes
-categories:
-- Data Science
-- Gráficos
-thumbnailImage: http://i.imgur.com/1BbJSMj.png
-coverImage: http://i.imgur.com/qdrAptA.png
-coverCaption: "Imagem: https://www.leansigmacorporation.com"
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos.</div>
+              <div class="media-content hide-xs font-merryweather">Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?
+Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse blog, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1012,7 +938,7 @@ Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. N�
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../o-conceito-tidy-data/">
+              <a class="link-unstyled" href="/o-conceito-tidy-data/">
                 <h3 class="media-heading">O conceito tidy data</h3>
               </a>
               <span class="media-meta">
@@ -1020,26 +946,8 @@ Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. N�
                   Apr 4, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">---
-title: O conceito tidy data
-date: 2016-04-30
-tags:
-- readxl
-- dplyr
-- tidyr
-categories:
-- Data Science
-bibliography: ["bib/biblio.bib"]
-link-citations: true
-thumbnailImage: http://i.imgur.com/kZcMzcp.png
-coverImage: http://i.imgur.com/0TxarVh.png
-coverCaption: "Imagem: (Grolemund and Wickham 2016)"
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
-Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013).</div>
+              <div class="media-content hide-xs font-merryweather">A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1052,7 +960,7 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         12 posts found
+         13 posts found
       </p>
     </div>
   </div>
@@ -1071,7 +979,7 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
 <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
 
 
-<script src="../js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+<script src="/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -1093,6 +1001,28 @@ $(document).ready(function() {
 </script>
 
   
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/indice-de-uniformidade-pv50\/';
+          
+            this.page.identifier = '\/indice-de-uniformidade-pv50\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
     
   
 

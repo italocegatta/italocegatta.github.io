@@ -9,7 +9,6 @@ tags:
   - ggthemes
   - viridis
 categories:
-  - Data Science
   - Gráficos
 thumbnailImage: http://i.imgur.com/6ukFJh0.png
 coverImage: http://i.imgur.com/jur9Sh3.png
@@ -33,8 +32,8 @@ Vamos trabalhar com os dados do [Projeto TUME](http://www.projetotume.com/), esp
 Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna `Esp` informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.
 
 ```{r pacotes}
-library(pacman)
-p_load(readr, dplyr, ggplot2, ggthemes, viridis)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)
 ```
 
 ```{r dados, message=FALSE}

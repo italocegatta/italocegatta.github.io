@@ -14,11 +14,7 @@
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
-      <description>&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+      <description>&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
 &lt;!-- more --&gt;&lt;/p&gt;
 &lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -27,8 +23,8 @@
 &lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
 &lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
 &lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/e8aWm0&amp;quot;)
 
 dados&lt;/code&gt;&lt;/pre&gt;
@@ -52,7 +48,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   geom_smooth(method=&amp;quot;lm&amp;quot;) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura sem destinção de espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
 &lt;/p&gt;
@@ -64,7 +60,7 @@ Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
   facet_wrap(~Esp) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Relação entre o diâmetro e a altura por espécie.
 &lt;/p&gt;
@@ -195,17 +191,6 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
 ## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -215,32 +200,7 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
-      <description>---
-title: Os gráficos que explicam nossos dados (boxplot)
-date: 2016-05-06
-tags:
-  - readxl
-  - dplyr
-  - tidyr
-  - ggplot2
-  - ggthemes
-categories:
-  - Data Science
-  - Gráficos
-thumbnailImage: http://i.imgur.com/1BbJSMj.png
-coverImage: http://i.imgur.com/qdrAptA.png
-coverCaption: &#34;Imagem: https://www.leansigmacorporation.com&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
-
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
-&lt;p&gt;Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?&lt;/p&gt;
+      <description>&lt;p&gt;Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse &lt;a href=&#34;https://italocegatta.github.io/sobre-esse-blog.html&#34;&gt;blog&lt;/a&gt;, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.&lt;/p&gt;
 &lt;p&gt;Para iniciar, escolhi o gráfico boxplot. É um gráfico muito útil para entender a variabilidade das nossas observações. No boxplot temos 5 informações básicas: valor mínimo, primeiro quartil, mediana, terceiro quartil e valor máximo. Há ainda a notificação de &lt;em&gt;outliers&lt;/em&gt;, quando a observação é maior ou menor que 1,5 vezes a distância interquartílica.&lt;/p&gt;
@@ -298,7 +258,7 @@ total&lt;/code&gt;&lt;/pre&gt;
   geom_boxplot() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-total&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
 &lt;/p&gt;
@@ -308,7 +268,7 @@ Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
   geom_boxplot() +
   theme_few()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-trat&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Boxplot que mostra o nº de galhas em função de cada tratamento.
 &lt;/p&gt;
@@ -346,7 +306,7 @@ local&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-local&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.png&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Boxplot que mostra o nº de galhas por local e tratamento.
 &lt;/p&gt;
@@ -382,24 +342,13 @@ total_coleta&lt;/code&gt;&lt;/pre&gt;
   theme_few() +
   theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-coleta&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####../content/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.png&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas.&#34; width=&#34;4000&#34; /&gt;
+&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.png&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas.&#34; width=&#34;4000&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;É importante destacar que o gráfico da Figura &lt;a href=&#34;#fig:4-boxplot-coleta&#34;&gt;4&lt;/a&gt; não é adequado para esse tipo de informação. Nesse caso seria mais interessante um gráfico de linhas em que cada linha representa um tratamento (veremos esse gráfico em um futuro post).&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
@@ -409,30 +358,11 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
-      <description>---
-title: O conceito tidy data
-date: 2016-04-30
-tags:
-  - readxl
-  - dplyr
-  - tidyr
-categories:
-  - Data Science
-bibliography: [&#34;bib/biblio.bib&#34;]
-link-citations: true
-thumbnailImage: http://i.imgur.com/kZcMzcp.png
-coverImage: http://i.imgur.com/0TxarVh.png
-coverCaption: &#34;Imagem: (Grolemund and Wickham 2016)&#34;
-thumbnailImagePosition: top
-metaAlignment: center
-coverMeta: out
----
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
 
-
-&lt;!-- BLOGDOWN-BODY-BEFORE
-
-/BLOGDOWN-BODY-BEFORE --&gt;
-
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 &lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
 &lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
 &lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
@@ -459,8 +389,8 @@ Figura  1: Dados brutos. Como não organizar seu banco de dados.
 &lt;li&gt;Os valores atribuídos às variáveis em cada observação formam a tabela.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(pacman)
-p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;metodo-1&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Método 1&lt;/h1&gt;
 &lt;p&gt;Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura &lt;a href=&#34;#fig:fig-entrada1&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
@@ -561,17 +491,6 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-
-
-
-&lt;!-- BLOGDOWN-HEAD
-
-
-
-
-
-
-/BLOGDOWN-HEAD --&gt;
 </description>
     </item>
     
