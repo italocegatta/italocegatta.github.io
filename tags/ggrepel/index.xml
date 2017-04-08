@@ -19,7 +19,9 @@
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
 pacman::p_load(readr, dplyr, ggplot2, ggrepel)
 pacman::p_load_gh(&amp;quot;vqv/ggbiplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(&amp;quot;https://goo.gl/OfumGV&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_clima.csv&amp;quot;
+)
 
 print(dados, n=31)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 31 × 6
@@ -118,6 +120,54 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.3.3 (2017-03-06)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-04-08                  
+## 
+##  package      * version date       source                           
+##  assertthat     0.1     2013-12-06 CRAN (R 3.3.2)                   
+##  backports      1.0.5   2017-01-18 CRAN (R 3.3.2)                   
+##  blogdown       0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
+##  bookdown       0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
+##  colorspace     1.3-2   2016-12-14 CRAN (R 3.3.2)                   
+##  curl           2.3     2016-11-24 CRAN (R 3.3.2)                   
+##  DBI            0.5-1   2016-09-10 CRAN (R 3.3.2)                   
+##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.3)                   
+##  digest         0.6.12  2017-01-27 CRAN (R 3.3.2)                   
+##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
+##  evaluate       0.10    2016-10-11 CRAN (R 3.3.3)                   
+##  ggbiplot     * 0.55    2017-03-24 Github (vqv/ggbiplot@7325e88)    
+##  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
+##  ggrepel      * 0.6.5   2016-11-24 CRAN (R 3.3.3)                   
+##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.2)                   
+##  highr          0.6     2016-05-09 CRAN (R 3.3.3)                   
+##  htmltools      0.3.5   2016-03-21 CRAN (R 3.3.3)                   
+##  knitr          1.15.1  2016-11-22 CRAN (R 3.3.3)                   
+##  labeling       0.3     2014-08-23 CRAN (R 3.3.2)                   
+##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.2)                   
+##  magrittr       1.5     2014-11-22 CRAN (R 3.3.2)                   
+##  memoise        1.0.0   2016-01-29 CRAN (R 3.3.3)                   
+##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.2)                   
+##  pacman       * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
+##  plyr         * 1.8.4   2016-06-08 CRAN (R 3.3.2)                   
+##  R6             2.2.0   2016-10-05 CRAN (R 3.3.2)                   
+##  RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.3.2)                   
+##  Rcpp           0.12.9  2017-01-14 CRAN (R 3.3.2)                   
+##  readr        * 1.0.0   2016-08-03 CRAN (R 3.3.2)                   
+##  rmarkdown      1.3     2016-12-21 CRAN (R 3.3.3)                   
+##  rprojroot      1.2     2017-01-16 CRAN (R 3.3.3)                   
+##  scales       * 0.4.1   2016-11-09 CRAN (R 3.3.2)                   
+##  stringi        1.1.2   2016-10-01 CRAN (R 3.3.2)                   
+##  stringr        1.2.0   2017-02-18 CRAN (R 3.3.2)                   
+##  tibble         1.2     2016-08-26 CRAN (R 3.3.2)                   
+##  withr          1.0.2   2016-06-20 CRAN (R 3.3.3)                   
+##  yaml           2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

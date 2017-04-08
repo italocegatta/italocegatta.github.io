@@ -53,6 +53,7 @@ O conceito tidy data está muito bem descrito por @wickham_tidy_2014, onde ele a
 Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.
 
 ```{r pacotes}
+# Pacotes utilizados neste post
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(readxl, dplyr, tidyr, httr)
 ```
@@ -70,11 +71,13 @@ Como são apenas 4 abas, podemos importá-las usando um comando por linha.
 
 ```{r, include=FALSE}
 # Faz o download da arquivo base_vespa1.xlxs para a memória temporária
-GET("https://goo.gl/uasbWk", write_disk(base_vespa1 <- tempfile(fileext = ".xlsx")))
+GET(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa1.xlsx", 
+  write_disk(base_vespa1 <- tempfile(fileext = ".xlsx"))
+)
 
 # Cria uma lista para receber os tabelas que serão importadas
 dados1 <- list() 
-
 
 # Importa as tabelas que estão dentro das abas indicadas de 1 a 5 e
 # armazena dentro da lista
@@ -134,7 +137,10 @@ Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas
 
 ```{r, include=FALSE}
 # Faz o download da arquivo base_vespa2.xlxs para a memória temporária
-GET("https://goo.gl/Rmgn5B", write_disk(base_vespa2 <- tempfile(fileext = ".xlsx")))
+GET(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa2.xlsx",
+  write_disk(base_vespa2 <- tempfile(fileext = ".xlsx"))
+)
 ```
 
 ```{r}
@@ -152,5 +158,8 @@ Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e 
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
 
-# Referências
+```{r}
+devtools::session_info()
+```
 
+# Referências

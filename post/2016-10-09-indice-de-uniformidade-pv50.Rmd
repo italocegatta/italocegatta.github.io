@@ -214,7 +214,9 @@ Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conj
 
 ```{r, message=FALSE, warning=FALSE}
 # importa o arquivo tume_55.csv
-dados <- read_csv2("https://goo.gl/oOMB69")
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume_55.csv"
+)
 
 glimpse(dados)
 ```
@@ -299,6 +301,10 @@ ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
 
 # Referências
 

@@ -90,3 +90,8 @@ for (i in seq_along(scene_days)) {
 Como tudo que está neste blog, este script foi escrito para resolver um problema específico e com certeza tem muito espaço para melhoria. Os próximos passos da análise, extração dos rasters e processamento da imagem serão abordados em posts separados. No futuro, caso exista uma demanda, pode ser que as funções sejam reunidas em um pacote específico sobre isso.
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

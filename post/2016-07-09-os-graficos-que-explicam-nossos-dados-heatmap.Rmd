@@ -37,7 +37,9 @@ pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)
 ```
 
 ```{r dados, message=FALSE}
-dados <- read_csv2("https://goo.gl/6Me1u8")
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume0.csv"
+)
 
 # Cria um fator com o atributo para a variável Esp que informa a ordem crescente
 # das espécies em função da altura dominante.
@@ -110,3 +112,8 @@ ggplot(dados, aes(factor(Idade),
 Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

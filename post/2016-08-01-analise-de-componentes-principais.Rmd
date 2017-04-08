@@ -36,7 +36,9 @@ pacman::p_load_gh("vqv/ggbiplot")
 ```
 
 ```{r, message=FALSE}
-dados <- read_csv2("https://goo.gl/OfumGV")
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_clima.csv"
+)
 
 print(dados, n=31)
 ```
@@ -86,3 +88,8 @@ ggbiplot(pca) +
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

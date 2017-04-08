@@ -38,7 +38,9 @@ pacman::p_load(readr, dplyr, ggplot2, ggthemes)
 ```
 
 ```{r dados, message=FALSE}
-dados <- read_csv2("https://goo.gl/lPfEKX")
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa.csv"
+)
 
 dados
 ```
@@ -220,3 +222,8 @@ ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas )) +
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

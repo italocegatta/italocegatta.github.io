@@ -40,7 +40,9 @@ pacman::p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)
 ```
 
 ```{r, message=FALSE}
-dados <- read_csv2("https://goo.gl/b37dVN")
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_progenie.csv"
+)
 
 dados
 ```
@@ -102,3 +104,8 @@ tukey$groups %>%
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

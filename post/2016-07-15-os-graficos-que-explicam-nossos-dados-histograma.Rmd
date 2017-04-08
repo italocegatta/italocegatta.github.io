@@ -11,6 +11,7 @@ categories:
   - Gráficos
 thumbnailImage: http://i.imgur.com/K3yIExe.png
 coverImage: http://i.imgur.com/uZgwJc6.png
+coverCaption: "Imagem: Fabián Alexis"
 thumbnailImagePosition: top
 metaAlignment: center
 coverMeta: out
@@ -31,7 +32,9 @@ pacman::p_load(readr, dplyr, ggplot2, ggthemes)
 ```
 
 ```{r dados, message=FALSE}
-dados <- read_csv2("https://goo.gl/ezA3hH")
+dados <- read_csv2(
+  "https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_amazonia.csv"
+)
 
 dados
 ```
@@ -88,3 +91,8 @@ ggplot(dados, aes(Volume, fill = DAP > 50 & Comercial == "Sim")) +
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

@@ -277,7 +277,8 @@ Figura  1: Dados brutos. Como não organizar seu banco de dados.
 <li>Os valores atribuídos às variáveis em cada observação formam a tabela.</li>
 </ul>
 <p>Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.</p>
-<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
+<pre class="r"><code># Pacotes utilizados neste post
+if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
 pacman::p_load(readxl, dplyr, tidyr, httr)</code></pre>
 <div id="metodo-1" class="section level1">
 <h1>Método 1</h1>
@@ -364,6 +365,46 @@ dados2</code></pre>
 ## # ... with 2,090 more rows</code></pre>
 <p>Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+<pre class="r"><code>devtools::session_info()</code></pre>
+<pre><code>##  setting  value                       
+##  version  R version 3.3.3 (2017-03-06)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-04-08                  
+## 
+##  package    * version date       source                           
+##  assertthat   0.1     2013-12-06 CRAN (R 3.3.2)                   
+##  backports    1.0.5   2017-01-18 CRAN (R 3.3.2)                   
+##  blogdown     0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
+##  bookdown     0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
+##  curl         2.3     2016-11-24 CRAN (R 3.3.2)                   
+##  DBI          0.5-1   2016-09-10 CRAN (R 3.3.2)                   
+##  devtools     1.12.0  2016-06-24 CRAN (R 3.3.3)                   
+##  digest       0.6.12  2017-01-27 CRAN (R 3.3.2)                   
+##  dplyr      * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
+##  evaluate     0.10    2016-10-11 CRAN (R 3.3.3)                   
+##  highr        0.6     2016-05-09 CRAN (R 3.3.3)                   
+##  htmltools    0.3.5   2016-03-21 CRAN (R 3.3.3)                   
+##  httr       * 1.2.1   2016-07-03 CRAN (R 3.3.2)                   
+##  knitr        1.15.1  2016-11-22 CRAN (R 3.3.3)                   
+##  lazyeval     0.2.0   2016-06-12 CRAN (R 3.3.2)                   
+##  magrittr     1.5     2014-11-22 CRAN (R 3.3.2)                   
+##  memoise      1.0.0   2016-01-29 CRAN (R 3.3.3)                   
+##  pacman     * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
+##  R6           2.2.0   2016-10-05 CRAN (R 3.3.2)                   
+##  Rcpp         0.12.9  2017-01-14 CRAN (R 3.3.2)                   
+##  readxl     * 0.1.1   2016-03-28 CRAN (R 3.3.2)                   
+##  rmarkdown    1.3     2016-12-21 CRAN (R 3.3.3)                   
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.3.3)                   
+##  stringi      1.1.2   2016-10-01 CRAN (R 3.3.2)                   
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.3.2)                   
+##  tibble       1.2     2016-08-26 CRAN (R 3.3.2)                   
+##  tidyr      * 0.6.1   2017-01-10 CRAN (R 3.3.2)                   
+##  withr        1.0.2   2016-06-20 CRAN (R 3.3.3)                   
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.3.3)</code></pre>
 </div>
 <div id="referencias" class="section level1 unnumbered">
 <h1>Referências</h1>
