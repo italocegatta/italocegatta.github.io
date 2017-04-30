@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-É comum quando temos um determinado distribuido espacialmente e queremos o valor estimado para um ponto específico. Existem inúmeras formas para se chegar neste valor, quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
+É comum quando temos um determinado valor distribuido espacialmente e queremos o estimá-lo para um ponto específico. Existem inúmeras formas para se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
 
 Primeiro, vamos importar e visualizar os dados que temos disponível. 
 
@@ -32,7 +32,7 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(readr, dplyr, leaflet)
 ```
 
-```{r, echo=FALSE}
+```{r}
 # importa o arquivo os dados de chuva
 dados <- read_csv2(
   "https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/chuva_inmet.csv"
@@ -49,7 +49,9 @@ leaflet(dados) %>%
   addMarkers(-48.0530600, -23.5916700) %>% 
   addCircleMarkers(
     ~lon, ~lat, 
-    radius = ~p * 0.8, label = ~as.character(p),
+    radius = ~p * 0.8, 
+    label = ~as.character(p),
+    popup = ~cidade,
     fillOpacity = 0.6,
     labelOptions = labelOptions(
       style = list("color" = "white"),
@@ -61,12 +63,14 @@ leaflet(dados) %>%
   )
 ```
 
-A expressão que define o método do inverso do quadrado da distância é dada abaixo. Basicamente considera-se o valor de cada vizinho ponderado pelo inverso da da distancia entre ele e o ponto de interesse. Assim, vizinhos distantes comtribuiem com menos peso para o valor final que vizinhos mais próximos.
+A expressão que define o método é dada abaixo. Basicamente considera-se o valor de cada vizinho ponderado pelo inverso da distância entre ele e o ponto de interesse. Assim, vizinhos distantes contribuem com menos peso para o valor final que vizinhos mais próximos.
 
-$$ x_{p} =\frac{\sum_{i=1}^n(\frac{1}{d_{i}^{2}}\times x_{i})}{\sum_{i=1}^n(\frac{1}{d_{i}^{2}})} $$
-onde: $x_{p}$ = valor interpolado; $x_{i}$ = valor da i-ésima localidade vizinha; d_{i} = distância entre o i-ésimo ponto de vizinhança e o ponto amostrado.
+<img src="http://bit.ly/2oN3IlI" align="center" border="0" alt="x_{p} =\frac{\sum_{i=1}^n(\frac{1}{d_{i}^{2}}\times x_{i})}{\sum_{i=1}^n(\frac{1}{d_{i}^{2}})}" width="153" height="71" />
+
+onde: xp = valor interpolado; xi = valor da i-ésimo ponto vizinho; di = distância entre o i-ésimo ponto de vizinho e o ponto de interesse.
 
 Agora que já definimos o método, vamos começar os cálculos. O primeiro valor calculado será a distância entre os pontos. Utilizaremos a formula de Haversine que retorna a distâncias entre dois pontos de uma esfera a partir de suas latitudes e longitudes.
+
 
 ```{r}
 haversine <- function(lon1, lat1, lon2, lat2) {
@@ -123,14 +127,17 @@ dados_itape <- dist %>%
 dados_itape
 ```
 
-Vamos retornar ao mapa e ver o quanto choveu em Itapetiniga, de acordo com a interpolação por IDW.
-
-```{r, out.width='100%', out.height='500'}
+Muito bom, agora vamos retornar ao mapa e adicionar o quanto choveu em Itapetiniga, de acordo com a interpolação por IDW.
+<br>
+<br>
+```{r, out.width='100%', out.height='500', echo=FALSE}
 leaflet(dados_itape) %>% 
   addTiles() %>% 
   addCircleMarkers(
     ~lon, ~lat, 
-    radius = ~p, label = ~as.character(p),
+    radius = ~p,    
+    label = ~as.character(p),
+    popup = ~cidade,
     fillOpacity = 0.6,
     labelOptions = labelOptions(
       style = list("color" = "white"),
