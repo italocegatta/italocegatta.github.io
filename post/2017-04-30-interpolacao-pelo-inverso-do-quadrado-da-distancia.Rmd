@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-É comum quando temos um determinado valor distribuido espacialmente e queremos o estimá-lo para um ponto específico. Existem inúmeras formas para se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
+É comum quando temos um determinado valor distribuido espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas para se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
 
 Primeiro, vamos importar e visualizar os dados que temos disponível. 
 
