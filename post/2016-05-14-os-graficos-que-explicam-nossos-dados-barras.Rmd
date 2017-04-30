@@ -1,0 +1,229 @@
+---
+title: Os gráficos que explicam nossos dados (barras)
+date: 2016-05-14
+author: Ítalo Cegatta
+tags:
+  - readxl
+  - dplyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Gráficos
+thumbnailImage: http://i.imgur.com/xlBBvE4.png
+coverImage: http://i.imgur.com/aXLil3u.png
+coverCaption: "Imagem: https://corpuslinguisticmethods.wordpress.com"
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o [boxplot](https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot) e agora vamos ao gráfico de barras.
+
+<!-- more -->
+
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.
+
+Continuaremos com o banco de dados apresentado no post sobre [tidy data](https://italocegatta.github.io/o-conceito-tidy-data.html).
+
+```{r pacotes}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)
+```
+
+```{r dados, message=FALSE}
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa.csv"
+)
+
+dados
+```
+
+## Básico
+
+A primeira sequência de gráficos está relacionada ao total de galhas encontradas nas mudas de cada tratamento. Nessa comparação, temos de considerar tratamentos como fatores e os locais onde a galha foi encontrada como níveis do fator local. Essa distinção vai nos ajuda a escolher a melhor forma de construir um gráfico de acordo com o que queremos mostrar.
+
+```{r total_trat}
+# seleciona apenas as Coletas de numero 5, em seguida monta um fator de 
+# agrupamento em função de Tratamento. Aplica a soma de todas as
+# observações (Galhas) de acordo com o fator de agrupamento.
+
+total_trat <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento) %>%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat
+```
+
+Agora já podemos fazer o primeiro gráfico simples e básico (Figura \@ref(fig:5-bar-basico)).
+
+```{r 5-bar-basico, fig.cap="Número total de galhas de cada tratamento."}
+ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = "identity") +
+  theme_few()
+```
+
+Mas ainda temos a variável `Local`, certo? Podemos apresentá-la sem muito esforço.
+
+```{r total_trat_lcoal}
+total_trat_local <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento, Local) %>%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat_local
+```
+
+```{r 5-bar-local, fig.cap="Número total de galhas de cada tratamento em diferentes locais - níveis agrupados."}
+ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = "identity") +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+No caso da Figura  \@ref(fig:5-bar-local), à primeira vista comparamos as barras (fatores) e depois as cores (níveis). Podemos dar mais evidência aos níveis, transformando-os em barras como na Figura \@ref(fig:5-bar-local-dodge).
+
+```{r 5-bar-local-dodge, fig.cap="Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados."}
+ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+Como alternativa, podemos subdividir os níveis em painéis e deixar o gráfico mais balanceado, ou seja, sem concentrar a informação em fatores ou níveis (Figura \@ref(fig:5-bar-local-facet)).
+
+```{r 5-bar-local-facet, fig.cap="Número total de galhas de cada tratamento em diferentes locais - níveis em painel."}
+ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))
+```
+
+Note que nos 3 gráficos anteriores o banco de dados para formação do gráfico é o mesmo, mas cada um dá ênfase em um aspecto diferente. A parte boa é que podemos modificá-los de acordo com o nosso interesse de uma forma rápida e bem simples.
+
+## Adicionando valores às barras
+
+Se quisermos adicionar o valor de cada nível ou fator na barra, temos de alterar o banco de dados para que ele coincida com o que queremos mostrar.
+
+Para a Figura \@ref(fig:5-bar-basico-annot), modificamos apenas o código do gráfico.
+
+```{r 5-bar-basico-annot, fig.cap="Número total de galhas de cada tratamento com o valor na respectiva barra."}
+ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Galhas), size = 6, vjust = -0.2) +
+  theme_few()
+```
+
+Para a próxima figura temos de criar uma coluna que informa a posição em que o valor deve ficar no eixo y, uma vez que ele deve estar exatamente no centro do respectivo compartimento da barra. Como resultado temos a  Figura \@ref(fig:5-bar-local-annot).
+
+```{r 5-bar-local-annot, fig.cap="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados."}
+# Cria uma nova coluna que contem a posição no eixo y que corresponde ao centro
+# da barra. Esta posição correnponde ao local onde o label de cada barra
+# será mostrado
+
+total_trat_local_y <- total_trat_local %>%
+  mutate(Galhas_y = replace(cumsum(Galhas) - (0.5*Galhas),
+    Galhas  ==  0, NA))
+
+ggplot(total_trat_local_y, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Galhas, y = Galhas_y)) +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+As Figuras \@ref(fig:5-bar-local-dodge-annot) e \@ref(fig:5-bar-local-facet-annot) foram criadas apenas alterando o código do gráfico.
+
+```{r 5-bar-local-dodge-annot, fig.cap="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados."}
+ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = Galhas),
+    position = position_dodge(width=0.9), vjust = -0.2) +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+```{r 5-bar-local-facet-annot, fig.cap="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel."}
+ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = "identity", position = "dodge") +
+    geom_text(aes(label = Galhas), vjust = -0.2) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))
+```
+
+## Barra de desvio
+
+Uma outra informação interessante para o gráfico de barras é a barra de erro ou desvio. Com ela, além de informarmos o valor que queremos, também informamos uma medida de dispersão associada a esse valor. Nos gráficos anteriores apresentei o total de galhas por tratamento e local. Não faz sentido, nesse caso, colocar uma barra de desvio, pois a soma não é uma medida de posição. Portanto, vamos resumir novamente os dados em função da média e acrescentar o erro padrão da média.
+
+```{r media_trat_desv}
+# Seleciona apenas as Coletas de numero 5, em seguida calcula a média e o
+# desvio padrão de cada Tratamento.
+
+media_trat_desv <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento) %>%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = mean(Galhas, na.rm=T))
+
+media_trat_desv
+```
+
+Após criar o *data frame* com o desvio, a Figura \@ref(fig:5-bar-basico-desv) é facilmente criada com o código abaixo.
+
+```{r 5-bar-basico-desv, fig.cap="Número total de galhas de cada tratamento com barra de desvio."}
+ggplot(media_trat_desv, aes(Tratamento, Galhas)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = Galhas - desv,
+     ymax = Galhas + desv), width = 0.4) +
+  theme_few()
+```
+
+No caso das Figuras \@ref(fig:5-bar-local-dodge-desv) e \@ref(fig:5-bar-local-facet-desv), precisamos dados dados agrupados por `Tratamento` e `Local`. O código para o gráfico é muito semelhante aos anteriores. Em alguns tratamentos há somente um indivíduo indivídio com contagem de galhas. Nesta situação não há barra de desvio.
+
+```{r total_trat_local_desv}
+# Seleciona apenas as Coletas de numero 5, em seguida calcula a mediana e o
+# desvio padrão em função de cada Trtatamento e Local.
+
+mediana_trat_local_desv <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento, Local) %>%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = median(Galhas, na.rm=T))
+
+mediana_trat_local_desv
+```
+
+```{r 5-bar-local-dodge-desv, fig.cap="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados."}
+ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = Galhas - desv, ymax = Galhas + desv),
+    position = position_dodge(width=0.9), width = 0.4) +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+```{r 5-bar-local-facet-desv, fig.cap="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel."}
+ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas )) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = Galhas - desv,
+    ymax = Galhas + desv), width = 0.4) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))
+```
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

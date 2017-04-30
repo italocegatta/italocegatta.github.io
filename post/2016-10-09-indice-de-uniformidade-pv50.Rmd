@@ -1,0 +1,313 @@
+---
+title: Índice de uniformidade (PV50)
+date: 2016-10-09
+author: Ítalo Cegatta
+tags:
+  - readr
+  - dplyr
+  - ggplot2
+  - forcats
+categories:
+  - PV50
+bibliography: ["bib/biblio.bib"]
+link-citations: true
+thumbnailImage: http://i.imgur.com/IvEZeXd.png
+coverImage: http://i.imgur.com/jFQYdwi.png
+coverCaption: "Imagem: Hakamada (2015)"
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. @Hakamada2012 apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de *Eucalyptus*.
+
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.
+
+O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas [@Hakamada2015]. A expressão do índice é dada da seguinte forma:
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=PV50%20%3D%20%5Cfrac%7B%5Csum_%7Bk%3D1%7D%5E%7B%5Cfrac%7Bn%7D%7B2%7D%7DV_%7Bij%7D%7D%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7DV_%7Bij%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}V_{ij}}{\sum_{k=1}^{n}V_{ij}}" width="139" height="62" />
+
+Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).
+
+Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.
+
+```{r, message=FALSE}
+# carrega os pacotes necessários
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, forcats)
+```
+
+```{r}
+# exemplo com número par
+arv10 <- rep(0.1, 10)
+str(arv10)
+```
+
+Este é o referencial teórico de uniformidade, todas as árvores do mesmo tamanho. Sem precisar fazer conta, sabemos que o volume das 50% menores árvores é igual a 50% do volume total, o que equivale a um PV50 = 50.
+
+```{r}
+# identifica a metade do numero de árvores
+metade <- length(arv10)/2
+metade
+
+# soma todas as árvores
+soma_todas <- sum(arv10, na.rm = TRUE)
+soma_todas
+
+# soma o valor de metade das árvores em ordem crescente
+soma_metade <- sum(sort(arv10)[1:metade], na.rm = TRUE)
+soma_metade
+
+# calcula o PV50
+PV50 <- soma_metade / soma_todas * 100
+PV50
+```
+
+Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.
+
+```{r}
+# exemplo com número impar
+arv11 <- rep(0.1, 11)
+str(arv11)
+
+# metade do numero de árvores
+metade <- length(arv11)/2
+metade
+
+# soma todas as árvores
+soma_todas <- sum(arv11, na.rm = TRUE)
+soma_todas
+
+# soma o valor de metade das árvores em ordem crescente
+soma_metade <- sum(sort(arv11)[1:metade], na.rm = TRUE)
+soma_metade
+
+# calcula o PV50
+PV50 <- soma_metade / soma_todas * 100
+PV50
+```
+
+O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).
+
+```{r}
+# vetor de soma acumulada
+soma_acumulada <- cumsum(sort(arv11))
+soma_acumulada
+
+# soma a metade do vetor de soma acumulada
+soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade
+
+# calcula o PV50
+PV50 <- soma_metade / soma_todas * 100
+PV50
+```
+
+Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo `NA` no R. Veja que o resultado não está consistente pois a `soma_acumulada` ignorou as árvores mortas.
+
+```{r}
+# exemplo com valores perdidos
+arv11_na <- rep(0.1, 11)
+arv11_na[c(3,4)] <- NA
+str(arv11_na)
+
+# metade do numero de árvores
+metade <- length(arv11_na)/2
+metade
+
+# soma todas as árvores
+soma_todas <- sum(arv11_na, na.rm = TRUE)
+soma_todas
+
+# vetor de soma acumulada
+soma_acumulada <- cumsum(sort(arv11_na))
+soma_acumulada
+
+# soma a metade do vetor de soma acumulada
+soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade
+
+# calcula o PV50
+PV50 <- soma_metade / soma_todas * 100
+PV50
+```
+
+Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.
+
+```{r}
+# vetor de valores perdidos
+mortas <- arv11_na[is.na(arv11_na)]
+mortas
+
+# metade do numero de árvores
+metade <- length(arv11_na)/2
+metade
+
+# soma todas as árvores
+soma_todas <- sum(arv11_na, na.rm = TRUE)
+soma_todas
+
+# vetor de soma acumulada com valores perdidos
+soma_acumulada <- c(mortas, cumsum(sort(arv11_na)))
+soma_acumulada
+
+# soma a metade do vetor de soma acumulada
+soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade
+
+# calcula o PV50
+PV50 <- soma_metade / soma_todas * 100
+PV50
+```
+
+Agora eu vou dar aquele passo mágico dos livros de matemática e física, em que o autor diz "é fácil notar que o resultado leva a ..." e apresentar uma função que lida com as questões que mostramos acima e retorna o PV50 do nosso conjunto de dados de forma correta.
+
+```{r}
+pv50 <- function(x) {
+  
+  mortas <- x[is.na(x)]
+  
+  metade <- length(x)/2
+  
+  soma_todas <- sum(x, na.rm = TRUE)
+  
+  soma_acumulada <- c(mortas, cumsum(sort(x)))
+  
+  if (metade%%2L == 1L)
+    soma_metade <- mean(soma_acumulada[metade], na.rm = TRUE)
+  else
+    soma_metade <- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+  
+  z <- soma_metade / soma_todas * 100
+  
+  return(z)
+}
+```
+
+Podemos rapidamente verificar se os resultados estão consistentes fazendo alguns testes.
+
+```{r}
+a <- rep(10, 10)
+str(a)
+pv50(a) # Ok!
+
+a1 <- rep(10 ,11)
+str(a1)
+pv50(a1) # Ok!
+
+b <- a
+b[c(3, 7)] <- NA
+str(b)
+pv50(b) # Ok!
+
+b1 <- a1
+b1[c(3, 7)] <- NA
+str(b1)
+pv50(b1) # Ok!
+```
+
+Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do [Projeto TUME](www.projetotume.com), referente ao [TUME 134](http://www.projetotume.com/tume134) plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.
+
+```{r, message=FALSE, warning=FALSE}
+# importa o arquivo tume_55.csv
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume_55.csv"
+)
+
+glimpse(dados)
+```
+
+Iremos calcular o PV50 e o volume por hectare para cada fator `Esp` e `I_meses` e em seguida ordenar as espécies pelo PV50.
+
+```{r}
+# agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
+dados_pv50 <- dados %>% 
+  group_by(Esp, I_meses) %>% 
+  summarise(
+    Parc_m2 = mean( Parc_m2),
+    PV50 = pv50(Vol),
+    Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
+  ) %>%
+  ungroup() %>% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
+  mutate(Esp = fct_reorder(Esp, -PV50))
+
+dados_pv50
+```
+
+Para entendermos os dados, vamos primeiro ver o crescimento em volume de cada espécies em função do tempo (Figura \@ref(fig:12-vol-idade)). Note que *E. dunnii* e *E. urophylla* x *E. grandis* tinham crescimento muito parecido até os 60 meses de idade.
+
+```{r 12-vol-idade, fig.cap="Crescimento em volume por hectare em função da idade."}
+ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
+  geom_point() +
+  geom_line() +
+  labs(
+    color = "Espécies",
+    x = "Idade (meses)",
+    y = Volume~m^3~ha^-1
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = "top")
+```
+
+Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura \@ref(fig:12-pv50-idade)). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, *E. dunnii*, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de *E. dunnii* representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.
+
+```{r 12-pv50-idade, fig.cap="Variação do PV50 por espécies em função da idade."}
+ggplot(dados_pv50, aes(I_meses, PV50, color = Esp)) +
+  geom_point() +
+  geom_line() +
+  labs(color = "Espécies", x = "Idade (meses)", y = "PV50") +
+  scale_color_brewer(palette = "Set1") +
+  scale_y_continuous(breaks = seq(10, 30, 2)) +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = "top")
+```
+
+A Figura \@ref(fig:12-pv50-vol) mostra claramente a relação direta que há entre produção de madeira e a uniformidade ao longo do crescimento da floresta. Note também que na medida em que a idade avança, a uniformidade diminui, pois a dominância das árvores maiores sobre as menores fica cada vez mais forte.
+
+```{r 12-pv50-vol, fig.cap="Relação entre o PV50 e volume por hectare em função da idade."}
+ggplot(dados_pv50, aes(Vol_ha, PV50)) +
+  geom_point(aes(color = factor(I_meses))) +
+  geom_smooth(method = "lm", formula = y ~x, se = FALSE) +
+  facet_wrap(~Esp, dir = "v") +
+  labs(color = "Idade (meses)", x = Volume~m^3~ha^-1, y = "PV50") +
+  scale_color_brewer(palette = "Dark2") +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = "top")
+```
+
+Por fim, para colocar tudo em um só gráfico, podemos adicionar ao gráfico de crescimento em volume a informação do PV50 para evidenciar que as espécies mais produtivas tem PV50 elevado e que este índice consegue explicar muito bem essa relação (Figura \@ref(fig:12-vol-pv50-idade)).
+
+Um comentário interessante é que dentre as espécies que estamos estudando, todas são de origem seminal, com exceção do *E. dunnii*, que é um clone. Este fator explica sua produtividade e alta homogeneidade, principalmente frente ao hibrido de *E. urophylla* x *E. grandis*, que é seu concorrente direto. Quando estivermos analisando dados de plantios clonais, o PV50 vai expressar a qualidade silvicultural do plantio, uma vez que a base genética é a mesma em todas as plantas.
+
+```{r 12-vol-pv50-idade, fig.cap="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto."}
+ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
+  geom_point(aes(size = PV50), alpha = 0.4) +
+  geom_line() +
+  labs(
+    color = "Espécies",
+    x = "Idade (meses)",
+    y = Volume~m^3~ha^-1
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = "top")
+```
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+
+# Referências
+

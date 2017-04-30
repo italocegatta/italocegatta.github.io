@@ -1,0 +1,139 @@
+---
+title: Ajuste de um modelo linear para vários fatores
+date: 2016-08-27
+author: Ítalo Cegatta
+tags:
+  - readr
+  - dplyr
+  - tidyr
+  - broom
+  - purrr
+  - ggplot2
+categories:
+  - Modelos
+  - Gráficos
+thumbnailImage: http://i.imgur.com/49gZOJL.png
+coverImage: http://i.imgur.com/SxgnspJ.png
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.   
+<!-- more -->
+
+Mas felizmente existe uma máxima muito interessante entre programadores que é:
+
+>  Don't Repeat Yourself (DRY)
+
+Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.
+
+Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.
+
+Utilizaremos mais uma vez os dados do [Projeto TUME](www.projetotume.com), referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)
+```
+
+```{r, message=FALSE}
+dados <- read_csv2(
+  "https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume_55_24.csv"
+)
+
+dados
+```
+
+Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura \@ref(fig:9-dap-h) mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies. 
+
+```{r 9-dap-h, fig.cap="Relação entre o diâmetro e a altura sem destinção de espécie."}
+ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method="lm") +
+  theme_bw()
+```
+
+Mas na prática, a relação diâmetro-altura é diferente entre espécie, como pode ser notado na Figura \@ref(fig:9-dap-h-spp). Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.
+
+```{r 9-dap-h-spp, fig.cap="Relação entre o diâmetro e a altura por espécie."}
+ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method="lm") +
+  facet_wrap(~Esp) +
+  theme_bw()
+```
+
+A primeira etapa é entender que um data.frame pode conter vários tipos de elementos, como números, caracteres, listas e também outros data.frames. Para isso utilizaremos a função `nest()` do pacote `tidyr` e aninharemos os dados em função das espécies.
+
+```{r}
+dados %>%
+  group_by(Esp) %>% 
+  nest()
+```
+
+Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função `map`,do pacote `purrr`. Podemos ainda extrair as informações desses modelos com as funções `glance`, `tidy` e `augment`, do pacote `broom`.
+
+```{r}
+dados_modl <- dados %>%
+  group_by(Esp) %>% 
+  nest() %>% 
+  mutate(
+    ajuste = data %>% map(~ lm(log(H_m) ~ I(1/DAP_cm), data = .)),
+    resumo = map(ajuste, glance),
+    coef = map(ajuste, tidy),
+    resid = map(ajuste, augment)
+  )
+
+dados_modl
+```
+
+Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.
+
+```{r}
+dados_modl %>%
+  select(Esp, resumo) %>% 
+  unnest(resumo)
+
+dados_modl %>%
+  select(Esp, coef ) %>% 
+  unnest(coef)
+
+dados_modl %>%
+  select(Esp, resid) %>% 
+  unnest(resid)
+```
+
+Após o ajuste do modelo, temos de predizer as alturas. O único adendo para esse comando é que precisamos fazer em duas etapas, uma utilizando a função `predict` e outra para trazer o valor predito para a escala natural, pois o modelo foi ajustado na escala logarítmica.
+
+```{r}
+dados_pred <- dados_modl %>% 
+  mutate(
+    hpred = map2(ajuste, data, predict),
+    hpred = map(hpred, exp)
+  ) %>%
+  select(Esp, data, hpred)
+```
+
+Por fim, temos de volta um data.frame com as alturas preditas. Por mais que o ajuste tenha ficado razoável, na prática a construção de modelos de relação hipsométrica envolvem outras etapas e um maior rigor em termos estatísticos.
+
+```{r}
+dados_compl <- dados_pred %>%
+  unnest(hpred, data)
+
+dados_compl
+```
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
+

@@ -1,0 +1,135 @@
+---
+title: Os gráficos que explicam nossos dados (boxplot)
+date: 2016-05-06
+author: Ítalo Cegatta
+tags:
+  - readxl
+  - dplyr
+  - tidyr
+  - ggplot2
+  - ggthemes
+categories:
+  - Gráficos
+thumbnailImage: http://i.imgur.com/1BbJSMj.png
+coverImage: http://i.imgur.com/qdrAptA.png
+coverCaption: "Imagem: https://www.leansigmacorporation.com"
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r set, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
+Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?
+
+<!-- more -->
+
+Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse [blog](https://italocegatta.github.io/sobre-esse-blog.html), minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.
+
+Para iniciar, escolhi o gráfico boxplot. É um gráfico muito útil para entender a variabilidade das nossas observações. No boxplot temos 5 informações básicas: valor mínimo,	primeiro quartil, mediana, terceiro quartil e valor máximo. Há ainda a notificação de *outliers*, quando a observação é maior ou menor que 1,5 vezes a distância interquartílica.
+
+Vamos trabalhar com os dados que apresentei no post anterior sobre [tidy data](https://italocegatta.github.io/o-conceito-tidy-data.html).
+
+```{r}
+library(pacman)
+p_load(readr, dplyr, tidyr, ggplot2, ggthemes)
+```
+
+```{r, message=FALSE}
+dados <- read_csv2(
+  "https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_vespa.csv"
+)
+
+dados
+```
+
+Primeiro vamos processar os dados da última medição (Coleta 5) para verificar o nº total de galhas de cada tratamento, desconsiderando o local da galha. Nesse caso estou considerando apenas as mudas que foram atacadas e tiveram o desenvolvimento de galhas.
+
+```{r}
+# seleciona apenas as Coletas de numero 5, em seguida monta um fator de 
+# agrupamento em função de Tratamento e Individuo. Aplica a soma de todas as
+# observações (Galhas) de acordo com o fator de agrupamento. Troca os valores
+# 0 (quando não há galhas) por NA.
+
+total <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento, Individuo) %>%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %>%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+total
+```
+
+O boxplot é um gráfico unidimensional, ou seja, precisamos de apenas uma variável para construí-lo. Entretanto, podemos usar variáveis categóricas para servir de agrupamento e replicar o gráfico para todos os níveis da variável. Por exemplo, no nosso banco de dados temos `Galhas` como variável quantitativa e `Tratamento`, `Coleta` e `Local` como variável qualitativa. 
+
+```{r 4-boxplot-total, fig.cap="Boxplot que mostra o nº de galhas de todos os tratamentos."}
+ggplot(total, aes("Total", Galhas)) +
+  geom_boxplot() +
+  theme_few()
+```
+
+A Figura \@ref(fig:4-boxplot-total) dá uma visão geral de todas as observações em um único boxplot, mas não nos explica muita coisa. No caso da Figura \@ref(fig:4-boxplot-trat), `Tratamento` tratamento é uma variável categórica e nos permite subdividir os boxplots para todos os níveis e assim podemos compará-los.
+
+```{r 4-boxplot-trat, fig.cap="Boxplot que mostra o nº de galhas em função de cada tratamento."}
+ggplot(total, aes(Tratamento, Galhas)) +
+  geom_boxplot() +
+  theme_few()
+```
+
+Note que no tratamento *Actara d1*, há um indivíduo discrepante (*outlier*) que se destaca com 30 galhas. Note também a grande variabilidade entre os tratamentos, muito comum em experimentos envolvendo insetos. Normalmente o coeficiente de variação é extremamente alto e dificilmente há homogeneidade de variância. Um comentário interessante sobre o boxplot é que a caixa, valores entre o 1º e  3º quartil, corresponde a 50% das observações. 
+
+Podemos também avaliar a variabilidade do nº de galhas por local. Para isso vamos incluir a variável `Local` no agrupamento (Figura \@ref(fig:4-boxplot-local)).
+
+```{r}
+# Adiciona mais um fator de agrupamento para o resumo. Nesse caso cada
+# indivíduo terá o nº de galhas explicito em cada local.
+
+local <- dados %>%
+  filter(Coleta == 5) %>%
+  group_by(Tratamento, Individuo, Local) %>%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %>%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+local
+```
+
+```{r 4-boxplot-local, fig.cap="Boxplot que mostra o nº de galhas por local e tratamento."}
+ggplot(local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_boxplot() +
+  theme_few() +
+  scale_fill_brewer(palette = "Spectral")
+```
+
+Uma outra perspectiva é avaliar a evolução do total de galhas por coleta. Para isto basta incluir a variável `Coleta` no agrupamento (Figura \@ref(fig:4-boxplot-coleta)). Para facilitar a visualização, vou excluir a primeira coleta. Podemos ainda adicionar os pontos que representam as observações para poder identificar quantas observações tem cada tratamento.
+
+```{r}
+total_coleta <- dados %>%
+  filter(Coleta != 1 ) %>%
+  group_by(Tratamento, Coleta, Individuo) %>%
+  summarise(Galhas = sum(Galhas, na.rm=T)) %>%
+  mutate(Galhas = replace(Galhas, Galhas == 0, NA))
+
+total_coleta
+```
+
+```{r 4-boxplot-coleta, fig.cap="Boxplot que mostra a dispersão do total de galhas por tratamento  e coletas."}
+ggplot(total_coleta, aes(Tratamento, Galhas)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.4) +
+  facet_wrap(~ Coleta, labeller = label_both) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))
+```
+
+É importante destacar que o gráfico da Figura \@ref(fig:4-boxplot-coleta) não é adequado para esse tipo de informação. Nesse caso seria mais interessante um gráfico de linhas em que cada linha representa um tratamento (veremos esse gráfico em um futuro post).
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
