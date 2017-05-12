@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leaflet on Ítalo Cegatta</title>
+    <link>/tags/leaflet/</link>
+    <description>Recent content in Leaflet on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Interpolação pelo inverso do quadrado da distância</title>
+      <link>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</link>
+      <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</guid>
+      <description>É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do INMET.
+Primeiro, vamos importar e visualizar os dados que temos disponível.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -32,7 +32,8 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
 O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas [@Hakamada2015]. A expressão do índice é dada da seguinte forma:
 
-$$ PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}}{\sum_{k=1}^{n}} V_{i} $$
+<img src="http://www.sciweavers.org/tex2img.php?eq=PV50%20%3D%20%5Cfrac%7B%5Csum_%7Bk%3D1%7D%5E%7B%5Cfrac%7Bn%7D%7B2%7D%7DV_%7Bij%7D%7D%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7DV_%7Bij%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}V_{ij}}{\sum_{k=1}^{n}V_{ij}}" width="139" height="62" />
+
 Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).
 
 Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.
@@ -41,7 +42,9 @@ Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores
 # carrega os pacotes necessários
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(readr, dplyr, ggplot2, forcats)
+```
 
+```{r}
 # exemplo com número par
 arv10 <- rep(0.1, 10)
 str(arv10)

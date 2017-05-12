@@ -18,6 +18,13 @@ metaAlignment: center
 coverMeta: out
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning=FALSE, message=FALSE,
+  fig.width=10, fig.height=8, dpi=400
+)
+```
+
 O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.
 
 O MODOIS tem diversos [produtos](https://modis.gsfc.nasa.gov/data/), mas neste post vamos tratar especificamente do produto [MOD13Q1](https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006), que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m. Bom, se você está acostumado com imagens de satélite/drone/vant com resolução submétrica, pode ser que no primeiro momento esta escala te assuste. Mas vale lembrar que é um serviço gratuito e e de ótima qualidade.
