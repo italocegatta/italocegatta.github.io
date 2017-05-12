@@ -8,7 +8,7 @@ tags:
 categories:
   - IDW
 thumbnailImage: http://i.imgur.com/bgVjrnT.png
-coverImage: http://i.imgur.com/rwoq1Tb.png
+coverImage: http://i.imgur.com/44t3NQ0.png
 coverCaption:
 thumbnailImagePosition: top
 metaAlignment: center
