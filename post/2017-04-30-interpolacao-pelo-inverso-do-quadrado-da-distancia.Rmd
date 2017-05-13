@@ -23,11 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-<<<<<<< HEAD
-É comum quando temos um determinado valor distribuido espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas para se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
-=======
 É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do [INMET](http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas).
->>>>>>> master
 
 Primeiro, vamos importar e visualizar os dados que temos disponível. 
 
@@ -111,13 +107,8 @@ O cálculo do IDW é relativamente simples, basta reproduzir a expressão do mé
 
 ```{r}
 idw <- function(x, dist, na.rm = TRUE) {
-<<<<<<< HEAD
-  s1 <-  sum(x / dist, na.rm = na.rm)
-  s2 <-  sum(dist^-1, na.rm = na.rm)
-=======
   s1 <-  sum(x / dist^2, na.rm = na.rm)
   s2 <-  sum(1 / dist^2, na.rm = na.rm)
->>>>>>> master
 
   return(s1 / s2)
 }

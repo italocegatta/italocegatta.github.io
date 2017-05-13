@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Forcats on Ítalo Cegatta</title>
-    <link>/tags/forcats/</link>
+    <link>/tags/forcats/index.xml</link>
     <description>Recent content in Forcats on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 09 Oct 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/forcats/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/tags/forcats/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Índice de uniformidade (PV50)</title>
@@ -17,7 +14,6 @@
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>/indice-de-uniformidade-pv50/</guid>
-<<<<<<< HEAD
       <description>&lt;p&gt;O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. &lt;span class=&#34;citation&#34;&gt;Hakamada (&lt;a href=&#34;#ref-Hakamada2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt; apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de &lt;em&gt;Eucalyptus&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.&lt;/p&gt;
 &lt;p&gt;O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas &lt;span class=&#34;citation&#34;&gt;(Hakamada et al. &lt;a href=&#34;#ref-Hakamada2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;. A expressão do índice é dada da seguinte forma:&lt;/p&gt;
@@ -358,10 +354,6 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
-=======
-      <description>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
-O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</description>
->>>>>>> master
     </item>
     
   </channel>
