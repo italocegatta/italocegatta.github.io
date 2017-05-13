@@ -2,11 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idw on Ítalo Cegatta</title>
+<<<<<<< HEAD
     <link>/categories/idw/index.xml</link>
     <description>Recent content in Idw on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <atom:link href="/categories/idw/index.xml" rel="self" type="application/rss+xml" />
+=======
+    <link>/categories/idw/</link>
+    <description>Recent content in Idw on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/idw/index.xml" rel="self" type="application/rss+xml" />
+    
+>>>>>>> master
     
     <item>
       <title>Interpolação pelo inverso do quadrado da distância</title>
@@ -14,6 +25,7 @@
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</guid>
+<<<<<<< HEAD
       <description>&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
 &lt;link href=&#34;/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
@@ -179,6 +191,10 @@ dados_itape&lt;/code&gt;&lt;/pre&gt;
 ##  xtable        1.8-2   2016-02-05 CRAN (R 3.3.3)                   
 ##  yaml          2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
+=======
+      <description>É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do INMET.
+Primeiro, vamos importar e visualizar os dados que temos disponível.</description>
+>>>>>>> master
     </item>
     
   </channel>

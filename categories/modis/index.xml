@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Modis on Ítalo Cegatta</title>
-    <link>/categories/modis/index.xml</link>
+    <link>/categories/modis/</link>
     <description>Recent content in Modis on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <atom:link href="/categories/modis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/modis/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Download automático de imagens MODIS</title>
@@ -14,6 +17,7 @@
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>/download-automatico-de-imagens-modis/</guid>
+<<<<<<< HEAD
       <description>&lt;!-- BLOGDOWN-HEAD --&gt;
 &lt;!-- /BLOGDOWN-HEAD --&gt;
 
@@ -118,6 +122,10 @@ for (i in seq_along(scene_days)) {
 ##  xml2       * 1.1.1    2017-01-24 CRAN (R 3.3.2)                   
 ##  yaml         2.1.14   2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
+=======
+      <description>O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.
+O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do produto MOD13Q1, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m.</description>
+>>>>>>> master
     </item>
     
   </channel>
