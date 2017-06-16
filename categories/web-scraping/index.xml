@@ -108,7 +108,7 @@ lista_estados&lt;/code&gt;&lt;/pre&gt;
 ## [19] &amp;quot;Rio de Janeiro&amp;quot;      &amp;quot;São Paulo&amp;quot;           &amp;quot;Paraná&amp;quot;             
 ## [22] &amp;quot;Santa Catarina&amp;quot;      &amp;quot;Rio Grande do Sul&amp;quot;   &amp;quot;Mato Grosso do Sul&amp;quot; 
 ## [25] &amp;quot;Mato Grosso&amp;quot;         &amp;quot;Goiás&amp;quot;               &amp;quot;Distrito federal&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia as atividades manuais: caso seu interesse seja por lenha de pinus, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está em ser capaz de escrever seu próprio código e não precisar fazer um trabalho manual.&lt;/p&gt;
+&lt;p&gt;O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tabelas &amp;lt;- map(
   set_names(pg_lenha, lista_estados), 
   ~html_node(.x, &amp;quot;table#tabela_temas&amp;quot;) %&amp;gt;% 
@@ -145,6 +145,10 @@ qnt &lt;/code&gt;&lt;/pre&gt;
 
 ggplot(qnt_mapa) +
   geom_sf(aes(fill = volume)) +
+  labs(
+    title = &amp;quot;Lenha de eucalipto - quantidade produzida em 2015&amp;quot;,
+    subtitle = &amp;quot;IBGE Estados - Extração Vegetal e Silvicultura 2015&amp;quot;
+  ) +
   scale_fill_viridis(
     Lenha~de~eucalipto~(m^3), 
     na.value = &amp;quot;grey90&amp;quot;,

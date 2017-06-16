@@ -100,7 +100,7 @@ lista_estados <- html_node(pg_raiz, "div#menu") %>%
 lista_estados
 ```
 
-O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia as atividades manuais: caso seu interesse seja por lenha de pinus, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está em ser capaz de escrever seu próprio código e não precisar fazer um trabalho manual.
+O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.
 
 ```{r}
 tabelas <- map(
@@ -129,6 +129,10 @@ qnt_mapa <- left_join(estado, qnt)
 
 ggplot(qnt_mapa) +
   geom_sf(aes(fill = volume)) +
+  labs(
+    title = "Lenha de eucalipto - quantidade produzida em 2015",
+    subtitle = "IBGE Estados - Extração Vegetal e Silvicultura 2015"
+  ) +
   scale_fill_viridis(
     Lenha~de~eucalipto~(m^3), 
     na.value = "grey90",
