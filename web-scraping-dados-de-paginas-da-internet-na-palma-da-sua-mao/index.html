@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.19">
-    <title>O R é para você</title>
+    <title>Web scraping: dados de páginas da internet na palma da sua mão</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
 
@@ -28,18 +28,15 @@
     
 
     
-    <meta name="description" content="Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?">
-    <meta property="og:description" content="Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?">
+    <meta name="description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
+    <meta property="og:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="O R é para você">
-    <meta property="og:url" content="/o-r-e-para-voce/">
+    <meta property="og:title" content="Web scraping: dados de páginas da internet na palma da sua mão">
+    <meta property="og:url" content="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?">
+    <meta name="twitter:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
     
     
 
@@ -51,10 +48,10 @@ Vou tentar focar esse texto em duas perguntas muito importantes para quem está 
     
 
     
-      <meta property="og:image" content="http://i.imgur.com/pc9EgOI.png">
+      <meta property="og:image" content="http://i.imgur.com/M5r4L5G.png">
     
     
-      <meta property="og:image" content="http://i.imgur.com/yswIVEo.png">
+      <meta property="og:image" content="http://i.imgur.com/UwMQdpT.png">
     
     
 
@@ -206,7 +203,7 @@ ga('send', 'pageview');
   <div class="post-header-cover
               text-center
               "
-       style="background-image:url('http://i.imgur.com/yswIVEo.png')"
+       style="background-image:url('http://i.imgur.com/UwMQdpT.png')"
        data-behavior="5">
     
   </div>
@@ -215,27 +212,25 @@ ga('send', 'pageview');
       <div id="main" data-behavior="5"
         class="hasCover
                hasCoverMetaOut
-               hasCoverCaption">
+               ">
         <article class="post" itemscope itemType="http://schema.org/BlogPosting">
-          
-            <span class="post-header-cover-caption caption"><a href="https://cran.r-project.org">https://cran.r-project.org</a></span>
           
           
             <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title" itemprop="headline">
-      O R é para você
+      Web scraping: dados de páginas da internet na palma da sua mão
     </h1>
   
   <div class="postShorten-meta post-meta">
   
-    <time itemprop="datePublished" datetime="2016-04-26T00:00:00Z">
+    <time itemprop="datePublished" datetime="2017-06-16T00:00:00Z">
       
   
   
   
   
-    26 Abril 2016
+    16 Junho 2017
   
 
     </time>
@@ -245,9 +240,7 @@ ga('send', 'pageview');
   
     <span>em</span>
     
-      <a class="category-link" href="/categories/r">R</a>, 
-    
-      <a class="category-link" href="/categories/data-science">Data Science</a>
+      <a class="category-link" href="/categories/web-scraping">Web scraping</a>
     
   
 
@@ -258,115 +251,239 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <!-- BLOGDOWN-HEAD -->
-<!-- /BLOGDOWN-HEAD -->
-
-<!-- BLOGDOWN-BODY-BEFORE -->
-<!-- /BLOGDOWN-BODY-BEFORE -->
-<p>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.</p>
-<!-- more -->
-<p>Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?</p>
-<div id="sobre-o-r" class="section level2">
-<h2>Sobre o R</h2>
-<p>O R é um software open-source mantido por um grupo de voluntários de vários países, o R-core team. No site oficial do <a href="https://www.r-project.org/">projeto</a> <span class="citation">(R Core Team <a href="#ref-r_development_core_team_r:_2016">2016</a>)</span> a primeira descrição sobre ele é a seguinte:</p>
-<blockquote>
-<p>O R é uma linguagem e ambiente para computação estatística e gráficos.</p>
-</blockquote>
-<p>Esse grupo mantem o sistema base que possibilita a interação com a linguagem R para computação numérica, manipulação de dados, gráficos e uma variedade de outras tarefas. No R, tudo o que acontece é o resultado de uma função. Eu, você e tantos outros usuários podemos desenvolver funções para facilitar a nossa vida, posteriormente organizá-las em pacotes (ou <em>packages</em>) e depois disponibilizar para todo o mundo <span class="citation">(Chambers <a href="#ref-chambers_software_2008">2008</a>)</span>.</p>
-<p>O projeto do R teve início com Ross Ihaka e Robert Gentleman nos anos 90 a partir de uma implementação da linguagem S, que foi desenvolvida anos antes por um grupo de pesquisadores liderados por John Chambers no Bell Laboratories <span class="citation">(Chambers <a href="#ref-chambers_software_2008">2008</a>)</span>. Desde então, o R tem crescido em um ritmo absurdo e pode ser considerado o principal software livre para programação estatística e um dos mais usados no mundo <span class="citation">(Revolution Analitics <a href="#ref-revolution_analitics_rs_2016">2016</a>; Docsity <a href="#ref-docsity_statistical_2014">2014</a>)</span>. Não vou listar todas potencialidades do R aqui neste post, em primeiro lugar por que eu não domino todas elas e segundo por que com certeza o post ficaria muito grande. Com o tempo vou apresentar nos posts algumas aplicações pontuais do R com relação aos problemas que precisei resolver. Mas já adianto, é comum dizermos que a pergunta certa sobre uma tarefa no R não é <em>se podemos fazer</em>, mas sim <em>como</em> podemos fazer.</p>
-</div>
-<div id="o-r-e-para-mim" class="section level2">
-<h2>O R é para mim?</h2>
-<p>O R tem uma curva de aprendizado um tanto íngreme, no começo é realmente muito frustrante. Uma vez, me lembro de passar horas para conseguir deixar a legenda com as cores que eu queria. Dá vontade de largar tudo e fazer o gráfico no Excel. Mas se você é um pouco persistente no começo e encara como um desafio, as coisas melhoram e essa etapa logo passa.</p>
-<p>Minha formação é em Eng. Florestal, na grade curricular do meu curso não há nada relacionado à lógica e conceitos de programação, ou seja, tive que me motivar muito para aprender a programar, por que para mim abstrair a lógica de um código ou rotina em R não foi (e nem é) fácil. De fato, não é todo mundo que sabe programar e nem por isso se torna um mal profissional, pois há vários softwares que possuem uma interface gráfica totalmente adaptada para o usuário em forma de botões e cliques. Mas com muita certeza, os profissionais que podem programar tem um horizonte de possibilidades devido a flexibilidade de poder escrever seu próprio programa de processamento.</p>
-<p>Costumo dizer para os meus amigos que o grande trunfo de um programador é a preguiça. Eu particularmente sou bem preguiçoso quando tenho de fazer atividades repetitivas. A Figura <a href="#fig:geek-task">1</a> ilustra bem uma situação que já ocorreu comigo muitas vezes, onde meus amigos (e até minha namorada!) faziam processos repetitivos usando o Excel, enquanto eu só conseguia pensar em como fazer aquilo de uma forma rápida e eficiente no R.</p>
-<div class="figure"><span id="fig:geek-task"></span>
-<img src="http://i.imgur.com/e8otnTl.png" alt="Programadores versus não-programadores quando fazem tarefas repetitivas [@iwaya_geeks_2012]."  />
+              <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctl-c/ctl-v</em>.</p>
+<p>Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.</p>
+<p>Nosso ponto de partida é a página <a href="http://www.ibge.gov.br/estadosat/">States@</a> do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e entender como a página está estruturada. Como queremos entrar nos estados, podemos ver na Figura <a href="#fig:pg1">1</a> que essa informação está abaixo do <code>id=&quot;menu&quot;</code>. Note que ao passarmos o mouse sobre a linha <code>&lt;div id=&quot;menu&quot;&gt;</code> o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso <code>div#menu</code>.</p>
+<div class="figure"><span id="fig:pg1"></span>
+<img src="http://i.imgur.com/VjiEvCM.png" alt="Página inicial do site."  />
 <p class="caption">
-Figura  1: Programadores versus não-programadores quando fazem tarefas repetitivas <span class="citation">(Iwaya <a href="#ref-iwaya_geeks_2012">2012</a>)</span>.
+Figura  1: Página inicial do site.
 </p>
 </div>
-<p>Se você está na dúvida e é daqueles que preferem respostas rápidas, meu professor de biometria pode te ajudar nesse sentido <span class="citation">(Batista <a href="#ref-batista_curso_2015">2015</a>)</span>, com estas afirmações:</p>
-<ul>
-<li>Você não quer aprender uma linguagem e realizar análises utilizando comandos.</li>
-<li>Você acredita que análise estatística é um simples protocolo para obter alguns resultados numéricos.</li>
-<li>Você acredita que para cada situação ou conjunto de dados existe <em>a análise</em> estatística correta.</li>
-<li>Você não sabe o que é análise estatística baseada em modelos e não está nenhum pouco interessado em saber.</li>
-</ul>
-<p>Se você concorda com essas afirmações, pense bem antes de dedicar seu tempo nesse caminho. Continue no Excel eu em outro programa amigável e seja feliz. Mas se você já programa em alguma linguagem, ou tem uma certa facilidade para isso, a situação é outra. Veja quais benefícios o R tem em relação ao seu atual software e avalie se essa empreitada vale a pena.</p>
-<p>No meu caso, o SAS resolve a maioria dos problemas relacionados ao processamento de dados e análise estatística de um florestal. Então, a decisão nesse sentido tem que ser bem pontual e depende essencialmente das tarefas que você realiza. Para mim, o R sai na frente por ser uma linguagem livre e com um grupo de desenvolvedores muito grande, o que possibilita a criação de diversas funcionalidades de vanguarda. Outro trunfo do R é a integração com outros softwares e linguagens, que nos possibilita criar aplicações web e em servidores.</p>
-<p>Para fechar o tópico, se as suas tarefas estão relacionadas à análise e processamento de dados e você sente que perde um tempo em atividades repetitivas, talvez seja preciso rever o método. Programando você fará as coisas de forma rapida, considere isso como um investimento a longo prazo.</p>
-</div>
-<div id="por-onde-eu-comeco" class="section level2">
-<h2>Por onde eu começo?</h2>
-<p>A parte boa de um software livre é que a comunidade que trabalha com ele normalmente disponibiliza seus produtos e projetos gratuitamente. Se você chegou nesse post por que está interessado no R mas não sabe nada ou muito pouco, vou listar algumas dicas que me ajudaram e ainda me ajudam quando preciso fazer algo no R.</p>
-<div id="comece-vendo-e-ouvindo" class="section level3">
-<h3>1. Comece vendo e ouvindo</h3>
-<p>Para quem está começando, é melhor ver e ouvir como as coisas funcionam. Eu particularmente só entendi o jeitão do R quando meu orientador de iniciação científica me explicou. Então segue algumas dicas:</p>
-<ul>
-<li><a href="https://www.udemy.com/computacao_r/">Computação em R - Udemy.</a></li>
-<li><a href="https://www.datacamp.com/courses/free-introduction-to-r">Introduction to R - DataCamp.</a></li>
-<li><a href="https://pt.coursera.org/learn/r-programming/">R Programming - Coursera.</a></li>
-<li><a href="https://www.youtube.com/watch?v=cX532N_XLIs&amp;list=PLqzoL9-eJTNBDdKgJgJzaQcY6OXmsXAHU">Vídeo aulas no Youtube.</a></li>
-</ul>
-</div>
-<div id="sites-interessantes" class="section level3">
-<h3>2. Sites interessantes</h3>
-<p>Existe uma infinidade de sites e blogs dedicados a te ensinar a programar em R. Mas a maioria espera que você já tenha uma mínima noção de como a linguagem funciona. Com certeza você vai precisar acessar um desses links para resolver algo com o R. Esses são alguns dos links que eu tenho salvo na minha pasta de favoritos no navegador.</p>
-<ul>
-<li><a href="https://www.rstudio.com/online-learning/">RStudio.</a></li>
-<li><a href="http://www.r-tutor.com/%22%20target=%22_blank">R tutor.</a></li>
-<li><a href="http://www.statmethods.net/">Quik R.</a></li>
-<li><a href="http://rstatistics.net/">R Statistics.net.</a></li>
-<li><a href="http://www.r-bloggers.com/">R-bloggers.</a></li>
-<li><a href="http://stackoverflow.com/tags/r">Stackoverflow.</a></li>
-</ul>
-</div>
-<div id="livros-e-apostilas" class="section level3">
-<h3>3. Livros e apostilas</h3>
-<p>No começo, eu acabei juntando uma pasta com muitos livros e apostilas do R. Uns foram úteis outros não. Meu conselho é que você escolha 3 livros para estudar de verdade. Depois disso os livros vão servir apenas para consultas de questões muito específicas. Segue algumas sugestões de livros e apostilas disponíveis gratuitamente na web.</p>
-<ul>
-<li><a href="http://www.cookbook-r.com/">Cookbook for R.</a></li>
-<li><a href="http://r4ds.had.co.nz/">R for Data Science.</a></li>
-<li><a href="http://www.leg.ufpr.br/~paulojus/">Apostilas do Prof. Paulo Justiniano, foco em estatística.</a></li>
-<li><a href="http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:start">Apostila do Prof. João Batista, foco em inventário florestal.</a></li>
-<li><a href="https://cran.r-project.org/doc/contrib/Beasley-BioestatisticaUsandoR.pd">Apostila do Prof. Colin Beasley, foco em biologia.</a></li>
-</ul>
-</div>
-<div id="ambiente-de-desenvolvimento" class="section level3">
-<h3>4. Ambiente de desenvolvimento</h3>
-<p>A interface gráfica do R é bem simples. Acostume-se, isso não mudar. Mas felizmente muitas empresas desenvolveram ambientes de desenvolvimento integrado para facilitar a vida do usuário. Nesse sentido, eu recomendo fortemente utilizar o <a href="https://www.rstudio.com/">RStudio</a> como ambiente de programação. O RStudio tem uma das equipes mais atuantes da comunidade R e a cada dia que passa estão tornando a programação mais eficiente e prazerosa.</p>
-</div>
-</div>
-<div id="referencias" class="section level2 unnumbered">
-<h2>Referências</h2>
-<div id="refs" class="references">
-<div id="ref-batista_curso_2015">
-<p>Batista, João. 2015. “Curso Relâmpago de R.” <a href="http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start" class="uri">http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start</a>.</p>
-</div>
-<div id="ref-chambers_software_2008">
-<p>Chambers, John. 2008. <em>Software for Data Analysis</em>. Statistics and Computing. New York, NY: Springer New York. <a href="http://link.springer.com/10.1007/978-0-387-75936-4" class="uri">http://link.springer.com/10.1007/978-0-387-75936-4</a>.</p>
-</div>
-<div id="ref-docsity_statistical_2014">
-<p>Docsity. 2014. “Statistical Language Wars: Comparison among SAS, R and SPSS.” <a href="http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/" class="uri">http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/</a>.</p>
-</div>
-<div id="ref-iwaya_geeks_2012">
-<p>Iwaya, Akemi. 2012. “Geeks versus Non-Geeks when Doing Repetitive Tasks [Funny Chart].” <a href="http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/" class="uri">http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/</a>.</p>
-</div>
-<div id="ref-r_development_core_team_r:_2016">
-<p>R Core Team. 2016. “R: A Language and Environment for Statistical Computing.” <em>R Foundation for Statistical Computing</em> 3.3.0. Vienna: R Foundation for Statistical Computing. <a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>.</p>
-</div>
-<div id="ref-revolution_analitics_rs_2016">
-<p>Revolution Analitics. 2016. “R’s popularity.” <a href="http://blog.revolutionanalytics.com/popularity" class="uri">http://blog.revolutionanalytics.com/popularity</a>.</p>
-</div>
-</div>
-</div>
+<p>Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante por ter os dados ou ser uma etapa para conseguir os dados. A página inicial (<code>pg_raiz</code>) contém os links para as páginas dos estados, por isso precisamos acessá-la.</p>
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
+pacman::p_load(readr, purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
+pacman::p_load_gh(&quot;italocegatta/brmap&quot;)</code></pre>
+<pre class="r"><code>url_raiz &lt;- &quot;http://www.ibge.gov.br/estadosat/&quot;
+
+pg_raiz &lt;- read_html(url_raiz)</code></pre>
+<p>No objeto <code>posfixo_estados</code> temos a parte do link que leva até a página de cada estado. Para ter o link completo, é só juntar com o link da página raiz.</p>
+<pre class="r"><code>posfixo_estados &lt;- html_node(pg_raiz, &quot;div#menu&quot;) %&gt;% 
+  html_children() %&gt;%
+  html_node(&quot;a&quot;) %&gt;% 
+  html_attr(&quot;href&quot;)
+
+posfixo_estados</code></pre>
+<pre><code>##  [1] &quot;perfil.php?sigla=ro&quot; &quot;perfil.php?sigla=ac&quot; &quot;perfil.php?sigla=am&quot;
+##  [4] &quot;perfil.php?sigla=rr&quot; &quot;perfil.php?sigla=pa&quot; &quot;perfil.php?sigla=ap&quot;
+##  [7] &quot;perfil.php?sigla=to&quot; &quot;perfil.php?sigla=ma&quot; &quot;perfil.php?sigla=pi&quot;
+## [10] &quot;perfil.php?sigla=ce&quot; &quot;perfil.php?sigla=rn&quot; &quot;perfil.php?sigla=pb&quot;
+## [13] &quot;perfil.php?sigla=pe&quot; &quot;perfil.php?sigla=al&quot; &quot;perfil.php?sigla=se&quot;
+## [16] &quot;perfil.php?sigla=ba&quot; &quot;perfil.php?sigla=mg&quot; &quot;perfil.php?sigla=es&quot;
+## [19] &quot;perfil.php?sigla=rj&quot; &quot;perfil.php?sigla=sp&quot; &quot;perfil.php?sigla=pr&quot;
+## [22] &quot;perfil.php?sigla=sc&quot; &quot;perfil.php?sigla=rs&quot; &quot;perfil.php?sigla=ms&quot;
+## [25] &quot;perfil.php?sigla=mt&quot; &quot;perfil.php?sigla=go&quot; &quot;perfil.php?sigla=df&quot;</code></pre>
+<pre class="r"><code>url_estados &lt;- paste0(url_raiz, posfixo_estados)</code></pre>
+<p>Vamos agora acessar às páginas de todos os estados e armazenar no objeto <code>pg_estados</code>.</p>
+<pre class="r"><code>pg_estados &lt;- map(url_estados, read_html)</code></pre>
+<p>Navegando pela página de um estado qualquer, identificamos que queremos a informação contida no link <em>Extração Vegetal e Silvicultura 2015</em>. Nesse caso, precisamos mais uma vez dos links que leva a esta página (para cada estado). Também é possível, tanto pelo R quanto pelo navegador, ver que esse link está na posição 68 da lista/tablela nomeada como <code>table.temas</code>.</p>
+<pre class="r"><code>posfixo_lenha &lt;- map(
+  pg_estados,
+  ~html_node(.x, &quot;table.temas&quot;) %&gt;% 
+    html_children() %&gt;%
+    &#39;[&#39;(68) %&gt;%
+    html_node(&quot;a&quot;) %&gt;% 
+    html_attr(&quot;href&quot;)
+  ) %&gt;% 
+  flatten_chr()
+
+posfixo_lenha</code></pre>
+<pre><code>##  [1] &quot;temas.php?sigla=ro&amp;tema=extracaovegetal2015&quot;
+##  [2] &quot;temas.php?sigla=ac&amp;tema=extracaovegetal2015&quot;
+##  [3] &quot;temas.php?sigla=am&amp;tema=extracaovegetal2015&quot;
+##  [4] &quot;temas.php?sigla=rr&amp;tema=extracaovegetal2015&quot;
+##  [5] &quot;temas.php?sigla=pa&amp;tema=extracaovegetal2015&quot;
+##  [6] &quot;temas.php?sigla=ap&amp;tema=extracaovegetal2015&quot;
+##  [7] &quot;temas.php?sigla=to&amp;tema=extracaovegetal2015&quot;
+##  [8] &quot;temas.php?sigla=ma&amp;tema=extracaovegetal2015&quot;
+##  [9] &quot;temas.php?sigla=pi&amp;tema=extracaovegetal2015&quot;
+## [10] &quot;temas.php?sigla=ce&amp;tema=extracaovegetal2015&quot;
+## [11] &quot;temas.php?sigla=rn&amp;tema=extracaovegetal2015&quot;
+## [12] &quot;temas.php?sigla=pb&amp;tema=extracaovegetal2015&quot;
+## [13] &quot;temas.php?sigla=pe&amp;tema=extracaovegetal2015&quot;
+## [14] &quot;temas.php?sigla=al&amp;tema=extracaovegetal2015&quot;
+## [15] &quot;temas.php?sigla=se&amp;tema=extracaovegetal2015&quot;
+## [16] &quot;temas.php?sigla=ba&amp;tema=extracaovegetal2015&quot;
+## [17] &quot;temas.php?sigla=mg&amp;tema=extracaovegetal2015&quot;
+## [18] &quot;temas.php?sigla=es&amp;tema=extracaovegetal2015&quot;
+## [19] &quot;temas.php?sigla=rj&amp;tema=extracaovegetal2015&quot;
+## [20] &quot;temas.php?sigla=sp&amp;tema=extracaovegetal2015&quot;
+## [21] &quot;temas.php?sigla=pr&amp;tema=extracaovegetal2015&quot;
+## [22] &quot;temas.php?sigla=sc&amp;tema=extracaovegetal2015&quot;
+## [23] &quot;temas.php?sigla=rs&amp;tema=extracaovegetal2015&quot;
+## [24] &quot;temas.php?sigla=ms&amp;tema=extracaovegetal2015&quot;
+## [25] &quot;temas.php?sigla=mt&amp;tema=extracaovegetal2015&quot;
+## [26] &quot;temas.php?sigla=go&amp;tema=extracaovegetal2015&quot;
+## [27] &quot;temas.php?sigla=df&amp;tema=extracaovegetal2015&quot;</code></pre>
+<p>Aqui, mais uma vez, será preciso juntar o link especifico de cada estado com a url da página raiz.</p>
+<pre class="r"><code>url_lenha &lt;- paste0(url_raiz, posfixo_lenha)
+
+pg_lenha &lt;- map(url_lenha, read_html)</code></pre>
+<p>Agora, vamos dar um passo para trás e listar o nome dos estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.</p>
+<pre class="r"><code>lista_estados &lt;- html_node(pg_raiz, &quot;div#menu&quot;) %&gt;% 
+  html_children() %&gt;%
+  html_node(&quot;img&quot;) %&gt;%
+  html_attr(&quot;alt&quot;)
+
+lista_estados</code></pre>
+<pre><code>##  [1] &quot;Rondônia&quot;            &quot;Acre&quot;                &quot;Amazonas&quot;           
+##  [4] &quot;Roraima&quot;             &quot;Pará&quot;                &quot;Amapá&quot;              
+##  [7] &quot;Tocantins&quot;           &quot;Maranhão&quot;            &quot;Piauí&quot;              
+## [10] &quot;Ceará&quot;               &quot;Rio Grande do Norte&quot; &quot;Paraíba&quot;            
+## [13] &quot;Pernambuco&quot;          &quot;Alagoas&quot;             &quot;Sergipe&quot;            
+## [16] &quot;Bahia&quot;               &quot;Minas Gerais&quot;        &quot;Espírito Santo&quot;     
+## [19] &quot;Rio de Janeiro&quot;      &quot;São Paulo&quot;           &quot;Paraná&quot;             
+## [22] &quot;Santa Catarina&quot;      &quot;Rio Grande do Sul&quot;   &quot;Mato Grosso do Sul&quot; 
+## [25] &quot;Mato Grosso&quot;         &quot;Goiás&quot;               &quot;Distrito federal&quot;</code></pre>
+<p>O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia as atividades manuais: caso seu interesse seja por lenha de pinus, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está em ser capaz de escrever seu próprio código e não precisar fazer um trabalho manual.</p>
+<pre class="r"><code>tabelas &lt;- map(
+  set_names(pg_lenha, lista_estados), 
+  ~html_node(.x, &quot;table#tabela_temas&quot;) %&gt;% 
+  html_table() %&gt;% 
+  as_tibble() %&gt;% 
+  rename(produto = X1, valor = X2, unidade = X3)
+  )
+
+qnt &lt;- map_df(
+  tabelas, 
+  ~filter(.x, str_detect(produto, c(&quot;Lenha de eucalipto&quot;, &quot;quantidade&quot;))) %&gt;% 
+  &#39;[[&#39;(&quot;valor&quot;) 
+  ) %&gt;%
+  gather(estado, volume) %&gt;% 
+  mutate(volume = as.numeric(str_replace_all(volume, &quot;\\.&quot;, &quot;&quot;)))
+
+qnt </code></pre>
+<pre><code>## # A tibble: 27 x 2
+##       estado volume
+##        &lt;chr&gt;  &lt;dbl&gt;
+##  1  Rondônia    690
+##  2      Acre     NA
+##  3  Amazonas     NA
+##  4   Roraima     NA
+##  5      Pará     NA
+##  6     Amapá     NA
+##  7 Tocantins   2300
+##  8  Maranhão 195428
+##  9     Piauí 188724
+## 10     Ceará     NA
+## # ... with 17 more rows</code></pre>
+<p>De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote <a href="https://github.com/italocegatta/brmap">brmap</a> possui os polígonos dos estados brasileiros no formato <code>sf</code>, o novo pacote para manupulação de objetos espaciais no R.</p>
+<pre class="r"><code>qnt_mapa &lt;- left_join(estado, qnt)
+
+ggplot(qnt_mapa) +
+  geom_sf(aes(fill = volume)) +
+  scale_fill_viridis(
+    Lenha~de~eucalipto~(m^3), 
+    na.value = &quot;grey90&quot;,
+    labels = function(x) format(x, big.mark = &quot;.&quot;, decimal.mark = &quot;,&quot;, scientific = FALSE)
+  ) +
+  theme_bw() +
+  theme(legend.position = &quot;bottom&quot;) +
+  guides(fill = guide_colorbar(barwidth = 30, title.position = &quot;top&quot;))</code></pre>
+<p><img src="/post/2017-06-16-web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao_files/figure-html/unnamed-chunk-9-1.png" width="4000" /></p>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+<pre class="r"><code>devtools::session_info()</code></pre>
+<pre><code>##  setting  value                       
+##  version  R version 3.3.3 (2017-03-06)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-06-16                  
+## 
+##  package     * version    date       source                            
+##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
+##  backports     1.1.0      2017-05-22 CRAN (R 3.3.3)                    
+##  base        * 3.3.3      2017-03-06 local                             
+##  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
+##  bindrcpp    * 0.1        2016-12-11 CRAN (R 3.3.3)                    
+##  blogdown      0.0.25     2017-03-23 Github (rstudio/blogdown@1c10d16) 
+##  bookdown      0.4        2017-05-20 CRAN (R 3.3.3)                    
+##  brmap       * 0.0.1      2017-05-26 local                             
+##  colorspace    1.3-2      2016-12-14 CRAN (R 3.3.2)                    
+##  curl          2.6        2017-04-27 CRAN (R 3.3.3)                    
+##  datasets    * 3.3.3      2017-03-06 local                             
+##  DBI           0.6-1      2017-04-01 CRAN (R 3.3.3)                    
+##  devtools      1.13.2     2017-06-02 CRAN (R 3.3.3)                    
+##  digest        0.6.12     2017-01-27 CRAN (R 3.3.2)                    
+##  dplyr       * 0.7.0      2017-06-09 CRAN (R 3.3.3)                    
+##  evaluate      0.10       2016-10-11 CRAN (R 3.3.3)                    
+##  ggplot2     * 2.2.1.9000 2017-06-16 Github (tidyverse/ggplot2@398fc07)
+##  glue          1.0.0      2017-04-17 CRAN (R 3.3.3)                    
+##  graphics    * 3.3.3      2017-03-06 local                             
+##  grDevices   * 3.3.3      2017-03-06 local                             
+##  grid          3.3.3      2017-03-06 local                             
+##  gridExtra     2.2.1      2016-02-29 CRAN (R 3.3.3)                    
+##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
+##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
+##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
+##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
+##  httr          1.2.1      2016-07-03 CRAN (R 3.3.2)                    
+##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
+##  labeling      0.3        2014-08-23 CRAN (R 3.3.2)                    
+##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.3.2)                    
+##  magrittr      1.5        2014-11-22 CRAN (R 3.3.2)                    
+##  memoise       1.1.0      2017-04-21 CRAN (R 3.3.3)                    
+##  methods       3.3.3      2017-03-06 local                             
+##  munsell       0.4.3      2016-02-13 CRAN (R 3.3.2)                    
+##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
+##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.3.3)                    
+##  plyr          1.8.4      2016-06-08 CRAN (R 3.3.2)                    
+##  purrr       * 0.2.2.2    2017-05-11 CRAN (R 3.3.3)                    
+##  R6            2.2.1      2017-05-10 CRAN (R 3.3.3)                    
+##  Rcpp          0.12.11    2017-05-22 CRAN (R 3.3.3)                    
+##  readr       * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
+##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
+##  rmarkdown     1.5        2017-04-26 CRAN (R 3.3.3)                    
+##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
+##  rvest       * 0.3.2      2016-06-17 CRAN (R 3.3.2)                    
+##  scales      * 0.4.1      2016-11-09 CRAN (R 3.3.2)                    
+##  selectr       0.3-1      2016-12-19 CRAN (R 3.3.2)                    
+##  sf          * 0.4-3      2017-05-15 CRAN (R 3.3.3)                    
+##  stats       * 3.3.3      2017-03-06 local                             
+##  stringi       1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+##  stringr     * 1.2.0      2017-02-18 CRAN (R 3.3.2)                    
+##  tibble        1.3.3      2017-05-28 CRAN (R 3.3.3)                    
+##  tidyr       * 0.6.3      2017-05-15 CRAN (R 3.3.3)                    
+##  tools         3.3.3      2017-03-06 local                             
+##  udunits2      0.13       2016-11-17 CRAN (R 3.3.2)                    
+##  units         0.4-4      2017-04-20 CRAN (R 3.3.3)                    
+##  utils       * 3.3.3      2017-03-06 local                             
+##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.3.3)                    
+##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.3.3)                    
+##  withr         1.0.2      2016-06-20 CRAN (R 3.3.3)                    
+##  XML           3.98-1.7   2017-05-03 CRAN (R 3.3.3)                    
+##  xml2        * 1.1.1      2017-01-24 CRAN (R 3.3.2)                    
+##  yaml          2.1.14     2016-11-12 CRAN (R 3.3.3)</code></pre>
 
               
             </div>
           </div>
           <div id="post-footer" class="post-footer main-content-wrap">
             
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">ETIQUETADO em</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="//tags/dplyr/">dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/leaflet/">leaflet</a>
+
+                  </div>
+                
               
             
             <div class="post-actions-wrap">
@@ -375,7 +492,7 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/o-conceito-tidy-data/" data-tooltip="O conceito tidy data">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -383,7 +500,7 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/sobre-esse-blog/" data-tooltip="Sobre esse blog">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/" data-tooltip="Interpolação pelo inverso do quadrado da distância">
           
             <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
             <i class="fa fa-angle-right"></i>
@@ -400,17 +517,17 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -466,7 +583,7 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/o-conceito-tidy-data/" data-tooltip="O conceito tidy data">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
@@ -474,7 +591,7 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/sobre-esse-blog/" data-tooltip="Sobre esse blog">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/" data-tooltip="Interpolação pelo inverso do quadrado da distância">
           
             <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
             <i class="fa fa-angle-right"></i>
@@ -491,17 +608,17 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fo-r-e-para-voce%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -528,17 +645,17 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
       <div id="share-options-bar" class="share-options-bar" data-behavior="5">
   <ul class="share-options">
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2fo-r-e-para-voce%2f">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
         <i class="fa fa-google-plus"></i><span>Compartilhar no Google Plus</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fo-r-e-para-voce%2f">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
         <i class="fa fa-facebook-official"></i><span>Compartilhar no Facebook</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2fo-r-e-para-voce%2f">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2fweb-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao%2f">
         <i class="fa fa-twitter"></i><span>Compartilhar no Twitter</span>
       </a>
     </li>
@@ -823,9 +940,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/o-r-e-para-voce\/';
+          this.page.url = '\/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao\/';
           
-            this.page.identifier = '\/o-r-e-para-voce\/'
+            this.page.identifier = '\/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao\/'
           
         };
         (function() {

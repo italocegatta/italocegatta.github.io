@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</loc>
     <lastmod>2017-04-30T00:00:00+00:00</lastmod>
   </url>
@@ -102,7 +107,7 @@
   
   <url>
     <loc>/tags/dplyr/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,7 +161,7 @@
   
   <url>
     <loc>/tags/leaflet/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -180,7 +185,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -250,6 +255,12 @@
   </url>
   
   <url>
+    <loc>/categories/web-scraping/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/xml2/</loc>
     <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -257,7 +268,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
