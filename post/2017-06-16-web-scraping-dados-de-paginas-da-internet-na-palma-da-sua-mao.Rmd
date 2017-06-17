@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso *ctl-c/ctl-v*.
+Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso *ctrl+c/ctrl+v*.
 
 Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.
 

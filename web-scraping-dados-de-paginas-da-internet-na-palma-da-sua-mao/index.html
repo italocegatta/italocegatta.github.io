@@ -28,15 +28,15 @@
     
 
     
-    <meta name="description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
-    <meta property="og:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
+    <meta name="description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
+    <meta property="og:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Web scraping: dados de páginas da internet na palma da sua mão">
     <meta property="og:url" content="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.">
+    <meta name="twitter:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
     
     
 
@@ -251,7 +251,7 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctl-c/ctl-v</em>.</p>
+              <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctrl+c/ctrl+v</em>.</p>
 <p>Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.</p>
 <p>Nosso ponto de partida é a página <a href="http://www.ibge.gov.br/estadosat/">States@</a> do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e entender como a página está estruturada. Como queremos entrar nos estados, podemos ver na Figura <a href="#fig:pg1">1</a> que essa informação está abaixo do <code>id=&quot;menu&quot;</code>. Note que ao passarmos o mouse sobre a linha <code>&lt;div id=&quot;menu&quot;&gt;</code> o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso <code>div#menu</code>.</p>
 <div class="figure"><span id="fig:pg1"></span>
@@ -727,7 +727,7 @@ ggplot(qnt_mapa) +
                   Jun 6, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctl-c/ctl-v.</div>
+              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
