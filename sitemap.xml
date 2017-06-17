@@ -125,7 +125,7 @@
   
   <url>
     <loc>/tags/ggplot2/</loc>
-    <lastmod>2016-10-09T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -161,7 +161,7 @@
   
   <url>
     <loc>/tags/leaflet/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -191,7 +191,7 @@
   
   <url>
     <loc>/tags/purrr/</loc>
-    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -221,13 +221,25 @@
   
   <url>
     <loc>/tags/rvest/</loc>
-    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/scales/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/sf/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/stringr/</loc>
-    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -244,13 +256,13 @@
   
   <url>
     <loc>/tags/tidyr/</loc>
-    <lastmod>2016-08-27T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/viridis/</loc>
-    <lastmod>2016-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

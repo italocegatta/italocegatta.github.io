@@ -253,16 +253,16 @@ ga('send', 'pageview');
             <div class="main-content-wrap">
               <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctrl+c/ctrl+v</em>.</p>
 <p>Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.</p>
-<p>Nosso ponto de partida é a página <a href="http://www.ibge.gov.br/estadosat/">States@</a> do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e entender como a página está estruturada. Como queremos entrar nos estados, podemos ver na Figura <a href="#fig:pg1">1</a> que essa informação está abaixo do <code>id=&quot;menu&quot;</code>. Note que ao passarmos o mouse sobre a linha <code>&lt;div id=&quot;menu&quot;&gt;</code> o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso <code>div#menu</code>.</p>
+<p>Nosso ponto de partida é a página <a href="http://www.ibge.gov.br/estadosat/">States@</a> do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e assim entender como a página está estruturada. Como queremos entrar nos Estados, podemos ver na Figura <a href="#fig:pg1">1</a> que essa informação está abaixo do <code>id=&quot;menu&quot;</code>. Note que ao passarmos o mouse sobre a linha <code>&lt;div id=&quot;menu&quot;&gt;</code> o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso <code>div#menu</code>.</p>
 <div class="figure"><span id="fig:pg1"></span>
 <img src="http://i.imgur.com/VjiEvCM.png" alt="Página inicial do site."  />
 <p class="caption">
 Figura  1: Página inicial do site.
 </p>
 </div>
-<p>Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante por ter os dados ou ser uma etapa para conseguir os dados. A página inicial (<code>pg_raiz</code>) contém os links para as páginas dos estados, por isso precisamos acessá-la.</p>
+<p>Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante para ter os dados ou por ser uma etapa para conseguir os dados. A página inicial (<code>pg_raiz</code>) contém os links para as páginas dos Estados, por isso precisamos acessá-la.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
+pacman::p_load(purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
 pacman::p_load_gh(&quot;italocegatta/brmap&quot;)</code></pre>
 <pre class="r"><code>url_raiz &lt;- &quot;http://www.ibge.gov.br/estadosat/&quot;
 
@@ -284,7 +284,7 @@ posfixo_estados</code></pre>
 ## [22] &quot;perfil.php?sigla=sc&quot; &quot;perfil.php?sigla=rs&quot; &quot;perfil.php?sigla=ms&quot;
 ## [25] &quot;perfil.php?sigla=mt&quot; &quot;perfil.php?sigla=go&quot; &quot;perfil.php?sigla=df&quot;</code></pre>
 <pre class="r"><code>url_estados &lt;- paste0(url_raiz, posfixo_estados)</code></pre>
-<p>Vamos agora acessar às páginas de todos os estados e armazenar no objeto <code>pg_estados</code>.</p>
+<p>Vamos agora acessar às páginas de todos os Estados e armazenar no objeto <code>pg_estados</code>.</p>
 <pre class="r"><code>pg_estados &lt;- map(url_estados, read_html)</code></pre>
 <p>Navegando pela página de um estado qualquer, identificamos que queremos a informação contida no link <em>Extração Vegetal e Silvicultura 2015</em>. Nesse caso, precisamos mais uma vez dos links que leva a esta página (para cada estado). Também é possível, tanto pelo R quanto pelo navegador, ver que esse link está na posição 68 da lista/tablela nomeada como <code>table.temas</code>.</p>
 <pre class="r"><code>posfixo_lenha &lt;- map(
@@ -325,11 +325,11 @@ posfixo_lenha</code></pre>
 ## [25] &quot;temas.php?sigla=mt&amp;tema=extracaovegetal2015&quot;
 ## [26] &quot;temas.php?sigla=go&amp;tema=extracaovegetal2015&quot;
 ## [27] &quot;temas.php?sigla=df&amp;tema=extracaovegetal2015&quot;</code></pre>
-<p>Aqui, mais uma vez, será preciso juntar o link especifico de cada estado com a url da página raiz.</p>
+<p>Aqui, mais uma vez, será preciso juntar o <em>link</em> específico de cada estado com a url da página raiz.</p>
 <pre class="r"><code>url_lenha &lt;- paste0(url_raiz, posfixo_lenha)
 
 pg_lenha &lt;- map(url_lenha, read_html)</code></pre>
-<p>Agora, vamos dar um passo para trás e listar o nome dos estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.</p>
+<p>Agora, vamos dar um passo para trás e listar o nome dos Estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.</p>
 <pre class="r"><code>lista_estados &lt;- html_node(pg_raiz, &quot;div#menu&quot;) %&gt;% 
   html_children() %&gt;%
   html_node(&quot;img&quot;) %&gt;%
@@ -345,7 +345,7 @@ lista_estados</code></pre>
 ## [19] &quot;Rio de Janeiro&quot;      &quot;São Paulo&quot;           &quot;Paraná&quot;             
 ## [22] &quot;Santa Catarina&quot;      &quot;Rio Grande do Sul&quot;   &quot;Mato Grosso do Sul&quot; 
 ## [25] &quot;Mato Grosso&quot;         &quot;Goiás&quot;               &quot;Distrito federal&quot;</code></pre>
-<p>O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.</p>
+<p>O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.</p>
 <pre class="r"><code>tabelas &lt;- map(
   set_names(pg_lenha, lista_estados), 
   ~html_node(.x, &quot;table#tabela_temas&quot;) %&gt;% 
@@ -377,7 +377,7 @@ qnt </code></pre>
 ##  9     Piauí 188724
 ## 10     Ceará     NA
 ## # ... with 17 more rows</code></pre>
-<p>De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote <a href="https://github.com/italocegatta/brmap">brmap</a> possui os polígonos dos estados brasileiros no formato <code>sf</code>, o novo pacote para manupulação de objetos espaciais no R.</p>
+<p>De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote <a href="https://github.com/italocegatta/brmap">brmap</a> possui os polígonos dos Estados brasileiros no formato <code>sf</code>, o novo pacote para manupulação de objetos espaciais no R.</p>
 <pre class="r"><code>qnt_mapa &lt;- left_join(estado, qnt)
 
 ggplot(qnt_mapa) +
@@ -431,7 +431,6 @@ ggplot(qnt_mapa) +
 ##  gridExtra     2.2.1      2016-02-29 CRAN (R 3.3.3)                    
 ##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
 ##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
-##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
 ##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
 ##  httr          1.2.1      2016-07-03 CRAN (R 3.3.2)                    
 ##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
@@ -447,7 +446,6 @@ ggplot(qnt_mapa) +
 ##  purrr       * 0.2.2.2    2017-05-11 CRAN (R 3.3.3)                    
 ##  R6            2.2.1      2017-05-10 CRAN (R 3.3.3)                    
 ##  Rcpp          0.12.11    2017-05-22 CRAN (R 3.3.3)                    
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
 ##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
 ##  rmarkdown     1.5        2017-04-26 CRAN (R 3.3.3)                    
 ##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
@@ -482,9 +480,23 @@ ggplot(qnt_mapa) +
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">ETIQUETADO em</span><br/>
                     
+  <a class="tag tag--primary tag--small" href="//tags/purrr/">purrr</a>
+
   <a class="tag tag--primary tag--small" href="//tags/dplyr/">dplyr</a>
 
-  <a class="tag tag--primary tag--small" href="//tags/leaflet/">leaflet</a>
+  <a class="tag tag--primary tag--small" href="//tags/tidyr/">tidyr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/stringr/">stringr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/rvest/">rvest</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/ggplot2/">ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/viridis/">viridis</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/scales/">scales</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/sf/">sf</a>
 
                   </div>
                 

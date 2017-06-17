@@ -16,16 +16,16 @@
       <guid>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</guid>
       <description>&lt;p&gt;Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso &lt;em&gt;ctrl+c/ctrl+v&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.&lt;/p&gt;
-&lt;p&gt;Nosso ponto de partida é a página &lt;a href=&#34;http://www.ibge.gov.br/estadosat/&#34;&gt;States@&lt;/a&gt; do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e entender como a página está estruturada. Como queremos entrar nos estados, podemos ver na Figura &lt;a href=&#34;#fig:pg1&#34;&gt;1&lt;/a&gt; que essa informação está abaixo do &lt;code&gt;id=&amp;quot;menu&amp;quot;&lt;/code&gt;. Note que ao passarmos o mouse sobre a linha &lt;code&gt;&amp;lt;div id=&amp;quot;menu&amp;quot;&amp;gt;&lt;/code&gt; o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso &lt;code&gt;div#menu&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Nosso ponto de partida é a página &lt;a href=&#34;http://www.ibge.gov.br/estadosat/&#34;&gt;States@&lt;/a&gt; do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e assim entender como a página está estruturada. Como queremos entrar nos Estados, podemos ver na Figura &lt;a href=&#34;#fig:pg1&#34;&gt;1&lt;/a&gt; que essa informação está abaixo do &lt;code&gt;id=&amp;quot;menu&amp;quot;&lt;/code&gt;. Note que ao passarmos o mouse sobre a linha &lt;code&gt;&amp;lt;div id=&amp;quot;menu&amp;quot;&amp;gt;&lt;/code&gt; o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso &lt;code&gt;div#menu&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pg1&#34;&gt;&lt;/span&gt;
 &lt;img src=&#34;http://i.imgur.com/VjiEvCM.png&#34; alt=&#34;Página inicial do site.&#34;  /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Página inicial do site.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante por ter os dados ou ser uma etapa para conseguir os dados. A página inicial (&lt;code&gt;pg_raiz&lt;/code&gt;) contém os links para as páginas dos estados, por isso precisamos acessá-la.&lt;/p&gt;
+&lt;p&gt;Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante para ter os dados ou por ser uma etapa para conseguir os dados. A página inicial (&lt;code&gt;pg_raiz&lt;/code&gt;) contém os links para as páginas dos Estados, por isso precisamos acessá-la.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
-pacman::p_load(readr, purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
+pacman::p_load(purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
 pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;url_raiz &amp;lt;- &amp;quot;http://www.ibge.gov.br/estadosat/&amp;quot;
 
@@ -47,7 +47,7 @@ posfixo_estados&lt;/code&gt;&lt;/pre&gt;
 ## [22] &amp;quot;perfil.php?sigla=sc&amp;quot; &amp;quot;perfil.php?sigla=rs&amp;quot; &amp;quot;perfil.php?sigla=ms&amp;quot;
 ## [25] &amp;quot;perfil.php?sigla=mt&amp;quot; &amp;quot;perfil.php?sigla=go&amp;quot; &amp;quot;perfil.php?sigla=df&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;url_estados &amp;lt;- paste0(url_raiz, posfixo_estados)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Vamos agora acessar às páginas de todos os estados e armazenar no objeto &lt;code&gt;pg_estados&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Vamos agora acessar às páginas de todos os Estados e armazenar no objeto &lt;code&gt;pg_estados&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pg_estados &amp;lt;- map(url_estados, read_html)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Navegando pela página de um estado qualquer, identificamos que queremos a informação contida no link &lt;em&gt;Extração Vegetal e Silvicultura 2015&lt;/em&gt;. Nesse caso, precisamos mais uma vez dos links que leva a esta página (para cada estado). Também é possível, tanto pelo R quanto pelo navegador, ver que esse link está na posição 68 da lista/tablela nomeada como &lt;code&gt;table.temas&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;posfixo_lenha &amp;lt;- map(
@@ -88,11 +88,11 @@ posfixo_lenha&lt;/code&gt;&lt;/pre&gt;
 ## [25] &amp;quot;temas.php?sigla=mt&amp;amp;tema=extracaovegetal2015&amp;quot;
 ## [26] &amp;quot;temas.php?sigla=go&amp;amp;tema=extracaovegetal2015&amp;quot;
 ## [27] &amp;quot;temas.php?sigla=df&amp;amp;tema=extracaovegetal2015&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Aqui, mais uma vez, será preciso juntar o link especifico de cada estado com a url da página raiz.&lt;/p&gt;
+&lt;p&gt;Aqui, mais uma vez, será preciso juntar o &lt;em&gt;link&lt;/em&gt; específico de cada estado com a url da página raiz.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;url_lenha &amp;lt;- paste0(url_raiz, posfixo_lenha)
 
 pg_lenha &amp;lt;- map(url_lenha, read_html)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Agora, vamos dar um passo para trás e listar o nome dos estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.&lt;/p&gt;
+&lt;p&gt;Agora, vamos dar um passo para trás e listar o nome dos Estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lista_estados &amp;lt;- html_node(pg_raiz, &amp;quot;div#menu&amp;quot;) %&amp;gt;% 
   html_children() %&amp;gt;%
   html_node(&amp;quot;img&amp;quot;) %&amp;gt;%
@@ -108,7 +108,7 @@ lista_estados&lt;/code&gt;&lt;/pre&gt;
 ## [19] &amp;quot;Rio de Janeiro&amp;quot;      &amp;quot;São Paulo&amp;quot;           &amp;quot;Paraná&amp;quot;             
 ## [22] &amp;quot;Santa Catarina&amp;quot;      &amp;quot;Rio Grande do Sul&amp;quot;   &amp;quot;Mato Grosso do Sul&amp;quot; 
 ## [25] &amp;quot;Mato Grosso&amp;quot;         &amp;quot;Goiás&amp;quot;               &amp;quot;Distrito federal&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código em específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.&lt;/p&gt;
+&lt;p&gt;O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tabelas &amp;lt;- map(
   set_names(pg_lenha, lista_estados), 
   ~html_node(.x, &amp;quot;table#tabela_temas&amp;quot;) %&amp;gt;% 
@@ -140,7 +140,7 @@ qnt &lt;/code&gt;&lt;/pre&gt;
 ##  9     Piauí 188724
 ## 10     Ceará     NA
 ## # ... with 17 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote &lt;a href=&#34;https://github.com/italocegatta/brmap&#34;&gt;brmap&lt;/a&gt; possui os polígonos dos estados brasileiros no formato &lt;code&gt;sf&lt;/code&gt;, o novo pacote para manupulação de objetos espaciais no R.&lt;/p&gt;
+&lt;p&gt;De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote &lt;a href=&#34;https://github.com/italocegatta/brmap&#34;&gt;brmap&lt;/a&gt; possui os polígonos dos Estados brasileiros no formato &lt;code&gt;sf&lt;/code&gt;, o novo pacote para manupulação de objetos espaciais no R.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;qnt_mapa &amp;lt;- left_join(estado, qnt)
 
 ggplot(qnt_mapa) +
@@ -194,7 +194,6 @@ ggplot(qnt_mapa) +
 ##  gridExtra     2.2.1      2016-02-29 CRAN (R 3.3.3)                    
 ##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
 ##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
-##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
 ##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
 ##  httr          1.2.1      2016-07-03 CRAN (R 3.3.2)                    
 ##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
@@ -210,7 +209,6 @@ ggplot(qnt_mapa) +
 ##  purrr       * 0.2.2.2    2017-05-11 CRAN (R 3.3.3)                    
 ##  R6            2.2.1      2017-05-10 CRAN (R 3.3.3)                    
 ##  Rcpp          0.12.11    2017-05-22 CRAN (R 3.3.3)                    
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
 ##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
 ##  rmarkdown     1.5        2017-04-26 CRAN (R 3.3.3)                    
 ##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    

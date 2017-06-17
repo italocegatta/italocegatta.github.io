@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Web Scraping on Ítalo Cegatta</title>
-    <link>/categories/web-scraping/index.xml</link>
-    <description>Recent content in Web Scraping on Ítalo Cegatta</description>
+    <title>Scales on Ítalo Cegatta</title>
+    <link>/tags/scales/index.xml</link>
+    <description>Recent content in Scales on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <atom:link href="/categories/web-scraping/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/scales/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Web scraping: dados de páginas da internet na palma da sua mão</title>
