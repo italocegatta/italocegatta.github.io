@@ -12,6 +12,7 @@ tags:
   - viridis
   - scales
   - sf
+  - brmap
 categories:
   - Web scraping
 thumbnailImage: http://i.imgur.com/M5r4L5G.png
@@ -132,7 +133,7 @@ qnt
 De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote [brmap](https://github.com/italocegatta/brmap) possui os polígonos dos Estados brasileiros no formato `sf`, o novo pacote para manupulação de objetos espaciais no R.
 
 ```{r}
-qnt_mapa <- left_join(estado, qnt)
+qnt_mapa <- left_join(brmap_estado, qnt)
 
 ggplot(qnt_mapa) +
   geom_sf(aes(fill = volume)) +

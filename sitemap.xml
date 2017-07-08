@@ -135,6 +135,12 @@
   </url>
   
   <url>
+    <loc>/tags/gganimate/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/ggbiplot/</loc>
     <lastmod>2016-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -154,7 +160,7 @@
   
   <url>
     <loc>/tags/ggthemes/</loc>
-    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -250,6 +256,12 @@
   
   <url>
     <loc>/tags/sf/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/sig/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

@@ -4,11 +4,17 @@ date: 2017-06-16
 author: Ítalo Cegatta
 tags:
   - dplyr
+  - sf
   - ggplot2
+  - ggthemes
   - geofacet
+  - gganimate
+  - viridis
+  - scales
   - brmap
 categories:
   - gráficos
+  - SIG
 thumbnailImage: http://i.imgur.com/M5r4L5G.png
 coverImage: http://i.imgur.com/UwMQdpT.png
 coverCaption:
@@ -24,15 +30,42 @@ knitr::opts_chunk$set(
 )
 ```
 
-O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Eventualmente me deparo com esse desafio nas análises do dia a dia e por isso resolvi deixar algumas alternativas para isto resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no [Programa Queimadas Monitoramento por Satélites](http://www.inpe.br/queimadas/situacao-atual). O site é interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.
+```{r, include=FALSE}
+knitr::opts_knit$set(animation.fun = function(x, options, format = "gif") {
+  x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
+  fig.num = options$fig.num
+  format = sub("^[.]", "", format)
+  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]),
+                     ".", x[2])
+  mov.fname = paste0(sub(paste0(fig.num, "$"), "", x[1]), ".",
+                     format)
+
+  # order correctly
+  figs <- Sys.glob(fig.fname)
+  figs <- figs[order(as.numeric(stringr::str_match(figs,
+    paste0("(\\d+)\\.", x[2]))[, 2]))]
+
+  animation::im.convert(figs, output = mov.fname)
+
+  # For Github output
+  # sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"),
+  #   mov.fname))
+  
+  # For HTML output
+  sprintf('<div class="figure %s"><img src="%s"></div>', options$fig.align,
+    mov.fname)
+})
+```
+
+O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que tem uma informação geográfica associada com informações que variam no tempo. Esse tipo de análise é comum no meu  dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no [Programa Queimadas Monitoramento por Satélites](http://www.inpe.br/queimadas/situacao-atual). O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(readr, dplyr, ggplot2, viridis, scales, sf, geofacet, gganimate)
+pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, gganimate, viridis, scales)
 pacman::p_load_gh("italocegatta/brmap")
 ```
 
-O primeiro passo foi copiar os dados da página e organizá-los no formato [tidy](https://italocegatta.github.io/o-conceito-tidy-data/). Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica.
+O primeiro passo foi copiar os dados da página e organizá-los no formato [tidy](https://italocegatta.github.io/o-conceito-tidy-data/). Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados?
 .
 ```{r}
 focos <- read_csv2("https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv")
@@ -40,6 +73,7 @@ focos <- read_csv2("https://raw.githubusercontent.com/italocegatta/italocegatta.
 focos
 ```
 
+Vamos agora adicionar a referência espacial aos dados utilizando os polígonos do pacote [brmap](https://github.com/italocegatta/brmap).
 
 ```{r}
 estados_focos <-  focos %>% 
@@ -48,53 +82,66 @@ estados_focos <-  focos %>%
 estados_focos
 ```
 
-```{r}
-ggplot(estados_focos) +
-  geom_sf(aes(fill = focos), color = NA) +
-  facet_wrap(~ano) +
-  scale_fill_viridis() +
-  theme_bw()
-```
+A primeira abordagem vai utilizar o pacote [geofacet](https://github.com/hafen/geofacet). Ele permite criarmos um grid de referência para orientar a função `facet_wrap` de `ggplot2`. O pacote já vem carregado com um grid do Brasil, o `br_grid1`, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e conporta uma infinidade de gráficos (linhas, pontos, barras...) e dimenções (color, shape, size...). O gráfico \@ref(fig:focos-geofacet) está bem simples mas cumpre seu papel em facilitar a parcepção da variação anual e dar uma noção da região espacial do estado no Brasil. 
 
-```{r, fig.height=8}
+```{r focos-geofacet, fig.height=8, fig.cap="Representação em painel orientado utilizando linhas."}
 ggplot(estados_focos, aes(ano, focos)) +
-  geom_col() +
+  geom_line() +
   facet_geo(~estado, grid = br_grid1) +
   labs(
     x = "Ano",
     y = "Nº de focos de incêndios"
   ) +
   scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
-  # scale_y_continuous(breaks = seq(100, 600, 200)) +
-  theme_bw() +
-  theme(
-    axis.title = element_text(size = 18),
-    panel.grid.minor.x = element_blank()
-  )
+  scale_y_continuous(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_few()
 ```
+
+A segunda abordagem é relativamente simples e intuitiva. Construiremos um mapa temático utilizando o Nº de focos como escala de cor, mas organizado em um painel que tem como base o ano de regsitro. O gráfico \@ref(fig:focos-facet) apela para a dimensão de cor e instantaneamente nos informa o estado mais crítico. Especificamente para esta análise ele este tipo de gráfico é muito apropriado.
+
+```{r focos-facet, fig.cap="Representação em painel utilizando cores."}
+ggplot(estados_focos) +
+  geom_sf(aes(fill = focos), color = NA) +
+  facet_wrap(~ano) +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
+```
+
+E por fim, nossa terceira tentativa vai unificar os paineis do gráfico \@ref(fig:focos-facet) em um gif animado. A limitação do gráfico  é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.
 
 ```{r, eval=FALSE}
 (ggplot(estados_focos) +
   geom_sf(aes(fill = focos, frame = ano), color = NA) +
   ggtitle("Ano:") +
-  scale_fill_viridis() +
-  theme_bw() 
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw() +
+  theme(legend.position = "top", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
   ) %>% 
   gganimate() 
 ```
 
-```{r, echo=FALSE}
+```{r, fig.show="animate", cache = TRUE}
 # bug no blogdown. precisa savar e depois inserir o gif
-(
-  ggplot(estados_focos) +
-    geom_sf(aes(fill = focos, frame = ano), color = NA) +
-    ggtitle("Ano:") +
-    scale_fill_viridis() +
-    theme_bw() 
+(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle("Ano:") +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
   ) %>% 
-  gganimate() %>% 
-  gganimate_save("../aux_out/estados_focos.gif")
-
-knitr::include_graphics("http://i.imgur.com/REQPorl.gifv")
+  gganimate() #%>% 
+  #gganimate_save("../aux_out/estados_focos.gif")
 ```
 
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
