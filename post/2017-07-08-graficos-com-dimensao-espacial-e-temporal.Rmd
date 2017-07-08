@@ -31,30 +31,39 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include=FALSE}
-knitr::opts_knit$set(animation.fun = function(x, options, format = "gif") {
+library(knitr)
+
+# I want the README to have visible GIFs on GitHub, as
+# GitHub cannot show .mp4s or other animation formats.
+# I therefore hacked together a GIF animation hook for knitr.
+
+library(animation)
+ani.options(autobrowse = FALSE, interval = 1/15)
+
+opts_knit$set(animation.fun = function(x, options, format = "gif") {
   x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
   fig.num = options$fig.num
   format = sub("^[.]", "", format)
-  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]),
+  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]), 
                      ".", x[2])
-  mov.fname = paste0(sub(paste0(fig.num, "$"), "", x[1]), ".",
+  mov.fname = paste0(sub(paste0(fig.num, "$"), "", x[1]), ".", 
                      format)
 
   # order correctly
   figs <- Sys.glob(fig.fname)
-  figs <- figs[order(as.numeric(stringr::str_match(figs,
-    paste0("(\\d+)\\.", x[2]))[, 2]))]
+  figs <- figs[order(as.numeric(stringr::str_match(figs, paste0("(\\d+)\\.", x[2]))[, 2]))]
 
   animation::im.convert(figs, output = mov.fname)
 
-  # For Github output
-  # sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"),
-  #   mov.fname))
-  
-  # For HTML output
-  sprintf('<div class="figure %s"><img src="%s"></div>', options$fig.align,
-    mov.fname)
+  sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
 })
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
 ```
 
 O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que tem uma informação geográfica associada com informações que variam no tempo. Esse tipo de análise é comum no meu  dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no [Programa Queimadas Monitoramento por Satélites](http://www.inpe.br/queimadas/situacao-atual). O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.
@@ -112,20 +121,7 @@ ggplot(estados_focos) +
 
 E por fim, nossa terceira tentativa vai unificar os paineis do gráfico \@ref(fig:focos-facet) em um gif animado. A limitação do gráfico  é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.
 
-```{r, eval=FALSE}
-(ggplot(estados_focos) +
-  geom_sf(aes(fill = focos, frame = ano), color = NA) +
-  ggtitle("Ano:") +
-  labs(fill = "Nº de focos de incêndios") +
-  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
-  theme_bw() +
-  theme(legend.position = "top", legend.justification = "right") +
-  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
-  ) %>% 
-  gganimate() 
-```
-
-```{r, fig.show="animate", cache = TRUE}
+```{r focos-gif, fig.show="animate", fig.cap="Representação por GIF animado."}
 # bug no blogdown. precisa savar e depois inserir o gif
 (ggplot(estados_focos) +
   geom_sf(aes(fill = focos, frame = ano), color = NA) +
@@ -136,8 +132,7 @@ E por fim, nossa terceira tentativa vai unificar os paineis do gráfico \@ref(fi
   theme(legend.position = "bottom", legend.justification = "right") +
   guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
   ) %>% 
-  gganimate() #%>% 
-  #gganimate_save("../aux_out/estados_focos.gif")
+  gganimate()
 ```
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
