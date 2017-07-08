@@ -95,6 +95,6 @@ ggplot(estados_focos, aes(ano, focos)) +
   gganimate() %>% 
   gganimate_save("../aux_out/estados_focos.gif")
 
-knitr::include_graphics("../aux_out/estados_focos.gif")
+knitr::include_graphics("http://i.imgur.com/REQPorl.gifv")
 ```
 
