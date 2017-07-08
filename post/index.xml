@@ -10,6 +10,84 @@
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Gráficos com dimensão espacial e temporal</title>
+      <link>/graficos-com-dimensao-espacial-e-temporal/</link>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/graficos-com-dimensao-espacial-e-temporal/</guid>
+      <description>&lt;p&gt;O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Eventualmente me deparo com esse desafio nas análises do dia a dia e por isso resolvi deixar algumas alternativas para isto resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no &lt;a href=&#34;http://www.inpe.br/queimadas/situacao-atual&#34;&gt;Programa Queimadas Monitoramento por Satélites&lt;/a&gt;. O site é interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, viridis, scales, sf, geofacet, gganimate)
+pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O primeiro passo foi copiar os dados da página e organizá-los no formato &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data/&#34;&gt;tidy&lt;/a&gt;. Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica. .&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;focos &amp;lt;- read_csv2(&amp;quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv&amp;quot;)
+
+focos&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 162 x 3
+##    sigla   ano focos
+##    &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+##  1    AC  2011    13
+##  2    AL  2011   127
+##  3    AM  2011   159
+##  4    AP  2011     5
+##  5    BA  2011   883
+##  6    CE  2011    44
+##  7    DF  2011     8
+##  8    ES  2011    55
+##  9    GO  2011   492
+## 10    MA  2011   656
+## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;estados_focos &amp;lt;-  focos %&amp;gt;% 
+  left_join(brmap_estado, by = &amp;quot;sigla&amp;quot;)
+
+estados_focos&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 162 x 6
+##    sigla   ano focos cod_estado           estado          geometry
+##    &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;            &amp;lt;chr&amp;gt;  &amp;lt;simple_feature&amp;gt;
+##  1    AC  2011    13         12             Acre &amp;lt;MULTIPOLYGON...&amp;gt;
+##  2    AL  2011   127         27          Alagoas &amp;lt;MULTIPOLYGON...&amp;gt;
+##  3    AM  2011   159         13         Amazonas &amp;lt;MULTIPOLYGON...&amp;gt;
+##  4    AP  2011     5         16            Amapá &amp;lt;MULTIPOLYGON...&amp;gt;
+##  5    BA  2011   883         29            Bahia &amp;lt;MULTIPOLYGON...&amp;gt;
+##  6    CE  2011    44         23            Ceará &amp;lt;MULTIPOLYGON...&amp;gt;
+##  7    DF  2011     8         53 Distrito Federal &amp;lt;MULTIPOLYGON...&amp;gt;
+##  8    ES  2011    55         32   Espírito Santo &amp;lt;MULTIPOLYGON...&amp;gt;
+##  9    GO  2011   492         52            Goiás &amp;lt;MULTIPOLYGON...&amp;gt;
+## 10    MA  2011   656         21         Maranhão &amp;lt;MULTIPOLYGON...&amp;gt;
+## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos) +
+  geom_sf(aes(fill = focos), color = NA) +
+  facet_wrap(~ano) +
+  scale_fill_viridis() +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;4000&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos, aes(ano, focos)) +
+  geom_col() +
+  facet_geo(~estado, grid = br_grid1) +
+  labs(
+    x = &amp;quot;Ano&amp;quot;,
+    y = &amp;quot;Nº de focos de incêndios&amp;quot;
+  ) +
+  scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
+  # scale_y_continuous(breaks = seq(100, 600, 200)) +
+  theme_bw() +
+  theme(
+    axis.title = element_text(size = 18),
+    panel.grid.minor.x = element_blank()
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;4000&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle(&amp;quot;Ano:&amp;quot;) +
+  scale_fill_viridis() +
+  theme_bw() 
+  ) %&amp;gt;% 
+  gganimate() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;C:/Users/Italo/Github/italocegatta.github.io_source/content/aux_out/estados_focos.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Web scraping: dados de páginas da internet na palma da sua mão</title>
       <link>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</link>
       <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>

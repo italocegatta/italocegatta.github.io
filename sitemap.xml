@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/graficos-com-dimensao-espacial-e-temporal/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
   </url>
@@ -83,6 +88,12 @@
   </url>
   
   <url>
+    <loc>/tags/brmap/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/broom/</loc>
     <lastmod>2016-08-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -118,6 +129,12 @@
   </url>
   
   <url>
+    <loc>/tags/geofacet/</loc>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/ggbiplot/</loc>
     <lastmod>2016-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -143,7 +160,7 @@
   
   <url>
     <loc>/categories/graficos/</loc>
-    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,100 @@
+---
+title: "Gráficos com dimensão espacial e temporal"
+date: 2017-06-16
+author: Ítalo Cegatta
+tags:
+  - dplyr
+  - ggplot2
+  - geofacet
+  - brmap
+categories:
+  - gráficos
+thumbnailImage: http://i.imgur.com/M5r4L5G.png
+coverImage: http://i.imgur.com/UwMQdpT.png
+coverCaption:
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8, dpi = 400
+)
+```
+
+O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Eventualmente me deparo com esse desafio nas análises do dia a dia e por isso resolvi deixar algumas alternativas para isto resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no [Programa Queimadas Monitoramento por Satélites](http://www.inpe.br/queimadas/situacao-atual). O site é interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, ggplot2, viridis, scales, sf, geofacet, gganimate)
+pacman::p_load_gh("italocegatta/brmap")
+```
+
+O primeiro passo foi copiar os dados da página e organizá-los no formato [tidy](https://italocegatta.github.io/o-conceito-tidy-data/). Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica.
+.
+```{r}
+focos <- read_csv2("https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv")
+
+focos
+```
+
+
+```{r}
+estados_focos <-  focos %>% 
+  left_join(brmap_estado, by = "sigla")
+
+estados_focos
+```
+
+```{r}
+ggplot(estados_focos) +
+  geom_sf(aes(fill = focos), color = NA) +
+  facet_wrap(~ano) +
+  scale_fill_viridis() +
+  theme_bw()
+```
+
+```{r, fig.height=8}
+ggplot(estados_focos, aes(ano, focos)) +
+  geom_col() +
+  facet_geo(~estado, grid = br_grid1) +
+  labs(
+    x = "Ano",
+    y = "Nº de focos de incêndios"
+  ) +
+  scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
+  # scale_y_continuous(breaks = seq(100, 600, 200)) +
+  theme_bw() +
+  theme(
+    axis.title = element_text(size = 18),
+    panel.grid.minor.x = element_blank()
+  )
+```
+
+```{r, eval=FALSE}
+(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle("Ano:") +
+  scale_fill_viridis() +
+  theme_bw() 
+  ) %>% 
+  gganimate() 
+```
+
+```{r, echo=FALSE}
+# bug no blogdown. precisa savar e depois inserir o gif
+(
+  ggplot(estados_focos) +
+    geom_sf(aes(fill = focos, frame = ano), color = NA) +
+    ggtitle("Ano:") +
+    scale_fill_viridis() +
+    theme_bw() 
+  ) %>% 
+  gganimate() %>% 
+  gganimate_save("../aux_out/estados_focos.gif")
+
+knitr::include_graphics("../aux_out/estados_focos.gif")
+```
+
