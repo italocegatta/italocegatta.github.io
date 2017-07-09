@@ -1,6 +1,6 @@
 ---
 title: "Gráficos com dimensão espacial e temporal"
-date: 2017-06-16
+date: 2017-07-08
 author: Ítalo Cegatta
 tags:
   - dplyr
@@ -110,7 +110,8 @@ animation::ani.options(interval = 1,ani.width = 1000, ani.height = 600)
   ) %>% 
   gganimate("../aux_out/16_estados_focos.gif")
 ```
-<a href="http://imgur.com/Vfkq7hW"><img src="http://i.imgur.com/Vfkq7hW.gif" style="width:100%" /></a>
+
+<a href="http://imgur.com/KoLpSsF"><img src="http://i.imgur.com/KoLpSsF.gif" style="width:100%" /></a>
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
 

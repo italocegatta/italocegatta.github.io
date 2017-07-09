@@ -6,13 +6,13 @@
     <description>Recent content in Posts on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Fri, 16 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Jul 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Gráficos com dimensão espacial e temporal</title>
       <link>/graficos-com-dimensao-espacial-e-temporal/</link>
-      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/graficos-com-dimensao-espacial-e-temporal/</guid>
       <description>&lt;p&gt;O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no &lt;a href=&#34;http://www.inpe.br/queimadas/situacao-atual&#34;&gt;Programa Queimadas Monitoramento por Satélites&lt;/a&gt;. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.&lt;/p&gt;
@@ -99,7 +99,7 @@ Figura  2: Representação em painel utilizando cores.
   guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))
   ) %&amp;gt;% 
   gganimate()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;http://imgur.com/Vfkq7hW&#34;&gt;&lt;img src=&#34;http://i.imgur.com/Vfkq7hW.gif&#34; style=&#34;width:100%&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/KoLpSsF&#34;&gt;&lt;img src=&#34;http://i.imgur.com/KoLpSsF.gif&#34; style=&#34;width:100%&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
