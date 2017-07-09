@@ -14,11 +14,11 @@
       <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>/graficos-com-dimensao-espacial-e-temporal/</guid>
-      <description>&lt;p&gt;O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que tem uma informação geográfica associada com informações que variam no tempo. Esse tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no &lt;a href=&#34;http://www.inpe.br/queimadas/situacao-atual&#34;&gt;Programa Queimadas Monitoramento por Satélites&lt;/a&gt;. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.&lt;/p&gt;
+      <description>&lt;p&gt;O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no &lt;a href=&#34;http://www.inpe.br/queimadas/situacao-atual&#34;&gt;Programa Queimadas Monitoramento por Satélites&lt;/a&gt;. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
 pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, gganimate, viridis, scales)
 pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O primeiro passo foi copiar os dados da página e organizá-los no formato &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data/&#34;&gt;tidy&lt;/a&gt;. Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados? .&lt;/p&gt;
+&lt;p&gt;O primeiro passo foi copiar os dados da página e organizá-los no formato &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data/&#34;&gt;tidy&lt;/a&gt;. Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;focos &amp;lt;- read_csv2(&amp;quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv&amp;quot;)
 
 focos&lt;/code&gt;&lt;/pre&gt;
@@ -55,7 +55,7 @@ estados_focos&lt;/code&gt;&lt;/pre&gt;
 ##  9    GO  2011   492         52            Goiás &amp;lt;MULTIPOLYGON...&amp;gt;
 ## 10    MA  2011   656         21         Maranhão &amp;lt;MULTIPOLYGON...&amp;gt;
 ## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A primeira abordagem vai utilizar o pacote &lt;a href=&#34;https://github.com/hafen/geofacet&#34;&gt;geofacet&lt;/a&gt;. Ele permite criarmos um grid de referência para orientar a função &lt;code&gt;facet_wrap&lt;/code&gt; de &lt;code&gt;ggplot2&lt;/code&gt;. O pacote já vem carregado com um grid do Brasil, o &lt;code&gt;br_grid1&lt;/code&gt;, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e conporta uma infinidade de gráficos (linhas, pontos, barras…) e dimenções (color, shape, size…). O gráfico &lt;a href=&#34;#fig:focos-geofacet&#34;&gt;1&lt;/a&gt; está bem simples mas cumpre seu papel em facilitar a parcepção da variação anual e dar uma noção da região espacial do estado no Brasil.&lt;/p&gt;
+&lt;p&gt;A primeira abordagem vai utilizar o pacote &lt;a href=&#34;https://github.com/hafen/geofacet&#34;&gt;geofacet&lt;/a&gt;. Ele permite criarmos um grid de referência para orientar a função &lt;code&gt;facet_wrap&lt;/code&gt; de &lt;code&gt;ggplot2&lt;/code&gt;. O pacote já vem carregado com um grid do Brasil, o &lt;code&gt;br_grid1&lt;/code&gt;, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras…) e dimenções (color, shape, size…). O gráfico &lt;a href=&#34;#fig:focos-geofacet&#34;&gt;1&lt;/a&gt; está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos, aes(ano, focos)) +
   geom_line() +
   facet_geo(~estado, grid = br_grid1) +
@@ -72,7 +72,7 @@ estados_focos&lt;/code&gt;&lt;/pre&gt;
 Figura  1: Representação em painel orientado utilizando linhas.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;A segunda abordagem é relativamente simples e intuitiva. Construiremos um mapa temático utilizando o Nº de focos como escala de cor, mas organizado em um painel que tem como base o ano de regsitro. O gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; apela para a dimensão de cor e instantaneamente nos informa o estado mais crítico. Especificamente para esta análise ele este tipo de gráfico é muito apropriado.&lt;/p&gt;
+&lt;p&gt;A segunda abordagem é relativamente simples e intuitiva. Construiremos um mapa temático utilizando o Nº de focos como escala de cor, mas organizado em um painel que tem como base o ano de registro. O gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; apela para a dimensão de cor e instantaneamente nos informa o estado mais crítico. Especificamente para esta análise ele este tipo de gráfico é muito apropriado.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos) +
   geom_sf(aes(fill = focos), color = NA) +
   facet_wrap(~ano) +
@@ -87,7 +87,7 @@ Figura  1: Representação em painel orientado utilizando linhas.
 Figura  2: Representação em painel utilizando cores.
 &lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;E por fim, nossa terceira tentativa vai unificar os paineis do gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; em um gif animado. A limitação do gráfico é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.&lt;/p&gt;
+&lt;p&gt;E por fim, nossa terceira tentativa vai unificar os painéis do gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; em um gif animado. A limitação do gráfico é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(ggplot(estados_focos) +
   geom_sf(aes(fill = focos, frame = ano), color = NA) +
   ggtitle(&amp;quot;Ano:&amp;quot;) +
@@ -108,7 +108,7 @@ Figura  2: Representação em painel utilizando cores.
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-07-08                  
+##  date     2017-07-09                  
 ## 
 ##  package     * version    date       source                            
 ##  animation     2.5        2017-03-30 CRAN (R 3.3.3)                    
