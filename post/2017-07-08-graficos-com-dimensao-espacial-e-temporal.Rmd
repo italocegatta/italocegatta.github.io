@@ -13,10 +13,9 @@ tags:
   - scales
   - brmap
 categories:
-  - gráficos
-  - SIG
-thumbnailImage: http://i.imgur.com/M5r4L5G.png
-coverImage: http://i.imgur.com/UwMQdpT.png
+  - Gráficos
+thumbnailImage: http://i.imgur.com/ZlNUk70.png
+coverImage: http://i.imgur.com/ZlNUk70.png
 coverCaption:
 thumbnailImagePosition: top
 metaAlignment: center
@@ -27,42 +26,6 @@ coverMeta: out
 knitr::opts_chunk$set(
   warning = FALSE, message = FALSE,
   fig.width = 10, fig.height = 8, dpi = 400
-)
-```
-
-```{r, include=FALSE}
-library(knitr)
-
-# I want the README to have visible GIFs on GitHub, as
-# GitHub cannot show .mp4s or other animation formats.
-# I therefore hacked together a GIF animation hook for knitr.
-
-library(animation)
-ani.options(autobrowse = FALSE, interval = 1/15)
-
-opts_knit$set(animation.fun = function(x, options, format = "gif") {
-  x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
-  fig.num = options$fig.num
-  format = sub("^[.]", "", format)
-  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]), 
-                     ".", x[2])
-  mov.fname = paste0(sub(paste0(fig.num, "$"), "", x[1]), ".", 
-                     format)
-
-  # order correctly
-  figs <- Sys.glob(fig.fname)
-  figs <- figs[order(as.numeric(stringr::str_match(figs, paste0("(\\d+)\\.", x[2]))[, 2]))]
-
-  animation::im.convert(figs, output = mov.fname)
-
-  sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
-})
-
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  warning = FALSE,
-  message = FALSE
 )
 ```
 
@@ -121,8 +84,7 @@ ggplot(estados_focos) +
 
 E por fim, nossa terceira tentativa vai unificar os paineis do gráfico \@ref(fig:focos-facet) em um gif animado. A limitação do gráfico  é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.
 
-```{r focos-gif, fig.show="animate", fig.cap="Representação por GIF animado."}
-# bug no blogdown. precisa savar e depois inserir o gif
+```{r, eval=FALSE}
 (ggplot(estados_focos) +
   geom_sf(aes(fill = focos, frame = ano), color = NA) +
   ggtitle("Ano:") +
@@ -134,6 +96,21 @@ E por fim, nossa terceira tentativa vai unificar os paineis do gráfico \@ref(fi
   ) %>% 
   gganimate()
 ```
+
+```{r, include=FALSE}
+animation::ani.options(interval = 1,ani.width = 1000, ani.height = 600)
+(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle("Ano:") +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw(18) +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
+  ) %>% 
+  gganimate("../aux_out/16_estados_focos.gif")
+```
+<a href="http://imgur.com/Vfkq7hW"><img src="http://i.imgur.com/Vfkq7hW.gif" style="width:100%" /></a>
 
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
 

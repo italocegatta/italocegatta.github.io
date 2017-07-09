@@ -88,8 +88,7 @@ Figura  2: Representação em painel utilizando cores.
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;E por fim, nossa terceira tentativa vai unificar os paineis do gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; em um gif animado. A limitação do gráfico é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bug no blogdown. precisa savar e depois inserir o gif
-(ggplot(estados_focos) +
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(ggplot(estados_focos) +
   geom_sf(aes(fill = focos, frame = ano), color = NA) +
   ggtitle(&amp;quot;Ano:&amp;quot;) +
   labs(fill = &amp;quot;Nº de focos de incêndios&amp;quot;) +
@@ -99,10 +98,6 @@ Figura  2: Representação em painel utilizando cores.
   guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))
   ) %&amp;gt;% 
   gganimate()&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-gif-.gif&#34; alt=&#34;focos-gif&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;focos-gif&lt;/p&gt;
-&lt;/div&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()
 #&amp;gt;  setting  value                       
@@ -119,6 +114,7 @@ Figura  2: Representação em painel utilizando cores.
 #&amp;gt;  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
 #&amp;gt;  backports     1.1.0      2017-05-22 CRAN (R 3.3.3)                    
 #&amp;gt;  base        * 3.3.3      2017-03-06 local                             
+#&amp;gt;  base64enc     0.1-3      2015-07-28 CRAN (R 3.3.2)                    
 #&amp;gt;  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
 #&amp;gt;  bindrcpp      0.2        2017-06-17 CRAN (R 3.3.3)                    
 #&amp;gt;  blogdown      0.0.25     2017-03-23 Github (rstudio/blogdown@1c10d16) 
