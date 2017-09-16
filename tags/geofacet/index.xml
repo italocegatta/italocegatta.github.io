@@ -2,7 +2,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Geofacet on Ítalo Cegatta</title>
-<<<<<<< HEAD
     <link>/tags/geofacet/</link>
     <description>Recent content in Geofacet on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
@@ -11,13 +10,6 @@
     
 	<atom:link href="/tags/geofacet/index.xml" rel="self" type="application/rss+xml" />
     
-=======
-    <link>/tags/geofacet/index.xml</link>
-    <description>Recent content in Geofacet on Ítalo Cegatta</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <atom:link href="/tags/geofacet/index.xml" rel="self" type="application/rss+xml" />
->>>>>>> master
     
     <item>
       <title>Gráficos com dimensão espacial e temporal</title>
@@ -25,169 +17,7 @@
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/graficos-com-dimensao-espacial-e-temporal/</guid>
-<<<<<<< HEAD
       <description>O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</description>
-=======
-      <description>&lt;p&gt;O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no &lt;a href=&#34;http://www.inpe.br/queimadas/situacao-atual&#34;&gt;Programa Queimadas Monitoramento por Satélites&lt;/a&gt;. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
-pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, gganimate, viridis, scales)
-pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O primeiro passo foi copiar os dados da página e organizá-los no formato &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data/&#34;&gt;tidy&lt;/a&gt;. Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados?&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;focos &amp;lt;- read_csv2(&amp;quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv&amp;quot;)
-
-focos&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 162 x 3
-##    sigla   ano focos
-##    &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
-##  1    AC  2011    13
-##  2    AL  2011   127
-##  3    AM  2011   159
-##  4    AP  2011     5
-##  5    BA  2011   883
-##  6    CE  2011    44
-##  7    DF  2011     8
-##  8    ES  2011    55
-##  9    GO  2011   492
-## 10    MA  2011   656
-## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Vamos agora adicionar a referência espacial aos dados utilizando os polígonos do pacote &lt;a href=&#34;https://github.com/italocegatta/brmap&#34;&gt;brmap&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;estados_focos &amp;lt;-  focos %&amp;gt;% 
-  left_join(brmap_estado, by = &amp;quot;sigla&amp;quot;)
-
-estados_focos&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 162 x 6
-##    sigla   ano focos cod_estado           estado          geometry
-##    &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;            &amp;lt;chr&amp;gt;  &amp;lt;simple_feature&amp;gt;
-##  1    AC  2011    13         12             Acre &amp;lt;MULTIPOLYGON...&amp;gt;
-##  2    AL  2011   127         27          Alagoas &amp;lt;MULTIPOLYGON...&amp;gt;
-##  3    AM  2011   159         13         Amazonas &amp;lt;MULTIPOLYGON...&amp;gt;
-##  4    AP  2011     5         16            Amapá &amp;lt;MULTIPOLYGON...&amp;gt;
-##  5    BA  2011   883         29            Bahia &amp;lt;MULTIPOLYGON...&amp;gt;
-##  6    CE  2011    44         23            Ceará &amp;lt;MULTIPOLYGON...&amp;gt;
-##  7    DF  2011     8         53 Distrito Federal &amp;lt;MULTIPOLYGON...&amp;gt;
-##  8    ES  2011    55         32   Espírito Santo &amp;lt;MULTIPOLYGON...&amp;gt;
-##  9    GO  2011   492         52            Goiás &amp;lt;MULTIPOLYGON...&amp;gt;
-## 10    MA  2011   656         21         Maranhão &amp;lt;MULTIPOLYGON...&amp;gt;
-## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A primeira abordagem vai utilizar o pacote &lt;a href=&#34;https://github.com/hafen/geofacet&#34;&gt;geofacet&lt;/a&gt;. Ele permite criarmos um grid de referência para orientar a função &lt;code&gt;facet_wrap&lt;/code&gt; de &lt;code&gt;ggplot2&lt;/code&gt;. O pacote já vem carregado com um grid do Brasil, o &lt;code&gt;br_grid1&lt;/code&gt;, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras…) e dimenções (color, shape, size…). O gráfico &lt;a href=&#34;#fig:focos-geofacet&#34;&gt;1&lt;/a&gt; está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos, aes(ano, focos)) +
-  geom_line() +
-  facet_geo(~estado, grid = br_grid1) +
-  labs(
-    x = &amp;quot;Ano&amp;quot;,
-    y = &amp;quot;Nº de focos de incêndios&amp;quot;
-  ) +
-  scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
-  scale_y_continuous(label = unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) +
-  theme_few()&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:focos-geofacet&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-geofacet-1.png&#34; alt=&#34;Representação em painel orientado utilizando linhas.&#34; width=&#34;4000&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figura  1: Representação em painel orientado utilizando linhas.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;A segunda abordagem é relativamente simples e intuitiva. Construiremos um mapa temático utilizando o Nº de focos como escala de cor, mas organizado em um painel que tem como base o ano de registro. O gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; apela para a dimensão de cor e instantaneamente nos informa o estado mais crítico. Especificamente para esta análise ele este tipo de gráfico é muito apropriado.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos) +
-  geom_sf(aes(fill = focos), color = NA) +
-  facet_wrap(~ano) +
-  labs(fill = &amp;quot;Nº de focos de incêndios&amp;quot;) +
-  scale_fill_viridis(label = unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) +
-  theme_bw() +
-  theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
-  guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:focos-facet&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-facet-1.png&#34; alt=&#34;Representação em painel utilizando cores.&#34; width=&#34;4000&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figura  2: Representação em painel utilizando cores.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;E por fim, nossa terceira tentativa vai unificar os painéis do gráfico &lt;a href=&#34;#fig:focos-facet&#34;&gt;2&lt;/a&gt; em um gif animado. A limitação do gráfico é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(ggplot(estados_focos) +
-  geom_sf(aes(fill = focos, frame = ano), color = NA) +
-  ggtitle(&amp;quot;Ano:&amp;quot;) +
-  labs(fill = &amp;quot;Nº de focos de incêndios&amp;quot;) +
-  scale_fill_viridis(label = unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) +
-  theme_bw() +
-  theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
-  guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))
-  ) %&amp;gt;% 
-  gganimate()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href=&#34;http://imgur.com/KoLpSsF&#34;&gt;&lt;img src=&#34;http://i.imgur.com/KoLpSsF.gif&#34; style=&#34;width:100%&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  setting  value                       
-##  version  R version 3.3.3 (2017-03-06)
-##  system   x86_64, mingw32             
-##  ui       RTerm                       
-##  language (EN)                        
-##  collate  Portuguese_Brazil.1252      
-##  tz       America/Sao_Paulo           
-##  date     2017-07-09                  
-## 
-##  package     * version    date       source                            
-##  animation     2.5        2017-03-30 CRAN (R 3.3.3)                    
-##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
-##  backports     1.1.0      2017-05-22 CRAN (R 3.3.3)                    
-##  base        * 3.3.3      2017-03-06 local                             
-##  base64enc     0.1-3      2015-07-28 CRAN (R 3.3.2)                    
-##  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
-##  bindrcpp      0.2        2017-06-17 CRAN (R 3.3.3)                    
-##  blogdown      0.0.25     2017-03-23 Github (rstudio/blogdown@1c10d16) 
-##  bookdown      0.4        2017-05-20 CRAN (R 3.3.3)                    
-##  brmap       * 0.0.2      2017-07-07 local                             
-##  colorspace    1.3-2      2016-12-14 CRAN (R 3.3.2)                    
-##  curl          2.7        2017-06-26 CRAN (R 3.3.3)                    
-##  datasets    * 3.3.3      2017-03-06 local                             
-##  DBI           0.7        2017-06-18 CRAN (R 3.3.3)                    
-##  devtools      1.13.2     2017-06-02 CRAN (R 3.3.3)                    
-##  digest        0.6.12     2017-01-27 CRAN (R 3.3.2)                    
-##  dplyr       * 0.7.1      2017-06-22 CRAN (R 3.3.3)                    
-##  evaluate      0.10       2016-10-11 CRAN (R 3.3.3)                    
-##  geofacet    * 0.1.4      2017-06-20 CRAN (R 3.3.3)                    
-##  gganimate   * 0.1.0.9000 2017-05-24 Github (dgrtwo/gganimate@bf82002) 
-##  ggplot2     * 2.2.1.9000 2017-06-16 Github (tidyverse/ggplot2@398fc07)
-##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.3.3)                    
-##  glue          1.1.1      2017-06-21 CRAN (R 3.3.3)                    
-##  graphics    * 3.3.3      2017-03-06 local                             
-##  grDevices   * 3.3.3      2017-03-06 local                             
-##  grid          3.3.3      2017-03-06 local                             
-##  gridExtra     2.2.1      2016-02-29 CRAN (R 3.3.3)                    
-##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
-##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
-##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
-##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
-##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
-##  labeling      0.3        2014-08-23 CRAN (R 3.3.2)                    
-##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.3.2)                    
-##  magrittr      1.5        2014-11-22 CRAN (R 3.3.2)                    
-##  memoise       1.1.0      2017-04-21 CRAN (R 3.3.3)                    
-##  methods       3.3.3      2017-03-06 local                             
-##  munsell       0.4.3      2016-02-13 CRAN (R 3.3.2)                    
-##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
-##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.3.3)                    
-##  plyr          1.8.4      2016-06-08 CRAN (R 3.3.2)                    
-##  R6            2.2.2      2017-06-17 CRAN (R 3.3.3)                    
-##  Rcpp          0.12.11    2017-05-22 CRAN (R 3.3.3)                    
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
-##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
-##  rmarkdown     1.6        2017-06-15 CRAN (R 3.3.3)                    
-##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
-##  scales      * 0.4.1      2016-11-09 CRAN (R 3.3.2)                    
-##  sf          * 0.5-1      2017-06-23 CRAN (R 3.3.3)                    
-##  stats       * 3.3.3      2017-03-06 local                             
-##  stringi       1.1.5      2017-04-07 CRAN (R 3.3.3)                    
-##  stringr       1.2.0      2017-02-18 CRAN (R 3.3.2)                    
-##  tibble        1.3.3      2017-05-28 CRAN (R 3.3.3)                    
-##  tools         3.3.3      2017-03-06 local                             
-##  udunits2      0.13       2016-11-17 CRAN (R 3.3.2)                    
-##  units         0.4-5      2017-06-15 CRAN (R 3.3.3)                    
-##  utils       * 3.3.3      2017-03-06 local                             
-##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.3.3)                    
-##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.3.3)                    
-##  withr         1.0.2      2016-06-20 CRAN (R 3.3.3)                    
-##  yaml          2.1.14     2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
-</description>
->>>>>>> master
     </item>
     
   </channel>
