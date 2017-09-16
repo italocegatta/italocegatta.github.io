@@ -149,7 +149,6 @@ leaflet(dados_itape) %>%
   )
 ```
 
-
 Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
 
 ```{r}

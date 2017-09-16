@@ -1,0 +1,15 @@
+base
+pacman
+readr
+dplyr
+sf
+ggplot2
+ggthemes
+geofacet
+gganimate
+viridisLite
+viridis
+scales
+brmap
+knitr
+animation

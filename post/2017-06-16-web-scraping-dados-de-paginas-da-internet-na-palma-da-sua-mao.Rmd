@@ -1,0 +1,158 @@
+---
+title: "Web scraping: dados de páginas da internet na palma da sua mão"
+date: 2017-06-16
+author: Ítalo Cegatta
+tags:
+  - purrr
+  - dplyr
+  - tidyr
+  - stringr
+  - rvest
+  - ggplot2
+  - viridis
+  - scales
+  - sf
+  - brmap
+categories:
+  - Web scraping
+thumbnailImage: http://i.imgur.com/M5r4L5G.png
+coverImage: http://i.imgur.com/UwMQdpT.png
+coverCaption:
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8, dpi = 400
+)
+```
+
+Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso *ctrl+c/ctrl+v*.
+
+Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.
+
+Nosso ponto de partida é a página [States@](http://www.ibge.gov.br/estadosat/) do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e assim entender como a página está estruturada. Como queremos entrar nos Estados, podemos ver na Figura \@ref(fig:pg1) que essa informação está abaixo do `id="menu"`. Note que ao passarmos o mouse sobre a linha `<div id="menu">` o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso `div#menu`.
+
+```{r pg1, echo=FALSE, fig.cap="Página inicial do site."}
+knitr::include_graphics("http://i.imgur.com/VjiEvCM.png")
+```
+
+Então já podemos começar a programar e desenhar o acesso aos dados. No R, cada página web é um objeto que precisa ser salvo na memória. Então, cada página é importante para ter os dados ou por ser uma etapa para conseguir os dados. A página inicial (`pg_raiz`) contém os links para as páginas dos Estados, por isso precisamos acessá-la.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(purrr, dplyr, tidyr, stringr, rvest, ggplot2, viridis, scales, sf)
+pacman::p_load_gh("italocegatta/brmap")
+```
+
+```{r}
+url_raiz <- "http://www.ibge.gov.br/estadosat/"
+
+pg_raiz <- read_html(url_raiz)
+```
+
+No objeto `posfixo_estados` temos a parte do link que leva até a página de cada estado. Para ter o link completo, é só juntar com o link da página raiz.
+
+```{r}
+posfixo_estados <- html_node(pg_raiz, "div#menu") %>% 
+  html_children() %>%
+  html_node("a") %>% 
+  html_attr("href")
+
+posfixo_estados
+
+url_estados <- paste0(url_raiz, posfixo_estados)
+```
+
+Vamos agora acessar às páginas de todos os Estados e armazenar no objeto `pg_estados`.
+
+```{r}
+pg_estados <- map(url_estados, read_html)
+```
+
+Navegando pela página de um estado qualquer, identificamos que queremos a informação contida no link *Extração Vegetal e Silvicultura 2015*. Nesse caso, precisamos mais uma vez dos links que leva a esta página (para cada estado). Também é possível, tanto pelo R quanto pelo navegador, ver que esse link está na posição 68 da lista/tablela nomeada como `table.temas`.
+
+```{r}
+posfixo_lenha <- map(
+  pg_estados,
+  ~html_node(.x, "table.temas") %>% 
+    html_children() %>%
+    '['(68) %>%
+    html_node("a") %>% 
+    html_attr("href")
+  ) %>% 
+  flatten_chr()
+
+posfixo_lenha
+```
+
+Aqui, mais uma vez, será preciso juntar o *link* específico de cada estado com a url da página raiz.
+
+```{r}
+url_lenha <- paste0(url_raiz, posfixo_lenha)
+
+pg_lenha <- map(url_lenha, read_html)
+```
+
+Agora, vamos dar um passo para trás e listar o nome dos Estados na ordem que as páginas são acessadas para podemos utilizar mais à frente.
+
+```{r}
+lista_estados <- html_node(pg_raiz, "div#menu") %>% 
+  html_children() %>%
+  html_node("img") %>%
+  html_attr("alt")
+
+lista_estados
+```
+
+O próximo passo é extrair a tabela de informação de cada estado e posteriormente filtrar a informação que é de nosso interesse. Note que é neste momento que a programação se diferencia das atividades manuais: caso seu interesse seja por lenha de pinus, por exemplo, basta alterar uma palavra no código abaixo e ser feliz com o resultado em poucos segundos. Claro que é um exemplo hipotético, dificilmente alguém vai precisar desse código específico, mas o ponto está na capacidade de escrever seu próprio código e não precisar fazer o trabalho manual.
+
+```{r}
+tabelas <- map(
+  set_names(pg_lenha, lista_estados), 
+  ~html_node(.x, "table#tabela_temas") %>% 
+  html_table() %>% 
+  as_tibble() %>% 
+  rename(produto = X1, valor = X2, unidade = X3)
+  )
+
+qnt <- map_df(
+  tabelas, 
+  ~filter(.x, str_detect(produto, c("Lenha de eucalipto", "quantidade"))) %>% 
+  '[['("valor") 
+  ) %>%
+  gather(estado, volume) %>% 
+  mutate(volume = as.numeric(str_replace_all(volume, "\\.", "")))
+
+qnt 
+```
+
+De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote [brmap](https://github.com/italocegatta/brmap) possui os polígonos dos Estados brasileiros no formato `sf`, o novo pacote para manupulação de objetos espaciais no R.
+
+```{r}
+qnt_mapa <- left_join(brmap_estado, qnt)
+
+ggplot(qnt_mapa) +
+  geom_sf(aes(fill = volume)) +
+  labs(
+    title = "Lenha de eucalipto - quantidade produzida em 2015",
+    subtitle = "IBGE Estados - Extração Vegetal e Silvicultura 2015"
+  ) +
+  scale_fill_viridis(
+    Lenha~de~eucalipto~(m^3), 
+    na.value = "grey90",
+    labels = function(x) format(x, big.mark = ".", decimal.mark = ",", scientific = FALSE)
+  ) +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_colorbar(barwidth = 30, title.position = "top"))
+```
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```

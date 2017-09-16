@@ -1,0 +1,120 @@
+---
+title: "Gráficos com dimensão espacial e temporal"
+date: 2017-07-08
+author: Ítalo Cegatta
+tags:
+  - dplyr
+  - sf
+  - ggplot2
+  - ggthemes
+  - geofacet
+  - gganimate
+  - viridis
+  - scales
+  - brmap
+categories:
+  - Gráficos
+thumbnailImage: http://i.imgur.com/ZlNUk70.png
+coverImage: http://i.imgur.com/ps7MyLH.png
+coverCaption:
+thumbnailImagePosition: top
+metaAlignment: center
+coverMeta: out
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8, dpi = 400
+)
+```
+
+O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu  dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no [Programa Queimadas Monitoramento por Satélites](http://www.inpe.br/queimadas/situacao-atual). O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, gganimate, viridis, scales)
+pacman::p_load_gh("italocegatta/brmap")
+```
+
+O primeiro passo foi copiar os dados da página e organizá-los no formato [tidy](https://italocegatta.github.io/o-conceito-tidy-data/). Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados?
+
+```{r}
+focos <- read_csv2("https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv")
+
+focos
+```
+
+Vamos agora adicionar a referência espacial aos dados utilizando os polígonos do pacote [brmap](https://github.com/italocegatta/brmap).
+
+```{r}
+estados_focos <-  focos %>% 
+  left_join(brmap_estado, by = "sigla")
+
+estados_focos
+```
+
+A primeira abordagem vai utilizar o pacote [geofacet](https://github.com/hafen/geofacet). Ele permite criarmos um grid de referência para orientar a função `facet_wrap` de `ggplot2`. O pacote já vem carregado com um grid do Brasil, o `br_grid1`, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras...) e dimenções (color, shape, size...). O gráfico \@ref(fig:focos-geofacet) está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil. 
+
+```{r focos-geofacet, fig.height=8, fig.cap="Representação em painel orientado utilizando linhas."}
+ggplot(estados_focos, aes(ano, focos)) +
+  geom_line() +
+  facet_geo(~estado, grid = br_grid1) +
+  labs(
+    x = "Ano",
+    y = "Nº de focos de incêndios"
+  ) +
+  scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
+  scale_y_continuous(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_few()
+```
+
+A segunda abordagem é relativamente simples e intuitiva. Construiremos um mapa temático utilizando o Nº de focos como escala de cor, mas organizado em um painel que tem como base o ano de registro. O gráfico \@ref(fig:focos-facet) apela para a dimensão de cor e instantaneamente nos informa o estado mais crítico. Especificamente para esta análise ele este tipo de gráfico é muito apropriado.
+
+```{r focos-facet, fig.cap="Representação em painel utilizando cores."}
+ggplot(estados_focos) +
+  geom_sf(aes(fill = focos), color = NA) +
+  facet_wrap(~ano) +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
+```
+
+E por fim, nossa terceira tentativa vai unificar os painéis do gráfico \@ref(fig:focos-facet) em um gif animado. A limitação do gráfico  é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.
+
+```{r, eval=FALSE}
+(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle("Ano:") +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
+  ) %>% 
+  gganimate()
+```
+
+```{r, include=FALSE}
+animation::ani.options(interval = 1,ani.width = 1000, ani.height = 600)
+(ggplot(estados_focos) +
+  geom_sf(aes(fill = focos, frame = ano), color = NA) +
+  ggtitle("Ano:") +
+  labs(fill = "Nº de focos de incêndios") +
+  scale_fill_viridis(label = unit_format(unit = "k", scale = 1e-3)) +
+  theme_bw(18) +
+  theme(legend.position = "bottom", legend.justification = "right") +
+  guides(fill = guide_colorbar(barwidth = 15, title.position = "top"))
+  ) %>% 
+  gganimate("../aux_out/16_estados_focos.gif")
+```
+
+<a href="http://imgur.com/KoLpSsF"><img src="http://i.imgur.com/KoLpSsF.gif" style="width:100%" /></a>
+
+Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.
+
+```{r}
+devtools::session_info()
+```
