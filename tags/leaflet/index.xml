@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Leaflet on Ítalo Cegatta</title>
-    <link>/tags/leaflet/index.xml</link>
+    <link>/tags/leaflet/</link>
     <description>Recent content in Leaflet on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <atom:link href="/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Interpolação pelo inverso do quadrado da distância</title>
@@ -14,179 +17,8 @@
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</guid>
-      <description>&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet/leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leafletfix/leafletfix.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;link href=&#34;/rmarkdown-libs/leaflet-label/leaflet.label.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-label/leaflet.label.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-binding/leaflet.js&#34;&gt;&lt;/script&gt;
-
-&lt;p&gt;É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Primeiro, vamos importar e visualizar os dados que temos disponível.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
-pacman::p_load(readr, dplyr, leaflet)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# importa o arquivo os dados de chuva
-dados &amp;lt;- read_csv2(
-  &amp;quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/chuva_inmet.csv&amp;quot;
-)
-
-dados&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 4
-##               cidade       lon       lat     p
-##                &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1           Sorocaba -47.58555 -23.42603  27.0
-## 2            Itapeva -48.88582 -23.98192  33.4
-## 3 Sao Miguel Arcanjo -48.16482 -23.85202  34.6
-## 4              Avare -48.94100 -23.10175  18.2
-## 5         Piracicaba -47.62332 -22.70313  30.8
-## 6       Barra Bonita -48.55757 -22.47121  42.8&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O mapa a seguir mostra o total de chuva resgistrado pela estação meteorológica de cada cidade no dia 26/04/2017. Nosso objetivo é estimar o quanto choveu em Itapetininga utilizando a interpolação pelo inverso do quadrado da distância ou IDW (Inverse Distance Weighting).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;leaflet(dados) %&amp;gt;% 
-  addTiles() %&amp;gt;% 
-  addMarkers(-48.0530600, -23.5916700) %&amp;gt;% 
-  addCircleMarkers(
-    ~lon, ~lat, 
-    radius = ~p * 0.8, 
-    label = ~as.character(p),
-    popup = ~cidade,
-    fillOpacity = 0.6,
-    labelOptions = labelOptions(
-      style = list(&amp;quot;color&amp;quot; = &amp;quot;white&amp;quot;),
-      offset = c(5, -10),
-      noHide = TRUE,
-      textOnly = TRUE,
-      direction = &amp;quot;bottom&amp;quot;
-    )
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;htmlwidget-38f791e9fa82c8f59f36&#34; style=&#34;width:100%;height:500px;&#34; class=&#34;leaflet html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-38f791e9fa82c8f59f36&#34;&gt;{&#34;x&#34;:{&#34;options&#34;:{&#34;crs&#34;:{&#34;crsClass&#34;:&#34;L.CRS.EPSG3857&#34;,&#34;code&#34;:null,&#34;proj4def&#34;:null,&#34;projectedBounds&#34;:null,&#34;options&#34;:{}}},&#34;calls&#34;:[{&#34;method&#34;:&#34;addTiles&#34;,&#34;args&#34;:[&#34;//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#34;,null,null,{&#34;minZoom&#34;:0,&#34;maxZoom&#34;:18,&#34;maxNativeZoom&#34;:null,&#34;tileSize&#34;:256,&#34;subdomains&#34;:&#34;abc&#34;,&#34;errorTileUrl&#34;:&#34;&#34;,&#34;tms&#34;:false,&#34;continuousWorld&#34;:false,&#34;noWrap&#34;:false,&#34;zoomOffset&#34;:0,&#34;zoomReverse&#34;:false,&#34;opacity&#34;:1,&#34;zIndex&#34;:null,&#34;unloadInvisibleTiles&#34;:null,&#34;updateWhenIdle&#34;:null,&#34;detectRetina&#34;:false,&#34;reuseTiles&#34;:false,&#34;attribution&#34;:&#34;&amp;copy; &lt;a href=\&#34;http://openstreetmap.org\&#34;&gt;OpenStreetMap&lt;\/a&gt; contributors, &lt;a href=\&#34;http://creativecommons.org/licenses/by-sa/2.0/\&#34;&gt;CC-BY-SA&lt;\/a&gt;&#34;}]},{&#34;method&#34;:&#34;addMarkers&#34;,&#34;args&#34;:[-23.59167,-48.05306,null,null,null,{&#34;clickable&#34;:true,&#34;draggable&#34;:false,&#34;keyboard&#34;:true,&#34;title&#34;:&#34;&#34;,&#34;alt&#34;:&#34;&#34;,&#34;zIndexOffset&#34;:0,&#34;opacity&#34;:1,&#34;riseOnHover&#34;:false,&#34;riseOffset&#34;:250},null,null,null,null,null,null,null]},{&#34;method&#34;:&#34;addCircleMarkers&#34;,&#34;args&#34;:[[-23.426035,-23.981918,-23.852022,-23.101749,-22.703132,-22.471205],[-47.585552,-48.885818,-48.164817,-48.940997,-47.623317,-48.557573],[21.6,26.72,27.68,14.56,24.64,34.24],null,null,{&#34;lineCap&#34;:null,&#34;lineJoin&#34;:null,&#34;clickable&#34;:true,&#34;pointerEvents&#34;:null,&#34;className&#34;:&#34;&#34;,&#34;stroke&#34;:true,&#34;color&#34;:&#34;#03F&#34;,&#34;weight&#34;:5,&#34;opacity&#34;:0.5,&#34;fill&#34;:true,&#34;fillColor&#34;:&#34;#03F&#34;,&#34;fillOpacity&#34;:0.6,&#34;dashArray&#34;:null},null,null,[&#34;Sorocaba&#34;,&#34;Itapeva&#34;,&#34;Sao Miguel Arcanjo&#34;,&#34;Avare&#34;,&#34;Piracicaba&#34;,&#34;Barra Bonita&#34;],null,[&#34;27&#34;,&#34;33.4&#34;,&#34;34.6&#34;,&#34;18.2&#34;,&#34;30.8&#34;,&#34;42.8&#34;],{&#34;clickable&#34;:false,&#34;noHide&#34;:true,&#34;direction&#34;:&#34;bottom&#34;,&#34;opacity&#34;:1,&#34;offset&#34;:[5,-10],&#34;textsize&#34;:&#34;10px&#34;,&#34;textOnly&#34;:true,&#34;style&#34;:{&#34;color&#34;:&#34;white&#34;},&#34;zoomAnimation&#34;:true,&#34;className&#34;:&#34;&#34;},null]}],&#34;limits&#34;:{&#34;lat&#34;:[-23.981918,-22.471205],&#34;lng&#34;:[-48.940997,-47.585552]}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
-&lt;p&gt;A expressão que define o método é dada abaixo. Basicamente considera-se o valor de cada vizinho ponderado pelo inverso da distância entre ele e o ponto de interesse. Assim, vizinhos distantes contribuem com menos peso para o valor final que vizinhos mais próximos.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://bit.ly/2oN3IlI&#34; align=&#34;center&#34; border=&#34;0&#34; alt=&#34;x_{p} =\frac{\sum_{i=1}^n(\frac{1}{d_{i}^{2}}\times x_{i})}{\sum_{i=1}^n(\frac{1}{d_{i}^{2}})}&#34; width=&#34;153&#34; height=&#34;71&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;onde: xp = valor interpolado; xi = valor da i-ésimo ponto vizinho; di = distância entre o i-ésimo ponto de vizinho e o ponto de interesse.&lt;/p&gt;
-&lt;p&gt;Agora que já definimos o método, vamos começar os cálculos. O primeiro valor calculado será a distância entre os pontos. Utilizaremos a formula de Haversine que retorna a distâncias entre dois pontos de uma esfera a partir de suas latitudes e longitudes.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;haversine &amp;lt;- function(lon1, lat1, lon2, lat2) {
-  # converte graus pra radiano
-  rad &amp;lt;- pi/180
-  # raio medio da terra no equador em km
-  R &amp;lt;- 6378.1
-
-  dlon &amp;lt;- (lon2 - lon1) * rad
-  dlat &amp;lt;- (lat2 - lat1) * rad
-
-  a &amp;lt;- (sin(dlat/2))^2 +
-       cos(lat1 * rad) *
-       cos(lat2 * rad) *
-       (sin(dlon/2))^2
-
-  c &amp;lt;- 2 * atan2(sqrt(a), sqrt(1 - a))
-
-  d &amp;lt;- R * c 
-
-  # distancia em km
-  return(d)
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dist &amp;lt;- dados %&amp;gt;%
-  mutate(d_itape = haversine(lon, lat, -48.0530600, -23.5916700))
-
-dist&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 5
-##               cidade       lon       lat     p   d_itape
-##                &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
-## 1           Sorocaba -47.58555 -23.42603  27.0  51.16089
-## 2            Itapeva -48.88582 -23.98192  33.4  95.30342
-## 3 Sao Miguel Arcanjo -48.16482 -23.85202  34.6  31.13972
-## 4              Avare -48.94100 -23.10175  18.2 105.87726
-## 5         Piracicaba -47.62332 -22.70313  30.8 108.25070
-## 6       Barra Bonita -48.55757 -22.47121  42.8 135.01301&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O cálculo do IDW é relativamente simples, basta reproduzir a expressão do método.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;idw &amp;lt;- function(x, dist, na.rm = TRUE) {
-  s1 &amp;lt;-  sum(x / dist^2, na.rm = na.rm)
-  s2 &amp;lt;-  sum(1 / dist^2, na.rm = na.rm)
-
-  return(s1 / s2)
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_itape &amp;lt;- dist %&amp;gt;% 
-  add_row(
-    .,
-    cidade = &amp;quot;Itapetininga&amp;quot;,
-    lon = -48.0530600,
-    lat = -23.5916700,
-    p = round(idw(.$p, .$d_itape), 1)
-  )
-
-dados_itape&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 7 × 5
-##               cidade       lon       lat     p   d_itape
-##                &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
-## 1           Sorocaba -47.58555 -23.42603  27.0  51.16089
-## 2            Itapeva -48.88582 -23.98192  33.4  95.30342
-## 3 Sao Miguel Arcanjo -48.16482 -23.85202  34.6  31.13972
-## 4              Avare -48.94100 -23.10175  18.2 105.87726
-## 5         Piracicaba -47.62332 -22.70313  30.8 108.25070
-## 6       Barra Bonita -48.55757 -22.47121  42.8 135.01301
-## 7       Itapetininga -48.05306 -23.59167  32.1        NA&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bom, agora vamos retornar ao mapa e adicionar o quanto choveu em Itapetiniga, de acordo com a interpolação por IDW. &lt;br&gt; &lt;br&gt; &lt;div id=&#34;htmlwidget-c081b78a3b96d2559190&#34; style=&#34;width:100%;height:500px;&#34; class=&#34;leaflet html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-c081b78a3b96d2559190&#34;&gt;{&#34;x&#34;:{&#34;options&#34;:{&#34;crs&#34;:{&#34;crsClass&#34;:&#34;L.CRS.EPSG3857&#34;,&#34;code&#34;:null,&#34;proj4def&#34;:null,&#34;projectedBounds&#34;:null,&#34;options&#34;:{}}},&#34;calls&#34;:[{&#34;method&#34;:&#34;addTiles&#34;,&#34;args&#34;:[&#34;//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#34;,null,null,{&#34;minZoom&#34;:0,&#34;maxZoom&#34;:18,&#34;maxNativeZoom&#34;:null,&#34;tileSize&#34;:256,&#34;subdomains&#34;:&#34;abc&#34;,&#34;errorTileUrl&#34;:&#34;&#34;,&#34;tms&#34;:false,&#34;continuousWorld&#34;:false,&#34;noWrap&#34;:false,&#34;zoomOffset&#34;:0,&#34;zoomReverse&#34;:false,&#34;opacity&#34;:1,&#34;zIndex&#34;:null,&#34;unloadInvisibleTiles&#34;:null,&#34;updateWhenIdle&#34;:null,&#34;detectRetina&#34;:false,&#34;reuseTiles&#34;:false,&#34;attribution&#34;:&#34;&amp;copy; &lt;a href=\&#34;http://openstreetmap.org\&#34;&gt;OpenStreetMap&lt;\/a&gt; contributors, &lt;a href=\&#34;http://creativecommons.org/licenses/by-sa/2.0/\&#34;&gt;CC-BY-SA&lt;\/a&gt;&#34;}]},{&#34;method&#34;:&#34;addCircleMarkers&#34;,&#34;args&#34;:[[-23.426035,-23.981918,-23.852022,-23.101749,-22.703132,-22.471205,-23.59167],[-47.585552,-48.885818,-48.164817,-48.940997,-47.623317,-48.557573,-48.05306],[27,33.4,34.6,18.2,30.8,42.8,32.1],null,null,{&#34;lineCap&#34;:null,&#34;lineJoin&#34;:null,&#34;clickable&#34;:true,&#34;pointerEvents&#34;:null,&#34;className&#34;:&#34;&#34;,&#34;stroke&#34;:true,&#34;color&#34;:&#34;#03F&#34;,&#34;weight&#34;:5,&#34;opacity&#34;:0.5,&#34;fill&#34;:true,&#34;fillColor&#34;:&#34;#03F&#34;,&#34;fillOpacity&#34;:0.6,&#34;dashArray&#34;:null},null,null,[&#34;Sorocaba&#34;,&#34;Itapeva&#34;,&#34;Sao Miguel Arcanjo&#34;,&#34;Avare&#34;,&#34;Piracicaba&#34;,&#34;Barra Bonita&#34;,&#34;Itapetininga&#34;],null,[&#34;27&#34;,&#34;33.4&#34;,&#34;34.6&#34;,&#34;18.2&#34;,&#34;30.8&#34;,&#34;42.8&#34;,&#34;32.1&#34;],{&#34;clickable&#34;:false,&#34;noHide&#34;:true,&#34;direction&#34;:&#34;bottom&#34;,&#34;opacity&#34;:1,&#34;offset&#34;:[5,-10],&#34;textsize&#34;:&#34;10px&#34;,&#34;textOnly&#34;:true,&#34;style&#34;:{&#34;color&#34;:&#34;white&#34;},&#34;zoomAnimation&#34;:true,&#34;className&#34;:&#34;&#34;},null]}],&#34;limits&#34;:{&#34;lat&#34;:[-23.981918,-22.471205],&#34;lng&#34;:[-48.940997,-47.585552]}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  setting  value                       
-##  version  R version 3.3.3 (2017-03-06)
-##  system   x86_64, mingw32             
-##  ui       RTerm                       
-##  language (EN)                        
-##  collate  Portuguese_Brazil.1252      
-##  tz       America/Sao_Paulo           
-##  date     2017-05-13                  
-## 
-##  package     * version date       source                           
-##  assertthat    0.2.0   2017-04-11 CRAN (R 3.3.3)                   
-##  backports     1.0.5   2017-01-18 CRAN (R 3.3.2)                   
-##  base        * 3.3.3   2017-03-06 local                            
-##  blogdown      0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
-##  bookdown      0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
-##  crosstalk     1.0.0   2016-12-21 CRAN (R 3.3.3)                   
-##  curl          2.6     2017-04-27 CRAN (R 3.3.3)                   
-##  datasets    * 3.3.3   2017-03-06 local                            
-##  DBI           0.6-1   2017-04-01 CRAN (R 3.3.3)                   
-##  devtools      1.13.1  2017-05-13 CRAN (R 3.3.3)                   
-##  digest        0.6.12  2017-01-27 CRAN (R 3.3.2)                   
-##  dplyr       * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
-##  evaluate      0.10    2016-10-11 CRAN (R 3.3.3)                   
-##  graphics    * 3.3.3   2017-03-06 local                            
-##  grDevices   * 3.3.3   2017-03-06 local                            
-##  hms           0.3     2016-11-22 CRAN (R 3.3.2)                   
-##  htmltools     0.3.6   2017-04-28 CRAN (R 3.3.3)                   
-##  htmlwidgets   0.8     2016-11-09 CRAN (R 3.3.3)                   
-##  httpuv        1.3.3   2015-08-04 CRAN (R 3.3.3)                   
-##  jsonlite      1.4     2017-04-08 CRAN (R 3.3.3)                   
-##  knitr         1.15.1  2016-11-22 CRAN (R 3.3.3)                   
-##  lazyeval      0.2.0   2016-06-12 CRAN (R 3.3.2)                   
-##  leaflet     * 1.1.0   2017-02-21 CRAN (R 3.3.3)                   
-##  magrittr      1.5     2014-11-22 CRAN (R 3.3.2)                   
-##  memoise       1.1.0   2017-04-21 CRAN (R 3.3.3)                   
-##  methods       3.3.3   2017-03-06 local                            
-##  mime          0.5     2016-07-07 CRAN (R 3.3.2)                   
-##  pacman      * 0.4.5   2017-05-03 CRAN (R 3.3.3)                   
-##  R6            2.2.1   2017-05-10 CRAN (R 3.3.3)                   
-##  Rcpp          0.12.10 2017-03-19 CRAN (R 3.3.3)                   
-##  readr       * 1.1.0   2017-03-22 CRAN (R 3.3.3)                   
-##  rmarkdown     1.5     2017-04-26 CRAN (R 3.3.3)                   
-##  rprojroot     1.2     2017-01-16 CRAN (R 3.3.3)                   
-##  shiny         1.0.3   2017-04-26 CRAN (R 3.3.3)                   
-##  stats       * 3.3.3   2017-03-06 local                            
-##  stringi       1.1.5   2017-04-07 CRAN (R 3.3.3)                   
-##  stringr       1.2.0   2017-02-18 CRAN (R 3.3.2)                   
-##  tibble        1.3.0   2017-04-01 CRAN (R 3.3.3)                   
-##  tools         3.3.3   2017-03-06 local                            
-##  utils       * 3.3.3   2017-03-06 local                            
-##  withr         1.0.2   2016-06-20 CRAN (R 3.3.3)                   
-##  xtable        1.8-2   2016-02-05 CRAN (R 3.3.3)                   
-##  yaml          2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do INMET.
+Primeiro, vamos importar e visualizar os dados que temos disponível.</description>
     </item>
     
   </channel>

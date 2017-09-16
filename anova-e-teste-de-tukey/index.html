@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.19">
+    <meta name="generator" content="Hugo 0.20.7">
     <title>ANOVA e teste de Tukey</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -261,24 +261,24 @@ ga('send', 'pageview');
 <p>Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</p>
 <p>Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura <a href="#fig:10-boxplot">1</a>). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o <a href="https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot">post sobre ele</a>.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, ggplot2, ggthemes, car, agricolae)</code></pre>
+pacman::p_load(readr, dplyr, tibble, ggplot2, ggthemes, car, agricolae)</code></pre>
 <pre class="r"><code>dados &lt;- read_csv2(
   &quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_progenie.csv&quot;
 )
 
 dados</code></pre>
-<pre><code>## # A tibble: 30 × 3
+<pre><code>## # A tibble: 30 x 3
 ##    repeticao progenie volume
 ##        &lt;int&gt;    &lt;chr&gt;  &lt;int&gt;
-## 1          1        A    212
-## 2          2        A    206
-## 3          3        A    224
-## 4          4        A    289
-## 5          5        A    324
-## 6          6        A    219
-## 7          1        B    108
-## 8          2        B    194
-## 9          3        B    163
+##  1         1        A    212
+##  2         2        A    206
+##  3         3        A    224
+##  4         4        A    289
+##  5         5        A    324
+##  6         6        A    219
+##  7         1        B    108
+##  8         2        B    194
+##  9         3        B    163
 ## 10         4        B    111
 ## # ... with 20 more rows</code></pre>
 <pre class="r"><code>ggplot(dados, aes(progenie, volume)) +
@@ -325,36 +325,40 @@ shapiro.test(resid(anova))</code></pre>
 
 tukey</code></pre>
 <pre><code>## $statistics
-##       Mean       CV  MSerror      HSD
-##   165.7667 29.79233 2438.953 83.73866
+##    MSerror Df     Mean       CV      MSD
+##   2438.953 25 165.7667 29.79233 83.73866
 ## 
 ## $parameters
-##   Df ntr StudentizedRange alpha  test   name.t
-##   25   5         4.153363  0.05 Tukey progenie
+##    test   name.t ntr StudentizedRange alpha
+##   Tukey progenie   5         4.153363  0.05
 ## 
 ## $means
-##     volume      std r Min Max
-## A 245.6667 48.78798 6 206 324
-## B 159.6667 49.47996 6 108 236
-## C  80.5000 15.60449 6  63 100
-## D 190.1667 75.37484 6 100 267
-## E 152.8333 37.96534 6 106 210
+##     volume      std r Min Max    Q25   Q50    Q75
+## A 245.6667 48.78798 6 206 324 213.75 221.5 272.75
+## B 159.6667 49.47996 6 108 236 119.75 154.5 186.25
+## C  80.5000 15.60449 6  63 100  70.00  76.5  93.50
+## D 190.1667 75.37484 6 100 267 121.75 207.0 251.75
+## E 152.8333 37.96534 6 106 210 133.75 141.5 175.50
 ## 
 ## $comparison
 ## NULL
 ## 
 ## $groups
-##   trt    means  M
-## 1   A 245.6667  a
-## 2   D 190.1667 ab
-## 3   B 159.6667 bc
-## 4   E 152.8333 bc
-## 5   C  80.5000  c</code></pre>
+##     volume groups
+## A 245.6667      a
+## D 190.1667     ab
+## B 159.6667     bc
+## E 152.8333     bc
+## C  80.5000      c
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;group&quot;</code></pre>
 <p>Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey (Figura <a href="#fig:10-barras-tukey">2</a>).</p>
 <pre class="r"><code>tukey$groups %&gt;% 
-  ggplot(aes(reorder(trt, means, function(x) -mean(x)), means)) +
+  rownames_to_column(var = &quot;trt&quot;) %&gt;% 
+  ggplot(aes(reorder(trt, volume, function(x) -mean(x)), volume)) +
     geom_bar(stat = &quot;identity&quot;) +
-    geom_text(aes(label = M), vjust = 1.8, size = 9, color = &quot;white&quot;) +
+    geom_text(aes(label = groups), vjust = 1.8, size = 9, color = &quot;white&quot;) +
     labs(x = &quot;Progênies&quot;, y = &quot;Médias&quot;) +
     theme_few()</code></pre>
 <div class="figure"><span id="fig:10-barras-tukey"></span>
@@ -366,79 +370,96 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>##  setting  value                       
-##  version  R version 3.3.3 (2017-03-06)
+##  version  R version 3.4.0 (2017-04-21)
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-04-08                  
+##  date     2017-09-16                  
 ## 
-##  package      * version date       source                           
-##  agricolae    * 1.2-4   2016-06-12 CRAN (R 3.3.3)                   
-##  AlgDesign      1.1-7.3 2014-10-15 CRAN (R 3.3.2)                   
-##  assertthat     0.1     2013-12-06 CRAN (R 3.3.2)                   
-##  backports      1.0.5   2017-01-18 CRAN (R 3.3.2)                   
-##  blogdown       0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
-##  bookdown       0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
-##  boot           1.3-18  2016-02-23 CRAN (R 3.3.3)                   
-##  car          * 2.1-4   2016-12-02 CRAN (R 3.3.3)                   
-##  cluster        2.0.5   2016-10-08 CRAN (R 3.3.3)                   
-##  coda           0.19-1  2016-12-08 CRAN (R 3.3.3)                   
-##  colorspace     1.3-2   2016-12-14 CRAN (R 3.3.2)                   
-##  combinat       0.0-8   2012-10-29 CRAN (R 3.3.2)                   
-##  curl           2.3     2016-11-24 CRAN (R 3.3.2)                   
-##  DBI            0.5-1   2016-09-10 CRAN (R 3.3.2)                   
-##  deldir         0.1-12  2016-03-06 CRAN (R 3.3.2)                   
-##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.3)                   
-##  digest         0.6.12  2017-01-27 CRAN (R 3.3.2)                   
-##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
-##  evaluate       0.10    2016-10-11 CRAN (R 3.3.3)                   
-##  expm           0.999-1 2017-02-02 CRAN (R 3.3.3)                   
-##  gdata          2.17.0  2015-07-04 CRAN (R 3.3.2)                   
-##  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
-##  ggthemes     * 3.4.0   2017-02-19 CRAN (R 3.3.3)                   
-##  gmodels        2.16.2  2015-07-22 CRAN (R 3.3.3)                   
-##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.2)                   
-##  gtools         3.5.0   2015-05-29 CRAN (R 3.3.2)                   
-##  highr          0.6     2016-05-09 CRAN (R 3.3.3)                   
-##  htmltools      0.3.5   2016-03-21 CRAN (R 3.3.3)                   
-##  klaR           0.6-12  2014-08-06 CRAN (R 3.3.3)                   
-##  knitr          1.15.1  2016-11-22 CRAN (R 3.3.3)                   
-##  labeling       0.3     2014-08-23 CRAN (R 3.3.2)                   
-##  lattice        0.20-34 2016-09-06 CRAN (R 3.3.3)                   
-##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.2)                   
-##  LearnBayes     2.15    2014-05-29 CRAN (R 3.3.2)                   
-##  lme4           1.1-12  2016-04-16 CRAN (R 3.3.3)                   
-##  magrittr       1.5     2014-11-22 CRAN (R 3.3.2)                   
-##  MASS           7.3-45  2016-04-21 CRAN (R 3.3.3)                   
-##  Matrix         1.2-8   2017-01-20 CRAN (R 3.3.3)                   
-##  MatrixModels   0.4-1   2015-08-22 CRAN (R 3.3.3)                   
-##  memoise        1.0.0   2016-01-29 CRAN (R 3.3.3)                   
-##  mgcv           1.8-17  2017-02-08 CRAN (R 3.3.3)                   
-##  minqa          1.2.4   2014-10-09 CRAN (R 3.3.3)                   
-##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.2)                   
-##  nlme           3.1-131 2017-02-06 CRAN (R 3.3.3)                   
-##  nloptr         1.0.4   2014-08-04 CRAN (R 3.3.3)                   
-##  nnet           7.3-12  2016-02-02 CRAN (R 3.3.3)                   
-##  pacman       * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
-##  pbkrtest       0.4-7   2017-03-15 CRAN (R 3.3.3)                   
-##  plyr           1.8.4   2016-06-08 CRAN (R 3.3.2)                   
-##  quantreg       5.29    2016-09-04 CRAN (R 3.3.3)                   
-##  R6             2.2.0   2016-10-05 CRAN (R 3.3.2)                   
-##  Rcpp           0.12.9  2017-01-14 CRAN (R 3.3.2)                   
-##  readr        * 1.0.0   2016-08-03 CRAN (R 3.3.2)                   
-##  rmarkdown      1.3     2016-12-21 CRAN (R 3.3.3)                   
-##  rprojroot      1.2     2017-01-16 CRAN (R 3.3.3)                   
-##  scales         0.4.1   2016-11-09 CRAN (R 3.3.2)                   
-##  sp             1.2-4   2016-12-22 CRAN (R 3.3.3)                   
-##  SparseM        1.76    2017-03-09 CRAN (R 3.3.3)                   
-##  spdep          0.6-11  2017-02-23 CRAN (R 3.3.3)                   
-##  stringi        1.1.2   2016-10-01 CRAN (R 3.3.2)                   
-##  stringr        1.2.0   2017-02-18 CRAN (R 3.3.2)                   
-##  tibble         1.2     2016-08-26 CRAN (R 3.3.2)                   
-##  withr          1.0.2   2016-06-20 CRAN (R 3.3.3)                   
-##  yaml           2.1.14  2016-11-12 CRAN (R 3.3.3)</code></pre>
+##  package      * version    date       source                            
+##  agricolae    * 1.2-8      2017-09-12 CRAN (R 3.4.1)                    
+##  AlgDesign      1.1-7.3    2014-10-15 CRAN (R 3.4.0)                    
+##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.0)                    
+##  backports      1.1.0      2017-05-22 CRAN (R 3.4.0)                    
+##  base         * 3.4.0      2017-04-21 local                             
+##  bindr          0.1        2016-11-13 CRAN (R 3.4.0)                    
+##  bindrcpp       0.2        2017-06-17 CRAN (R 3.4.0)                    
+##  blogdown       0.1        2017-08-22 CRAN (R 3.4.1)                    
+##  bookdown       0.5        2017-08-20 CRAN (R 3.4.1)                    
+##  boot           1.3-19     2017-02-11 CRAN (R 3.4.0)                    
+##  car          * 2.1-5      2017-07-04 CRAN (R 3.4.1)                    
+##  cluster        2.0.6      2017-03-10 CRAN (R 3.4.0)                    
+##  coda           0.19-1     2016-12-08 CRAN (R 3.4.0)                    
+##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.0)                    
+##  combinat       0.0-8      2012-10-29 CRAN (R 3.4.0)                    
+##  compiler       3.4.0      2017-04-21 local                             
+##  curl           2.8.1      2017-07-21 CRAN (R 3.4.1)                    
+##  datasets     * 3.4.0      2017-04-21 local                             
+##  deldir         0.1-14     2017-04-22 CRAN (R 3.4.0)                    
+##  devtools       1.13.3     2017-08-02 CRAN (R 3.4.1)                    
+##  digest         0.6.12     2017-01-27 CRAN (R 3.4.0)                    
+##  dplyr        * 0.7.3      2017-09-09 CRAN (R 3.4.1)                    
+##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.0)                    
+##  expm           0.999-2    2017-03-29 CRAN (R 3.4.0)                    
+##  gdata          2.18.0     2017-06-06 CRAN (R 3.4.0)                    
+##  ggplot2      * 2.2.1.9000 2017-08-08 Github (tidyverse/ggplot2@53a22cd)
+##  ggthemes     * 3.4.0      2017-02-19 CRAN (R 3.4.0)                    
+##  glue           1.1.1      2017-06-21 CRAN (R 3.4.0)                    
+##  gmodels        2.16.2     2015-07-22 CRAN (R 3.4.0)                    
+##  graphics     * 3.4.0      2017-04-21 local                             
+##  grDevices    * 3.4.0      2017-04-21 local                             
+##  grid           3.4.0      2017-04-21 local                             
+##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.0)                    
+##  gtools         3.5.0      2015-05-29 CRAN (R 3.4.0)                    
+##  highr          0.6        2016-05-09 CRAN (R 3.4.0)                    
+##  hms            0.3        2016-11-22 CRAN (R 3.4.0)                    
+##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.0)                    
+##  klaR           0.6-12     2014-08-06 CRAN (R 3.4.0)                    
+##  knitr          1.17       2017-08-10 CRAN (R 3.4.1)                    
+##  labeling       0.3        2014-08-23 CRAN (R 3.4.0)                    
+##  lattice        0.20-35    2017-03-25 CRAN (R 3.4.0)                    
+##  lazyeval       0.2.0      2016-06-12 CRAN (R 3.4.0)                    
+##  LearnBayes     2.15       2014-05-29 CRAN (R 3.4.0)                    
+##  lme4           1.1-13     2017-04-19 CRAN (R 3.4.0)                    
+##  magrittr       1.5        2014-11-22 CRAN (R 3.4.0)                    
+##  MASS           7.3-47     2017-02-26 CRAN (R 3.4.0)                    
+##  Matrix         1.2-9      2017-03-14 CRAN (R 3.4.0)                    
+##  MatrixModels   0.4-1      2015-08-22 CRAN (R 3.4.0)                    
+##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.0)                    
+##  methods      * 3.4.0      2017-04-21 local                             
+##  mgcv           1.8-17     2017-02-08 CRAN (R 3.4.0)                    
+##  minqa          1.2.4      2014-10-09 CRAN (R 3.4.0)                    
+##  munsell        0.4.3      2016-02-13 CRAN (R 3.4.0)                    
+##  nlme           3.1-131    2017-02-06 CRAN (R 3.4.0)                    
+##  nloptr         1.0.4      2014-08-04 CRAN (R 3.4.0)                    
+##  nnet           7.3-12     2016-02-02 CRAN (R 3.4.0)                    
+##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.0)                    
+##  parallel       3.4.0      2017-04-21 local                             
+##  pbkrtest       0.4-7      2017-03-15 CRAN (R 3.4.0)                    
+##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.0)                    
+##  plyr           1.8.4      2016-06-08 CRAN (R 3.4.0)                    
+##  quantreg       5.33       2017-04-18 CRAN (R 3.4.0)                    
+##  R6             2.2.2      2017-06-17 CRAN (R 3.4.0)                    
+##  Rcpp           0.12.12    2017-07-15 CRAN (R 3.4.1)                    
+##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.0)                    
+##  rlang          0.1.2      2017-08-09 CRAN (R 3.4.1)                    
+##  rmarkdown      1.6        2017-06-15 CRAN (R 3.4.0)                    
+##  rprojroot      1.2        2017-01-16 CRAN (R 3.4.0)                    
+##  scales         0.5.0      2017-08-24 CRAN (R 3.4.1)                    
+##  sp             1.2-5      2017-06-29 CRAN (R 3.4.1)                    
+##  SparseM        1.77       2017-04-23 CRAN (R 3.4.0)                    
+##  spdep          0.6-15     2017-09-01 CRAN (R 3.4.1)                    
+##  splines        3.4.0      2017-04-21 local                             
+##  stats        * 3.4.0      2017-04-21 local                             
+##  stringi        1.1.5      2017-04-07 CRAN (R 3.4.0)                    
+##  stringr        1.2.0      2017-02-18 CRAN (R 3.4.0)                    
+##  tibble       * 1.3.4      2017-08-22 CRAN (R 3.4.1)                    
+##  tools          3.4.0      2017-04-21 local                             
+##  utils        * 3.4.0      2017-04-21 local                             
+##  withr          2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
+##  yaml           2.1.14     2016-11-12 CRAN (R 3.4.0)</code></pre>
 
               
             </div>
@@ -696,6 +717,40 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/graficos-com-dimensao-espacial-e-temporal/">
+                <h3 class="media-heading">Gráficos com dimensão espacial e temporal</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
+                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/">
                 <h3 class="media-heading">Interpolação pelo inverso do quadrado da distância</h3>
               </a>
@@ -835,42 +890,6 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-barras/">
-                <h3 class="media-heading">Os gráficos que explicam nossos dados (barras)</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  May 5, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
-Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-boxplot/">
-                <h3 class="media-heading">Os gráficos que explicam nossos dados (boxplot)</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  May 5, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?
-Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse blog, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -878,7 +897,7 @@ Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no p
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         14 posts found
+         16 posts found
       </p>
     </div>
   </div>

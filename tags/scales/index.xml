@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scales on Ítalo Cegatta</title>
+    <link>/tags/scales/</link>
+    <description>Recent content in Scales on Ítalo Cegatta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sat, 08 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/scales/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gráficos com dimensão espacial e temporal</title>
+      <link>/graficos-com-dimensao-espacial-e-temporal/</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/graficos-com-dimensao-espacial-e-temporal/</guid>
+      <description>O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</description>
+    </item>
+    
+    <item>
+      <title>Web scraping: dados de páginas da internet na palma da sua mão</title>
+      <link>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</link>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</guid>
+      <description>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</description>
+    </item>
+    
+  </channel>
+</rss>

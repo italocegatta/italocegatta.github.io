@@ -22,7 +22,7 @@
     <item>
       <title>Graficos</title>
       <link>/categories/graficos/</link>
-      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/categories/graficos/</guid>
       <description></description>
@@ -88,6 +88,15 @@
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>/categories/teste-estatistico/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Scraping</title>
+      <link>/categories/web-scraping/</link>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/web-scraping/</guid>
       <description></description>
     </item>
     
