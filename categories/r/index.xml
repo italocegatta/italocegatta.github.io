@@ -17,8 +17,115 @@
       <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-r-e-para-voce/</guid>
+<<<<<<< Updated upstream
       <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
 Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?&lt;/p&gt;
+&lt;div id=&#34;sobre-o-r&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sobre o R&lt;/h2&gt;
+&lt;p&gt;O R é um software open-source mantido por um grupo de voluntários de vários países, o R-core team. No site oficial do &lt;a href=&#34;https://www.r-project.org/&#34;&gt;projeto&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(R Core Team &lt;a href=&#34;#ref-r_development_core_team_r:_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt; a primeira descrição sobre ele é a seguinte:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O R é uma linguagem e ambiente para computação estatística e gráficos.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Esse grupo mantem o sistema base que possibilita a interação com a linguagem R para computação numérica, manipulação de dados, gráficos e uma variedade de outras tarefas. No R, tudo o que acontece é o resultado de uma função. Eu, você e tantos outros usuários podemos desenvolver funções para facilitar a nossa vida, posteriormente organizá-las em pacotes (ou &lt;em&gt;packages&lt;/em&gt;) e depois disponibilizar para todo o mundo &lt;span class=&#34;citation&#34;&gt;(Chambers &lt;a href=&#34;#ref-chambers_software_2008&#34;&gt;2008&lt;/a&gt;)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;O projeto do R teve início com Ross Ihaka e Robert Gentleman nos anos 90 a partir de uma implementação da linguagem S, que foi desenvolvida anos antes por um grupo de pesquisadores liderados por John Chambers no Bell Laboratories &lt;span class=&#34;citation&#34;&gt;(Chambers &lt;a href=&#34;#ref-chambers_software_2008&#34;&gt;2008&lt;/a&gt;)&lt;/span&gt;. Desde então, o R tem crescido em um ritmo absurdo e pode ser considerado o principal software livre para programação estatística e um dos mais usados no mundo &lt;span class=&#34;citation&#34;&gt;(Revolution Analitics &lt;a href=&#34;#ref-revolution_analitics_rs_2016&#34;&gt;2016&lt;/a&gt;; Docsity &lt;a href=&#34;#ref-docsity_statistical_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;. Não vou listar todas potencialidades do R aqui neste post, em primeiro lugar por que eu não domino todas elas e segundo por que com certeza o post ficaria muito grande. Com o tempo vou apresentar nos posts algumas aplicações pontuais do R com relação aos problemas que precisei resolver. Mas já adianto, é comum dizermos que a pergunta certa sobre uma tarefa no R não é &lt;em&gt;se podemos fazer&lt;/em&gt;, mas sim &lt;em&gt;como&lt;/em&gt; podemos fazer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;o-r-e-para-mim&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;O R é para mim?&lt;/h2&gt;
+&lt;p&gt;O R tem uma curva de aprendizado um tanto íngreme, no começo é realmente muito frustrante. Uma vez, me lembro de passar horas para conseguir deixar a legenda com as cores que eu queria. Dá vontade de largar tudo e fazer o gráfico no Excel. Mas se você é um pouco persistente no começo e encara como um desafio, as coisas melhoram e essa etapa logo passa.&lt;/p&gt;
+&lt;p&gt;Minha formação é em Eng. Florestal, na grade curricular do meu curso não há nada relacionado à lógica e conceitos de programação, ou seja, tive que me motivar muito para aprender a programar, por que para mim abstrair a lógica de um código ou rotina em R não foi (e nem é) fácil. De fato, não é todo mundo que sabe programar e nem por isso se torna um mal profissional, pois há vários softwares que possuem uma interface gráfica totalmente adaptada para o usuário em forma de botões e cliques. Mas com muita certeza, os profissionais que podem programar tem um horizonte de possibilidades devido a flexibilidade de poder escrever seu próprio programa de processamento.&lt;/p&gt;
+&lt;p&gt;Costumo dizer para os meus amigos que o grande trunfo de um programador é a preguiça. Eu particularmente sou bem preguiçoso quando tenho de fazer atividades repetitivas. A Figura &lt;a href=&#34;#fig:geek-task&#34;&gt;1&lt;/a&gt; ilustra bem uma situação que já ocorreu comigo muitas vezes, onde meus amigos (e até minha namorada!) faziam processos repetitivos usando o Excel, enquanto eu só conseguia pensar em como fazer aquilo de uma forma rápida e eficiente no R.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:geek-task&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/e8otnTl.png&#34; alt=&#34;Programadores versus não-programadores quando fazem tarefas repetitivas [@iwaya_geeks_2012].&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Programadores versus não-programadores quando fazem tarefas repetitivas &lt;span class=&#34;citation&#34;&gt;(Iwaya &lt;a href=&#34;#ref-iwaya_geeks_2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Se você está na dúvida e é daqueles que preferem respostas rápidas, meu professor de biometria pode te ajudar nesse sentido &lt;span class=&#34;citation&#34;&gt;(Batista &lt;a href=&#34;#ref-batista_curso_2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;, com estas afirmações:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Você não quer aprender uma linguagem e realizar análises utilizando comandos.&lt;/li&gt;
+&lt;li&gt;Você acredita que análise estatística é um simples protocolo para obter alguns resultados numéricos.&lt;/li&gt;
+&lt;li&gt;Você acredita que para cada situação ou conjunto de dados existe &lt;em&gt;a análise&lt;/em&gt; estatística correta.&lt;/li&gt;
+&lt;li&gt;Você não sabe o que é análise estatística baseada em modelos e não está nenhum pouco interessado em saber.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se você concorda com essas afirmações, pense bem antes de dedicar seu tempo nesse caminho. Continue no Excel eu em outro programa amigável e seja feliz. Mas se você já programa em alguma linguagem, ou tem uma certa facilidade para isso, a situação é outra. Veja quais benefícios o R tem em relação ao seu atual software e avalie se essa empreitada vale a pena.&lt;/p&gt;
+&lt;p&gt;No meu caso, o SAS resolve a maioria dos problemas relacionados ao processamento de dados e análise estatística de um florestal. Então, a decisão nesse sentido tem que ser bem pontual e depende essencialmente das tarefas que você realiza. Para mim, o R sai na frente por ser uma linguagem livre e com um grupo de desenvolvedores muito grande, o que possibilita a criação de diversas funcionalidades de vanguarda. Outro trunfo do R é a integração com outros softwares e linguagens, que nos possibilita criar aplicações web e em servidores.&lt;/p&gt;
+&lt;p&gt;Para fechar o tópico, se as suas tarefas estão relacionadas à análise e processamento de dados e você sente que perde um tempo em atividades repetitivas, talvez seja preciso rever o método. Programando você fará as coisas de forma rapida, considere isso como um investimento a longo prazo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;por-onde-eu-comeco&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Por onde eu começo?&lt;/h2&gt;
+&lt;p&gt;A parte boa de um software livre é que a comunidade que trabalha com ele normalmente disponibiliza seus produtos e projetos gratuitamente. Se você chegou nesse post por que está interessado no R mas não sabe nada ou muito pouco, vou listar algumas dicas que me ajudaram e ainda me ajudam quando preciso fazer algo no R.&lt;/p&gt;
+&lt;div id=&#34;comece-vendo-e-ouvindo&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Comece vendo e ouvindo&lt;/h3&gt;
+&lt;p&gt;Para quem está começando, é melhor ver e ouvir como as coisas funcionam. Eu particularmente só entendi o jeitão do R quando meu orientador de iniciação científica me explicou. Então segue algumas dicas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/computacao_r/&#34;&gt;Computação em R - Udemy.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.datacamp.com/courses/free-introduction-to-r&#34;&gt;Introduction to R - DataCamp.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pt.coursera.org/learn/r-programming/&#34;&gt;R Programming - Coursera.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=cX532N_XLIs&amp;amp;list=PLqzoL9-eJTNBDdKgJgJzaQcY6OXmsXAHU&#34;&gt;Vídeo aulas no Youtube.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sites-interessantes&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Sites interessantes&lt;/h3&gt;
+&lt;p&gt;Existe uma infinidade de sites e blogs dedicados a te ensinar a programar em R. Mas a maioria espera que você já tenha uma mínima noção de como a linguagem funciona. Com certeza você vai precisar acessar um desses links para resolver algo com o R. Esses são alguns dos links que eu tenho salvo na minha pasta de favoritos no navegador.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/online-learning/&#34;&gt;RStudio.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.r-tutor.com/%22%20target=%22_blank&#34;&gt;R tutor.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/&#34;&gt;Quik R.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://rstatistics.net/&#34;&gt;R Statistics.net.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.r-bloggers.com/&#34;&gt;R-bloggers.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/tags/r&#34;&gt;Stackoverflow.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;livros-e-apostilas&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3. Livros e apostilas&lt;/h3&gt;
+&lt;p&gt;No começo, eu acabei juntando uma pasta com muitos livros e apostilas do R. Uns foram úteis outros não. Meu conselho é que você escolha 3 livros para estudar de verdade. Depois disso os livros vão servir apenas para consultas de questões muito específicas. Segue algumas sugestões de livros e apostilas disponíveis gratuitamente na web.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cookbook-r.com/&#34;&gt;Cookbook for R.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;R for Data Science.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.leg.ufpr.br/~paulojus/&#34;&gt;Apostilas do Prof. Paulo Justiniano, foco em estatística.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:start&#34;&gt;Apostila do Prof. João Batista, foco em inventário florestal.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/doc/contrib/Beasley-BioestatisticaUsandoR.pd&#34;&gt;Apostila do Prof. Colin Beasley, foco em biologia.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ambiente-de-desenvolvimento&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;4. Ambiente de desenvolvimento&lt;/h3&gt;
+&lt;p&gt;A interface gráfica do R é bem simples. Acostume-se, isso não mudar. Mas felizmente muitas empresas desenvolveram ambientes de desenvolvimento integrado para facilitar a vida do usuário. Nesse sentido, eu recomendo fortemente utilizar o &lt;a href=&#34;https://www.rstudio.com/&#34;&gt;RStudio&lt;/a&gt; como ambiente de programação. O RStudio tem uma das equipes mais atuantes da comunidade R e a cada dia que passa estão tornando a programação mais eficiente e prazerosa.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level2 unnumbered&#34;&gt;
+&lt;h2&gt;Referências&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-batista_curso_2015&#34;&gt;
+&lt;p&gt;Batista, João. 2015. “Curso Relâmpago de R.” &lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&#34; class=&#34;uri&#34;&gt;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-chambers_software_2008&#34;&gt;
+&lt;p&gt;Chambers, John. 2008. &lt;em&gt;Software for Data Analysis&lt;/em&gt;. Statistics and Computing. New York, NY: Springer New York. &lt;a href=&#34;http://link.springer.com/10.1007/978-0-387-75936-4&#34; class=&#34;uri&#34;&gt;http://link.springer.com/10.1007/978-0-387-75936-4&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-docsity_statistical_2014&#34;&gt;
+&lt;p&gt;Docsity. 2014. “Statistical Language Wars: Comparison among SAS, R and SPSS.” &lt;a href=&#34;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&#34; class=&#34;uri&#34;&gt;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-iwaya_geeks_2012&#34;&gt;
+&lt;p&gt;Iwaya, Akemi. 2012. “Geeks versus Non-Geeks when Doing Repetitive Tasks [Funny Chart].” &lt;a href=&#34;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&#34; class=&#34;uri&#34;&gt;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-r_development_core_team_r:_2016&#34;&gt;
+&lt;p&gt;R Core Team. 2016. “R: A Language and Environment for Statistical Computing.” &lt;em&gt;R Foundation for Statistical Computing&lt;/em&gt; 3.3.0. Vienna: R Foundation for Statistical Computing. &lt;a href=&#34;http://www.r-project.org&#34; class=&#34;uri&#34;&gt;http://www.r-project.org&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-revolution_analitics_rs_2016&#34;&gt;
+&lt;p&gt;Revolution Analitics. 2016. “R’s popularity.” &lt;a href=&#34;http://blog.revolutionanalytics.com/popularity&#34; class=&#34;uri&#34;&gt;http://blog.revolutionanalytics.com/popularity&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
+Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
     <item>

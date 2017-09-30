@@ -17,8 +17,201 @@
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
+<<<<<<< Updated upstream
       <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
 Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
+&lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
+&lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
+&lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-base&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/JsYqVH7.png&#34; alt=&#34;Dados brutos. Como não organizar seu banco de dados.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Dados brutos. Como não organizar seu banco de dados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A estrutura do banco de dados que obtive no fim do experimento está apresentada na Figura &lt;a href=&#34;#fig:fig-base&#34;&gt;1&lt;/a&gt;. Para a época, foi o melhor que consegui fazer e pela inexperiência cometi os seguintes erros:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Uso de caracteres especiais.&lt;/li&gt;
+&lt;li&gt;Uso de espaço entre as palavras.&lt;/li&gt;
+&lt;li&gt;Células mescladas.&lt;/li&gt;
+&lt;li&gt;Observações (Nº de galhas no pecíolo, nervura e caule) organizadas em colunas.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;O uso de caracteres especiais não é recomentado em muitas ocasiões, essa dica vale para quase tudo que envolve computação. O mesmo se aplica para os espaços entre as palavras, mas podemos ser mais flexíveis neste caso. Mesclar uma célula será o seu maior problema em uma planilha eletrônica, cuidado com isso! Recomendo mesclar células em raríssimas exceções, como formatação de tabelas em Word ou PowerPoint. O meu último erro foi o maior deles, confundi observações com variáveis. Em minha defesa, o inexperiente Ítalo tentou organizar os dados em um layout de fácil visualização. Veja que é fácil acompanhar a evolução das galhas ao longo do tempo. Para a percepção humana, organização de dados no formato longitudinal é muito prática e rápida. Mas temos que pensar em como o computador trabalha e como ele faz todos os cálculos que precisamos. No fim, eu consegui fazer tudo que eu queria com os dados nesse formato, mas acredite, foi sofrível e muito ineficiente.&lt;/p&gt;
+&lt;p&gt;O conceito tidy data está muito bem descrito por &lt;span class=&#34;citation&#34;&gt;Wickham (&lt;a href=&#34;#ref-wickham_tidy_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;, onde ele apresenta o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/tidyr/index.html&#34;&gt;tidyr&lt;/a&gt; que contém uma gama de funções muito úteis para esse fim. Wickham também dedicou um capítulo específico sobre esse conceito em seu &lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;livro&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(Grolemund and Wickham &lt;a href=&#34;#ref-grolemund_r_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt;. Por tidy data, entendemos que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variáveis estão dispostas em colunas.&lt;/li&gt;
+&lt;li&gt;Observações estão dispostas em linhas.&lt;/li&gt;
+&lt;li&gt;Os valores atribuídos às variáveis em cada observação formam a tabela.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Pacotes utilizados neste post
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;metodo-1&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 1&lt;/h1&gt;
+&lt;p&gt;Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura &lt;a href=&#34;#fig:fig-entrada1&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada1&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/3AsFpmQ.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
+&lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
+# o precesso em todas as abas. 
+dados1 &amp;lt;- list()
+
+for(i in 1:5) {
+ dados1[[paste0(&amp;quot;c&amp;quot;,i)]] &amp;lt;- read_excel(base_vespa1, paste0(&amp;quot;Coleta&amp;quot;, i))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora precisamos de um fator (nº da coleta) para diferenciarmos cada medição e colocar tudo em um único data frame.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria um fator para diferenciar as medições medições 
+for(i in names(dados1)) {
+  dados1[[i]][ , &amp;quot;Coleta&amp;quot;] = i  
+}
+
+dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
+# denominada ´Local´.
+dados1 &amp;lt;- gather(
+  dados1, &amp;quot;Local&amp;quot;,
+  &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
+)
+
+dados1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1     c1 Peciolo      1
+##  2  Actara d1         2     c1 Peciolo     NA
+##  3  Actara d1         3     c1 Peciolo     NA
+##  4  Actara d1         4     c1 Peciolo     NA
+##  5  Actara d1         5     c1 Peciolo     NA
+##  6  Actara d1         6     c1 Peciolo     NA
+##  7  Actara d1         7     c1 Peciolo     NA
+##  8  Actara d1         8     c1 Peciolo     NA
+##  9  Actara d1         9     c1 Peciolo     NA
+## 10  Actara d1        10     c1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;metodo-2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 2&lt;/h1&gt;
+&lt;p&gt;Nesse método, não fiz nenhuma grande alteração na base de dados. Apenas corrigi o nome das colunas com um fator que indica o número da coleta e em seguida o local (Figura &lt;a href=&#34;#fig:fig-entrada2&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada2&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/YGY8pvV.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
+# Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
+# ´Coleta´ e ´Local´.
+dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
+  gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
+  separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
+
+dados2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##  *      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1      1 Peciolo      1
+##  2  Actara d1         2      1 Peciolo     NA
+##  3  Actara d1         3      1 Peciolo     NA
+##  4  Actara d1         4      1 Peciolo     NA
+##  5  Actara d1         5      1 Peciolo     NA
+##  6  Actara d1         6      1 Peciolo     NA
+##  7  Actara d1         7      1 Peciolo     NA
+##  8  Actara d1         8      1 Peciolo     NA
+##  9  Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package    * version date       source                          
+##  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                  
+##  backports    1.1.0   2017-05-22 CRAN (R 3.4.0)                  
+##  base       * 3.4.0   2017-04-21 local                           
+##  bindr        0.1     2016-11-13 CRAN (R 3.4.0)                  
+##  bindrcpp     0.2     2017-06-17 CRAN (R 3.4.0)                  
+##  blogdown     0.1     2017-08-22 CRAN (R 3.4.1)                  
+##  bookdown     0.5     2017-08-20 CRAN (R 3.4.1)                  
+##  cellranger   1.1.0   2016-07-27 CRAN (R 3.4.0)                  
+##  compiler     3.4.0   2017-04-21 local                           
+##  curl         2.8.1   2017-07-21 CRAN (R 3.4.1)                  
+##  datasets   * 3.4.0   2017-04-21 local                           
+##  devtools     1.13.3  2017-08-02 CRAN (R 3.4.1)                  
+##  digest       0.6.12  2017-01-27 CRAN (R 3.4.0)                  
+##  dplyr      * 0.7.3   2017-09-09 CRAN (R 3.4.1)                  
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.0)                  
+##  glue         1.1.1   2017-06-21 CRAN (R 3.4.0)                  
+##  graphics   * 3.4.0   2017-04-21 local                           
+##  grDevices  * 3.4.0   2017-04-21 local                           
+##  highr        0.6     2016-05-09 CRAN (R 3.4.0)                  
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.0)                  
+##  httr       * 1.3.1   2017-08-20 CRAN (R 3.4.1)                  
+##  knitr        1.17    2017-08-10 CRAN (R 3.4.1)                  
+##  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                  
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                  
+##  methods    * 3.4.0   2017-04-21 local                           
+##  pacman     * 0.4.6   2017-05-14 CRAN (R 3.4.0)                  
+##  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                  
+##  purrr        0.2.3   2017-08-02 CRAN (R 3.4.1)                  
+##  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                  
+##  Rcpp         0.12.12 2017-07-15 CRAN (R 3.4.1)                  
+##  readxl     * 1.0.0   2017-04-18 CRAN (R 3.4.0)                  
+##  rlang        0.1.2   2017-08-09 CRAN (R 3.4.1)                  
+##  rmarkdown    1.6     2017-06-15 CRAN (R 3.4.0)                  
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.4.0)                  
+##  stats      * 3.4.0   2017-04-21 local                           
+##  stringi      1.1.5   2017-04-07 CRAN (R 3.4.0)                  
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.0)                  
+##  tibble       1.3.4   2017-08-22 CRAN (R 3.4.1)                  
+##  tidyr      * 0.7.1   2017-09-01 CRAN (R 3.4.1)                  
+##  tidyselect   0.2.0   2017-08-30 CRAN (R 3.4.1)                  
+##  tools        3.4.0   2017-04-21 local                           
+##  utils      * 3.4.0   2017-04-21 local                           
+##  withr        2.0.0   2017-08-08 Github (jimhester/withr@190d293)
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
+&lt;h1&gt;Referências&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-cegatta_eficiencia_2013&#34;&gt;
+&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34; class=&#34;uri&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-grolemund_r_2016&#34;&gt;
+&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34; class=&#34;uri&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-wickham_tidy_2014&#34;&gt;
+&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34; class=&#34;uri&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
     <item>
@@ -27,8 +220,115 @@ Em minha primeira iniciação científica (quando comecei a trabalhar com o R), 
       <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-r-e-para-voce/</guid>
+<<<<<<< Updated upstream
       <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
 Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?&lt;/p&gt;
+&lt;div id=&#34;sobre-o-r&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sobre o R&lt;/h2&gt;
+&lt;p&gt;O R é um software open-source mantido por um grupo de voluntários de vários países, o R-core team. No site oficial do &lt;a href=&#34;https://www.r-project.org/&#34;&gt;projeto&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(R Core Team &lt;a href=&#34;#ref-r_development_core_team_r:_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt; a primeira descrição sobre ele é a seguinte:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O R é uma linguagem e ambiente para computação estatística e gráficos.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Esse grupo mantem o sistema base que possibilita a interação com a linguagem R para computação numérica, manipulação de dados, gráficos e uma variedade de outras tarefas. No R, tudo o que acontece é o resultado de uma função. Eu, você e tantos outros usuários podemos desenvolver funções para facilitar a nossa vida, posteriormente organizá-las em pacotes (ou &lt;em&gt;packages&lt;/em&gt;) e depois disponibilizar para todo o mundo &lt;span class=&#34;citation&#34;&gt;(Chambers &lt;a href=&#34;#ref-chambers_software_2008&#34;&gt;2008&lt;/a&gt;)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;O projeto do R teve início com Ross Ihaka e Robert Gentleman nos anos 90 a partir de uma implementação da linguagem S, que foi desenvolvida anos antes por um grupo de pesquisadores liderados por John Chambers no Bell Laboratories &lt;span class=&#34;citation&#34;&gt;(Chambers &lt;a href=&#34;#ref-chambers_software_2008&#34;&gt;2008&lt;/a&gt;)&lt;/span&gt;. Desde então, o R tem crescido em um ritmo absurdo e pode ser considerado o principal software livre para programação estatística e um dos mais usados no mundo &lt;span class=&#34;citation&#34;&gt;(Revolution Analitics &lt;a href=&#34;#ref-revolution_analitics_rs_2016&#34;&gt;2016&lt;/a&gt;; Docsity &lt;a href=&#34;#ref-docsity_statistical_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;. Não vou listar todas potencialidades do R aqui neste post, em primeiro lugar por que eu não domino todas elas e segundo por que com certeza o post ficaria muito grande. Com o tempo vou apresentar nos posts algumas aplicações pontuais do R com relação aos problemas que precisei resolver. Mas já adianto, é comum dizermos que a pergunta certa sobre uma tarefa no R não é &lt;em&gt;se podemos fazer&lt;/em&gt;, mas sim &lt;em&gt;como&lt;/em&gt; podemos fazer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;o-r-e-para-mim&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;O R é para mim?&lt;/h2&gt;
+&lt;p&gt;O R tem uma curva de aprendizado um tanto íngreme, no começo é realmente muito frustrante. Uma vez, me lembro de passar horas para conseguir deixar a legenda com as cores que eu queria. Dá vontade de largar tudo e fazer o gráfico no Excel. Mas se você é um pouco persistente no começo e encara como um desafio, as coisas melhoram e essa etapa logo passa.&lt;/p&gt;
+&lt;p&gt;Minha formação é em Eng. Florestal, na grade curricular do meu curso não há nada relacionado à lógica e conceitos de programação, ou seja, tive que me motivar muito para aprender a programar, por que para mim abstrair a lógica de um código ou rotina em R não foi (e nem é) fácil. De fato, não é todo mundo que sabe programar e nem por isso se torna um mal profissional, pois há vários softwares que possuem uma interface gráfica totalmente adaptada para o usuário em forma de botões e cliques. Mas com muita certeza, os profissionais que podem programar tem um horizonte de possibilidades devido a flexibilidade de poder escrever seu próprio programa de processamento.&lt;/p&gt;
+&lt;p&gt;Costumo dizer para os meus amigos que o grande trunfo de um programador é a preguiça. Eu particularmente sou bem preguiçoso quando tenho de fazer atividades repetitivas. A Figura &lt;a href=&#34;#fig:geek-task&#34;&gt;1&lt;/a&gt; ilustra bem uma situação que já ocorreu comigo muitas vezes, onde meus amigos (e até minha namorada!) faziam processos repetitivos usando o Excel, enquanto eu só conseguia pensar em como fazer aquilo de uma forma rápida e eficiente no R.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:geek-task&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/e8otnTl.png&#34; alt=&#34;Programadores versus não-programadores quando fazem tarefas repetitivas [@iwaya_geeks_2012].&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Programadores versus não-programadores quando fazem tarefas repetitivas &lt;span class=&#34;citation&#34;&gt;(Iwaya &lt;a href=&#34;#ref-iwaya_geeks_2012&#34;&gt;2012&lt;/a&gt;)&lt;/span&gt;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Se você está na dúvida e é daqueles que preferem respostas rápidas, meu professor de biometria pode te ajudar nesse sentido &lt;span class=&#34;citation&#34;&gt;(Batista &lt;a href=&#34;#ref-batista_curso_2015&#34;&gt;2015&lt;/a&gt;)&lt;/span&gt;, com estas afirmações:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Você não quer aprender uma linguagem e realizar análises utilizando comandos.&lt;/li&gt;
+&lt;li&gt;Você acredita que análise estatística é um simples protocolo para obter alguns resultados numéricos.&lt;/li&gt;
+&lt;li&gt;Você acredita que para cada situação ou conjunto de dados existe &lt;em&gt;a análise&lt;/em&gt; estatística correta.&lt;/li&gt;
+&lt;li&gt;Você não sabe o que é análise estatística baseada em modelos e não está nenhum pouco interessado em saber.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se você concorda com essas afirmações, pense bem antes de dedicar seu tempo nesse caminho. Continue no Excel eu em outro programa amigável e seja feliz. Mas se você já programa em alguma linguagem, ou tem uma certa facilidade para isso, a situação é outra. Veja quais benefícios o R tem em relação ao seu atual software e avalie se essa empreitada vale a pena.&lt;/p&gt;
+&lt;p&gt;No meu caso, o SAS resolve a maioria dos problemas relacionados ao processamento de dados e análise estatística de um florestal. Então, a decisão nesse sentido tem que ser bem pontual e depende essencialmente das tarefas que você realiza. Para mim, o R sai na frente por ser uma linguagem livre e com um grupo de desenvolvedores muito grande, o que possibilita a criação de diversas funcionalidades de vanguarda. Outro trunfo do R é a integração com outros softwares e linguagens, que nos possibilita criar aplicações web e em servidores.&lt;/p&gt;
+&lt;p&gt;Para fechar o tópico, se as suas tarefas estão relacionadas à análise e processamento de dados e você sente que perde um tempo em atividades repetitivas, talvez seja preciso rever o método. Programando você fará as coisas de forma rapida, considere isso como um investimento a longo prazo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;por-onde-eu-comeco&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Por onde eu começo?&lt;/h2&gt;
+&lt;p&gt;A parte boa de um software livre é que a comunidade que trabalha com ele normalmente disponibiliza seus produtos e projetos gratuitamente. Se você chegou nesse post por que está interessado no R mas não sabe nada ou muito pouco, vou listar algumas dicas que me ajudaram e ainda me ajudam quando preciso fazer algo no R.&lt;/p&gt;
+&lt;div id=&#34;comece-vendo-e-ouvindo&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Comece vendo e ouvindo&lt;/h3&gt;
+&lt;p&gt;Para quem está começando, é melhor ver e ouvir como as coisas funcionam. Eu particularmente só entendi o jeitão do R quando meu orientador de iniciação científica me explicou. Então segue algumas dicas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/computacao_r/&#34;&gt;Computação em R - Udemy.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.datacamp.com/courses/free-introduction-to-r&#34;&gt;Introduction to R - DataCamp.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pt.coursera.org/learn/r-programming/&#34;&gt;R Programming - Coursera.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=cX532N_XLIs&amp;amp;list=PLqzoL9-eJTNBDdKgJgJzaQcY6OXmsXAHU&#34;&gt;Vídeo aulas no Youtube.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sites-interessantes&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Sites interessantes&lt;/h3&gt;
+&lt;p&gt;Existe uma infinidade de sites e blogs dedicados a te ensinar a programar em R. Mas a maioria espera que você já tenha uma mínima noção de como a linguagem funciona. Com certeza você vai precisar acessar um desses links para resolver algo com o R. Esses são alguns dos links que eu tenho salvo na minha pasta de favoritos no navegador.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/online-learning/&#34;&gt;RStudio.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.r-tutor.com/%22%20target=%22_blank&#34;&gt;R tutor.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/&#34;&gt;Quik R.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://rstatistics.net/&#34;&gt;R Statistics.net.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.r-bloggers.com/&#34;&gt;R-bloggers.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/tags/r&#34;&gt;Stackoverflow.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;livros-e-apostilas&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3. Livros e apostilas&lt;/h3&gt;
+&lt;p&gt;No começo, eu acabei juntando uma pasta com muitos livros e apostilas do R. Uns foram úteis outros não. Meu conselho é que você escolha 3 livros para estudar de verdade. Depois disso os livros vão servir apenas para consultas de questões muito específicas. Segue algumas sugestões de livros e apostilas disponíveis gratuitamente na web.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cookbook-r.com/&#34;&gt;Cookbook for R.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;R for Data Science.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.leg.ufpr.br/~paulojus/&#34;&gt;Apostilas do Prof. Paulo Justiniano, foco em estatística.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:start&#34;&gt;Apostila do Prof. João Batista, foco em inventário florestal.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/doc/contrib/Beasley-BioestatisticaUsandoR.pd&#34;&gt;Apostila do Prof. Colin Beasley, foco em biologia.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ambiente-de-desenvolvimento&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;4. Ambiente de desenvolvimento&lt;/h3&gt;
+&lt;p&gt;A interface gráfica do R é bem simples. Acostume-se, isso não mudar. Mas felizmente muitas empresas desenvolveram ambientes de desenvolvimento integrado para facilitar a vida do usuário. Nesse sentido, eu recomendo fortemente utilizar o &lt;a href=&#34;https://www.rstudio.com/&#34;&gt;RStudio&lt;/a&gt; como ambiente de programação. O RStudio tem uma das equipes mais atuantes da comunidade R e a cada dia que passa estão tornando a programação mais eficiente e prazerosa.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level2 unnumbered&#34;&gt;
+&lt;h2&gt;Referências&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-batista_curso_2015&#34;&gt;
+&lt;p&gt;Batista, João. 2015. “Curso Relâmpago de R.” &lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&#34; class=&#34;uri&#34;&gt;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-chambers_software_2008&#34;&gt;
+&lt;p&gt;Chambers, John. 2008. &lt;em&gt;Software for Data Analysis&lt;/em&gt;. Statistics and Computing. New York, NY: Springer New York. &lt;a href=&#34;http://link.springer.com/10.1007/978-0-387-75936-4&#34; class=&#34;uri&#34;&gt;http://link.springer.com/10.1007/978-0-387-75936-4&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-docsity_statistical_2014&#34;&gt;
+&lt;p&gt;Docsity. 2014. “Statistical Language Wars: Comparison among SAS, R and SPSS.” &lt;a href=&#34;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&#34; class=&#34;uri&#34;&gt;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-iwaya_geeks_2012&#34;&gt;
+&lt;p&gt;Iwaya, Akemi. 2012. “Geeks versus Non-Geeks when Doing Repetitive Tasks [Funny Chart].” &lt;a href=&#34;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&#34; class=&#34;uri&#34;&gt;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-r_development_core_team_r:_2016&#34;&gt;
+&lt;p&gt;R Core Team. 2016. “R: A Language and Environment for Statistical Computing.” &lt;em&gt;R Foundation for Statistical Computing&lt;/em&gt; 3.3.0. Vienna: R Foundation for Statistical Computing. &lt;a href=&#34;http://www.r-project.org&#34; class=&#34;uri&#34;&gt;http://www.r-project.org&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-revolution_analitics_rs_2016&#34;&gt;
+&lt;p&gt;Revolution Analitics. 2016. “R’s popularity.” &lt;a href=&#34;http://blog.revolutionanalytics.com/popularity&#34; class=&#34;uri&#34;&gt;http://blog.revolutionanalytics.com/popularity&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
+Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
   </channel>

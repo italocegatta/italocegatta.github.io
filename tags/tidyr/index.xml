@@ -46,8 +46,201 @@ Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no p
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
+<<<<<<< Updated upstream
       <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
 Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
+&lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
+&lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
+&lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-base&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/JsYqVH7.png&#34; alt=&#34;Dados brutos. Como não organizar seu banco de dados.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Dados brutos. Como não organizar seu banco de dados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A estrutura do banco de dados que obtive no fim do experimento está apresentada na Figura &lt;a href=&#34;#fig:fig-base&#34;&gt;1&lt;/a&gt;. Para a época, foi o melhor que consegui fazer e pela inexperiência cometi os seguintes erros:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Uso de caracteres especiais.&lt;/li&gt;
+&lt;li&gt;Uso de espaço entre as palavras.&lt;/li&gt;
+&lt;li&gt;Células mescladas.&lt;/li&gt;
+&lt;li&gt;Observações (Nº de galhas no pecíolo, nervura e caule) organizadas em colunas.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;O uso de caracteres especiais não é recomentado em muitas ocasiões, essa dica vale para quase tudo que envolve computação. O mesmo se aplica para os espaços entre as palavras, mas podemos ser mais flexíveis neste caso. Mesclar uma célula será o seu maior problema em uma planilha eletrônica, cuidado com isso! Recomendo mesclar células em raríssimas exceções, como formatação de tabelas em Word ou PowerPoint. O meu último erro foi o maior deles, confundi observações com variáveis. Em minha defesa, o inexperiente Ítalo tentou organizar os dados em um layout de fácil visualização. Veja que é fácil acompanhar a evolução das galhas ao longo do tempo. Para a percepção humana, organização de dados no formato longitudinal é muito prática e rápida. Mas temos que pensar em como o computador trabalha e como ele faz todos os cálculos que precisamos. No fim, eu consegui fazer tudo que eu queria com os dados nesse formato, mas acredite, foi sofrível e muito ineficiente.&lt;/p&gt;
+&lt;p&gt;O conceito tidy data está muito bem descrito por &lt;span class=&#34;citation&#34;&gt;Wickham (&lt;a href=&#34;#ref-wickham_tidy_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;, onde ele apresenta o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/tidyr/index.html&#34;&gt;tidyr&lt;/a&gt; que contém uma gama de funções muito úteis para esse fim. Wickham também dedicou um capítulo específico sobre esse conceito em seu &lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;livro&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(Grolemund and Wickham &lt;a href=&#34;#ref-grolemund_r_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt;. Por tidy data, entendemos que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variáveis estão dispostas em colunas.&lt;/li&gt;
+&lt;li&gt;Observações estão dispostas em linhas.&lt;/li&gt;
+&lt;li&gt;Os valores atribuídos às variáveis em cada observação formam a tabela.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Pacotes utilizados neste post
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;metodo-1&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 1&lt;/h1&gt;
+&lt;p&gt;Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura &lt;a href=&#34;#fig:fig-entrada1&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada1&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/3AsFpmQ.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
+&lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
+# o precesso em todas as abas. 
+dados1 &amp;lt;- list()
+
+for(i in 1:5) {
+ dados1[[paste0(&amp;quot;c&amp;quot;,i)]] &amp;lt;- read_excel(base_vespa1, paste0(&amp;quot;Coleta&amp;quot;, i))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora precisamos de um fator (nº da coleta) para diferenciarmos cada medição e colocar tudo em um único data frame.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria um fator para diferenciar as medições medições 
+for(i in names(dados1)) {
+  dados1[[i]][ , &amp;quot;Coleta&amp;quot;] = i  
+}
+
+dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
+# denominada ´Local´.
+dados1 &amp;lt;- gather(
+  dados1, &amp;quot;Local&amp;quot;,
+  &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
+)
+
+dados1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1     c1 Peciolo      1
+##  2  Actara d1         2     c1 Peciolo     NA
+##  3  Actara d1         3     c1 Peciolo     NA
+##  4  Actara d1         4     c1 Peciolo     NA
+##  5  Actara d1         5     c1 Peciolo     NA
+##  6  Actara d1         6     c1 Peciolo     NA
+##  7  Actara d1         7     c1 Peciolo     NA
+##  8  Actara d1         8     c1 Peciolo     NA
+##  9  Actara d1         9     c1 Peciolo     NA
+## 10  Actara d1        10     c1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;metodo-2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 2&lt;/h1&gt;
+&lt;p&gt;Nesse método, não fiz nenhuma grande alteração na base de dados. Apenas corrigi o nome das colunas com um fator que indica o número da coleta e em seguida o local (Figura &lt;a href=&#34;#fig:fig-entrada2&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada2&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/YGY8pvV.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
+# Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
+# ´Coleta´ e ´Local´.
+dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
+  gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
+  separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
+
+dados2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##  *      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1      1 Peciolo      1
+##  2  Actara d1         2      1 Peciolo     NA
+##  3  Actara d1         3      1 Peciolo     NA
+##  4  Actara d1         4      1 Peciolo     NA
+##  5  Actara d1         5      1 Peciolo     NA
+##  6  Actara d1         6      1 Peciolo     NA
+##  7  Actara d1         7      1 Peciolo     NA
+##  8  Actara d1         8      1 Peciolo     NA
+##  9  Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package    * version date       source                          
+##  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                  
+##  backports    1.1.0   2017-05-22 CRAN (R 3.4.0)                  
+##  base       * 3.4.0   2017-04-21 local                           
+##  bindr        0.1     2016-11-13 CRAN (R 3.4.0)                  
+##  bindrcpp     0.2     2017-06-17 CRAN (R 3.4.0)                  
+##  blogdown     0.1     2017-08-22 CRAN (R 3.4.1)                  
+##  bookdown     0.5     2017-08-20 CRAN (R 3.4.1)                  
+##  cellranger   1.1.0   2016-07-27 CRAN (R 3.4.0)                  
+##  compiler     3.4.0   2017-04-21 local                           
+##  curl         2.8.1   2017-07-21 CRAN (R 3.4.1)                  
+##  datasets   * 3.4.0   2017-04-21 local                           
+##  devtools     1.13.3  2017-08-02 CRAN (R 3.4.1)                  
+##  digest       0.6.12  2017-01-27 CRAN (R 3.4.0)                  
+##  dplyr      * 0.7.3   2017-09-09 CRAN (R 3.4.1)                  
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.0)                  
+##  glue         1.1.1   2017-06-21 CRAN (R 3.4.0)                  
+##  graphics   * 3.4.0   2017-04-21 local                           
+##  grDevices  * 3.4.0   2017-04-21 local                           
+##  highr        0.6     2016-05-09 CRAN (R 3.4.0)                  
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.0)                  
+##  httr       * 1.3.1   2017-08-20 CRAN (R 3.4.1)                  
+##  knitr        1.17    2017-08-10 CRAN (R 3.4.1)                  
+##  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                  
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                  
+##  methods    * 3.4.0   2017-04-21 local                           
+##  pacman     * 0.4.6   2017-05-14 CRAN (R 3.4.0)                  
+##  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                  
+##  purrr        0.2.3   2017-08-02 CRAN (R 3.4.1)                  
+##  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                  
+##  Rcpp         0.12.12 2017-07-15 CRAN (R 3.4.1)                  
+##  readxl     * 1.0.0   2017-04-18 CRAN (R 3.4.0)                  
+##  rlang        0.1.2   2017-08-09 CRAN (R 3.4.1)                  
+##  rmarkdown    1.6     2017-06-15 CRAN (R 3.4.0)                  
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.4.0)                  
+##  stats      * 3.4.0   2017-04-21 local                           
+##  stringi      1.1.5   2017-04-07 CRAN (R 3.4.0)                  
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.0)                  
+##  tibble       1.3.4   2017-08-22 CRAN (R 3.4.1)                  
+##  tidyr      * 0.7.1   2017-09-01 CRAN (R 3.4.1)                  
+##  tidyselect   0.2.0   2017-08-30 CRAN (R 3.4.1)                  
+##  tools        3.4.0   2017-04-21 local                           
+##  utils      * 3.4.0   2017-04-21 local                           
+##  withr        2.0.0   2017-08-08 Github (jimhester/withr@190d293)
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
+&lt;h1&gt;Referências&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-cegatta_eficiencia_2013&#34;&gt;
+&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34; class=&#34;uri&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-grolemund_r_2016&#34;&gt;
+&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34; class=&#34;uri&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-wickham_tidy_2014&#34;&gt;
+&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34; class=&#34;uri&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
   </channel>

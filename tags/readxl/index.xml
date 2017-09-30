@@ -17,7 +17,158 @@
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-histograma/</guid>
+<<<<<<< Updated upstream
       <description>Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_amazonia.csv&amp;quot;
+)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 276 x 7
+##             Especie              Nome_cientifico Comercial   DAP  HCom
+##               &amp;lt;chr&amp;gt;                        &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+##  1 NAO IDENTIFICADA             Nao Identificada       Nao    20    10
+##  2           EMBIRA                Lecythidaceae       Nao    34    13
+##  3 NAO IDENTIFICADA             Nao Identificada       Nao    18     6
+##  4         SUCUPIRA   Leguminosae-Papilionoideae       Nao    18     7
+##  5           CANELA                    Lauraceae       Nao    24    10
+##  6            TACHI                Lecythidaceae       Sim    21    10
+##  7      ENVIRA CAJU                   Annonaceae       Nao    20    11
+##  8            JUTAI Leguminosae-Caesalpinioideae       Nao    38    13
+##  9          CATUABA                 Vochysiaceae       Sim    57    13
+## 10 NAO IDENTIFICADA             Nao Identificada       Nao    22     7
+## # ... with 266 more rows, and 2 more variables: Volume &amp;lt;dbl&amp;gt;, QF &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Primeiro vamos ver qual a distribuição dos indivíduos em classes de diâmetro. A Figura &lt;a href=&#34;#fig:7-hist-dap&#34;&gt;1&lt;/a&gt; mostra a frequência de indivíduos em classes de diâmetro de 10 cm. Visivelmente, podemos ver que a faixa de diâmetro mais frequente está entre 15 e 35 cm (centro de classe 20 e 30 cm, respectivamente).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP)) +
+  geom_histogram(binwidth = 10, color = &amp;quot;white&amp;quot;) +
+  labs(x = &amp;quot;Diâmetro (cm)&amp;quot;, y = &amp;quot;Frequência (arv/ha)&amp;quot;) +
+  scale_x_continuous(breaks = seq(0, 100,10)) +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-dap&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Histograma com a frequência absoluta por classes de diâmetro.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Mas, e quanto às espécies comerciais? Como elas estão distribuídas? A Figura &lt;a href=&#34;#fig:7-hist-dap-comerc&#34;&gt;2&lt;/a&gt; faz esta diferenciação. E lembre-se, no manejo florestal da Amazônia só é permitido a exploração de árvores com diâmetro maior que 50 cm.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP, fill = Comercial)) +
+  geom_histogram(binwidth = 10, color = &amp;quot;white&amp;quot;, alpha = 0.5) +
+  labs(x = &amp;quot;Diâmetro (cm)&amp;quot;, y = &amp;quot;Frequência (arv/ha)&amp;quot;) +
+  scale_x_continuous(breaks = seq(0, 100,10)) +
+  theme_few() +
+  theme(legend.position = c(.9, .9)) +
+  scale_fill_hue(&amp;quot;Comercial?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-dap-comerc&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-comerc-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Vamos melhorar um pouco mais a informação sob o ponto de vista da exploração: qual a frequência de indivíduos que são de interesse comercial e tem diâmetro mais que 50 cm? (Figura &lt;a href=&#34;#fig:7-hist-vol-exp&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(Volume, fill = DAP &amp;gt; 50 &amp;amp; Comercial == &amp;quot;Sim&amp;quot;)) +
+  geom_histogram(binwidth = 0.5, color = &amp;quot;white&amp;quot;, alpha = 0.5) +
+  labs(x = Volume~individual ~ (m^3 / arv), y = &amp;quot;Frequência (arv/ha)&amp;quot;) +
+  scale_y_continuous(breaks = seq(0, 150, 20)) +
+  scale_x_continuous(breaks = seq(0, 10, 0.5)) +
+  theme_few()  +
+  theme(legend.position = c(.9, .9)) +
+  scale_fill_hue(&amp;quot;Pode explorar?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-vol-exp&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-1.png&#34; alt=&#34;Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Se quisermos ainda apresentar o gráfico em termos das frequências relativas, podemos fazer a seguinte modificação, conforme a Figura &lt;a href=&#34;#fig:7-hist-vol-exp-rel&#34;&gt;4&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(Volume, fill = DAP &amp;gt; 50 &amp;amp; Comercial == &amp;quot;Sim&amp;quot;)) +
+  geom_histogram(
+    aes(y = ..count../sum(..count..)),
+    binwidth = 0.5, color = &amp;quot;white&amp;quot;, alpha = 0.5
+  ) +
+  labs(x =  Volume~individual ~ (m^3 / arv), y = &amp;quot;Frequência (arv/ha)&amp;quot;) +
+  scale_y_continuous(breaks = seq(0, .5, 0.05), labels = scales::percent) +
+  scale_x_continuous(breaks = seq(0, 10, 0.5)) +
+  theme_few()  +
+  theme(legend.position = c(.9, .9)) +
+  scale_fill_hue(&amp;quot;Pode explorar?&amp;quot;, labels = c(&amp;quot;Não&amp;quot;, &amp;quot;Sim&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:7-hist-vol-exp-rel&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-rel-1.png&#34; alt=&#34;Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  4: Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package    * version    date       source                            
+##  assertthat   0.2.0      2017-04-11 CRAN (R 3.4.0)                    
+##  backports    1.1.0      2017-05-22 CRAN (R 3.4.0)                    
+##  base       * 3.4.0      2017-04-21 local                             
+##  bindr        0.1        2016-11-13 CRAN (R 3.4.0)                    
+##  bindrcpp     0.2        2017-06-17 CRAN (R 3.4.0)                    
+##  blogdown     0.1        2017-08-22 CRAN (R 3.4.1)                    
+##  bookdown     0.5        2017-08-20 CRAN (R 3.4.1)                    
+##  colorspace   1.3-2      2016-12-14 CRAN (R 3.4.0)                    
+##  compiler     3.4.0      2017-04-21 local                             
+##  curl         2.8.1      2017-07-21 CRAN (R 3.4.1)                    
+##  datasets   * 3.4.0      2017-04-21 local                             
+##  devtools     1.13.3     2017-08-02 CRAN (R 3.4.1)                    
+##  digest       0.6.12     2017-01-27 CRAN (R 3.4.0)                    
+##  dplyr      * 0.7.3      2017-09-09 CRAN (R 3.4.1)                    
+##  evaluate     0.10.1     2017-06-24 CRAN (R 3.4.0)                    
+##  ggplot2    * 2.2.1.9000 2017-08-08 Github (tidyverse/ggplot2@53a22cd)
+##  ggthemes   * 3.4.0      2017-02-19 CRAN (R 3.4.0)                    
+##  glue         1.1.1      2017-06-21 CRAN (R 3.4.0)                    
+##  graphics   * 3.4.0      2017-04-21 local                             
+##  grDevices  * 3.4.0      2017-04-21 local                             
+##  grid         3.4.0      2017-04-21 local                             
+##  gtable       0.2.0      2016-02-26 CRAN (R 3.4.0)                    
+##  highr        0.6        2016-05-09 CRAN (R 3.4.0)                    
+##  hms          0.3        2016-11-22 CRAN (R 3.4.0)                    
+##  htmltools    0.3.6      2017-04-28 CRAN (R 3.4.0)                    
+##  knitr        1.17       2017-08-10 CRAN (R 3.4.1)                    
+##  labeling     0.3        2014-08-23 CRAN (R 3.4.0)                    
+##  lazyeval     0.2.0      2016-06-12 CRAN (R 3.4.0)                    
+##  magrittr     1.5        2014-11-22 CRAN (R 3.4.0)                    
+##  memoise      1.1.0      2017-04-21 CRAN (R 3.4.0)                    
+##  methods    * 3.4.0      2017-04-21 local                             
+##  munsell      0.4.3      2016-02-13 CRAN (R 3.4.0)                    
+##  pacman     * 0.4.6      2017-05-14 CRAN (R 3.4.0)                    
+##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.0)                    
+##  plyr         1.8.4      2016-06-08 CRAN (R 3.4.0)                    
+##  R6           2.2.2      2017-06-17 CRAN (R 3.4.0)                    
+##  Rcpp         0.12.12    2017-07-15 CRAN (R 3.4.1)                    
+##  readr      * 1.1.1      2017-05-16 CRAN (R 3.4.0)                    
+##  rlang        0.1.2      2017-08-09 CRAN (R 3.4.1)                    
+##  rmarkdown    1.6        2017-06-15 CRAN (R 3.4.0)                    
+##  rprojroot    1.2        2017-01-16 CRAN (R 3.4.0)                    
+##  scales       0.5.0      2017-08-24 CRAN (R 3.4.1)                    
+##  stats      * 3.4.0      2017-04-21 local                             
+##  stringi      1.1.5      2017-04-07 CRAN (R 3.4.0)                    
+##  stringr      1.2.0      2017-02-18 CRAN (R 3.4.0)                    
+##  tibble       1.3.4      2017-08-22 CRAN (R 3.4.1)                    
+##  tools        3.4.0      2017-04-21 local                             
+##  utils      * 3.4.0      2017-04-21 local                             
+##  withr        2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
+##  yaml         2.1.14     2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+</description>
+=======
+      <description>Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
     <item>
@@ -26,7 +177,178 @@
       <pubDate>Sat, 09 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-heatmap/</guid>
+<<<<<<< Updated upstream
       <description>O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.&lt;/p&gt;
+&lt;p&gt;Vamos trabalhar com os dados do &lt;a href=&#34;http://www.projetotume.com/&#34;&gt;Projeto TUME&lt;/a&gt;, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de &lt;em&gt;Eucalyptus&lt;/em&gt; no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.&lt;/p&gt;
+&lt;p&gt;Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna &lt;code&gt;Esp&lt;/code&gt; informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume0.csv&amp;quot;
+)
+
+# Cria um fator com o atributo para a variável Esp que informa a ordem crescente
+# das espécies em função da altura dominante.
+dados &amp;lt;- dados %&amp;gt;% 
+  mutate(
+    Esp = reorder(Esp, Hdom, function(x) max(x)),
+    Idade = round(I_meses/12,1)
+  )
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 138 x 16
+##    N_tume             Esp I_meses Parc_m2 DAPmed DAPsd  Hmed   Hsd  Hdom
+##     &amp;lt;int&amp;gt;          &amp;lt;fctr&amp;gt;   &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1      0         Clone_1      52  1425.6   11.4   1.4  16.5   1.3  17.8
+##  2      0         Clone_2      52  1425.6   10.2   1.4  15.9   1.4  16.6
+##  3      0         Clone_3      52  1425.6   10.7   1.6  15.0   1.3  16.1
+##  4      0     E_benthamii      52  1425.6    9.0   2.7   9.8   2.3  13.0
+##  5      0    E_botryoides      52  1425.6    9.1   4.3  10.8   3.4  15.3
+##  6      0 E_camaldulensis      52  1425.6    8.3   2.9   8.3   2.3  11.8
+##  7      0    E_citriodora      52  1425.6    8.0   3.5   8.3   2.8  12.0
+##  8      0     E_cloeziana      52   928.8    7.5   2.5   7.0   2.0   9.6
+##  9      0        E_deanei      52  1425.6   10.6   2.9  11.3   1.8  13.4
+## 10      0        E_dunnii      52  1425.6    6.7   3.7   6.1   2.4  10.3
+## # ... with 128 more rows, and 7 more variables: N_fuste &amp;lt;int&amp;gt;, Sobr &amp;lt;dbl&amp;gt;,
+## #   G &amp;lt;dbl&amp;gt;, V &amp;lt;int&amp;gt;, IMA &amp;lt;dbl&amp;gt;, B &amp;lt;int&amp;gt;, Idade &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Se fizermos a seguinte pergunta: qual gráfico podemos utilizar para mostrar o crescimento da altura dominantes dos materiais? Penso que a resposta rápida seria, um gráfico de linhas! Ok, vamos tentar, veja a Figura &lt;a href=&#34;#fig:6-linhas&#34;&gt;1&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(Idade, Hdom, color = Esp)) +
+  geom_line(size=1.5) +
+  labs(x = &amp;quot;Idade (anos)&amp;quot;, y = &amp;quot;Altura dominante (m)&amp;quot;) +
+  theme_few() +
+  scale_color_viridis(
+    name = &amp;quot;Materiais genéticos&amp;quot;,
+    direction = -1, discrete = T
+  ) +
+  guides(col = guide_legend(ncol = 1, reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-linhas&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png&#34; alt=&#34;Aumento da altura dominante utilizando gráficos de linhas.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Muito bem, o gráfico consegue mostar a tendência e o padrão de crescimento. Mas se alguém perguntar sobre o &lt;em&gt;Eucaluptus dunnii&lt;/em&gt;, capaz de demorarmos um tempo para encontrar a linha correspondente. Capaz ainda de não conseguirmos distinguir entre uma cor e outra. Essa é uma limitação do gráfico de linhas, quanto temos muitos fatores na legenda fica difícil a distinção entre eles. E quando se tem uma restrição de cor e o gráfico precisa estar em escala de cinza? Esquece! Há quem tente utilizar símbolos ou tipos de traços para distinguir os fatores, mas mesmo assim, não é uma tarefa fácil.&lt;/p&gt;
+&lt;p&gt;É neste momento que podemos nos aproveitar do heatmap. Agora a intencidade de cor indica a variável resposta (Figura &lt;a href=&#34;#fig:6-heatmap-cont&#34;&gt;2&lt;/a&gt;). Veja que fica mais fácil acompanhar o crescimento de uma espécies em especial.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(factor(Idade), Esp, fill = Hdom)) +
+  geom_tile() +
+  labs(x = &amp;quot;Idade (anos)&amp;quot;, y = &amp;quot;Materiais genéticos&amp;quot;) +
+  theme_few() +
+  scale_fill_viridis(name = &amp;quot;Altura dominante (m)&amp;quot;, direction = -1) +
+  guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-cont&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor contínua.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor contínua.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Se for do interesse controlar a escala de cor em intervalos e classes, a alteração é simples (Figura &lt;a href=&#34;#fig:6-heatmap-discr&#34;&gt;3&lt;/a&gt;). Se reduzirmos as classes de cor, perdemos resolução na escala da variável resposta. Dependendo do objetivo do gráfico isso pode ser bom ou ruim. Neste caso, escolhi intervalos de 2 metros, pois achei mais adequado.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(factor(Idade),
+       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+ geom_tile() +
+ labs(x = &amp;quot;Idade (anos)&amp;quot;, y = &amp;quot;Materiais genéticos&amp;quot;) +
+ theme_few() +
+ scale_fill_viridis(
+   name = &amp;quot;Altura dominante (m)&amp;quot;,
+   discrete = T, direction = -1
+ ) +
+ guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor discreta.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Se quisermos deixar explícito o valor da variável resposta podemos indicá-la no gráfico, como na Figura &lt;a href=&#34;#fig:6-heatmap-discr-label&#34;&gt;4&lt;/a&gt;. Eu particularmente acho que fica muito poluído, mas em alguns casos pode ser interessante.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(factor(Idade),
+       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+ geom_tile() +
+ geom_text(aes(label = Hdom), color = &amp;quot;white&amp;quot;) +
+ labs(x = &amp;quot;Idade (anos)&amp;quot;, y = &amp;quot;Materiais genéticos&amp;quot;) +
+ theme_few() +
+ scale_fill_viridis(
+   name = &amp;quot;Altura dominante (m)&amp;quot;,
+   discrete = T, direction = -1
+ ) +
+ guides(col = guide_legend(reverse = TRUE))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:6-heatmap-discr-label&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png&#34; alt=&#34;Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package     * version    date       source                            
+##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.0)                    
+##  backports     1.1.0      2017-05-22 CRAN (R 3.4.0)                    
+##  base        * 3.4.0      2017-04-21 local                             
+##  bindr         0.1        2016-11-13 CRAN (R 3.4.0)                    
+##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.4.0)                    
+##  blogdown      0.1        2017-08-22 CRAN (R 3.4.1)                    
+##  bookdown      0.5        2017-08-20 CRAN (R 3.4.1)                    
+##  colorspace    1.3-2      2016-12-14 CRAN (R 3.4.0)                    
+##  compiler      3.4.0      2017-04-21 local                             
+##  curl          2.8.1      2017-07-21 CRAN (R 3.4.1)                    
+##  datasets    * 3.4.0      2017-04-21 local                             
+##  devtools      1.13.3     2017-08-02 CRAN (R 3.4.1)                    
+##  digest        0.6.12     2017-01-27 CRAN (R 3.4.0)                    
+##  dplyr       * 0.7.3      2017-09-09 CRAN (R 3.4.1)                    
+##  evaluate      0.10.1     2017-06-24 CRAN (R 3.4.0)                    
+##  ggplot2     * 2.2.1.9000 2017-08-08 Github (tidyverse/ggplot2@53a22cd)
+##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.4.0)                    
+##  glue          1.1.1      2017-06-21 CRAN (R 3.4.0)                    
+##  graphics    * 3.4.0      2017-04-21 local                             
+##  grDevices   * 3.4.0      2017-04-21 local                             
+##  grid          3.4.0      2017-04-21 local                             
+##  gridExtra     2.3        2017-09-09 CRAN (R 3.4.1)                    
+##  gtable        0.2.0      2016-02-26 CRAN (R 3.4.0)                    
+##  highr         0.6        2016-05-09 CRAN (R 3.4.0)                    
+##  hms           0.3        2016-11-22 CRAN (R 3.4.0)                    
+##  htmltools     0.3.6      2017-04-28 CRAN (R 3.4.0)                    
+##  knitr         1.17       2017-08-10 CRAN (R 3.4.1)                    
+##  labeling      0.3        2014-08-23 CRAN (R 3.4.0)                    
+##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.4.0)                    
+##  magrittr      1.5        2014-11-22 CRAN (R 3.4.0)                    
+##  memoise       1.1.0      2017-04-21 CRAN (R 3.4.0)                    
+##  methods     * 3.4.0      2017-04-21 local                             
+##  munsell       0.4.3      2016-02-13 CRAN (R 3.4.0)                    
+##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.4.0)                    
+##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.4.0)                    
+##  plyr          1.8.4      2016-06-08 CRAN (R 3.4.0)                    
+##  R6            2.2.2      2017-06-17 CRAN (R 3.4.0)                    
+##  Rcpp          0.12.12    2017-07-15 CRAN (R 3.4.1)                    
+##  readr       * 1.1.1      2017-05-16 CRAN (R 3.4.0)                    
+##  rlang         0.1.2      2017-08-09 CRAN (R 3.4.1)                    
+##  rmarkdown     1.6        2017-06-15 CRAN (R 3.4.0)                    
+##  rprojroot     1.2        2017-01-16 CRAN (R 3.4.0)                    
+##  scales        0.5.0      2017-08-24 CRAN (R 3.4.1)                    
+##  stats       * 3.4.0      2017-04-21 local                             
+##  stringi       1.1.5      2017-04-07 CRAN (R 3.4.0)                    
+##  stringr       1.2.0      2017-02-18 CRAN (R 3.4.0)                    
+##  tibble        1.3.4      2017-08-22 CRAN (R 3.4.1)                    
+##  tools         3.4.0      2017-04-21 local                             
+##  utils       * 3.4.0      2017-04-21 local                             
+##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.4.0)                    
+##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.4.0)                    
+##  withr         2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
+##  yaml          2.1.14     2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+</description>
+=======
+      <description>O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
     <item>
@@ -35,8 +357,341 @@
       <pubDate>Sat, 14 May 2016 00:00:00 +0000</pubDate>
       
       <guid>/os-graficos-que-explicam-nossos-dados-barras/</guid>
+<<<<<<< Updated upstream
       <description>Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
 Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;boxplot&lt;/a&gt; e agora vamos ao gráfico de barras.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.&lt;/p&gt;
+&lt;p&gt;Continuaremos com o banco de dados apresentado no post sobre &lt;a href=&#34;https://italocegatta.github.io/o-conceito-tidy-data.html&#34;&gt;tidy data&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa.csv&amp;quot;
+)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+##  1  Actara d1         1      1 Peciolo      1
+##  2  Actara d1         2      1 Peciolo     NA
+##  3  Actara d1         3      1 Peciolo     NA
+##  4  Actara d1         4      1 Peciolo     NA
+##  5  Actara d1         5      1 Peciolo     NA
+##  6  Actara d1         6      1 Peciolo     NA
+##  7  Actara d1         7      1 Peciolo     NA
+##  8  Actara d1         8      1 Peciolo     NA
+##  9  Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;basico&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Básico&lt;/h2&gt;
+&lt;p&gt;A primeira sequência de gráficos está relacionada ao total de galhas encontradas nas mudas de cada tratamento. Nessa comparação, temos de considerar tratamentos como fatores e os locais onde a galha foi encontrada como níveis do fator local. Essa distinção vai nos ajuda a escolher a melhor forma de construir um gráfico de acordo com o que queremos mostrar.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# seleciona apenas as Coletas de numero 5, em seguida monta um fator de 
+# agrupamento em função de Tratamento. Aplica a soma de todas as
+# observações (Galhas) de acordo com o fator de agrupamento.
+
+total_trat &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento) %&amp;gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 2
+##    Tratamento Galhas
+##         &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+## 1   Actara d1     73
+## 2   Actara d2     57
+## 3   Actara d3     30
+## 4 Evidence d1     27
+## 5 Evidence d2     21
+## 6 Evidence d3     12
+## 7  Testemunha     77&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora já podemos fazer o primeiro gráfico simples e básico (Figura &lt;a href=&#34;#fig:5-bar-basico&#34;&gt;1&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-1.png&#34; alt=&#34;Número total de galhas de cada tratamento.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Número total de galhas de cada tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Mas ainda temos a variável &lt;code&gt;Local&lt;/code&gt;, certo? Podemos apresentá-la sem muito esforço.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;total_trat_local &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento, Local) %&amp;gt;%
+  summarise(Galhas = sum(Galhas, na.rm=T))
+
+total_trat_local&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 21 x 3
+## # Groups:   Tratamento [?]
+##     Tratamento   Local Galhas
+##          &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+##  1   Actara d1   Caule     13
+##  2   Actara d1 Nervura     19
+##  3   Actara d1 Peciolo     41
+##  4   Actara d2   Caule     10
+##  5   Actara d2 Nervura      9
+##  6   Actara d2 Peciolo     38
+##  7   Actara d3   Caule      7
+##  8   Actara d3 Nervura      6
+##  9   Actara d3 Peciolo     17
+## 10 Evidence d1   Caule      6
+## # ... with 11 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) +
+  theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;No caso da Figura &lt;a href=&#34;#fig:5-bar-local&#34;&gt;2&lt;/a&gt;, à primeira vista comparamos as barras (fatores) e depois as cores (níveis). Podemos dar mais evidência aos níveis, transformando-os em barras como na Figura &lt;a href=&#34;#fig:5-bar-local-dodge&#34;&gt;3&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+  theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como alternativa, podemos subdividir os níveis em painéis e deixar o gráfico mais balanceado, ou seja, sem concentrar a informação em fatores ou níveis (Figura &lt;a href=&#34;#fig:5-bar-local-facet&#34;&gt;4&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  4: Número total de galhas de cada tratamento em diferentes locais - níveis em painel.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Note que nos 3 gráficos anteriores o banco de dados para formação do gráfico é o mesmo, mas cada um dá ênfase em um aspecto diferente. A parte boa é que podemos modificá-los de acordo com o nosso interesse de uma forma rápida e bem simples.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;adicionando-valores-as-barras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Adicionando valores às barras&lt;/h2&gt;
+&lt;p&gt;Se quisermos adicionar o valor de cada nível ou fator na barra, temos de alterar o banco de dados para que ele coincida com o que queremos mostrar.&lt;/p&gt;
+&lt;p&gt;Para a Figura &lt;a href=&#34;#fig:5-bar-basico-annot&#34;&gt;5&lt;/a&gt;, modificamos apenas o código do gráfico.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) +
+  geom_text(aes(label = Galhas), size = 6, vjust = -0.2) +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico-annot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com o valor na respectiva barra.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  5: Número total de galhas de cada tratamento com o valor na respectiva barra.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Também é fácil indicar o número de galhas por local nas barras. A função &lt;code&gt;position_stack()&lt;/code&gt; é responsável por colocar o texto no topo de cada compartimento colorido. Para ficar mais atraente, podemos adicionar um parâmetro para que o texto fique 20% a baixo do topo do compartimento. Como resultado temos a Figura &lt;a href=&#34;#fig:5-bar-local-annot&#34;&gt;6&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria uma nova coluna que contem a posição no eixo y que corresponde ao centro
+# da barra. Esta posição correnponde ao local onde o label de cada barra
+# será mostrado
+
+ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+    geom_col() +
+    geom_text(
+      aes(label = Galhas),
+      position =  position_stack(vjust = 0.8), vjust = 1
+    ) +
+    theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-annot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  6: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;As Figuras &lt;a href=&#34;#fig:5-bar-local-dodge-annot&#34;&gt;7&lt;/a&gt; e &lt;a href=&#34;#fig:5-bar-local-facet-annot&#34;&gt;8&lt;/a&gt; foram criadas apenas alterando o código do gráfico.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+  geom_text(aes(label = Galhas),
+    position = position_dodge(width=0.9), vjust = -0.2) +
+  theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge-annot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  7: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_trat_local, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+    geom_text(aes(label = Galhas), vjust = -0.2) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet-annot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-annot-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  8: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;barra-de-desvio&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Barra de desvio&lt;/h2&gt;
+&lt;p&gt;Uma outra informação interessante para o gráfico de barras é a barra de erro ou desvio. Com ela, além de informarmos o valor que queremos, também informamos uma medida de dispersão associada a esse valor. Nos gráficos anteriores apresentei o total de galhas por tratamento e local. Não faz sentido, nesse caso, colocar uma barra de desvio, pois a soma não é uma medida de posição. Portanto, vamos resumir novamente os dados em função da média e acrescentar o erro padrão da média.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Seleciona apenas as Coletas de numero 5, em seguida calcula a média e o
+# desvio padrão de cada Tratamento.
+
+media_trat_desv &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento) %&amp;gt;%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = mean(Galhas, na.rm=T))
+
+media_trat_desv&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 3
+##    Tratamento      desv   Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1   Actara d1 0.4799351 4.055556
+## 2   Actara d2 0.4893473 3.352941
+## 3   Actara d3 0.1331730 2.307692
+## 4 Evidence d1 0.5889188 3.857143
+## 5 Evidence d2 0.2667039 2.625000
+## 6 Evidence d3 0.1632993 2.000000
+## 7  Testemunha 0.3601529 3.347826&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Após criar o &lt;em&gt;data frame&lt;/em&gt; com o desvio, a Figura &lt;a href=&#34;#fig:5-bar-basico-desv&#34;&gt;9&lt;/a&gt; é facilmente criada com o código abaixo.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(media_trat_desv, aes(Tratamento, Galhas)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv,
+     ymax = Galhas + desv), width = 0.4) +
+  theme_few()&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-basico-desv&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento com barra de desvio.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  9: Número total de galhas de cada tratamento com barra de desvio.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;No caso das Figuras &lt;a href=&#34;#fig:5-bar-local-dodge-desv&#34;&gt;10&lt;/a&gt; e &lt;a href=&#34;#fig:5-bar-local-facet-desv&#34;&gt;11&lt;/a&gt;, precisamos dados dados agrupados por &lt;code&gt;Tratamento&lt;/code&gt; e &lt;code&gt;Local&lt;/code&gt;. O código para o gráfico é muito semelhante aos anteriores. Em alguns tratamentos há somente um indivíduo indivídio com contagem de galhas. Nesta situação não há barra de desvio.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Seleciona apenas as Coletas de numero 5, em seguida calcula a mediana e o
+# desvio padrão em função de cada Trtatamento e Local.
+
+mediana_trat_local_desv &amp;lt;- dados %&amp;gt;%
+  filter(Coleta == 5) %&amp;gt;%
+  group_by(Tratamento, Local) %&amp;gt;%
+  summarise(desv = sd(Galhas, na.rm=T)/sqrt(n()),
+    Galhas = median(Galhas, na.rm=T))
+
+mediana_trat_local_desv&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 21 x 4
+## # Groups:   Tratamento [?]
+##     Tratamento   Local      desv Galhas
+##          &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1   Actara d1   Caule 0.3291403      2
+##  2   Actara d1 Nervura 0.8276473      3
+##  3   Actara d1 Peciolo 1.0200373      4
+##  4   Actara d2   Caule 0.2708013      1
+##  5   Actara d2 Nervura 0.2813657      2
+##  6   Actara d2 Peciolo 1.1751393      4
+##  7   Actara d3   Caule 0.1118034      2
+##  8   Actara d3 Nervura 0.0000000      2
+##  9   Actara d3 Peciolo 0.2972092      3
+## 10 Evidence d1   Caule 0.2236068      2
+## # ... with 11 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas, fill = Local)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv, ymax = Galhas + desv),
+    position = position_dodge(width=0.9), width = 0.4) +
+  theme_few() +
+  scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-dodge-desv&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  10: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas )) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;) +
+  geom_errorbar(aes(ymin = Galhas - desv,
+    ymax = Galhas + desv), width = 0.4) +
+  facet_wrap(~Local) +
+  theme_few() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:5-bar-local-facet-desv&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-desv-1.png&#34; alt=&#34;Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.&#34; width=&#34;4000&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  11: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package      * version    date       source                            
+##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.0)                    
+##  backports      1.1.0      2017-05-22 CRAN (R 3.4.0)                    
+##  base         * 3.4.0      2017-04-21 local                             
+##  bindr          0.1        2016-11-13 CRAN (R 3.4.0)                    
+##  bindrcpp     * 0.2        2017-06-17 CRAN (R 3.4.0)                    
+##  blogdown       0.1        2017-08-22 CRAN (R 3.4.1)                    
+##  bookdown       0.5        2017-08-20 CRAN (R 3.4.1)                    
+##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.0)                    
+##  compiler       3.4.0      2017-04-21 local                             
+##  curl           2.8.1      2017-07-21 CRAN (R 3.4.1)                    
+##  datasets     * 3.4.0      2017-04-21 local                             
+##  devtools       1.13.3     2017-08-02 CRAN (R 3.4.1)                    
+##  digest         0.6.12     2017-01-27 CRAN (R 3.4.0)                    
+##  dplyr        * 0.7.3      2017-09-09 CRAN (R 3.4.1)                    
+##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.0)                    
+##  ggplot2      * 2.2.1.9000 2017-08-08 Github (tidyverse/ggplot2@53a22cd)
+##  ggthemes     * 3.4.0      2017-02-19 CRAN (R 3.4.0)                    
+##  glue           1.1.1      2017-06-21 CRAN (R 3.4.0)                    
+##  graphics     * 3.4.0      2017-04-21 local                             
+##  grDevices    * 3.4.0      2017-04-21 local                             
+##  grid           3.4.0      2017-04-21 local                             
+##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.0)                    
+##  highr          0.6        2016-05-09 CRAN (R 3.4.0)                    
+##  hms            0.3        2016-11-22 CRAN (R 3.4.0)                    
+##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.0)                    
+##  knitr          1.17       2017-08-10 CRAN (R 3.4.1)                    
+##  labeling       0.3        2014-08-23 CRAN (R 3.4.0)                    
+##  lazyeval       0.2.0      2016-06-12 CRAN (R 3.4.0)                    
+##  magrittr       1.5        2014-11-22 CRAN (R 3.4.0)                    
+##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.0)                    
+##  methods      * 3.4.0      2017-04-21 local                             
+##  munsell        0.4.3      2016-02-13 CRAN (R 3.4.0)                    
+##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.0)                    
+##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.0)                    
+##  plyr           1.8.4      2016-06-08 CRAN (R 3.4.0)                    
+##  R6             2.2.2      2017-06-17 CRAN (R 3.4.0)                    
+##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.4.0)                    
+##  Rcpp           0.12.12    2017-07-15 CRAN (R 3.4.1)                    
+##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.0)                    
+##  rlang          0.1.2      2017-08-09 CRAN (R 3.4.1)                    
+##  rmarkdown      1.6        2017-06-15 CRAN (R 3.4.0)                    
+##  rprojroot      1.2        2017-01-16 CRAN (R 3.4.0)                    
+##  scales         0.5.0      2017-08-24 CRAN (R 3.4.1)                    
+##  stats        * 3.4.0      2017-04-21 local                             
+##  stringi        1.1.5      2017-04-07 CRAN (R 3.4.0)                    
+##  stringr        1.2.0      2017-02-18 CRAN (R 3.4.0)                    
+##  tibble         1.3.4      2017-08-22 CRAN (R 3.4.1)                    
+##  tools          3.4.0      2017-04-21 local                             
+##  utils        * 3.4.0      2017-04-21 local                             
+##  withr          2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
+##  yaml           2.1.14     2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o boxplot e agora vamos ao gráfico de barras.
+Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
     <item>
@@ -55,8 +710,201 @@ Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no p
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-conceito-tidy-data/</guid>
+<<<<<<< Updated upstream
       <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
 Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+=======
+<<<<<<< HEAD
+      <description>&lt;p&gt;A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!&lt;/p&gt;
+&lt;p&gt;Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto &lt;span class=&#34;citation&#34;&gt;(Cegatta and Villegas &lt;a href=&#34;#ref-cegatta_eficiencia_2013&#34;&gt;2013&lt;/a&gt;)&lt;/span&gt;. Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.&lt;/p&gt;
+&lt;p&gt;Neste post vou retomar os dados brutos desse experimento e organizá-los de uma forma eficiente, pois na época não o fiz.&lt;/p&gt;
+&lt;p&gt;No experimento tivemos 5 coletas sucessivas de dados para acompanhar a evolução do número de galhas em mudas de eucalipto com diferentes tratamentos de inseticidas. Galha é uma reação da planta que tem diversas causas, nesse caso específico, é devido à postura de uma vespa em busca de abrigo para seus ovos.&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-base&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/JsYqVH7.png&#34; alt=&#34;Dados brutos. Como não organizar seu banco de dados.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Dados brutos. Como não organizar seu banco de dados.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A estrutura do banco de dados que obtive no fim do experimento está apresentada na Figura &lt;a href=&#34;#fig:fig-base&#34;&gt;1&lt;/a&gt;. Para a época, foi o melhor que consegui fazer e pela inexperiência cometi os seguintes erros:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Uso de caracteres especiais.&lt;/li&gt;
+&lt;li&gt;Uso de espaço entre as palavras.&lt;/li&gt;
+&lt;li&gt;Células mescladas.&lt;/li&gt;
+&lt;li&gt;Observações (Nº de galhas no pecíolo, nervura e caule) organizadas em colunas.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;O uso de caracteres especiais não é recomentado em muitas ocasiões, essa dica vale para quase tudo que envolve computação. O mesmo se aplica para os espaços entre as palavras, mas podemos ser mais flexíveis neste caso. Mesclar uma célula será o seu maior problema em uma planilha eletrônica, cuidado com isso! Recomendo mesclar células em raríssimas exceções, como formatação de tabelas em Word ou PowerPoint. O meu último erro foi o maior deles, confundi observações com variáveis. Em minha defesa, o inexperiente Ítalo tentou organizar os dados em um layout de fácil visualização. Veja que é fácil acompanhar a evolução das galhas ao longo do tempo. Para a percepção humana, organização de dados no formato longitudinal é muito prática e rápida. Mas temos que pensar em como o computador trabalha e como ele faz todos os cálculos que precisamos. No fim, eu consegui fazer tudo que eu queria com os dados nesse formato, mas acredite, foi sofrível e muito ineficiente.&lt;/p&gt;
+&lt;p&gt;O conceito tidy data está muito bem descrito por &lt;span class=&#34;citation&#34;&gt;Wickham (&lt;a href=&#34;#ref-wickham_tidy_2014&#34;&gt;2014&lt;/a&gt;)&lt;/span&gt;, onde ele apresenta o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/tidyr/index.html&#34;&gt;tidyr&lt;/a&gt; que contém uma gama de funções muito úteis para esse fim. Wickham também dedicou um capítulo específico sobre esse conceito em seu &lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;livro&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(Grolemund and Wickham &lt;a href=&#34;#ref-grolemund_r_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt;. Por tidy data, entendemos que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variáveis estão dispostas em colunas.&lt;/li&gt;
+&lt;li&gt;Observações estão dispostas em linhas.&lt;/li&gt;
+&lt;li&gt;Os valores atribuídos às variáveis em cada observação formam a tabela.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agora vamos aplicar esse conceito ao meu banco de dados. Podemos fazer isso de várias formas, vai depender de como iremos entrar com os dados no R. Vou mostrar 2 métodos que penso ser os mais práticos e genéricos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Pacotes utilizados neste post
+if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readxl, dplyr, tidyr, httr)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;metodo-1&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 1&lt;/h1&gt;
+&lt;p&gt;Partindo da base de dados original, fiz uma pequena alteração separando em cada aba as coletas que foram realizadas (Figura &lt;a href=&#34;#fig:fig-entrada1&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada1&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/3AsFpmQ.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Modificação do banco de dados original para ser importado no R. Divisão das coletas em abas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Como são apenas 4 abas, podemos importá-las usando um comando por linha.&lt;/p&gt;
+&lt;p&gt;Mas e se tivéssemos 50 coletas? Deu preguiça. Vamos melhorar a importação e deixar o computador trabalhar por nós.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faz o mesmo que os comandos anteriores, mas utiliza um ´for´ para repetir 
+# o precesso em todas as abas. 
+dados1 &amp;lt;- list()
+
+for(i in 1:5) {
+ dados1[[paste0(&amp;quot;c&amp;quot;,i)]] &amp;lt;- read_excel(base_vespa1, paste0(&amp;quot;Coleta&amp;quot;, i))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora precisamos de um fator (nº da coleta) para diferenciarmos cada medição e colocar tudo em um único data frame.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cria um fator para diferenciar as medições medições 
+for(i in names(dados1)) {
+  dados1[[i]][ , &amp;quot;Coleta&amp;quot;] = i  
+}
+
+dados1 &amp;lt;- bind_rows(dados1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como minhas análises vão considerar o local da galha como o variável, devo organizar &lt;em&gt;Peciolo&lt;/em&gt;, &lt;em&gt;Nervura&lt;/em&gt; e &lt;em&gt;Caule&lt;/em&gt; em uma só coluna denominada &lt;em&gt;Local&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Transforma as columas ´Peciolo´, ´Nervura´ e ´Caule´ em uma só coluna
+# denominada ´Local´.
+dados1 &amp;lt;- gather(
+  dados1, &amp;quot;Local&amp;quot;,
+  &amp;quot;Galhas&amp;quot;, c(Peciolo, Nervura, Caule)
+)
+
+dados1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##         &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1     c1 Peciolo      1
+##  2  Actara d1         2     c1 Peciolo     NA
+##  3  Actara d1         3     c1 Peciolo     NA
+##  4  Actara d1         4     c1 Peciolo     NA
+##  5  Actara d1         5     c1 Peciolo     NA
+##  6  Actara d1         6     c1 Peciolo     NA
+##  7  Actara d1         7     c1 Peciolo     NA
+##  8  Actara d1         8     c1 Peciolo     NA
+##  9  Actara d1         9     c1 Peciolo     NA
+## 10  Actara d1        10     c1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;metodo-2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Método 2&lt;/h1&gt;
+&lt;p&gt;Nesse método, não fiz nenhuma grande alteração na base de dados. Apenas corrigi o nome das colunas com um fator que indica o número da coleta e em seguida o local (Figura &lt;a href=&#34;#fig:fig-entrada2&#34;&gt;3&lt;/a&gt;).&lt;/p&gt;
+&lt;br&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:fig-entrada2&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://i.imgur.com/YGY8pvV.png&#34; alt=&#34;Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.&#34;  /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  3: Modificação do banco de dados original para ser importado no R. Alteração dos nomes das colunas.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Vamos agora importar e organizar os dados no mesmo formato que no método 1, mas com um código bem mais simples.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lê os dados, transforma as variáveis que estão em várias colunas em uma só e
+# Separa as informações que estão na coluna ´Local´ em duas colunas (variáveis)
+# ´Coleta´ e ´Local´.
+dados2 &amp;lt;- read_excel(base_vespa2) %&amp;gt;%
+  gather(&amp;quot;Local&amp;quot;, &amp;quot;Galhas&amp;quot;, 3:dim(.)[2]) %&amp;gt;%
+  separate(Local, c(&amp;quot;Coleta&amp;quot;, &amp;quot;Local&amp;quot;))
+
+dados2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
+##    Tratamento Individuo Coleta   Local Galhas
+##  *      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1  Actara d1         1      1 Peciolo      1
+##  2  Actara d1         2      1 Peciolo     NA
+##  3  Actara d1         3      1 Peciolo     NA
+##  4  Actara d1         4      1 Peciolo     NA
+##  5  Actara d1         5      1 Peciolo     NA
+##  6  Actara d1         6      1 Peciolo     NA
+##  7  Actara d1         7      1 Peciolo     NA
+##  8  Actara d1         8      1 Peciolo     NA
+##  9  Actara d1         9      1 Peciolo     NA
+## 10  Actara d1        10      1 Peciolo     NA
+## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  setting  value                       
+##  version  R version 3.4.0 (2017-04-21)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-09-16                  
+## 
+##  package    * version date       source                          
+##  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                  
+##  backports    1.1.0   2017-05-22 CRAN (R 3.4.0)                  
+##  base       * 3.4.0   2017-04-21 local                           
+##  bindr        0.1     2016-11-13 CRAN (R 3.4.0)                  
+##  bindrcpp     0.2     2017-06-17 CRAN (R 3.4.0)                  
+##  blogdown     0.1     2017-08-22 CRAN (R 3.4.1)                  
+##  bookdown     0.5     2017-08-20 CRAN (R 3.4.1)                  
+##  cellranger   1.1.0   2016-07-27 CRAN (R 3.4.0)                  
+##  compiler     3.4.0   2017-04-21 local                           
+##  curl         2.8.1   2017-07-21 CRAN (R 3.4.1)                  
+##  datasets   * 3.4.0   2017-04-21 local                           
+##  devtools     1.13.3  2017-08-02 CRAN (R 3.4.1)                  
+##  digest       0.6.12  2017-01-27 CRAN (R 3.4.0)                  
+##  dplyr      * 0.7.3   2017-09-09 CRAN (R 3.4.1)                  
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.0)                  
+##  glue         1.1.1   2017-06-21 CRAN (R 3.4.0)                  
+##  graphics   * 3.4.0   2017-04-21 local                           
+##  grDevices  * 3.4.0   2017-04-21 local                           
+##  highr        0.6     2016-05-09 CRAN (R 3.4.0)                  
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.0)                  
+##  httr       * 1.3.1   2017-08-20 CRAN (R 3.4.1)                  
+##  knitr        1.17    2017-08-10 CRAN (R 3.4.1)                  
+##  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                  
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                  
+##  methods    * 3.4.0   2017-04-21 local                           
+##  pacman     * 0.4.6   2017-05-14 CRAN (R 3.4.0)                  
+##  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                  
+##  purrr        0.2.3   2017-08-02 CRAN (R 3.4.1)                  
+##  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                  
+##  Rcpp         0.12.12 2017-07-15 CRAN (R 3.4.1)                  
+##  readxl     * 1.0.0   2017-04-18 CRAN (R 3.4.0)                  
+##  rlang        0.1.2   2017-08-09 CRAN (R 3.4.1)                  
+##  rmarkdown    1.6     2017-06-15 CRAN (R 3.4.0)                  
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.4.0)                  
+##  stats      * 3.4.0   2017-04-21 local                           
+##  stringi      1.1.5   2017-04-07 CRAN (R 3.4.0)                  
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.0)                  
+##  tibble       1.3.4   2017-08-22 CRAN (R 3.4.1)                  
+##  tidyr      * 0.7.1   2017-09-01 CRAN (R 3.4.1)                  
+##  tidyselect   0.2.0   2017-08-30 CRAN (R 3.4.1)                  
+##  tools        3.4.0   2017-04-21 local                           
+##  utils      * 3.4.0   2017-04-21 local                           
+##  withr        2.0.0   2017-08-08 Github (jimhester/withr@190d293)
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
+&lt;h1&gt;Referências&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-cegatta_eficiencia_2013&#34;&gt;
+&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34; class=&#34;uri&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-grolemund_r_2016&#34;&gt;
+&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34; class=&#34;uri&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-wickham_tidy_2014&#34;&gt;
+&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34; class=&#34;uri&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+=======
+      <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
+Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
+>>>>>>> master
+>>>>>>> Stashed changes
     </item>
     
   </channel>
