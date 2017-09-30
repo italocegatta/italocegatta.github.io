@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Ítalo Cegatta</title>
-    <link>/categories/r/</link>
+    <link>/categories/r/index.xml</link>
     <description>Recent content in R on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 26 Apr 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>O R é para você</title>
@@ -17,11 +14,6 @@
       <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/o-r-e-para-voce/</guid>
-<<<<<<< Updated upstream
-      <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
-=======
-<<<<<<< HEAD
       <description>&lt;p&gt;Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?&lt;/p&gt;
@@ -121,11 +113,6 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
-=======
-      <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
-Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
->>>>>>> master
->>>>>>> Stashed changes
     </item>
     
     <item>
@@ -134,8 +121,23 @@ Vou tentar focar esse texto em duas perguntas muito importantes para quem está 
       <pubDate>Thu, 21 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/sobre-esse-blog/</guid>
-      <description>Algumas situações me motivaram a criar esse site e alimentá-lo como um blog. Provavelmente os motivos para que eu o continue atualizando vão mudar e na medida que isso acontecer, atualizarei esse post.
-Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais.</description>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;Algumas situações me motivaram a criar esse site e alimentá-lo como um blog. Provavelmente os motivos para que eu o continue atualizando vão mudar e na medida que isso acontecer, atualizarei esse post.&lt;/p&gt;
+&lt;p&gt;Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais.Para um florestal essa não é uma tarefa fácil, pois meu curso não tem relação com tecnologia da informações ou computação&lt;/p&gt;
+&lt;p&gt;Tiva ideia de criar o blog numa terça-feira, na quarta ele já estava online. As principais motivações foram:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Eu acumulei durante os anos da graduação muitos códigos em R para resolver problemas meus e de amigos, entretanto a maioria desses códigos estavam desorganizados. Sempre que começo um novo projeto no R eu me lembro que já fiz algo parececido anteriormente, mas ou não consigo encontrar o código ou ele está tão bagunçado que não é possível aproveitá-lo. Pretendo organizar todos os meus códigos em forma de posts para facilitar a minha vida no futuro.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Organizar as ideias no papel nunca foi o meu forte. Penso que o hábito de escrever e estruturar um post sobre problemas resolvidos com o R vai ser um exercício e tanto para melhorar esse ponto.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Eu sempre quis programar com o R Markdown. Escrever os posts no R com o RStudio vão me ajudar a adquirir experiencia com essa linguagem.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Eu já havia criado alguns sites no Wix e DokuWiki, mas queira conhecer outras plataformas. Comecei o blog no Wordpress.com, mas a publicação de códigos é muito limitada e não pode ser automatizada. Com Jekyll e Github Pages eu consigo editar e publicar os posts diretamente do R, sem muito esforço e com muita flexibilidade.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;E por último, mas não menos importante, espero que os posts possam ajudar as pessoas a resolverem problemas parecidos. Durante todo o tempo em que trabalho com o R (e tantos outros assuntos do dia a dia) preciso recorrer a fóruns e blogs para conseguir avançar. Nesse sentido, tentar ajudar os outros que estão com problemas semelhantes aos que eu tive no passado é o mínimo que posso fazer em respeito à todos aqueles que, anonimamente, me ajudaram.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Um forte abraço a todos e vamos aos posts sobre o R, Floresta e Data Science.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

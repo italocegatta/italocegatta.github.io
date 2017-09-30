@@ -2,14 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Teste Estatistico on Ítalo Cegatta</title>
-    <link>/categories/teste-estatistico/</link>
+    <link>/categories/teste-estatistico/index.xml</link>
     <description>Recent content in Teste Estatistico on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 08 Sep 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/categories/teste-estatistico/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/categories/teste-estatistico/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ANOVA e teste de Tukey</title>
@@ -17,11 +14,6 @@
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>/anova-e-teste-de-tukey/</guid>
-<<<<<<< Updated upstream
-      <description>Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
-Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</description>
-=======
-<<<<<<< HEAD
       <description>&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
@@ -227,11 +219,6 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 ##  withr          2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
 ##  yaml           2.1.14     2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
 </description>
-=======
-      <description>Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
-Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</description>
->>>>>>> master
->>>>>>> Stashed changes
     </item>
     
   </channel>
