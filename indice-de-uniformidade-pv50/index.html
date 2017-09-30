@@ -1,0 +1,1101 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.19">
+    <title>Índice de uniformidade (PV50)</title>
+    <meta name="author" content="Ítalo Cegatta">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+    <meta name="description" content="O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.">
+    <meta property="og:description" content="O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Índice de uniformidade (PV50)">
+    <meta property="og:url" content="/indice-de-uniformidade-pv50/">
+    <meta property="og:site_name" content="Ítalo Cegatta">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ítalo Cegatta">
+    <meta name="twitter:description" content="O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="http://i.imgur.com/9MOS3vs.png">
+    
+
+    
+      <meta property="og:image" content="http://i.imgur.com/IvEZeXd.png">
+    
+    
+      <meta property="og:image" content="http://i.imgur.com/jFQYdwi.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="/css/style-gwlo24d2hxipxk8bi1sxik0zhlpn9t7ebcmgp9kubmmcjfzlavuyhvbqumhn.min.css" />
+    
+    
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-77144482-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Ítalo Cegatta</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+        </a>
+        <h4 class="sidebar-profile-name">Ítalo Cegatta</h4>
+        
+          <h5 class="sidebar-profile-bio">R, Floresta e Data Science</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Início</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categorias</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/sobre">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">Sobre</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="mailto:italocegatta@gmail.com">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
+      
+      <span class="sidebar-button-desc">Email</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/italocegatta">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/italocegatta">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('http://i.imgur.com/jFQYdwi.png')"
+       data-behavior="5">
+    
+  </div>
+
+
+      <div id="main" data-behavior="5"
+        class="hasCover
+               hasCoverMetaOut
+               hasCoverCaption">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+            <span class="post-header-cover-caption caption">Imagem: Hakamada (2015)</span>
+          
+          
+            <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title" itemprop="headline">
+      Índice de uniformidade (PV50)
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2016-10-09T00:00:00Z">
+      
+  
+  
+  
+  
+    9 Outubro 2016
+  
+
+    </time>
+  
+  
+  
+  
+    <span>em</span>
+    
+      <a class="category-link" href="/categories/pv50">PV50</a>
+    
+  
+
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
+<p>O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</p>
+<p>O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas <span class="citation">(Hakamada et al. <a href="#ref-Hakamada2015">2015</a>)</span>. A expressão do índice é dada da seguinte forma:</p>
+<p><img src="http://www.sciweavers.org/tex2img.php?eq=PV50%20%3D%20%5Cfrac%7B%5Csum_%7Bk%3D1%7D%5E%7B%5Cfrac%7Bn%7D%7B2%7D%7DV_%7Bij%7D%7D%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7DV_%7Bij%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}V_{ij}}{\sum_{k=1}^{n}V_{ij}}" width="139" height="62" /></p>
+<p>Onde: PV50 = porcentagem acumulada do volume das 50% menores árvores plantadas; V = volume da árvore i; n = número de árvores plantadas ordenadas (da menor para a maior).</p>
+<p>Primeiro vamos entender os cálculos do índice, considerando apenas 10 árvores hipotéticas com 0,1 metros cúbicos de volume.</p>
+<pre class="r"><code># carrega os pacotes necessários
+if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
+pacman::p_load(readr, dplyr, ggplot2, forcats)</code></pre>
+<pre class="r"><code># exemplo com número par
+arv10 &lt;- rep(0.1, 10)
+str(arv10)</code></pre>
+<pre><code>##  num [1:10] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1</code></pre>
+<p>Este é o referencial teórico de uniformidade, todas as árvores do mesmo tamanho. Sem precisar fazer conta, sabemos que o volume das 50% menores árvores é igual a 50% do volume total, o que equivale a um PV50 = 50.</p>
+<pre class="r"><code># identifica a metade do numero de árvores
+metade &lt;- length(arv10)/2
+metade</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv10, na.rm = TRUE)
+soma_todas</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code># soma o valor de metade das árvores em ordem crescente
+soma_metade &lt;- sum(sort(arv10)[1:metade], na.rm = TRUE)
+soma_metade</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
+PV50</code></pre>
+<pre><code>## [1] 50</code></pre>
+<p>Agora vamos simular 11 árvores com o mesmo volume, veja o que acontece.</p>
+<pre class="r"><code># exemplo com número impar
+arv11 &lt;- rep(0.1, 11)
+str(arv11)</code></pre>
+<pre><code>##  num [1:11] 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11)/2
+metade</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv11, na.rm = TRUE)
+soma_todas</code></pre>
+<pre><code>## [1] 1.1</code></pre>
+<pre class="r"><code># soma o valor de metade das árvores em ordem crescente
+soma_metade &lt;- sum(sort(arv11)[1:metade], na.rm = TRUE)
+soma_metade</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
+PV50</code></pre>
+<pre><code>## [1] 45.45455</code></pre>
+<p>O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).</p>
+<pre class="r"><code># vetor de soma acumulada
+soma_acumulada &lt;- cumsum(sort(arv11))
+soma_acumulada</code></pre>
+<pre><code>##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1</code></pre>
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade</code></pre>
+<pre><code>## [1] 0.55</code></pre>
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
+PV50</code></pre>
+<pre><code>## [1] 50</code></pre>
+<p>Agora que a questão do número de árvores foi superada, podemos incluir árvores mortas, o que equivale a elementos do tipo <code>NA</code> no R. Veja que o resultado não está consistente pois a <code>soma_acumulada</code> ignorou as árvores mortas.</p>
+<pre class="r"><code># exemplo com valores perdidos
+arv11_na &lt;- rep(0.1, 11)
+arv11_na[c(3,4)] &lt;- NA
+str(arv11_na)</code></pre>
+<pre><code>##  num [1:11] 0.1 0.1 NA NA 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11_na)/2
+metade</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
+soma_todas</code></pre>
+<pre><code>## [1] 0.9</code></pre>
+<pre class="r"><code># vetor de soma acumulada
+soma_acumulada &lt;- cumsum(sort(arv11_na))
+soma_acumulada</code></pre>
+<pre><code>## [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</code></pre>
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade</code></pre>
+<pre><code>## [1] 0.55</code></pre>
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
+PV50</code></pre>
+<pre><code>## [1] 61.11111</code></pre>
+<p>Para corrigir este o erro, temos de incluir manualmente as árvores mortas na sequência. Veja que agora o resultado está de acordo com o esperado.</p>
+<pre class="r"><code># vetor de valores perdidos
+mortas &lt;- arv11_na[is.na(arv11_na)]
+mortas</code></pre>
+<pre><code>## [1] NA NA</code></pre>
+<pre class="r"><code># metade do numero de árvores
+metade &lt;- length(arv11_na)/2
+metade</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code># soma todas as árvores
+soma_todas &lt;- sum(arv11_na, na.rm = TRUE)
+soma_todas</code></pre>
+<pre><code>## [1] 0.9</code></pre>
+<pre class="r"><code># vetor de soma acumulada com valores perdidos
+soma_acumulada &lt;- c(mortas, cumsum(sort(arv11_na)))
+soma_acumulada</code></pre>
+<pre><code>##  [1]  NA  NA 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9</code></pre>
+<pre class="r"><code># soma a metade do vetor de soma acumulada
+soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+soma_metade</code></pre>
+<pre><code>## [1] 0.35</code></pre>
+<pre class="r"><code># calcula o PV50
+PV50 &lt;- soma_metade / soma_todas * 100
+PV50</code></pre>
+<pre><code>## [1] 38.88889</code></pre>
+<p>Agora eu vou dar aquele passo mágico dos livros de matemática e física, em que o autor diz “é fácil notar que o resultado leva a …” e apresentar uma função que lida com as questões que mostramos acima e retorna o PV50 do nosso conjunto de dados de forma correta.</p>
+<pre class="r"><code>pv50 &lt;- function(x) {
+  
+  mortas &lt;- x[is.na(x)]
+  
+  metade &lt;- length(x)/2
+  
+  soma_todas &lt;- sum(x, na.rm = TRUE)
+  
+  soma_acumulada &lt;- c(mortas, cumsum(sort(x)))
+  
+  if (metade%%2L == 1L)
+    soma_metade &lt;- mean(soma_acumulada[metade], na.rm = TRUE)
+  else
+    soma_metade &lt;- mean(soma_acumulada[metade + 0L:1L], na.rm = TRUE)
+  
+  z &lt;- soma_metade / soma_todas * 100
+  
+  return(z)
+}</code></pre>
+<p>Podemos rapidamente verificar se os resultados estão consistentes fazendo alguns testes.</p>
+<pre class="r"><code>a &lt;- rep(10, 10)
+str(a)</code></pre>
+<pre><code>##  num [1:10] 10 10 10 10 10 10 10 10 10 10</code></pre>
+<pre class="r"><code>pv50(a) # Ok!</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code>a1 &lt;- rep(10 ,11)
+str(a1)</code></pre>
+<pre><code>##  num [1:11] 10 10 10 10 10 10 10 10 10 10 ...</code></pre>
+<pre class="r"><code>pv50(a1) # Ok!</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code>b &lt;- a
+b[c(3, 7)] &lt;- NA
+str(b)</code></pre>
+<pre><code>##  num [1:10] 10 10 NA 10 10 10 NA 10 10 10</code></pre>
+<pre class="r"><code>pv50(b) # Ok!</code></pre>
+<pre><code>## [1] 37.5</code></pre>
+<pre class="r"><code>b1 &lt;- a1
+b1[c(3, 7)] &lt;- NA
+str(b1)</code></pre>
+<pre><code>##  num [1:11] 10 10 NA 10 10 10 NA 10 10 10 ...</code></pre>
+<pre class="r"><code>pv50(b1) # Ok!</code></pre>
+<pre><code>## [1] 38.88889</code></pre>
+<p>Boa, já temos uma função para calcular o PV50 e podemos aplicá-la em um conjunto de dados para podermos interpretar. Utilizaremos mais uma vez os dados do <a href="www.projetotume.com">Projeto TUME</a>, referente ao <a href="http://www.projetotume.com/tume134">TUME 134</a> plantado em Piracicaba-SP. O volume individual foi calculado arbitrariamente utilizando o fator de forma 0,5.</p>
+<pre class="r"><code># importa o arquivo tume_55.csv
+dados &lt;- read_csv2(
+  &quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume_55.csv&quot;
+)
+
+glimpse(dados)</code></pre>
+<pre><code>## Observations: 1,222
+## Variables: 7
+## $ Esp     &lt;chr&gt; &quot;E_camaldulensis&quot;, &quot;E_camaldulensis&quot;, &quot;E_camaldulensis...
+## $ I_meses &lt;int&gt; 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34...
+## $ Parc_m2 &lt;int&gt; 288, 288, 288, 288, 288, 288, 288, 288, 288, 288, 288,...
+## $ N_arv   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,...
+## $ DAP_cm  &lt;dbl&gt; 5.411268, 12.254931, 3.978874, 6.429860, 9.676621, 5.6...
+## $ H_m     &lt;dbl&gt; 7.651490, 11.424046, 5.909205, 8.572873, 10.498957, 7....
+## $ Vol     &lt;dbl&gt; 0.008798406, 0.067375427, 0.003673747, 0.013918399, 0....</code></pre>
+<p>Iremos calcular o PV50 e o volume por hectare para cada fator <code>Esp</code> e <code>I_meses</code> e em seguida ordenar as espécies pelo PV50.</p>
+<pre class="r"><code># agrupa os dados em função de espécie e idade para 
+# calcular o pv50 e o volume
+dados_pv50 &lt;- dados %&gt;% 
+  group_by(Esp, I_meses) %&gt;% 
+  summarise(
+    Parc_m2 = mean( Parc_m2),
+    PV50 = pv50(Vol),
+    Vol_ha = sum(Vol, na.rm = TRUE) * (10000/Parc_m2)
+  ) %&gt;%
+  ungroup() %&gt;% 
+  # ordena o fator de espécies de forma decrescente em função do pv50
+  mutate(Esp = fct_reorder(Esp, -PV50))
+
+dados_pv50</code></pre>
+<pre><code>## # A tibble: 20 × 5
+##                    Esp I_meses Parc_m2     PV50    Vol_ha
+##                 &lt;fctr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1      E_camaldulensis      34     288 21.36325  47.50044
+## 2      E_camaldulensis      46     288 14.26669  79.09417
+## 3      E_camaldulensis      60     600 13.18344 110.06612
+## 4      E_camaldulensis      85     288 12.70684 203.98374
+## 5         E_citriodora      34     288 17.84086  46.56646
+## 6         E_citriodora      46     288 16.43760  84.96252
+## 7         E_citriodora      60     600 12.53474  97.00958
+## 8         E_citriodora      85     288 12.73166 205.04360
+## 9             E_dunnii      34     288 28.58694 103.36725
+## 10            E_dunnii      46     288 29.21288 160.54057
+## 11            E_dunnii      60     600 27.46026 198.47239
+## 12            E_dunnii      85     288 26.39616 349.63571
+## 13        E_paniculata      34     288 27.36895  46.43145
+## 14        E_paniculata      46     288 24.13274  84.42312
+## 15        E_paniculata      60     600 19.63065 114.81369
+## 16        E_paniculata      85     288 18.21965 194.87958
+## 17 E_urophylla_grandis      34     288 26.25100  85.67855
+## 18 E_urophylla_grandis      46     288 24.20636 157.30295
+## 19 E_urophylla_grandis      60     600 20.33734 217.30209
+## 20 E_urophylla_grandis      85     288 17.89856 277.37748</code></pre>
+<p>Para entendermos os dados, vamos primeiro ver o crescimento em volume de cada espécies em função do tempo (Figura <a href="#fig:12-vol-idade">1</a>). Note que <em>E. dunnii</em> e <em>E. urophylla</em> x <em>E. grandis</em> tinham crescimento muito parecido até os 60 meses de idade.</p>
+<pre class="r"><code>ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
+  geom_point() +
+  geom_line() +
+  labs(
+    color = &quot;Espécies&quot;,
+    x = &quot;Idade (meses)&quot;,
+    y = Volume~m^3~ha^-1
+  ) +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = &quot;top&quot;)</code></pre>
+<div class="figure"><span id="fig:12-vol-idade"></span>
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png" alt="Crescimento em volume por hectare em função da idade." width="4000" />
+<p class="caption">
+Figura  1: Crescimento em volume por hectare em função da idade.
+</p>
+</div>
+<p>Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura <a href="#fig:12-pv50-idade">2</a>). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, <em>E. dunnii</em>, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de <em>E. dunnii</em> representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.</p>
+<pre class="r"><code>ggplot(dados_pv50, aes(I_meses, PV50, color = Esp)) +
+  geom_point() +
+  geom_line() +
+  labs(color = &quot;Espécies&quot;, x = &quot;Idade (meses)&quot;, y = &quot;PV50&quot;) +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  scale_y_continuous(breaks = seq(10, 30, 2)) +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = &quot;top&quot;)</code></pre>
+<div class="figure"><span id="fig:12-pv50-idade"></span>
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png" alt="Variação do PV50 por espécies em função da idade." width="4000" />
+<p class="caption">
+Figura  2: Variação do PV50 por espécies em função da idade.
+</p>
+</div>
+<p>A Figura <a href="#fig:12-pv50-vol">3</a> mostra claramente a relação direta que há entre produção de madeira e a uniformidade ao longo do crescimento da floresta. Note também que na medida em que a idade avança, a uniformidade diminui, pois a dominância das árvores maiores sobre as menores fica cada vez mais forte.</p>
+<pre class="r"><code>ggplot(dados_pv50, aes(Vol_ha, PV50)) +
+  geom_point(aes(color = factor(I_meses))) +
+  geom_smooth(method = &quot;lm&quot;, formula = y ~x, se = FALSE) +
+  facet_wrap(~Esp, dir = &quot;v&quot;) +
+  labs(color = &quot;Idade (meses)&quot;, x = Volume~m^3~ha^-1, y = &quot;PV50&quot;) +
+  scale_color_brewer(palette = &quot;Dark2&quot;) +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = &quot;top&quot;)</code></pre>
+<div class="figure"><span id="fig:12-pv50-vol"></span>
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png" alt="Relação entre o PV50 e volume por hectare em função da idade." width="4000" />
+<p class="caption">
+Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
+</p>
+</div>
+<p>Por fim, para colocar tudo em um só gráfico, podemos adicionar ao gráfico de crescimento em volume a informação do PV50 para evidenciar que as espécies mais produtivas tem PV50 elevado e que este índice consegue explicar muito bem essa relação (Figura <a href="#fig:12-vol-pv50-idade">4</a>).</p>
+<p>Um comentário interessante é que dentre as espécies que estamos estudando, todas são de origem seminal, com exceção do <em>E. dunnii</em>, que é um clone. Este fator explica sua produtividade e alta homogeneidade, principalmente frente ao hibrido de <em>E. urophylla</em> x <em>E. grandis</em>, que é seu concorrente direto. Quando estivermos analisando dados de plantios clonais, o PV50 vai expressar a qualidade silvicultural do plantio, uma vez que a base genética é a mesma em todas as plantas.</p>
+<pre class="r"><code>ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
+  geom_point(aes(size = PV50), alpha = 0.4) +
+  geom_line() +
+  labs(
+    color = &quot;Espécies&quot;,
+    x = &quot;Idade (meses)&quot;,
+    y = Volume~m^3~ha^-1
+  ) +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  theme_bw(base_size = 16) +
+  theme(legend.justification = &quot;top&quot;)</code></pre>
+<div class="figure"><span id="fig:12-vol-pv50-idade"></span>
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png" alt="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto." width="4000" />
+<p class="caption">
+Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
+</p>
+</div>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+<pre class="r"><code>devtools::session_info()</code></pre>
+<pre><code>##  setting  value                       
+##  version  R version 3.3.3 (2017-03-06)
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2017-04-30                  
+## 
+##  package      * version date       source                           
+##  assertthat     0.2.0   2017-04-11 CRAN (R 3.3.3)                   
+##  backports      1.0.5   2017-01-18 CRAN (R 3.3.2)                   
+##  blogdown       0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
+##  bookdown       0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
+##  colorspace     1.3-2   2016-12-14 CRAN (R 3.3.2)                   
+##  curl           2.6     2017-04-27 CRAN (R 3.3.3)                   
+##  DBI            0.6-1   2017-04-01 CRAN (R 3.3.3)                   
+##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.3)                   
+##  digest         0.6.12  2017-01-27 CRAN (R 3.3.2)                   
+##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
+##  evaluate       0.10    2016-10-11 CRAN (R 3.3.3)                   
+##  forcats      * 0.2.0   2017-01-23 CRAN (R 3.3.2)                   
+##  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
+##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.2)                   
+##  highr          0.6     2016-05-09 CRAN (R 3.3.3)                   
+##  hms            0.3     2016-11-22 CRAN (R 3.3.2)                   
+##  htmltools      0.3.6   2017-04-28 CRAN (R 3.3.3)                   
+##  knitr          1.15.1  2016-11-22 CRAN (R 3.3.3)                   
+##  labeling       0.3     2014-08-23 CRAN (R 3.3.2)                   
+##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.2)                   
+##  magrittr       1.5     2014-11-22 CRAN (R 3.3.2)                   
+##  memoise        1.1.0   2017-04-21 CRAN (R 3.3.3)                   
+##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.2)                   
+##  pacman       * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
+##  plyr           1.8.4   2016-06-08 CRAN (R 3.3.2)                   
+##  R6             2.2.0   2016-10-05 CRAN (R 3.3.2)                   
+##  RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.3.2)                   
+##  Rcpp           0.12.10 2017-03-19 CRAN (R 3.3.3)                   
+##  readr        * 1.1.0   2017-03-22 CRAN (R 3.3.3)                   
+##  rmarkdown      1.5     2017-04-26 CRAN (R 3.3.3)                   
+##  rprojroot      1.2     2017-01-16 CRAN (R 3.3.3)                   
+##  scales         0.4.1   2016-11-09 CRAN (R 3.3.2)                   
+##  stringi        1.1.5   2017-04-07 CRAN (R 3.3.3)                   
+##  stringr        1.2.0   2017-02-18 CRAN (R 3.3.2)                   
+##  tibble         1.3.0   2017-04-01 CRAN (R 3.3.3)                   
+##  withr          1.0.2   2016-06-20 CRAN (R 3.3.3)                   
+##  yaml           2.1.14  2016-11-12 CRAN (R 3.3.3)</code></pre>
+<div id="referencias" class="section level1 unnumbered">
+<h1>Referências</h1>
+<div id="refs" class="references">
+<div id="ref-Hakamada2012">
+<p>Hakamada, Rodrigo Eiji. 2012. “Uso do inventário florestal como ferramenta de monitoramento da qualidade silvicultura em povoamentos clonais de Eucalyptus.” PhD thesis, Piracicaba: Universidade de São Paulo; Biblioteca Digital de Teses e Dissertações da Universidade de São Paulo. doi:<a href="https://doi.org/10.11606/D.11.2012.tde-05072012-100431">10.11606/D.11.2012.tde-05072012-100431</a>.</p>
+</div>
+<div id="ref-Hakamada2015">
+<p>Hakamada, Rodrigo Eiji, José Luiz Stape, Cristiane Camargo Zani de Lemos, Adriano Emanuel Amaral Almeida, and Luis Fernando Silva. 2015. “Uniformidade entre árvores durante uma rotação e sua relação com a produtividade em Eucalyptus clonais.” <em>CERNE</em> 21 (3). Universidade Federal de Lavras: 465–72. doi:<a href="https://doi.org/10.1590/01047760201521031716">10.1590/01047760201521031716</a>.</p>
+</div>
+</div>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">ETIQUETADO em</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="//tags/readr/">readr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/dplyr/">dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/ggplot2/">ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/forcats/">forcats</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Ítalo Cegatta. All Rights Reserved
+  </span>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    });
+    </script>
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/download-automatico-de-imagens-modis/" data-tooltip="Download automático de imagens MODIS">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/anova-e-teste-de-tukey/" data-tooltip="ANOVA e teste de Tukey">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PRÓXIMO</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2findice-de-uniformidade-pv50%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2findice-de-uniformidade-pv50%2f">
+        <i class="fa fa-google-plus"></i><span>Compartilhar no Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2findice-de-uniformidade-pv50%2f">
+        <i class="fa fa-facebook-official"></i><span>Compartilhar no Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2findice-de-uniformidade-pv50%2f">
+        <i class="fa fa-twitter"></i><span>Compartilhar no Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
+    
+    <h4 id="about-card-name">Ítalo Cegatta</h4>
+    
+      <div id="about-card-bio">R, Floresta e Data Science</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Suzano Papel e celulose
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Itapetininga-SP
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Pesquisar" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center"></div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/">
+                <h3 class="media-heading">Como um cientista de dados pesquisa o carro que quer comprar?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/graficos-com-dimensao-espacial-e-temporal/">
+                <h3 class="media-heading">Gráficos com dimensão espacial e temporal</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
+                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/">
+                <h3 class="media-heading">Interpolação pelo inverso do quadrado da distância</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do INMET.
+Primeiro, vamos importar e visualizar os dados que temos disponível.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/download-automatico-de-imagens-modis/">
+                <h3 class="media-heading">Download automático de imagens MODIS</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.
+O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do produto MOD13Q1, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/indice-de-uniformidade-pv50/">
+                <h3 class="media-heading">Índice de uniformidade (PV50)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
+O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/ajuste-de-um-modelo-linear-para-varios-fatores/">
+                <h3 class="media-heading">Ajuste de um modelo linear para vários fatores</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.
+Mas felizmente existe uma máxima muito interessante entre programadores que é:</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/analise-de-componentes-principais/">
+                <h3 class="media-heading">Análise de componentes principais</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do INMET.
+No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-histograma/">
+                <h3 class="media-heading">Os gráficos que explicam nossos dados (histograma)</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero=""
+         data-message-one=""
+         data-message-other="">
+         17 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://i.imgur.com/ZDKz06u.png');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/indice-de-uniformidade-pv50\/';
+          
+            this.page.identifier = '\/indice-de-uniformidade-pv50\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'italocegatta';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+    
+  </body>
+</html>
+
