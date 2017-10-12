@@ -28,15 +28,15 @@
     
 
     
-    <meta name="description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
-    <meta property="og:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
+    <meta name="description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
+    <meta property="og:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Web scraping: dados de páginas da internet na palma da sua mão">
     <meta property="og:url" content="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
+    <meta name="twitter:description" content="Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl&#43;c/ctrl&#43;v.">
     
     
 
@@ -251,7 +251,7 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctrl+c/ctrl+v</em>.</p>
+              <p>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso <em>ctrl+c/ctrl+v</em>.</p>
 <p>Vamos exemplificar o post utilizando o site do IBGE para saber quantos metros cúbicos de lenha de eucalipto foram produzidos em 2015 em cada estado brasileiro. De cara, se os dados não estiverem numa tabela pronta, você já espera ter que entrar em 27 páginas diferentes para pegar esta informação.</p>
 <p>Nosso ponto de partida é a página <a href="http://www.ibge.gov.br/estadosat/">States@</a> do IBGE, que reúne diversas informações na escala estadual. Acessando a página podemos ver o código html por trás (utilize a tecla F12) e assim entender como a página está estruturada. Como queremos entrar nos Estados, podemos ver na Figura <a href="#fig:pg1">1</a> que essa informação está abaixo do <code>id=&quot;menu&quot;</code>. Note que ao passarmos o mouse sobre a linha <code>&lt;div id=&quot;menu&quot;&gt;</code> o navegador identifica na página a localização do elemento e ainda nos informa o id CSS de rastreio, no caso <code>div#menu</code>.</p>
 <div class="figure"><span id="fig:pg1"></span>
@@ -298,33 +298,33 @@ posfixo_estados</code></pre>
   flatten_chr()
 
 posfixo_lenha</code></pre>
-<pre><code>##  [1] &quot;temas.php?sigla=ro&amp;tema=extracaovegetal2015&quot;
-##  [2] &quot;temas.php?sigla=ac&amp;tema=extracaovegetal2015&quot;
-##  [3] &quot;temas.php?sigla=am&amp;tema=extracaovegetal2015&quot;
-##  [4] &quot;temas.php?sigla=rr&amp;tema=extracaovegetal2015&quot;
-##  [5] &quot;temas.php?sigla=pa&amp;tema=extracaovegetal2015&quot;
-##  [6] &quot;temas.php?sigla=ap&amp;tema=extracaovegetal2015&quot;
-##  [7] &quot;temas.php?sigla=to&amp;tema=extracaovegetal2015&quot;
-##  [8] &quot;temas.php?sigla=ma&amp;tema=extracaovegetal2015&quot;
-##  [9] &quot;temas.php?sigla=pi&amp;tema=extracaovegetal2015&quot;
-## [10] &quot;temas.php?sigla=ce&amp;tema=extracaovegetal2015&quot;
-## [11] &quot;temas.php?sigla=rn&amp;tema=extracaovegetal2015&quot;
-## [12] &quot;temas.php?sigla=pb&amp;tema=extracaovegetal2015&quot;
-## [13] &quot;temas.php?sigla=pe&amp;tema=extracaovegetal2015&quot;
-## [14] &quot;temas.php?sigla=al&amp;tema=extracaovegetal2015&quot;
-## [15] &quot;temas.php?sigla=se&amp;tema=extracaovegetal2015&quot;
-## [16] &quot;temas.php?sigla=ba&amp;tema=extracaovegetal2015&quot;
-## [17] &quot;temas.php?sigla=mg&amp;tema=extracaovegetal2015&quot;
-## [18] &quot;temas.php?sigla=es&amp;tema=extracaovegetal2015&quot;
-## [19] &quot;temas.php?sigla=rj&amp;tema=extracaovegetal2015&quot;
-## [20] &quot;temas.php?sigla=sp&amp;tema=extracaovegetal2015&quot;
-## [21] &quot;temas.php?sigla=pr&amp;tema=extracaovegetal2015&quot;
-## [22] &quot;temas.php?sigla=sc&amp;tema=extracaovegetal2015&quot;
-## [23] &quot;temas.php?sigla=rs&amp;tema=extracaovegetal2015&quot;
-## [24] &quot;temas.php?sigla=ms&amp;tema=extracaovegetal2015&quot;
-## [25] &quot;temas.php?sigla=mt&amp;tema=extracaovegetal2015&quot;
-## [26] &quot;temas.php?sigla=go&amp;tema=extracaovegetal2015&quot;
-## [27] &quot;temas.php?sigla=df&amp;tema=extracaovegetal2015&quot;</code></pre>
+<pre><code>##  [1] &quot;temas.php?sigla=ro&amp;tema=lavouratemporaria2016&quot;
+##  [2] &quot;temas.php?sigla=ac&amp;tema=lavouratemporaria2016&quot;
+##  [3] &quot;temas.php?sigla=am&amp;tema=lavouratemporaria2016&quot;
+##  [4] &quot;temas.php?sigla=rr&amp;tema=lavouratemporaria2016&quot;
+##  [5] &quot;temas.php?sigla=pa&amp;tema=lavouratemporaria2016&quot;
+##  [6] &quot;temas.php?sigla=ap&amp;tema=lavouratemporaria2016&quot;
+##  [7] &quot;temas.php?sigla=to&amp;tema=lavouratemporaria2016&quot;
+##  [8] &quot;temas.php?sigla=ma&amp;tema=lavouratemporaria2016&quot;
+##  [9] &quot;temas.php?sigla=pi&amp;tema=lavouratemporaria2016&quot;
+## [10] &quot;temas.php?sigla=ce&amp;tema=lavouratemporaria2016&quot;
+## [11] &quot;temas.php?sigla=rn&amp;tema=lavouratemporaria2016&quot;
+## [12] &quot;temas.php?sigla=pb&amp;tema=lavouratemporaria2016&quot;
+## [13] &quot;temas.php?sigla=pe&amp;tema=lavouratemporaria2016&quot;
+## [14] &quot;temas.php?sigla=al&amp;tema=lavouratemporaria2016&quot;
+## [15] &quot;temas.php?sigla=se&amp;tema=lavouratemporaria2016&quot;
+## [16] &quot;temas.php?sigla=ba&amp;tema=lavouratemporaria2016&quot;
+## [17] &quot;temas.php?sigla=mg&amp;tema=lavouratemporaria2016&quot;
+## [18] &quot;temas.php?sigla=es&amp;tema=lavouratemporaria2016&quot;
+## [19] &quot;temas.php?sigla=rj&amp;tema=lavouratemporaria2016&quot;
+## [20] &quot;temas.php?sigla=sp&amp;tema=lavouratemporaria2016&quot;
+## [21] &quot;temas.php?sigla=pr&amp;tema=lavouratemporaria2016&quot;
+## [22] &quot;temas.php?sigla=sc&amp;tema=lavouratemporaria2016&quot;
+## [23] &quot;temas.php?sigla=rs&amp;tema=lavouratemporaria2016&quot;
+## [24] &quot;temas.php?sigla=ms&amp;tema=lavouratemporaria2016&quot;
+## [25] &quot;temas.php?sigla=mt&amp;tema=lavouratemporaria2016&quot;
+## [26] &quot;temas.php?sigla=go&amp;tema=lavouratemporaria2016&quot;
+## [27] &quot;temas.php?sigla=df&amp;tema=lavouratemporaria2016&quot;</code></pre>
 <p>Aqui, mais uma vez, será preciso juntar o <em>link</em> específico de cada estado com a url da página raiz.</p>
 <pre class="r"><code>url_lenha &lt;- paste0(url_raiz, posfixo_lenha)
 
@@ -363,20 +363,20 @@ qnt &lt;- map_df(
   mutate(volume = as.numeric(str_replace_all(volume, &quot;\\.&quot;, &quot;&quot;)))
 
 qnt </code></pre>
-<pre><code>## # A tibble: 27 x 2
-##       estado volume
-##        &lt;chr&gt;  &lt;dbl&gt;
-##  1  Rondônia    690
-##  2      Acre     NA
-##  3  Amazonas     NA
-##  4   Roraima     NA
-##  5      Pará     NA
-##  6     Amapá     NA
-##  7 Tocantins   2300
-##  8  Maranhão 195428
-##  9     Piauí 188724
-## 10     Ceará     NA
-## # ... with 17 more rows</code></pre>
+<pre><code>## # A tibble: 405 x 2
+##      estado volume
+##       &lt;chr&gt;  &lt;dbl&gt;
+##  1 Rondônia   1456
+##  2 Rondônia     55
+##  3 Rondônia     NA
+##  4 Rondônia     NA
+##  5 Rondônia     NA
+##  6 Rondônia     NA
+##  7 Rondônia     NA
+##  8 Rondônia     NA
+##  9 Rondônia     NA
+## 10 Rondônia     NA
+## # ... with 395 more rows</code></pre>
 <p>De certa forma já resolvemos o problema, a quantidade de lenha de eucalipto produzida em cada estado no ano de 2015 já está em nossas mãos. Mas vamos dar um passo além e visualizar isso num mapa. O pacote <a href="https://github.com/italocegatta/brmap">brmap</a> possui os polígonos dos Estados brasileiros no formato <code>sf</code>, o novo pacote para manupulação de objetos espaciais no R.</p>
 <pre class="r"><code>qnt_mapa &lt;- left_join(brmap_estado, qnt)
 
@@ -404,67 +404,67 @@ ggplot(qnt_mapa) +
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-07-08                  
+##  date     2017-10-12                  
 ## 
 ##  package     * version    date       source                            
 ##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
-##  backports     1.1.0      2017-05-22 CRAN (R 3.3.3)                    
+##  backports     1.1.1      2017-09-25 CRAN (R 3.3.3)                    
 ##  base        * 3.3.3      2017-03-06 local                             
 ##  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
 ##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.3.3)                    
-##  blogdown      0.0.25     2017-03-23 Github (rstudio/blogdown@1c10d16) 
-##  bookdown      0.4        2017-05-20 CRAN (R 3.3.3)                    
-##  brmap       * 0.0.2      2017-07-07 local                             
+##  blogdown      0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown      0.5        2017-08-20 CRAN (R 3.3.3)                    
+##  brmap       * 0.0.2      2017-08-17 local                             
 ##  colorspace    1.3-2      2016-12-14 CRAN (R 3.3.2)                    
-##  curl          2.7        2017-06-26 CRAN (R 3.3.3)                    
+##  curl          2.8.1      2017-07-21 CRAN (R 3.3.3)                    
 ##  datasets    * 3.3.3      2017-03-06 local                             
 ##  DBI           0.7        2017-06-18 CRAN (R 3.3.3)                    
-##  devtools      1.13.2     2017-06-02 CRAN (R 3.3.3)                    
+##  devtools      1.13.3     2017-08-02 CRAN (R 3.3.3)                    
 ##  digest        0.6.12     2017-01-27 CRAN (R 3.3.2)                    
-##  dplyr       * 0.7.1      2017-06-22 CRAN (R 3.3.3)                    
-##  evaluate      0.10       2016-10-11 CRAN (R 3.3.3)                    
-##  ggplot2     * 2.2.1.9000 2017-06-16 Github (tidyverse/ggplot2@398fc07)
+##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
+##  evaluate      0.10.1     2017-06-24 CRAN (R 3.3.3)                    
+##  ggplot2     * 2.2.1.9000 2017-07-15 Github (tidyverse/ggplot2@45853c7)
 ##  glue          1.1.1      2017-06-21 CRAN (R 3.3.3)                    
 ##  graphics    * 3.3.3      2017-03-06 local                             
 ##  grDevices   * 3.3.3      2017-03-06 local                             
 ##  grid          3.3.3      2017-03-06 local                             
-##  gridExtra     2.2.1      2016-02-29 CRAN (R 3.3.3)                    
+##  gridExtra     2.3        2017-09-09 CRAN (R 3.3.3)                    
 ##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
 ##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
 ##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
-##  httr          1.2.1      2016-07-03 CRAN (R 3.3.2)                    
-##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
+##  httr          1.3.1      2017-08-20 CRAN (R 3.3.3)                    
+##  knitr         1.17       2017-08-10 CRAN (R 3.3.3)                    
 ##  labeling      0.3        2014-08-23 CRAN (R 3.3.2)                    
 ##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.3.2)                    
 ##  magrittr      1.5        2014-11-22 CRAN (R 3.3.2)                    
 ##  memoise       1.1.0      2017-04-21 CRAN (R 3.3.3)                    
-##  methods       3.3.3      2017-03-06 local                             
+##  methods     * 3.3.3      2017-03-06 local                             
 ##  munsell       0.4.3      2016-02-13 CRAN (R 3.3.2)                    
 ##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
 ##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.3.3)                    
 ##  plyr          1.8.4      2016-06-08 CRAN (R 3.3.2)                    
-##  purrr       * 0.2.2.2    2017-05-11 CRAN (R 3.3.3)                    
+##  purrr       * 0.2.3      2017-08-02 CRAN (R 3.3.3)                    
 ##  R6            2.2.2      2017-06-17 CRAN (R 3.3.3)                    
-##  Rcpp          0.12.11    2017-05-22 CRAN (R 3.3.3)                    
-##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
+##  Rcpp          0.12.13    2017-09-28 CRAN (R 3.3.3)                    
+##  rlang         0.1.2      2017-08-09 CRAN (R 3.3.3)                    
 ##  rmarkdown     1.6        2017-06-15 CRAN (R 3.3.3)                    
 ##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
 ##  rvest       * 0.3.2      2016-06-17 CRAN (R 3.3.2)                    
-##  scales      * 0.4.1      2016-11-09 CRAN (R 3.3.2)                    
+##  scales      * 0.5.0      2017-08-24 CRAN (R 3.3.3)                    
 ##  selectr       0.3-1      2016-12-19 CRAN (R 3.3.2)                    
-##  sf          * 0.5-1      2017-06-23 CRAN (R 3.3.3)                    
+##  sf          * 0.5-4      2017-08-28 CRAN (R 3.3.3)                    
 ##  stats       * 3.3.3      2017-03-06 local                             
 ##  stringi       1.1.5      2017-04-07 CRAN (R 3.3.3)                    
 ##  stringr     * 1.2.0      2017-02-18 CRAN (R 3.3.2)                    
-##  tibble        1.3.3      2017-05-28 CRAN (R 3.3.3)                    
-##  tidyr       * 0.6.3      2017-05-15 CRAN (R 3.3.3)                    
+##  tibble        1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tidyr       * 0.7.1      2017-09-01 CRAN (R 3.3.3)                    
 ##  tools         3.3.3      2017-03-06 local                             
 ##  udunits2      0.13       2016-11-17 CRAN (R 3.3.2)                    
-##  units         0.4-5      2017-06-15 CRAN (R 3.3.3)                    
+##  units         0.4-6      2017-08-27 CRAN (R 3.3.3)                    
 ##  utils       * 3.3.3      2017-03-06 local                             
 ##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.3.3)                    
 ##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.3.3)                    
-##  withr         1.0.2      2016-06-20 CRAN (R 3.3.3)                    
+##  withr         2.0.0      2017-07-28 CRAN (R 3.3.3)                    
 ##  XML           3.98-1.9   2017-06-19 CRAN (R 3.3.3)                    
 ##  xml2        * 1.1.1      2017-01-24 CRAN (R 3.3.2)                    
 ##  yaml          2.1.14     2016-11-12 CRAN (R 3.3.3)</code></pre>
@@ -733,6 +733,24 @@ ggplot(qnt_mapa) +
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/engenheiro-florestal-ou-cientista-de-dados/">
+                <h3 class="media-heading">Engenheiro Florestal ou Cientista de Dados?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">No meio do colegial tive a sorte de ser ‘convencido’ por um amigo da família que Engenharia Florestal seria uma ótima profissão para mim. Vocês sabem que um jovem de 16 anos pouco sabe sobre o mercado de trabalho. Naquela época o único contato profissional que tive foi como menor aprendiz numa concessionária de veículos.
+Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz foi entrar no Grupo Florestal Monte Olimpo (GFMO).</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/">
                 <h3 class="media-heading">Como um cientista de dados pesquisa o carro que quer comprar?</h3>
               </a>
@@ -775,7 +793,7 @@ ggplot(qnt_mapa) +
                   Jun 6, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -889,23 +907,6 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/os-graficos-que-explicam-nossos-dados-histograma/">
-                <h3 class="media-heading">Os gráficos que explicam nossos dados (histograma)</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jul 7, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -913,7 +914,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         17 posts found
+         18 posts found
       </p>
     </div>
   </div>

@@ -9,6 +9,28 @@
     <atom:link href="/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Engenheiro Florestal ou Cientista de Dados?</title>
+      <link>/engenheiro-florestal-ou-cientista-de-dados/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/engenheiro-florestal-ou-cientista-de-dados/</guid>
+      <description>&lt;p&gt;No meio do colegial tive a sorte de ser ‘convencido’ por um amigo da família que Engenharia Florestal seria uma ótima profissão para mim. Vocês sabem que um jovem de 16 anos pouco sabe sobre o mercado de trabalho. Naquela época o único contato profissional que tive foi como menor aprendiz numa concessionária de veículos.&lt;/p&gt;
+&lt;p&gt;Chegando na &lt;a href=&#34;http://www.esalq.usp.br/&#34;&gt;ESALQ&lt;/a&gt; para o curso de Eng. Florestal, a primeira coisa que eu fiz foi entrar no &lt;a href=&#34;http://www.gfmo.esalq.usp.br/&#34;&gt;Grupo Florestal Monte Olimpo (GFMO)&lt;/a&gt;. De certa forma foi fácil decidir que lá seria um lugar legal para começar a conhecer sobre Floresta, pois uma semana antes de começarem as aulas eu fui numa república e me falaram que “o pessoal do GFMO trabalhava demais”. “São escravos”. “Loucos”. Então, no dia 13 de março de 2012 eu comecei GFMO.&lt;/p&gt;
+&lt;p&gt;Uma das minhas primeiras atividades externas como integrante do GFMO foi participar de um inventário de Pinus na Estação de Experimental de Itatinga. Foi lá que escrevi minha primeira fórmula no Excel e me mostraram que eu poderia arrastar a fórmula de uma célula para todas as outras na mesma coluna. Foi mágico.&lt;/p&gt;
+&lt;p&gt;No começo do 2º semestre do curso, fui selecionado para uma bolsa de iniciação científica cujo objetivo era trabalhar com uma base de dados qualquer num software estatístico chamado R. Eu já tinha escutado sobre este software, mas não fazia ideia de como ele funcionava. No fim do ano eu já tinha montado um experimento no viveiro do GFMO, coletado os dados, processado no R e submetido um resumo que, alguns meses depois, seria meu primeiro artigo publicado.&lt;/p&gt;
+&lt;p&gt;Meu primeiro ano de curso foi extremamente esclarecedor. Primeiro, o curso de Eng. Florestal tinha superado todas as minhas expectativas e tinha certeza que estava no lugar certo. Segundo, eu tinha descoberto um hobby programando no R, algo completamente inusitado para quem sabia muito pouco sobre computadores e muito menos de estatística e análise de dados.&lt;/p&gt;
+&lt;p&gt;Eu não sei bem quando foi, mas no meio do curso eu já tinha certeza que queria trabalhar na área quantitativa, com dados, programação e estatística. Era muito claro para mim, eu via gráficos em tudo, tinha ideias de experimentos na aula de fisiologia, me oferecia para processar os dados dos trabalhos em grupo, passava a noite rodando exemplos de livros e apostilas sobre o R.&lt;/p&gt;
+&lt;p&gt;Me formei no fim de 2016 e em seguida comecei a trabalhar na Suzano na área de Biometria e Modelagem Ecofisiológica. Hoje, todos os meus projetos estão de alguma forma relacionados ao R. Parece um sonho, meu hobby se tornou meu trabalho e principal desafio profissional.&lt;/p&gt;
+&lt;p&gt;Já tem um tempo que eu encontro dificuldade em explicar o que eu faço na Suzano. Quando você fala para o seu tio que se formou em Eng. Florestal, mas que trabalha no escritório escrevendo linhas de comandos, construindo aplicativos interativos, relatórios automáticos… isso não faz muito sentido para ele. Para o cidadão, o Eng. Florestal mora na floresta, especificamente numa casa de madeira no alto de uma árvore.&lt;/p&gt;
+&lt;p&gt;Surgiu recentemente uma denominação de mercado que descreve bem o que eu faço: Ciência de dados. Um Cientista de dados, profissão bastante popular nos EUA e começando a ganhar corpo no Brasil, é aquela pessoa que domina um assunto específico, sabe com aborda-lo de forma matemática e consegue programar isto dentro do computador. Para cada caso, o nível de domínio e utilização de cada um destes campos será diferente. Mas essencialmente não tem como fazer ciência de dados sem um domínio mínimo destes três pilares.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/VVTKio6.png&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;Mas e a Floresta? Abandonou? Felizmente não. Além de toda a minha paixão e motivação de trabalhar na área florestal, eu tenho claro que não poderia ser um cientista de dados em outro lugar, justamente por não ter o conhecimento técnico. Eu poderia migrar para a área de saúde pública, por exemplo, mas levaria um tempo para trabalhar com ciência de dados por desconhecer o setor, suas particularidades, características, processos e etc. Sem conhecimento técnico a ferramenta (estatística e programação) fica meio capenga, sem brilho, sem direção.&lt;/p&gt;
+&lt;p&gt;Para o setor florestal, a profissão/perfil de cientista de dados é praticamente desconhecida, embora muitos profissionais se encaixem nesse perfil. Há muitas pessoas falando de Big Data, mas tem pouca gente transformando dados em sabedoria, em conhecimento, em produtos concretos… em ciência de verdade.&lt;/p&gt;
+&lt;p&gt;Há seis anos eu estava me preparando para entrar na faculdade, mal sabia abrir o Excel e pensava que estatística era média, mediana e moda. Hoje, recém-formado, me sinto extremamente motivado a me desenvolver para resolver problemas relacionados às ciências florestais.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Como um cientista de dados pesquisa o carro que quer comprar?</title>
       <link>/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/</link>
       <pubDate>Sat, 29 Jul 2017 00:00:00 +0000</pubDate>
