@@ -351,71 +351,70 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 </p>
 </div>
 <p>Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.</p>
-<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>##  setting  value                       
-##  version  R version 3.4.0 (2017-04-21)
+##  version  R version 3.3.3 (2017-03-06)
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-09-16                  
+##  date     2017-10-14                  
 ## 
 ##  package     * version    date       source                            
-##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.0)                    
-##  backports     1.1.0      2017-05-22 CRAN (R 3.4.0)                    
-##  base        * 3.4.0      2017-04-21 local                             
-##  bindr         0.1        2016-11-13 CRAN (R 3.4.0)                    
-##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.4.0)                    
-##  blogdown      0.1        2017-08-22 CRAN (R 3.4.1)                    
-##  bookdown      0.5        2017-08-20 CRAN (R 3.4.1)                    
-##  colorspace    1.3-2      2016-12-14 CRAN (R 3.4.0)                    
-##  compiler      3.4.0      2017-04-21 local                             
-##  curl          2.8.1      2017-07-21 CRAN (R 3.4.1)                    
-##  datasets    * 3.4.0      2017-04-21 local                             
-##  devtools      1.13.3     2017-08-02 CRAN (R 3.4.1)                    
-##  digest        0.6.12     2017-01-27 CRAN (R 3.4.0)                    
-##  dplyr       * 0.7.3      2017-09-09 CRAN (R 3.4.1)                    
-##  evaluate      0.10.1     2017-06-24 CRAN (R 3.4.0)                    
-##  ggplot2     * 2.2.1.9000 2017-08-08 Github (tidyverse/ggplot2@53a22cd)
-##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.4.0)                    
-##  glue          1.1.1      2017-06-21 CRAN (R 3.4.0)                    
-##  graphics    * 3.4.0      2017-04-21 local                             
-##  grDevices   * 3.4.0      2017-04-21 local                             
-##  grid          3.4.0      2017-04-21 local                             
-##  gridExtra     2.3        2017-09-09 CRAN (R 3.4.1)                    
-##  gtable        0.2.0      2016-02-26 CRAN (R 3.4.0)                    
-##  highr         0.6        2016-05-09 CRAN (R 3.4.0)                    
-##  hms           0.3        2016-11-22 CRAN (R 3.4.0)                    
-##  htmltools     0.3.6      2017-04-28 CRAN (R 3.4.0)                    
-##  knitr         1.17       2017-08-10 CRAN (R 3.4.1)                    
-##  labeling      0.3        2014-08-23 CRAN (R 3.4.0)                    
-##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.4.0)                    
-##  magrittr      1.5        2014-11-22 CRAN (R 3.4.0)                    
-##  memoise       1.1.0      2017-04-21 CRAN (R 3.4.0)                    
-##  methods     * 3.4.0      2017-04-21 local                             
-##  munsell       0.4.3      2016-02-13 CRAN (R 3.4.0)                    
-##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.4.0)                    
-##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.4.0)                    
-##  plyr          1.8.4      2016-06-08 CRAN (R 3.4.0)                    
-##  R6            2.2.2      2017-06-17 CRAN (R 3.4.0)                    
-##  Rcpp          0.12.12    2017-07-15 CRAN (R 3.4.1)                    
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.4.0)                    
-##  rlang         0.1.2      2017-08-09 CRAN (R 3.4.1)                    
-##  rmarkdown     1.6        2017-06-15 CRAN (R 3.4.0)                    
-##  rprojroot     1.2        2017-01-16 CRAN (R 3.4.0)                    
-##  scales        0.5.0      2017-08-24 CRAN (R 3.4.1)                    
-##  stats       * 3.4.0      2017-04-21 local                             
-##  stringi       1.1.5      2017-04-07 CRAN (R 3.4.0)                    
-##  stringr       1.2.0      2017-02-18 CRAN (R 3.4.0)                    
-##  tibble        1.3.4      2017-08-22 CRAN (R 3.4.1)                    
-##  tools         3.4.0      2017-04-21 local                             
-##  utils       * 3.4.0      2017-04-21 local                             
-##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.4.0)                    
-##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.4.0)                    
-##  withr         2.0.0      2017-08-08 Github (jimhester/withr@190d293)  
-##  yaml          2.1.14     2016-11-12 CRAN (R 3.4.0)</code></pre>
+##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
+##  backports     1.1.1      2017-09-25 CRAN (R 3.3.3)                    
+##  base        * 3.3.3      2017-03-06 local                             
+##  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
+##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.3.3)                    
+##  blogdown      0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown      0.5        2017-08-20 CRAN (R 3.3.3)                    
+##  colorspace    1.3-2      2016-12-14 CRAN (R 3.3.2)                    
+##  curl          2.8.1      2017-07-21 CRAN (R 3.3.3)                    
+##  datasets    * 3.3.3      2017-03-06 local                             
+##  devtools      1.13.3     2017-08-02 CRAN (R 3.3.3)                    
+##  digest        0.6.12     2017-01-27 CRAN (R 3.3.2)                    
+##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
+##  evaluate      0.10.1     2017-06-24 CRAN (R 3.3.3)                    
+##  ggplot2     * 2.2.1.9000 2017-07-15 Github (tidyverse/ggplot2@45853c7)
+##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.3.3)                    
+##  glue          1.1.1      2017-06-21 CRAN (R 3.3.3)                    
+##  graphics    * 3.3.3      2017-03-06 local                             
+##  grDevices   * 3.3.3      2017-03-06 local                             
+##  grid          3.3.3      2017-03-06 local                             
+##  gridExtra     2.3        2017-09-09 CRAN (R 3.3.3)                    
+##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
+##  highr         0.6        2016-05-09 CRAN (R 3.3.3)                    
+##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
+##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
+##  knitr         1.17       2017-08-10 CRAN (R 3.3.3)                    
+##  labeling      0.3        2014-08-23 CRAN (R 3.3.2)                    
+##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.3.2)                    
+##  magrittr      1.5        2014-11-22 CRAN (R 3.3.2)                    
+##  memoise       1.1.0      2017-04-21 CRAN (R 3.3.3)                    
+##  methods     * 3.3.3      2017-03-06 local                             
+##  munsell       0.4.3      2016-02-13 CRAN (R 3.3.2)                    
+##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
+##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.3.3)                    
+##  plyr          1.8.4      2016-06-08 CRAN (R 3.3.2)                    
+##  R6            2.2.2      2017-06-17 CRAN (R 3.3.3)                    
+##  Rcpp          0.12.13    2017-09-28 CRAN (R 3.3.3)                    
+##  readr       * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
+##  rlang         0.1.2      2017-08-09 CRAN (R 3.3.3)                    
+##  rmarkdown     1.6        2017-06-15 CRAN (R 3.3.3)                    
+##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
+##  scales        0.5.0      2017-08-24 CRAN (R 3.3.3)                    
+##  stats       * 3.3.3      2017-03-06 local                             
+##  stringi       1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+##  stringr       1.2.0      2017-02-18 CRAN (R 3.3.2)                    
+##  tibble        1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tools         3.3.3      2017-03-06 local                             
+##  utils       * 3.3.3      2017-03-06 local                             
+##  viridis     * 0.4.0      2017-03-27 CRAN (R 3.3.3)                    
+##  viridisLite * 0.2.0      2017-03-24 CRAN (R 3.3.3)                    
+##  withr         2.0.0      2017-07-28 CRAN (R 3.3.3)                    
+##  yaml          2.1.14     2016-11-12 CRAN (R 3.3.3)</code></pre>
 
               
             </div>
@@ -671,6 +670,24 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/100-anos-do-posto-meteorologico-da-esalq/">
+                <h3 class="media-heading">100 anos do posto meteorológico da ESALQ</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/engenheiro-florestal-ou-cientista-de-dados/">
                 <h3 class="media-heading">Engenheiro Florestal ou Cientista de Dados?</h3>
               </a>
@@ -827,24 +844,6 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/analise-de-componentes-principais/">
-                <h3 class="media-heading">Análise de componentes principais</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Aug 8, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do INMET.
-No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -852,7 +851,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         18 posts found
+         19 posts found
       </p>
     </div>
   </div>

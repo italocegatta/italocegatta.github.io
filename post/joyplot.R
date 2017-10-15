@@ -37,8 +37,6 @@ ggplot(clima, aes(t_max, group = ano, fill = ano)) +
   theme_bw()
 
 
-
-
 ggplot(clima, aes(t_max)) +
   geom_density() +
   facet_wrap(~ano) +
@@ -49,7 +47,6 @@ ggplot(clima, aes(t_max)) +
   theme_few(base_size = 9)
 
 
-{r, fig.width = 10, fig.height = 18}
 ggplot(clima, aes(t_med, factor(ano))) +
   geom_joy() +
   labs(

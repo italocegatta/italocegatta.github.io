@@ -25,20 +25,20 @@
 pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
 pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe_referencia()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 199 x 2
+&lt;pre&gt;&lt;code&gt;## # A tibble: 202 x 2
 ##      data_ref cod_ref
 ##        &amp;lt;date&amp;gt;   &amp;lt;int&amp;gt;
-##  1 2017-07-01     215
-##  2 2017-06-01     214
-##  3 2017-05-01     212
-##  4 2017-04-01     211
-##  5 2017-03-01     207
-##  6 2017-02-01     205
-##  7 2017-01-01     202
-##  8 2016-12-01     200
-##  9 2016-11-01     198
-## 10 2016-10-01     197
-## # ... with 189 more rows&lt;/code&gt;&lt;/pre&gt;
+##  1 2017-10-01     218
+##  2 2017-09-01     217
+##  3 2017-08-01     216
+##  4 2017-07-01     215
+##  5 2017-06-01     214
+##  6 2017-05-01     212
+##  7 2017-04-01     211
+##  8 2017-03-01     207
+##  9 2017-02-01     205
+## 10 2017-01-01     202
+## # ... with 192 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Como o objetivo saber o preço atual do veículo, pegaremos o código &lt;code&gt;215&lt;/code&gt; (mês em que escrevo este post). Agora vamos procurar o código da marca BMW. Note que precisamos inserir o código do mês de referência para consultar a marca, essa é uma exigência do site da FIPE. Lembrando que o pacote não possui nenhum banco de dados armazenado, todas as informações são consultadas no site da tabela FIPE no ato da execução da função.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe_marca(cod_ref = 215)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 87 x 2
@@ -206,7 +206,7 @@ pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt
     theme_bw() +
     theme(legend.position = &amp;quot;top&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2017-07-29-como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar_files/figure-html/plot_fipe-1.png&#34; width=&#34;4800&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
 ##  version  R version 3.3.3 (2017-03-06)
@@ -215,22 +215,22 @@ pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-07-29                  
+##  date     2017-10-14                  
 ## 
 ##  package     * version    date       source                            
 ##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
-##  backports     1.1.0      2017-05-22 CRAN (R 3.3.3)                    
+##  backports     1.1.1      2017-09-25 CRAN (R 3.3.3)                    
 ##  base        * 3.3.3      2017-03-06 local                             
 ##  bindr         0.1        2016-11-13 CRAN (R 3.3.3)                    
 ##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.3.3)                    
-##  blogdown      0.0.25     2017-03-23 Github (rstudio/blogdown@1c10d16) 
-##  bookdown      0.4        2017-05-20 CRAN (R 3.3.3)                    
+##  blogdown      0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown      0.5        2017-08-20 CRAN (R 3.3.3)                    
 ##  colorspace    1.3-2      2016-12-14 CRAN (R 3.3.2)                    
 ##  curl          2.8.1      2017-07-21 CRAN (R 3.3.3)                    
 ##  datasets    * 3.3.3      2017-03-06 local                             
-##  devtools      1.13.2     2017-06-02 CRAN (R 3.3.3)                    
+##  devtools      1.13.3     2017-08-02 CRAN (R 3.3.3)                    
 ##  digest        0.6.12     2017-01-27 CRAN (R 3.3.2)                    
-##  dplyr       * 0.7.2      2017-07-20 CRAN (R 3.3.3)                    
+##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
 ##  evaluate      0.10.1     2017-06-24 CRAN (R 3.3.3)                    
 ##  fipe        * 0.0.0.9000 2017-07-29 local                             
 ##  forcats     * 0.2.0      2017-01-23 CRAN (R 3.3.2)                    
@@ -242,35 +242,36 @@ pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt
 ##  gtable        0.2.0      2016-02-26 CRAN (R 3.3.2)                    
 ##  hms           0.3        2016-11-22 CRAN (R 3.3.2)                    
 ##  htmltools     0.3.6      2017-04-28 CRAN (R 3.3.3)                    
-##  httr          1.2.1      2016-07-03 CRAN (R 3.3.2)                    
+##  httr          1.3.1      2017-08-20 CRAN (R 3.3.3)                    
 ##  jsonlite      1.5        2017-06-01 CRAN (R 3.3.3)                    
-##  knitr         1.16       2017-05-18 CRAN (R 3.3.3)                    
+##  knitr         1.17       2017-08-10 CRAN (R 3.3.3)                    
 ##  lazyeval      0.2.0      2016-06-12 CRAN (R 3.3.2)                    
 ##  lubridate     1.6.0      2016-09-13 CRAN (R 3.3.2)                    
 ##  magrittr      1.5        2014-11-22 CRAN (R 3.3.2)                    
 ##  memoise       1.1.0      2017-04-21 CRAN (R 3.3.3)                    
-##  methods       3.3.3      2017-03-06 local                             
+##  methods     * 3.3.3      2017-03-06 local                             
 ##  munsell       0.4.3      2016-02-13 CRAN (R 3.3.2)                    
 ##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
 ##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.3.3)                    
 ##  plyr          1.8.4      2016-06-08 CRAN (R 3.3.2)                    
-##  purrr       * 0.2.2.2    2017-05-11 CRAN (R 3.3.3)                    
+##  purrr       * 0.2.3      2017-08-02 CRAN (R 3.3.3)                    
 ##  R6            2.2.2      2017-06-17 CRAN (R 3.3.3)                    
-##  Rcpp          0.12.12    2017-07-15 CRAN (R 3.3.3)                    
+##  Rcpp          0.12.13    2017-09-28 CRAN (R 3.3.3)                    
 ##  readr         1.1.1      2017-05-16 CRAN (R 3.3.3)                    
-##  rlang         0.1.1      2017-05-18 CRAN (R 3.3.3)                    
+##  rlang         0.1.2      2017-08-09 CRAN (R 3.3.3)                    
 ##  rmarkdown     1.6        2017-06-15 CRAN (R 3.3.3)                    
 ##  rprojroot     1.2        2017-01-16 CRAN (R 3.3.3)                    
-##  scales        0.4.1.9002 2017-07-15 Github (hadley/scales@6db7b6f)    
+##  scales        0.5.0      2017-08-24 CRAN (R 3.3.3)                    
 ##  stats       * 3.3.3      2017-03-06 local                             
 ##  stringi       1.1.5      2017-04-07 CRAN (R 3.3.3)                    
 ##  stringr     * 1.2.0      2017-02-18 CRAN (R 3.3.2)                    
-##  tibble        1.3.3      2017-05-28 CRAN (R 3.3.3)                    
-##  tidyr       * 0.6.3      2017-05-15 CRAN (R 3.3.3)                    
+##  tibble        1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tidyr       * 0.7.1      2017-09-01 CRAN (R 3.3.3)                    
+##  tidyselect    0.2.0      2017-08-30 CRAN (R 3.3.3)                    
 ##  tools         3.3.3      2017-03-06 local                             
 ##  utils       * 3.3.3      2017-03-06 local                             
 ##  viridisLite   0.2.0      2017-03-24 CRAN (R 3.3.3)                    
-##  withr         1.0.2      2016-06-20 CRAN (R 3.3.3)                    
+##  withr         2.0.0      2017-07-28 CRAN (R 3.3.3)                    
 ##  yaml          2.1.14     2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
@@ -425,7 +426,7 @@ ggplot(qnt_mapa) +
   theme(legend.position = &amp;quot;bottom&amp;quot;) +
   guides(fill = guide_colorbar(barwidth = 30, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2017-06-16-web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;4000&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
 ##  version  R version 3.3.3 (2017-03-06)
@@ -434,7 +435,7 @@ ggplot(qnt_mapa) +
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-10-12                  
+##  date     2017-10-14                  
 ## 
 ##  package     * version    date       source                            
 ##  assertthat    0.2.0      2017-04-11 CRAN (R 3.3.3)                    
@@ -523,18 +524,18 @@ pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&
 )
 
 dados&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 9
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 x 9
 ##    N_tume I_meses          Esp Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
 ##     &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;        &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
-## 1      55      24 E_botryoides     600     1    4.1   6.5    NA    NA
-## 2      55      24 E_botryoides     600     2    9.7   8.0    NA    NA
-## 3      55      24 E_botryoides     600     3     NA    NA     5    NA
-## 4      55      24 E_botryoides     600     4    7.6   7.5     2    NA
-## 5      55      24 E_botryoides     600     5    3.8   5.0    NA    NA
-## 6      55      24 E_botryoides     600     6     NA    NA     1    NA
-## 7      55      24 E_botryoides     600     7   12.6   9.0     6    NA
-## 8      55      24 E_botryoides     600     8     NA    NA     1    NA
-## 9      55      24 E_botryoides     600     9    7.0   8.0    NA    NA
+##  1     55      24 E_botryoides     600     1    4.1   6.5    NA    NA
+##  2     55      24 E_botryoides     600     2    9.7   8.0    NA    NA
+##  3     55      24 E_botryoides     600     3     NA    NA     5    NA
+##  4     55      24 E_botryoides     600     4    7.6   7.5     2    NA
+##  5     55      24 E_botryoides     600     5    3.8   5.0    NA    NA
+##  6     55      24 E_botryoides     600     6     NA    NA     1    NA
+##  7     55      24 E_botryoides     600     7   12.6   9.0     6    NA
+##  8     55      24 E_botryoides     600     8     NA    NA     1    NA
+##  9     55      24 E_botryoides     600     9    7.0   8.0    NA    NA
 ## 10     55      24 E_botryoides     600    10    7.5   7.5    NA    NA
 ## # ... with 1,871 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura &lt;a href=&#34;#fig:9-dap-h&#34;&gt;1&lt;/a&gt; mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.&lt;/p&gt;
@@ -564,19 +565,19 @@ Figura  2: Relação entre o diâmetro e a altura por espécie.
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados %&amp;gt;%
   group_by(Esp) %&amp;gt;% 
   nest()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 2
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 2
 ##                        Esp              data
 ##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;
-## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt;
-## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt;
-## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
-## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt;
-## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt;
-## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt;
-## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt;
-## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt;
-## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt;
-## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt;
+##  1            E_botryoides &amp;lt;tibble [80 x 8]&amp;gt;
+##  2             E_brassiana &amp;lt;tibble [80 x 8]&amp;gt;
+##  3         E_camaldulensis &amp;lt;tibble [80 x 8]&amp;gt;
+##  4            E_citriodora &amp;lt;tibble [80 x 8]&amp;gt;
+##  5             E_cloeziana &amp;lt;tibble [51 x 8]&amp;gt;
+##  6      E_dunnii_urophylla &amp;lt;tibble [80 x 8]&amp;gt;
+##  7               E_exserta &amp;lt;tibble [80 x 8]&amp;gt;
+##  8            E_grandis_AT &amp;lt;tibble [80 x 8]&amp;gt;
+##  9 E_grandis_camaldulensis &amp;lt;tibble [80 x 8]&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 x 8]&amp;gt;
 ## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função &lt;code&gt;map&lt;/code&gt;,do pacote &lt;code&gt;purrr&lt;/code&gt;. Podemos ainda extrair as informações desses modelos com as funções &lt;code&gt;glance&lt;/code&gt;, &lt;code&gt;tidy&lt;/code&gt; e &lt;code&gt;augment&lt;/code&gt;, do pacote &lt;code&gt;broom&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl &amp;lt;- dados %&amp;gt;%
@@ -590,72 +591,72 @@ Figura  2: Relação entre o diâmetro e a altura por espécie.
   )
 
 dados_modl&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 6
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 6
 ##                        Esp              data   ajuste
 ##                      &amp;lt;chr&amp;gt;            &amp;lt;list&amp;gt;   &amp;lt;list&amp;gt;
-## 1             E_botryoides &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 2              E_brassiana &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 3          E_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 4             E_citriodora &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 5              E_cloeziana &amp;lt;tibble [51 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 6       E_dunnii_urophylla &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 7                E_exserta &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 8             E_grandis_AT &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 9  E_grandis_camaldulensis &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
-## 10            E_grandis_CH &amp;lt;tibble [80 × 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  1            E_botryoides &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  2             E_brassiana &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  3         E_camaldulensis &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  4            E_citriodora &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  5             E_cloeziana &amp;lt;tibble [51 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  6      E_dunnii_urophylla &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  7               E_exserta &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  8            E_grandis_AT &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+##  9 E_grandis_camaldulensis &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
+## 10            E_grandis_CH &amp;lt;tibble [80 x 8]&amp;gt; &amp;lt;S3: lm&amp;gt;
 ## # ... with 14 more rows, and 3 more variables: resumo &amp;lt;list&amp;gt;, coef &amp;lt;list&amp;gt;,
 ## #   resid &amp;lt;list&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
   select(Esp, resumo) %&amp;gt;% 
   unnest(resumo)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 24 × 12
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 12
 ##                        Esp r.squared adj.r.squared      sigma statistic
 ##                      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
-## 1             E_botryoides 0.7865503     0.7832152 0.13638082 235.83647
-## 2              E_brassiana 0.7034805     0.6984547 0.16015749 139.97510
-## 3          E_camaldulensis 0.7193692     0.7156767 0.12781229 194.81849
-## 4             E_citriodora 0.6017939     0.5958506 0.10226763 101.25459
-## 5              E_cloeziana 0.2595328     0.2339995 0.16724765  10.16446
-## 6       E_dunnii_urophylla 0.7199293     0.7159283 0.16115569 179.93693
-## 7                E_exserta 0.5897407     0.5837949 0.19572456  99.18630
-## 8             E_grandis_AT 0.7472094     0.7438832 0.07718312 224.64407
-## 9  E_grandis_camaldulensis 0.8290924     0.8265415 0.16085772 325.02460
+##  1            E_botryoides 0.7865503     0.7832152 0.13638082 235.83647
+##  2             E_brassiana 0.7034805     0.6984547 0.16015749 139.97510
+##  3         E_camaldulensis 0.7193692     0.7156767 0.12781229 194.81849
+##  4            E_citriodora 0.6017939     0.5958506 0.10226763 101.25459
+##  5             E_cloeziana 0.2595328     0.2339995 0.16724765  10.16446
+##  6      E_dunnii_urophylla 0.7199293     0.7159283 0.16115569 179.93693
+##  7               E_exserta 0.5897407     0.5837949 0.19572456  99.18630
+##  8            E_grandis_AT 0.7472094     0.7438832 0.07718312 224.64407
+##  9 E_grandis_camaldulensis 0.8290924     0.8265415 0.16085772 325.02460
 ## 10            E_grandis_CH 0.7764890     0.7731530 0.10465726 232.76148
 ## # ... with 14 more rows, and 7 more variables: p.value &amp;lt;dbl&amp;gt;, df &amp;lt;int&amp;gt;,
 ## #   logLik &amp;lt;dbl&amp;gt;, AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;, deviance &amp;lt;dbl&amp;gt;, df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
   select(Esp, coef ) %&amp;gt;% 
   unnest(coef)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 48 × 6
+&lt;pre&gt;&lt;code&gt;## # A tibble: 48 x 6
 ##                Esp        term  estimate  std.error  statistic
 ##              &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
-## 1     E_botryoides (Intercept)  2.633365 0.04223569  62.349272
-## 2     E_botryoides I(1/DAP_cm) -4.129688 0.26891300 -15.356968
-## 3      E_brassiana (Intercept)  2.014323 0.05110864  39.412563
-## 4      E_brassiana I(1/DAP_cm) -2.373711 0.20063302 -11.831107
-## 5  E_camaldulensis (Intercept)  2.727702 0.04605191  59.231027
-## 6  E_camaldulensis I(1/DAP_cm) -4.792441 0.34335365 -13.957740
-## 7     E_citriodora (Intercept)  2.553408 0.05513037  46.315809
-## 8     E_citriodora I(1/DAP_cm) -3.802655 0.37790230 -10.062534
-## 9      E_cloeziana (Intercept)  2.323552 0.11578912  20.067098
+##  1    E_botryoides (Intercept)  2.633365 0.04223569  62.349272
+##  2    E_botryoides I(1/DAP_cm) -4.129688 0.26891300 -15.356968
+##  3     E_brassiana (Intercept)  2.014323 0.05110864  39.412563
+##  4     E_brassiana I(1/DAP_cm) -2.373711 0.20063302 -11.831107
+##  5 E_camaldulensis (Intercept)  2.727702 0.04605191  59.231027
+##  6 E_camaldulensis I(1/DAP_cm) -4.792441 0.34335365 -13.957740
+##  7    E_citriodora (Intercept)  2.553408 0.05513037  46.315809
+##  8    E_citriodora I(1/DAP_cm) -3.802655 0.37790230 -10.062534
+##  9     E_cloeziana (Intercept)  2.323552 0.11578912  20.067098
 ## 10     E_cloeziana I(1/DAP_cm) -2.842311 0.89151651  -3.188176
 ## # ... with 38 more rows, and 1 more variables: p.value &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
   select(Esp, resid) %&amp;gt;% 
   unnest(resid)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1,633 × 11
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,633 x 11
 ##             Esp .rownames log.H_m. I.1.DAP_cm.  .fitted    .se.fit
 ##           &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
-## 1  E_botryoides         1 1.871802  0.24390244 1.626124 0.03165108
-## 2  E_botryoides         2 2.079442  0.10309278 2.207624 0.02008843
-## 3  E_botryoides         4 2.014903  0.13157895 2.089985 0.01712280
-## 4  E_botryoides         5 1.609438  0.26315789 1.546605 0.03614528
-## 5  E_botryoides         7 2.197225  0.07936508 2.305612 0.02418794
-## 6  E_botryoides         9 2.079442  0.14285714 2.043409 0.01679076
-## 7  E_botryoides        10 2.014903  0.13333333 2.082740 0.01703615
-## 8  E_botryoides        13 1.609438  0.16666667 1.945083 0.01784853
-## 9  E_botryoides        14 2.302585  0.09803922 2.228493 0.02086574
+##  1 E_botryoides         1 1.871802  0.24390244 1.626124 0.03165108
+##  2 E_botryoides         2 2.079442  0.10309278 2.207624 0.02008843
+##  3 E_botryoides         4 2.014903  0.13157895 2.089985 0.01712280
+##  4 E_botryoides         5 1.609438  0.26315789 1.546605 0.03614528
+##  5 E_botryoides         7 2.197225  0.07936508 2.305612 0.02418794
+##  6 E_botryoides         9 2.079442  0.14285714 2.043409 0.01679076
+##  7 E_botryoides        10 2.014903  0.13333333 2.082740 0.01703615
+##  8 E_botryoides        13 1.609438  0.16666667 1.945083 0.01784853
+##  9 E_botryoides        14 2.302585  0.09803922 2.228493 0.02086574
 ## 10 E_botryoides        15 2.140066  0.12048193 2.135812 0.01795064
 ## # ... with 1,623 more rows, and 5 more variables: .resid &amp;lt;dbl&amp;gt;,
 ## #   .hat &amp;lt;dbl&amp;gt;, .sigma &amp;lt;dbl&amp;gt;, .cooksd &amp;lt;dbl&amp;gt;, .std.resid &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
@@ -671,21 +672,21 @@ dados_modl&lt;/code&gt;&lt;/pre&gt;
   unnest(hpred, data)
 
 dados_compl&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 × 10
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 x 10
 ##             Esp     hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod
 ##           &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
-## 1  E_botryoides  5.084129     55      24     600     1    4.1   6.5    NA
-## 2  E_botryoides  9.094080     55      24     600     2    9.7   8.0    NA
-## 3  E_botryoides        NA     55      24     600     3     NA    NA     5
-## 4  E_botryoides  8.084791     55      24     600     4    7.6   7.5     2
-## 5  E_botryoides  4.695500     55      24     600     5    3.8   5.0    NA
-## 6  E_botryoides        NA     55      24     600     6     NA    NA     1
-## 7  E_botryoides 10.030312     55      24     600     7   12.6   9.0     6
-## 8  E_botryoides        NA     55      24     600     8     NA    NA     1
-## 9  E_botryoides  7.716873     55      24     600     9    7.0   8.0    NA
+##  1 E_botryoides  5.084129     55      24     600     1    4.1   6.5    NA
+##  2 E_botryoides  9.094080     55      24     600     2    9.7   8.0    NA
+##  3 E_botryoides        NA     55      24     600     3     NA    NA     5
+##  4 E_botryoides  8.084791     55      24     600     4    7.6   7.5     2
+##  5 E_botryoides  4.695500     55      24     600     5    3.8   5.0    NA
+##  6 E_botryoides        NA     55      24     600     6     NA    NA     1
+##  7 E_botryoides 10.030312     55      24     600     7   12.6   9.0     6
+##  8 E_botryoides        NA     55      24     600     8     NA    NA     1
+##  9 E_botryoides  7.716873     55      24     600     9    7.0   8.0    NA
 ## 10 E_botryoides  8.026428     55      24     600    10    7.5   7.5    NA
 ## # ... with 1,871 more rows, and 1 more variables: Cod2 &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
 ##  version  R version 3.3.3 (2017-03-06)
@@ -694,52 +695,68 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-04-08                  
+##  date     2017-10-14                  
 ## 
-##  package    * version date       source                           
-##  assertthat   0.1     2013-12-06 CRAN (R 3.3.2)                   
-##  backports    1.0.5   2017-01-18 CRAN (R 3.3.2)                   
-##  blogdown     0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
-##  bookdown     0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
-##  broom      * 0.4.2   2017-02-13 CRAN (R 3.3.2)                   
-##  colorspace   1.3-2   2016-12-14 CRAN (R 3.3.2)                   
-##  curl         2.3     2016-11-24 CRAN (R 3.3.2)                   
-##  DBI          0.5-1   2016-09-10 CRAN (R 3.3.2)                   
-##  devtools     1.12.0  2016-06-24 CRAN (R 3.3.3)                   
-##  digest       0.6.12  2017-01-27 CRAN (R 3.3.2)                   
-##  dplyr      * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
-##  evaluate     0.10    2016-10-11 CRAN (R 3.3.3)                   
-##  foreign      0.8-67  2016-09-13 CRAN (R 3.3.3)                   
-##  ggplot2    * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
-##  gtable       0.2.0   2016-02-26 CRAN (R 3.3.2)                   
-##  highr        0.6     2016-05-09 CRAN (R 3.3.3)                   
-##  htmltools    0.3.5   2016-03-21 CRAN (R 3.3.3)                   
-##  knitr        1.15.1  2016-11-22 CRAN (R 3.3.3)                   
-##  labeling     0.3     2014-08-23 CRAN (R 3.3.2)                   
-##  lattice      0.20-34 2016-09-06 CRAN (R 3.3.3)                   
-##  lazyeval     0.2.0   2016-06-12 CRAN (R 3.3.2)                   
-##  magrittr     1.5     2014-11-22 CRAN (R 3.3.2)                   
-##  memoise      1.0.0   2016-01-29 CRAN (R 3.3.3)                   
-##  mnormt       1.5-5   2016-10-15 CRAN (R 3.3.2)                   
-##  munsell      0.4.3   2016-02-13 CRAN (R 3.3.2)                   
-##  nlme         3.1-131 2017-02-06 CRAN (R 3.3.3)                   
-##  pacman     * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
-##  plyr         1.8.4   2016-06-08 CRAN (R 3.3.2)                   
-##  psych        1.6.12  2017-01-08 CRAN (R 3.3.2)                   
-##  purrr      * 0.2.2   2016-06-18 CRAN (R 3.3.2)                   
-##  R6           2.2.0   2016-10-05 CRAN (R 3.3.2)                   
-##  Rcpp         0.12.9  2017-01-14 CRAN (R 3.3.2)                   
-##  readr      * 1.0.0   2016-08-03 CRAN (R 3.3.2)                   
-##  reshape2     1.4.2   2016-10-22 CRAN (R 3.3.2)                   
-##  rmarkdown    1.3     2016-12-21 CRAN (R 3.3.3)                   
-##  rprojroot    1.2     2017-01-16 CRAN (R 3.3.3)                   
-##  scales       0.4.1   2016-11-09 CRAN (R 3.3.2)                   
-##  stringi      1.1.2   2016-10-01 CRAN (R 3.3.2)                   
-##  stringr      1.2.0   2017-02-18 CRAN (R 3.3.2)                   
-##  tibble       1.2     2016-08-26 CRAN (R 3.3.2)                   
-##  tidyr      * 0.6.1   2017-01-10 CRAN (R 3.3.2)                   
-##  withr        1.0.2   2016-06-20 CRAN (R 3.3.3)                   
-##  yaml         2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
+##  package    * version    date       source                            
+##  assertthat   0.2.0      2017-04-11 CRAN (R 3.3.3)                    
+##  backports    1.1.1      2017-09-25 CRAN (R 3.3.3)                    
+##  base       * 3.3.3      2017-03-06 local                             
+##  bindr        0.1        2016-11-13 CRAN (R 3.3.3)                    
+##  bindrcpp   * 0.2        2017-06-17 CRAN (R 3.3.3)                    
+##  blogdown     0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown     0.5        2017-08-20 CRAN (R 3.3.3)                    
+##  broom      * 0.4.2      2017-02-13 CRAN (R 3.3.2)                    
+##  colorspace   1.3-2      2016-12-14 CRAN (R 3.3.2)                    
+##  curl         2.8.1      2017-07-21 CRAN (R 3.3.3)                    
+##  datasets   * 3.3.3      2017-03-06 local                             
+##  devtools     1.13.3     2017-08-02 CRAN (R 3.3.3)                    
+##  digest       0.6.12     2017-01-27 CRAN (R 3.3.2)                    
+##  dplyr      * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
+##  evaluate     0.10.1     2017-06-24 CRAN (R 3.3.3)                    
+##  foreign      0.8-67     2016-09-13 CRAN (R 3.3.3)                    
+##  ggplot2    * 2.2.1.9000 2017-07-15 Github (tidyverse/ggplot2@45853c7)
+##  glue         1.1.1      2017-06-21 CRAN (R 3.3.3)                    
+##  graphics   * 3.3.3      2017-03-06 local                             
+##  grDevices  * 3.3.3      2017-03-06 local                             
+##  grid         3.3.3      2017-03-06 local                             
+##  gtable       0.2.0      2016-02-26 CRAN (R 3.3.2)                    
+##  highr        0.6        2016-05-09 CRAN (R 3.3.3)                    
+##  hms          0.3        2016-11-22 CRAN (R 3.3.2)                    
+##  htmltools    0.3.6      2017-04-28 CRAN (R 3.3.3)                    
+##  knitr        1.17       2017-08-10 CRAN (R 3.3.3)                    
+##  labeling     0.3        2014-08-23 CRAN (R 3.3.2)                    
+##  lattice      0.20-34    2016-09-06 CRAN (R 3.3.3)                    
+##  lazyeval     0.2.0      2016-06-12 CRAN (R 3.3.2)                    
+##  magrittr     1.5        2014-11-22 CRAN (R 3.3.2)                    
+##  memoise      1.1.0      2017-04-21 CRAN (R 3.3.3)                    
+##  methods    * 3.3.3      2017-03-06 local                             
+##  mnormt       1.5-5      2016-10-15 CRAN (R 3.3.2)                    
+##  munsell      0.4.3      2016-02-13 CRAN (R 3.3.2)                    
+##  nlme         3.1-131    2017-02-06 CRAN (R 3.3.3)                    
+##  pacman     * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
+##  parallel     3.3.3      2017-03-06 local                             
+##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.3.3)                    
+##  plyr         1.8.4      2016-06-08 CRAN (R 3.3.2)                    
+##  psych        1.7.8      2017-09-09 CRAN (R 3.3.3)                    
+##  purrr      * 0.2.3      2017-08-02 CRAN (R 3.3.3)                    
+##  R6           2.2.2      2017-06-17 CRAN (R 3.3.3)                    
+##  Rcpp         0.12.13    2017-09-28 CRAN (R 3.3.3)                    
+##  readr      * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
+##  reshape2     1.4.2      2016-10-22 CRAN (R 3.3.2)                    
+##  rlang        0.1.2      2017-08-09 CRAN (R 3.3.3)                    
+##  rmarkdown    1.6        2017-06-15 CRAN (R 3.3.3)                    
+##  rprojroot    1.2        2017-01-16 CRAN (R 3.3.3)                    
+##  scales       0.5.0      2017-08-24 CRAN (R 3.3.3)                    
+##  stats      * 3.3.3      2017-03-06 local                             
+##  stringi      1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+##  stringr      1.2.0      2017-02-18 CRAN (R 3.3.2)                    
+##  tibble       1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tidyr      * 0.7.1      2017-09-01 CRAN (R 3.3.3)                    
+##  tidyselect   0.2.0      2017-08-30 CRAN (R 3.3.3)                    
+##  tools        3.3.3      2017-03-06 local                             
+##  utils      * 3.3.3      2017-03-06 local                             
+##  withr        2.0.0      2017-07-28 CRAN (R 3.3.3)                    
+##  yaml         2.1.14     2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -761,18 +778,18 @@ p_load(readr, dplyr, tidyr, ggplot2, ggthemes)&lt;/code&gt;&lt;/pre&gt;
 )
 
 dados&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 × 5
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,100 x 5
 ##    Tratamento Individuo Coleta   Local Galhas
 ##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
-## 1   Actara d1         1      1 Peciolo      1
-## 2   Actara d1         2      1 Peciolo     NA
-## 3   Actara d1         3      1 Peciolo     NA
-## 4   Actara d1         4      1 Peciolo     NA
-## 5   Actara d1         5      1 Peciolo     NA
-## 6   Actara d1         6      1 Peciolo     NA
-## 7   Actara d1         7      1 Peciolo     NA
-## 8   Actara d1         8      1 Peciolo     NA
-## 9   Actara d1         9      1 Peciolo     NA
+##  1  Actara d1         1      1 Peciolo      1
+##  2  Actara d1         2      1 Peciolo     NA
+##  3  Actara d1         3      1 Peciolo     NA
+##  4  Actara d1         4      1 Peciolo     NA
+##  5  Actara d1         5      1 Peciolo     NA
+##  6  Actara d1         6      1 Peciolo     NA
+##  7  Actara d1         7      1 Peciolo     NA
+##  8  Actara d1         8      1 Peciolo     NA
+##  9  Actara d1         9      1 Peciolo     NA
 ## 10  Actara d1        10      1 Peciolo     NA
 ## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Primeiro vamos processar os dados da última medição (Coleta 5) para verificar o nº total de galhas de cada tratamento, desconsiderando o local da galha. Nesse caso estou considerando apenas as mudas que foram atacadas e tiveram o desenvolvimento de galhas.&lt;/p&gt;
@@ -788,20 +805,19 @@ total &amp;lt;- dados %&amp;gt;%
   mutate(Galhas = replace(Galhas, Galhas == 0, NA))
 
 total&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [140 x 3]
-## Groups: Tratamento [7]
-## 
+&lt;pre&gt;&lt;code&gt;## # A tibble: 140 x 3
+## # Groups:   Tratamento [7]
 ##    Tratamento Individuo Galhas
 ##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;
-## 1   Actara d1         1     11
-## 2   Actara d1         2     NA
-## 3   Actara d1         3      4
-## 4   Actara d1         4     NA
-## 5   Actara d1         5     NA
-## 6   Actara d1         6     NA
-## 7   Actara d1         7     30
-## 8   Actara d1         8     NA
-## 9   Actara d1         9     NA
+##  1  Actara d1         1     11
+##  2  Actara d1         2     NA
+##  3  Actara d1         3      4
+##  4  Actara d1         4     NA
+##  5  Actara d1         5     NA
+##  6  Actara d1         6     NA
+##  7  Actara d1         7     30
+##  8  Actara d1         8     NA
+##  9  Actara d1         9     NA
 ## 10  Actara d1        10     NA
 ## # ... with 130 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;O boxplot é um gráfico unidimensional, ou seja, precisamos de apenas uma variável para construí-lo. Entretanto, podemos usar variáveis categóricas para servir de agrupamento e replicar o gráfico para todos os níveis da variável. Por exemplo, no nosso banco de dados temos &lt;code&gt;Galhas&lt;/code&gt; como variável quantitativa e &lt;code&gt;Tratamento&lt;/code&gt;, &lt;code&gt;Coleta&lt;/code&gt; e &lt;code&gt;Local&lt;/code&gt; como variável qualitativa.&lt;/p&gt;
@@ -836,20 +852,19 @@ local &amp;lt;- dados %&amp;gt;%
   mutate(Galhas = replace(Galhas, Galhas == 0, NA))
 
 local&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [420 x 4]
-## Groups: Tratamento, Individuo [140]
-## 
+&lt;pre&gt;&lt;code&gt;## # A tibble: 420 x 4
+## # Groups:   Tratamento, Individuo [140]
 ##    Tratamento Individuo   Local Galhas
 ##         &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
-## 1   Actara d1         1   Caule      2
-## 2   Actara d1         1 Nervura      3
-## 3   Actara d1         1 Peciolo      6
-## 4   Actara d1         2   Caule     NA
-## 5   Actara d1         2 Nervura     NA
-## 6   Actara d1         2 Peciolo     NA
-## 7   Actara d1         3   Caule      1
-## 8   Actara d1         3 Nervura      1
-## 9   Actara d1         3 Peciolo      2
+##  1  Actara d1         1   Caule      2
+##  2  Actara d1         1 Nervura      3
+##  3  Actara d1         1 Peciolo      6
+##  4  Actara d1         2   Caule     NA
+##  5  Actara d1         2 Nervura     NA
+##  6  Actara d1         2 Peciolo     NA
+##  7  Actara d1         3   Caule      1
+##  8  Actara d1         3 Nervura      1
+##  9  Actara d1         3 Peciolo      2
 ## 10  Actara d1         4   Caule     NA
 ## # ... with 410 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(local, aes(Tratamento, Galhas, fill = Local)) +
@@ -870,20 +885,19 @@ Figura  3: Boxplot que mostra o nº de galhas por local e tratamento.
   mutate(Galhas = replace(Galhas, Galhas == 0, NA))
 
 total_coleta&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [560 x 4]
-## Groups: Tratamento, Coleta [28]
-## 
+&lt;pre&gt;&lt;code&gt;## # A tibble: 560 x 4
+## # Groups:   Tratamento, Coleta [28]
 ##    Tratamento Coleta Individuo Galhas
 ##         &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;
-## 1   Actara d1      2         1      3
-## 2   Actara d1      2         2     NA
-## 3   Actara d1      2         3     NA
-## 4   Actara d1      2         4     NA
-## 5   Actara d1      2         5     NA
-## 6   Actara d1      2         6     NA
-## 7   Actara d1      2         7      2
-## 8   Actara d1      2         8     NA
-## 9   Actara d1      2         9     NA
+##  1  Actara d1      2         1      3
+##  2  Actara d1      2         2     NA
+##  3  Actara d1      2         3     NA
+##  4  Actara d1      2         4     NA
+##  5  Actara d1      2         5     NA
+##  6  Actara d1      2         6     NA
+##  7  Actara d1      2         7      2
+##  8  Actara d1      2         8     NA
+##  9  Actara d1      2         9     NA
 ## 10  Actara d1      2        10     NA
 ## # ... with 550 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(total_coleta, aes(Tratamento, Galhas)) +
@@ -899,7 +913,7 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 &lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;É importante destacar que o gráfico da Figura &lt;a href=&#34;#fig:4-boxplot-coleta&#34;&gt;4&lt;/a&gt; não é adequado para esse tipo de informação. Nesse caso seria mais interessante um gráfico de linhas em que cada linha representa um tratamento (veremos esse gráfico em um futuro post).&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
 ##  version  R version 3.3.3 (2017-03-06)
@@ -908,47 +922,61 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-04-30                  
+##  date     2017-10-14                  
 ## 
-##  package      * version date       source                           
-##  assertthat     0.2.0   2017-04-11 CRAN (R 3.3.3)                   
-##  backports      1.0.5   2017-01-18 CRAN (R 3.3.2)                   
-##  blogdown       0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
-##  bookdown       0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
-##  colorspace     1.3-2   2016-12-14 CRAN (R 3.3.2)                   
-##  curl           2.6     2017-04-27 CRAN (R 3.3.3)                   
-##  DBI            0.6-1   2017-04-01 CRAN (R 3.3.3)                   
-##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.3)                   
-##  digest         0.6.12  2017-01-27 CRAN (R 3.3.2)                   
-##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
-##  evaluate       0.10    2016-10-11 CRAN (R 3.3.3)                   
-##  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
-##  ggthemes     * 3.4.0   2017-02-19 CRAN (R 3.3.3)                   
-##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.2)                   
-##  highr          0.6     2016-05-09 CRAN (R 3.3.3)                   
-##  hms            0.3     2016-11-22 CRAN (R 3.3.2)                   
-##  htmltools      0.3.6   2017-04-28 CRAN (R 3.3.3)                   
-##  knitr          1.15.1  2016-11-22 CRAN (R 3.3.3)                   
-##  labeling       0.3     2014-08-23 CRAN (R 3.3.2)                   
-##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.2)                   
-##  magrittr       1.5     2014-11-22 CRAN (R 3.3.2)                   
-##  memoise        1.1.0   2017-04-21 CRAN (R 3.3.3)                   
-##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.2)                   
-##  pacman       * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
-##  plyr           1.8.4   2016-06-08 CRAN (R 3.3.2)                   
-##  R6             2.2.0   2016-10-05 CRAN (R 3.3.2)                   
-##  RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.3.2)                   
-##  Rcpp           0.12.10 2017-03-19 CRAN (R 3.3.3)                   
-##  readr        * 1.1.0   2017-03-22 CRAN (R 3.3.3)                   
-##  rmarkdown      1.5     2017-04-26 CRAN (R 3.3.3)                   
-##  rprojroot      1.2     2017-01-16 CRAN (R 3.3.3)                   
-##  scales         0.4.1   2016-11-09 CRAN (R 3.3.2)                   
-##  stringi        1.1.5   2017-04-07 CRAN (R 3.3.3)                   
-##  stringr        1.2.0   2017-02-18 CRAN (R 3.3.2)                   
-##  tibble         1.3.0   2017-04-01 CRAN (R 3.3.3)                   
-##  tidyr        * 0.6.1   2017-01-10 CRAN (R 3.3.2)                   
-##  withr          1.0.2   2016-06-20 CRAN (R 3.3.3)                   
-##  yaml           2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
+##  package      * version    date       source                            
+##  assertthat     0.2.0      2017-04-11 CRAN (R 3.3.3)                    
+##  backports      1.1.1      2017-09-25 CRAN (R 3.3.3)                    
+##  base         * 3.3.3      2017-03-06 local                             
+##  bindr          0.1        2016-11-13 CRAN (R 3.3.3)                    
+##  bindrcpp     * 0.2        2017-06-17 CRAN (R 3.3.3)                    
+##  blogdown       0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown       0.5        2017-08-20 CRAN (R 3.3.3)                    
+##  colorspace     1.3-2      2016-12-14 CRAN (R 3.3.2)                    
+##  curl           2.8.1      2017-07-21 CRAN (R 3.3.3)                    
+##  datasets     * 3.3.3      2017-03-06 local                             
+##  devtools       1.13.3     2017-08-02 CRAN (R 3.3.3)                    
+##  digest         0.6.12     2017-01-27 CRAN (R 3.3.2)                    
+##  dplyr        * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
+##  evaluate       0.10.1     2017-06-24 CRAN (R 3.3.3)                    
+##  ggplot2      * 2.2.1.9000 2017-07-15 Github (tidyverse/ggplot2@45853c7)
+##  ggthemes     * 3.4.0      2017-02-19 CRAN (R 3.3.3)                    
+##  glue           1.1.1      2017-06-21 CRAN (R 3.3.3)                    
+##  graphics     * 3.3.3      2017-03-06 local                             
+##  grDevices    * 3.3.3      2017-03-06 local                             
+##  grid           3.3.3      2017-03-06 local                             
+##  gtable         0.2.0      2016-02-26 CRAN (R 3.3.2)                    
+##  highr          0.6        2016-05-09 CRAN (R 3.3.3)                    
+##  hms            0.3        2016-11-22 CRAN (R 3.3.2)                    
+##  htmltools      0.3.6      2017-04-28 CRAN (R 3.3.3)                    
+##  knitr          1.17       2017-08-10 CRAN (R 3.3.3)                    
+##  labeling       0.3        2014-08-23 CRAN (R 3.3.2)                    
+##  lazyeval       0.2.0      2016-06-12 CRAN (R 3.3.2)                    
+##  magrittr       1.5        2014-11-22 CRAN (R 3.3.2)                    
+##  memoise        1.1.0      2017-04-21 CRAN (R 3.3.3)                    
+##  methods      * 3.3.3      2017-03-06 local                             
+##  munsell        0.4.3      2016-02-13 CRAN (R 3.3.2)                    
+##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
+##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.3.3)                    
+##  plyr           1.8.4      2016-06-08 CRAN (R 3.3.2)                    
+##  purrr          0.2.3      2017-08-02 CRAN (R 3.3.3)                    
+##  R6             2.2.2      2017-06-17 CRAN (R 3.3.3)                    
+##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.3.2)                    
+##  Rcpp           0.12.13    2017-09-28 CRAN (R 3.3.3)                    
+##  readr        * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
+##  rlang          0.1.2      2017-08-09 CRAN (R 3.3.3)                    
+##  rmarkdown      1.6        2017-06-15 CRAN (R 3.3.3)                    
+##  rprojroot      1.2        2017-01-16 CRAN (R 3.3.3)                    
+##  scales         0.5.0      2017-08-24 CRAN (R 3.3.3)                    
+##  stats        * 3.3.3      2017-03-06 local                             
+##  stringi        1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+##  stringr        1.2.0      2017-02-18 CRAN (R 3.3.2)                    
+##  tibble         1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tidyr        * 0.7.1      2017-09-01 CRAN (R 3.3.3)                    
+##  tools          3.3.3      2017-03-06 local                             
+##  utils        * 3.3.3      2017-03-06 local                             
+##  withr          2.0.0      2017-07-28 CRAN (R 3.3.3)                    
+##  yaml           2.1.14     2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -1071,62 +1099,61 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ## 10  Actara d1        10      1 Peciolo     NA
 ## # ... with 2,090 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Com os dados nesse formato fica incrivelmente fácil fazer gráficos, resumos e testes. Vou abordar esses pontos no futuro em outros posts.&lt;/p&gt;
-&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  setting  value                       
-##  version  R version 3.4.0 (2017-04-21)
+##  version  R version 3.3.3 (2017-03-06)
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-09-16                  
+##  date     2017-10-14                  
 ## 
-##  package    * version date       source                          
-##  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                  
-##  backports    1.1.0   2017-05-22 CRAN (R 3.4.0)                  
-##  base       * 3.4.0   2017-04-21 local                           
-##  bindr        0.1     2016-11-13 CRAN (R 3.4.0)                  
-##  bindrcpp     0.2     2017-06-17 CRAN (R 3.4.0)                  
-##  blogdown     0.1     2017-08-22 CRAN (R 3.4.1)                  
-##  bookdown     0.5     2017-08-20 CRAN (R 3.4.1)                  
-##  cellranger   1.1.0   2016-07-27 CRAN (R 3.4.0)                  
-##  compiler     3.4.0   2017-04-21 local                           
-##  curl         2.8.1   2017-07-21 CRAN (R 3.4.1)                  
-##  datasets   * 3.4.0   2017-04-21 local                           
-##  devtools     1.13.3  2017-08-02 CRAN (R 3.4.1)                  
-##  digest       0.6.12  2017-01-27 CRAN (R 3.4.0)                  
-##  dplyr      * 0.7.3   2017-09-09 CRAN (R 3.4.1)                  
-##  evaluate     0.10.1  2017-06-24 CRAN (R 3.4.0)                  
-##  glue         1.1.1   2017-06-21 CRAN (R 3.4.0)                  
-##  graphics   * 3.4.0   2017-04-21 local                           
-##  grDevices  * 3.4.0   2017-04-21 local                           
-##  highr        0.6     2016-05-09 CRAN (R 3.4.0)                  
-##  htmltools    0.3.6   2017-04-28 CRAN (R 3.4.0)                  
-##  httr       * 1.3.1   2017-08-20 CRAN (R 3.4.1)                  
-##  knitr        1.17    2017-08-10 CRAN (R 3.4.1)                  
-##  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                  
-##  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                  
-##  methods    * 3.4.0   2017-04-21 local                           
-##  pacman     * 0.4.6   2017-05-14 CRAN (R 3.4.0)                  
-##  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                  
-##  purrr        0.2.3   2017-08-02 CRAN (R 3.4.1)                  
-##  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                  
-##  Rcpp         0.12.12 2017-07-15 CRAN (R 3.4.1)                  
-##  readxl     * 1.0.0   2017-04-18 CRAN (R 3.4.0)                  
-##  rlang        0.1.2   2017-08-09 CRAN (R 3.4.1)                  
-##  rmarkdown    1.6     2017-06-15 CRAN (R 3.4.0)                  
-##  rprojroot    1.2     2017-01-16 CRAN (R 3.4.0)                  
-##  stats      * 3.4.0   2017-04-21 local                           
-##  stringi      1.1.5   2017-04-07 CRAN (R 3.4.0)                  
-##  stringr      1.2.0   2017-02-18 CRAN (R 3.4.0)                  
-##  tibble       1.3.4   2017-08-22 CRAN (R 3.4.1)                  
-##  tidyr      * 0.7.1   2017-09-01 CRAN (R 3.4.1)                  
-##  tidyselect   0.2.0   2017-08-30 CRAN (R 3.4.1)                  
-##  tools        3.4.0   2017-04-21 local                           
-##  utils      * 3.4.0   2017-04-21 local                           
-##  withr        2.0.0   2017-08-08 Github (jimhester/withr@190d293)
-##  yaml         2.1.14  2016-11-12 CRAN (R 3.4.0)&lt;/code&gt;&lt;/pre&gt;
+##  package    * version date       source        
+##  assertthat   0.2.0   2017-04-11 CRAN (R 3.3.3)
+##  backports    1.1.1   2017-09-25 CRAN (R 3.3.3)
+##  base       * 3.3.3   2017-03-06 local         
+##  bindr        0.1     2016-11-13 CRAN (R 3.3.3)
+##  bindrcpp     0.2     2017-06-17 CRAN (R 3.3.3)
+##  blogdown     0.1     2017-08-22 CRAN (R 3.3.3)
+##  bookdown     0.5     2017-08-20 CRAN (R 3.3.3)
+##  cellranger   1.1.0   2016-07-27 CRAN (R 3.3.3)
+##  curl         2.8.1   2017-07-21 CRAN (R 3.3.3)
+##  datasets   * 3.3.3   2017-03-06 local         
+##  devtools     1.13.3  2017-08-02 CRAN (R 3.3.3)
+##  digest       0.6.12  2017-01-27 CRAN (R 3.3.2)
+##  dplyr      * 0.7.4   2017-09-28 CRAN (R 3.3.3)
+##  evaluate     0.10.1  2017-06-24 CRAN (R 3.3.3)
+##  glue         1.1.1   2017-06-21 CRAN (R 3.3.3)
+##  graphics   * 3.3.3   2017-03-06 local         
+##  grDevices  * 3.3.3   2017-03-06 local         
+##  highr        0.6     2016-05-09 CRAN (R 3.3.3)
+##  htmltools    0.3.6   2017-04-28 CRAN (R 3.3.3)
+##  httr       * 1.3.1   2017-08-20 CRAN (R 3.3.3)
+##  knitr        1.17    2017-08-10 CRAN (R 3.3.3)
+##  magrittr     1.5     2014-11-22 CRAN (R 3.3.2)
+##  memoise      1.1.0   2017-04-21 CRAN (R 3.3.3)
+##  methods    * 3.3.3   2017-03-06 local         
+##  pacman     * 0.4.6   2017-05-14 CRAN (R 3.3.3)
+##  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.3.3)
+##  purrr        0.2.3   2017-08-02 CRAN (R 3.3.3)
+##  R6           2.2.2   2017-06-17 CRAN (R 3.3.3)
+##  Rcpp         0.12.13 2017-09-28 CRAN (R 3.3.3)
+##  readxl     * 1.0.0   2017-04-18 CRAN (R 3.3.3)
+##  rlang        0.1.2   2017-08-09 CRAN (R 3.3.3)
+##  rmarkdown    1.6     2017-06-15 CRAN (R 3.3.3)
+##  rprojroot    1.2     2017-01-16 CRAN (R 3.3.3)
+##  stats      * 3.3.3   2017-03-06 local         
+##  stringi      1.1.5   2017-04-07 CRAN (R 3.3.3)
+##  stringr      1.2.0   2017-02-18 CRAN (R 3.3.2)
+##  tibble       1.3.4   2017-08-22 CRAN (R 3.3.3)
+##  tidyr      * 0.7.1   2017-09-01 CRAN (R 3.3.3)
+##  tidyselect   0.2.0   2017-08-30 CRAN (R 3.3.3)
+##  tools        3.3.3   2017-03-06 local         
+##  utils      * 3.3.3   2017-03-06 local         
+##  withr        2.0.0   2017-07-28 CRAN (R 3.3.3)
+##  yaml         2.1.14  2016-11-12 CRAN (R 3.3.3)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;

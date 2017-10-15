@@ -445,18 +445,18 @@ dados_pv50 &lt;- dados %&gt;%
   mutate(Esp = fct_reorder(Esp, -PV50))
 
 dados_pv50</code></pre>
-<pre><code>## # A tibble: 20 × 5
+<pre><code>## # A tibble: 20 x 5
 ##                    Esp I_meses Parc_m2     PV50    Vol_ha
 ##                 &lt;fctr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-## 1      E_camaldulensis      34     288 21.36325  47.50044
-## 2      E_camaldulensis      46     288 14.26669  79.09417
-## 3      E_camaldulensis      60     600 13.18344 110.06612
-## 4      E_camaldulensis      85     288 12.70684 203.98374
-## 5         E_citriodora      34     288 17.84086  46.56646
-## 6         E_citriodora      46     288 16.43760  84.96252
-## 7         E_citriodora      60     600 12.53474  97.00958
-## 8         E_citriodora      85     288 12.73166 205.04360
-## 9             E_dunnii      34     288 28.58694 103.36725
+##  1     E_camaldulensis      34     288 21.36325  47.50044
+##  2     E_camaldulensis      46     288 14.26669  79.09417
+##  3     E_camaldulensis      60     600 13.18344 110.06612
+##  4     E_camaldulensis      85     288 12.70684 203.98374
+##  5        E_citriodora      34     288 17.84086  46.56646
+##  6        E_citriodora      46     288 16.43760  84.96252
+##  7        E_citriodora      60     600 12.53474  97.00958
+##  8        E_citriodora      85     288 12.73166 205.04360
+##  9            E_dunnii      34     288 28.58694 103.36725
 ## 10            E_dunnii      46     288 29.21288 160.54057
 ## 11            E_dunnii      60     600 27.46026 198.47239
 ## 12            E_dunnii      85     288 26.39616 349.63571
@@ -535,7 +535,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 </p>
 </div>
-<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contactar por Email.</p>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>##  setting  value                       
 ##  version  R version 3.3.3 (2017-03-06)
@@ -544,46 +544,59 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2017-04-30                  
+##  date     2017-10-14                  
 ## 
-##  package      * version date       source                           
-##  assertthat     0.2.0   2017-04-11 CRAN (R 3.3.3)                   
-##  backports      1.0.5   2017-01-18 CRAN (R 3.3.2)                   
-##  blogdown       0.0.25  2017-03-23 Github (rstudio/blogdown@1c10d16)
-##  bookdown       0.3.14  2017-03-23 Github (rstudio/bookdown@f427fdf)
-##  colorspace     1.3-2   2016-12-14 CRAN (R 3.3.2)                   
-##  curl           2.6     2017-04-27 CRAN (R 3.3.3)                   
-##  DBI            0.6-1   2017-04-01 CRAN (R 3.3.3)                   
-##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.3)                   
-##  digest         0.6.12  2017-01-27 CRAN (R 3.3.2)                   
-##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.2)                   
-##  evaluate       0.10    2016-10-11 CRAN (R 3.3.3)                   
-##  forcats      * 0.2.0   2017-01-23 CRAN (R 3.3.2)                   
-##  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.3.2)                   
-##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.2)                   
-##  highr          0.6     2016-05-09 CRAN (R 3.3.3)                   
-##  hms            0.3     2016-11-22 CRAN (R 3.3.2)                   
-##  htmltools      0.3.6   2017-04-28 CRAN (R 3.3.3)                   
-##  knitr          1.15.1  2016-11-22 CRAN (R 3.3.3)                   
-##  labeling       0.3     2014-08-23 CRAN (R 3.3.2)                   
-##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.2)                   
-##  magrittr       1.5     2014-11-22 CRAN (R 3.3.2)                   
-##  memoise        1.1.0   2017-04-21 CRAN (R 3.3.3)                   
-##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.2)                   
-##  pacman       * 0.4.1   2016-03-30 CRAN (R 3.3.3)                   
-##  plyr           1.8.4   2016-06-08 CRAN (R 3.3.2)                   
-##  R6             2.2.0   2016-10-05 CRAN (R 3.3.2)                   
-##  RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.3.2)                   
-##  Rcpp           0.12.10 2017-03-19 CRAN (R 3.3.3)                   
-##  readr        * 1.1.0   2017-03-22 CRAN (R 3.3.3)                   
-##  rmarkdown      1.5     2017-04-26 CRAN (R 3.3.3)                   
-##  rprojroot      1.2     2017-01-16 CRAN (R 3.3.3)                   
-##  scales         0.4.1   2016-11-09 CRAN (R 3.3.2)                   
-##  stringi        1.1.5   2017-04-07 CRAN (R 3.3.3)                   
-##  stringr        1.2.0   2017-02-18 CRAN (R 3.3.2)                   
-##  tibble         1.3.0   2017-04-01 CRAN (R 3.3.3)                   
-##  withr          1.0.2   2016-06-20 CRAN (R 3.3.3)                   
-##  yaml           2.1.14  2016-11-12 CRAN (R 3.3.3)</code></pre>
+##  package      * version    date       source                            
+##  assertthat     0.2.0      2017-04-11 CRAN (R 3.3.3)                    
+##  backports      1.1.1      2017-09-25 CRAN (R 3.3.3)                    
+##  base         * 3.3.3      2017-03-06 local                             
+##  bindr          0.1        2016-11-13 CRAN (R 3.3.3)                    
+##  bindrcpp     * 0.2        2017-06-17 CRAN (R 3.3.3)                    
+##  blogdown       0.1        2017-08-22 CRAN (R 3.3.3)                    
+##  bookdown       0.5        2017-08-20 CRAN (R 3.3.3)                    
+##  colorspace     1.3-2      2016-12-14 CRAN (R 3.3.2)                    
+##  curl           2.8.1      2017-07-21 CRAN (R 3.3.3)                    
+##  datasets     * 3.3.3      2017-03-06 local                             
+##  devtools       1.13.3     2017-08-02 CRAN (R 3.3.3)                    
+##  digest         0.6.12     2017-01-27 CRAN (R 3.3.2)                    
+##  dplyr        * 0.7.4      2017-09-28 CRAN (R 3.3.3)                    
+##  evaluate       0.10.1     2017-06-24 CRAN (R 3.3.3)                    
+##  forcats      * 0.2.0      2017-01-23 CRAN (R 3.3.2)                    
+##  ggplot2      * 2.2.1.9000 2017-07-15 Github (tidyverse/ggplot2@45853c7)
+##  glue           1.1.1      2017-06-21 CRAN (R 3.3.3)                    
+##  graphics     * 3.3.3      2017-03-06 local                             
+##  grDevices    * 3.3.3      2017-03-06 local                             
+##  grid           3.3.3      2017-03-06 local                             
+##  gtable         0.2.0      2016-02-26 CRAN (R 3.3.2)                    
+##  highr          0.6        2016-05-09 CRAN (R 3.3.3)                    
+##  hms            0.3        2016-11-22 CRAN (R 3.3.2)                    
+##  htmltools      0.3.6      2017-04-28 CRAN (R 3.3.3)                    
+##  knitr          1.17       2017-08-10 CRAN (R 3.3.3)                    
+##  labeling       0.3        2014-08-23 CRAN (R 3.3.2)                    
+##  lazyeval       0.2.0      2016-06-12 CRAN (R 3.3.2)                    
+##  magrittr       1.5        2014-11-22 CRAN (R 3.3.2)                    
+##  memoise        1.1.0      2017-04-21 CRAN (R 3.3.3)                    
+##  methods      * 3.3.3      2017-03-06 local                             
+##  munsell        0.4.3      2016-02-13 CRAN (R 3.3.2)                    
+##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.3.3)                    
+##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.3.3)                    
+##  plyr           1.8.4      2016-06-08 CRAN (R 3.3.2)                    
+##  R6             2.2.2      2017-06-17 CRAN (R 3.3.3)                    
+##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.3.2)                    
+##  Rcpp           0.12.13    2017-09-28 CRAN (R 3.3.3)                    
+##  readr        * 1.1.1      2017-05-16 CRAN (R 3.3.3)                    
+##  rlang          0.1.2      2017-08-09 CRAN (R 3.3.3)                    
+##  rmarkdown      1.6        2017-06-15 CRAN (R 3.3.3)                    
+##  rprojroot      1.2        2017-01-16 CRAN (R 3.3.3)                    
+##  scales         0.5.0      2017-08-24 CRAN (R 3.3.3)                    
+##  stats        * 3.3.3      2017-03-06 local                             
+##  stringi        1.1.5      2017-04-07 CRAN (R 3.3.3)                    
+##  stringr        1.2.0      2017-02-18 CRAN (R 3.3.2)                    
+##  tibble         1.3.4      2017-08-22 CRAN (R 3.3.3)                    
+##  tools          3.3.3      2017-03-06 local                             
+##  utils        * 3.3.3      2017-03-06 local                             
+##  withr          2.0.0      2017-07-28 CRAN (R 3.3.3)                    
+##  yaml           2.1.14     2016-11-12 CRAN (R 3.3.3)</code></pre>
 <div id="referencias" class="section level1 unnumbered">
 <h1>Referências</h1>
 <div id="refs" class="references">
@@ -848,6 +861,24 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="/100-anos-do-posto-meteorologico-da-esalq/">
+                <h3 class="media-heading">100 anos do posto meteorológico da ESALQ</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="/engenheiro-florestal-ou-cientista-de-dados/">
                 <h3 class="media-heading">Engenheiro Florestal ou Cientista de Dados?</h3>
               </a>
@@ -1004,24 +1035,6 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/analise-de-componentes-principais/">
-                <h3 class="media-heading">Análise de componentes principais</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Aug 8, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do INMET.
-No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1029,7 +1042,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         18 posts found
+         19 posts found
       </p>
     </div>
   </div>
