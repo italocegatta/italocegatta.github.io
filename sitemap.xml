@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>/100-anos-do-posto-meteorologico-da-esalq/</loc>
@@ -103,6 +104,11 @@
   </url>
   
   <url>
+    <loc>/archives/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/brmap/</loc>
     <lastmod>2017-07-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -152,6 +158,11 @@
   <url>
     <loc>/tags/geofacet/</loc>
     <lastmod>2017-07-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/geosphere/</loc>
     <priority>0</priority>
   </url>
   
@@ -258,6 +269,10 @@
   </url>
   
   <url>
+    <loc>/qual-estado-tem-mais-pau-rodado/</loc>
+  </url>
+  
+  <url>
     <loc>/categories/r/</loc>
     <lastmod>2016-04-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -307,6 +322,7 @@
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
