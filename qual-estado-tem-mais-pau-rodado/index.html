@@ -265,7 +265,7 @@ ga('send', 'pageview');
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
 pacman::p_load(readr, dplyr, tidyr, forcats, sf, geosphere, brmap, ggplot2, ggrepel, geofacet, ggthemes)
 pacman::p_load_gh(&quot;italocegatta/brmap&quot;)</code></pre>
-<p>Os dados originais estão disponíveis neste <a href="https://sidra.ibge.gov.br/tabela/1852">link</a>, fiz apenas adequações porque o IBGE insiste em mesclar células nas tabelas disponibilizadas. Já nesta tabela você consegue olha para Estado que você mora e analisar quanto dos residentes nasceram em outros Estados. Mas o objetivo é enxergar isso de forma gráfica para ampliar a percepção dos dados.</p>
+<p>Os dados originais estão disponíveis neste <a href="https://sidra.ibge.gov.br/tabela/1852">link</a>, fiz apenas adequações porque o IBGE insiste em mesclar células nas tabelas disponibilizadas. Já nesta tabela você consegue olhar para o Estado que você mora e analisar quanto dos residentes nasceram em outros Estados. Mas o objetivo é enxergar isso de forma gráfica para ampliar a percepção dos dados.</p>
 <pre class="r"><code>base &lt;- read_csv2(&quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/pnad_2015_migracao.csv&quot;)
 
 base</code></pre>
@@ -290,7 +290,7 @@ base</code></pre>
 ## #   Sul` &lt;dbl&gt;, `Mato Grosso do Sul` &lt;dbl&gt;, `Mato Grosso` &lt;dbl&gt;,
 ## #   Goiás &lt;dbl&gt;, `Distrito Federal` &lt;dbl&gt;</code></pre>
 <p>Dados longitudinais como estes ajudam humanos a enxergar os valores de forma mais fácil, mas do ponto de vista de processamento de dados, não dá pra fazer muita coisa com os dados assim. Vamos organizá-los seguindo a filosofia do <a href="https://italocegatta.github.io/o-conceito-tidy-data">Tidy data</a>.</p>
-<p>A nova tabela nos informa a porcentagem da população residente (coluna ‘valor’) para cada Estado subdividindo os valores por local de nascimento. E agora vai a primeira simplificação: foram selecionados apenas os 6 Estados de nascimento mais representativos para cada Estado de residência.</p>
+<p>A nova tabela nos informa a porcentagem da população residente (coluna ‘valor’) para cada Estado, subdividindo os valores por local de nascimento. E agora vai a primeira simplificação: foram selecionados apenas os 6 Estados de nascimento mais representativos para cada Estado de residência.</p>
 <pre class="r"><code>df &lt;- base %&gt;% 
   gather(reside, valor, -Estado) %&gt;%
   select(nasce = Estado, reside, valor) %&gt;% 
@@ -431,7 +431,7 @@ fluxo_poligono</code></pre>
 ## 10 Ceará            Ceará    95.8   ((-40.49717 -2.784509, -40.49173 -2.7~
 ## # ... with 26 more rows</code></pre>
 <p>Pronto, já temos todos os dados que fazer o gráfico de interesse. Lembrando que optamos por dar destaque a 6 Estados e para cada um deles, os 6 Estados de nascimento que mais representam a população de residentes. Sim, é um tanto complexo. Eu fiquei algumas horas para poder criar o código e entender o que estava processando.</p>
-<p>Como exemplo vamos interpretar as informações de Roraima: de todos os residentes, 55.6% nasceram no próprio Estado de Roraima; 5.2%, 6.5% e 19% nasceram no Amazonas, Pará e Maranhão, respectivamente.</p>
+<p>Como exemplo vamos interpretar as informações de Roraima: do total de residentes, 55.6% nasceram no próprio Estado de Roraima; 5.2%, 6.5% e 19% nasceram no Amazonas, Pará e Maranhão, respectivamente.</p>
 <pre class="r"><code>ggplot() +
   geom_sf(data = brmap_estado, color = &quot;grey80&quot;, fill = &quot;grey95&quot;, size = 0.3) +
   geom_sf(data = fluxo_poligono, aes(fill = valor), color = &quot;grey80&quot;, size = 0.3) +
@@ -466,7 +466,7 @@ fluxo_poligono</code></pre>
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-03-25                  
 ## 
 ##  package     * version    date       source                             
 ##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.3)                     
