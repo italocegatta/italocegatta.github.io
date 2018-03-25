@@ -2,10 +2,6 @@ library(tidyverse)
 library(ggridges)
 library(lubridate)
 
-ppt <- head(dados, n = 20)$ppt
-ur <-  head(dados, n = 20)$ur13
-fma[1] <- 0
-
 fma <- function(ur, ppt) {
   n <- length(ur)
   fma <- rep(NA_real_, n)
@@ -24,7 +20,7 @@ fma <- function(ur, ppt) {
     
     fma[i] <- case_when(
       ppt[i] < 2.5 ~ (100 / ur[i]) + fma[i - 1] * 1 ,
-      ppt[i] >= 2.5 & ppt[i] < 5 ~ (100 / ur[i]) + fma[i - 1] * 0.7,
+      ppt[i] >= 2.5 & ppt[i] < 5  ~ (100 / ur[i]) + fma[i - 1] * 0.7,
       ppt[i] >= 5   & ppt[i] < 10 ~ (100 / ur[i]) + fma[i - 1] * 0.4,
       ppt[i] >= 10  & ppt[i] < 13 ~ (100 / ur[i]) + fma[i - 1] * 0.2,
       ppt[i] >= 13 ~ 0
@@ -33,26 +29,6 @@ fma <- function(ur, ppt) {
   
   fma
 }
-
-teste <- function(x, y) {
-  x0 <- lag(x)
-  y0 <- lag(y)
-  
-  z[1] <- 0
-  
-  z <- case_when(
-    x < 2.5 ~ (100 / y) + fma[i - 1] * 1 ,
-    ppt[i] >= 2.5 & ppt[i] < 5 ~ (100 / ur[i]) + fma[i - 1] * 0.7,
-    ppt[i] >= 5   & ppt[i] < 10 ~ (100 / ur[i]) + fma[i - 1] * 0.4,
-    ppt[i] >= 10  & ppt[i] < 13 ~ (100 / ur[i]) + fma[i - 1] * 0.2,
-    ppt[i] >= 13 ~ 0
-  )
-  
-  
-}
-
-
-
 
 fma_classe <- function(fma) {
   case_when(
@@ -64,14 +40,11 @@ fma_classe <- function(fma) {
   )
 }
 
-fma2 <- function(ur, ppt) {
-  
-}
-
 dados <- read_csv2(
   "https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/clima_pira.csv",
   col_types = cols(data = col_date(format = "%d/%m/%Y"))
-)
+  ) %>% 
+  filter(!is.na(data))
 
 dados
 
@@ -94,6 +67,11 @@ dados_fma %>%
   geom_density_ridges() +
   theme_bw()
 
+dados_fma %>% 
+  ggplot(aes(fma, factor(ano))) +
+  geom_density_ridges() +
+  theme_bw()
+
 dados_fma %>%
   mutate(
     ano = year(data),
@@ -110,5 +88,28 @@ dados_fma %>%
   ) %>% 
   ggplot(aes(doy, factor(ano), fill = fma)) +
   geom_tile() +
-  scale_fill_distiller(palette = "GnBu", direction = 1) +
+  scale_fill_distiller(palette = "Oranges", direction = 1) +
+  theme_bw()
+
+dados_fma %>%
+  mutate(
+    ano = year(data),
+    doy = yday(data),
+    doy_data = as.Date("1999-12-31") + days(doy)
+  ) %>% 
+  ggplot(aes(doy, factor(ano), fill = fma)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  theme_bw()
+
+dados_fma %>%
+  mutate(
+    ano = year(data),
+    doy = yday(data),
+    doy_data = as.Date("1999-12-31") + days(doy)
+  ) %>% 
+  ggplot(aes(doy_data, factor(ano), fill = classe)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "RdYlGn", direction = -1) +
+  scale_x_date(date_labels = "%B") +
   theme_bw()
