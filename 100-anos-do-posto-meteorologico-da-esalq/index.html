@@ -24,7 +24,7 @@
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
 
-    <link rel="icon" href="../favicon.png">
+    <link rel="icon" href="/favicon.png">
     
 
     
@@ -66,7 +66,7 @@ No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separe
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
     
-    <link rel="stylesheet" href="../css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
     
     
 
@@ -91,12 +91,12 @@ ga('send', 'pageview');
       <header id="header" data-behavior="5">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="../">Ítalo Cegatta</a>
+    <a class="header-title-link" href="/">Ítalo Cegatta</a>
   </div>
   
     
       <a class="header-right-picture "
-         href="../#about">
+         href="/#about">
     
     
     
@@ -112,7 +112,7 @@ ga('send', 'pageview');
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
-        <a href="../#about">
+        <a href="/#about">
           <img class="sidebar-profile-picture" src="http://i.imgur.com/9MOS3vs.png" alt="Foto do autor" />
         </a>
         <h4 class="sidebar-profile-name">Ítalo Cegatta</h4>
@@ -125,7 +125,7 @@ ga('send', 'pageview');
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../">
+      <a class="sidebar-button-link " href="/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -135,7 +135,7 @@ ga('send', 'pageview');
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../categories">
+      <a class="sidebar-button-link " href="/categories">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
@@ -145,7 +145,7 @@ ga('send', 'pageview');
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../sobre">
+      <a class="sidebar-button-link " href="/sobre">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
       
@@ -155,7 +155,7 @@ ga('send', 'pageview');
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../mailto:italocegatta@gmail.com">
+      <a class="sidebar-button-link " href="/mailto:italocegatta@gmail.com">
     
       <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
       
@@ -193,7 +193,7 @@ ga('send', 'pageview');
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="../index.xml">
+      <a class="sidebar-button-link " href="/index.xml">
     
       <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
       
@@ -248,7 +248,7 @@ ga('send', 'pageview');
   
     <span>em</span>
     
-      <a class="category-link" href="../categories/graficos">Gráficos</a>
+      <a class="category-link" href="/categories/graficos">Gráficos</a>
     
   
 
@@ -299,7 +299,7 @@ clima</code></pre>
   scale_x_continuous(breaks = seq(0,700, 30)) +
   scale_y_discrete(labels = format(ISOdate(2000, 12:1, 1), &quot;%b&quot;)) +
   theme_few()</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-3-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-3-1.png" width="4800" /></p>
 <p>E qual a década que mais choveu? Como variou a chuva anual ao longo desses 100 anos? Primeiro precisamos calcular quanto choveu em cada década. Em seguida vamos calcular quanto choveu em cada ano e juntar as duas informações. No gráfico abaixo, representei a média da década numa linha de tendência suavizada. Notem que a seca de 2014 Não foi a maior do século, houveram outros 4 anos mais secos desde de 1917.</p>
 <pre class="r"><code>prec_decada &lt;- clima %&gt;% 
   group_by(decada, ano) %&gt;% 
@@ -324,7 +324,7 @@ clima %&gt;%
     ) +
     scale_x_continuous(breaks = seq(1917, 2017, 10)) +
     theme_bw()</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-4-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-4-1.png" width="4800" /></p>
 <p>Passando para a temperatura média, podemos construir um painel com a densidade de probabilidade para valores que variam entre 12,5 a 27,7 (amplitude dos dados).</p>
 <pre class="r"><code>ggplot(clima, aes(t_med)) +
   geom_density() +
@@ -334,7 +334,7 @@ clima %&gt;%
     y = &quot;Densidade&quot;
   ) +
   theme_few(base_size = 9)</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-5-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-5-1.png" width="4800" /></p>
 <p>Considerando as décadas, podemos fazer um gráfico um pouco mais simples para facilitar a visualização. Agora, cada década tem sua distribuição de probabilidade. Aparentemente, a calda da direita está se deslocando para maiores temperaturas.</p>
 <pre class="r"><code>ggplot(clima, aes(t_med, factor(decada), fill = ..x..)) +
   geom_density_ridges_gradient(show.legend = FALSE, color = &quot;white&quot;) +
@@ -344,7 +344,7 @@ clima %&gt;%
   ) +
   scale_fill_viridis_c() +
   theme_few(base_size = 9)</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-6-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-6-1.png" width="4800" /></p>
 <p>E quanto a variação da temperatura nos meses do ano? Quanto podemos esperar de frio ou calor em cada mês?</p>
 <pre class="r"><code>clima %&gt;% 
   mutate(mes = month(data)) %&gt;% 
@@ -358,7 +358,7 @@ clima %&gt;%
   scale_x_continuous(breaks = seq(0,40, 4)) +
   scale_y_discrete(labels = format(ISOdate(2000, 12:1, 1), &quot;%b&quot;)) +
   theme_few()</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-7-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-7-1.png" width="4800" /></p>
 <p>Podemos também visualizar a amplitude da temperatura máxima e mínima ao longo dos anos.</p>
 <pre class="r"><code>ggplot(clima, aes(month(data))) +
   geom_ribbon(aes(ymax = t_max, ymin = t_min)) +
@@ -372,7 +372,7 @@ clima %&gt;%
     labels = format(ISOdate(2000, seq(1, 12, 2), 1), &quot;%b&quot;)
   ) +
   theme_few(10)</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-8-1.png" width="5200" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-8-1.png" width="5200" /></p>
 <p>Para finalizar, vamos calcular a média móvel de 30 anos para a temperatura média. Sem dúvida, dos anos 90 pra cá a temperatura média só vem subindo. A minha grande dúvida é: como será que a produção de alimentos e biomassa vai se comportar com essa mudança de clima? Será um grande desafio para a nossa geração, sem dúvida.</p>
 <pre class="r"><code>clima_normal &lt;- clima %&gt;%
   filter(!is.na(t_med)) %&gt;% 
@@ -391,7 +391,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
   ) +
   scale_y_reverse(breaks = seq(1940, 2017, by = 5)) +
   theme_bw()</code></pre>
-<p><img src="../post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-9-1.png" width="4800" /></p>
+<p><img src="/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-9-1.png" width="4800" /></p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>##  setting  value                       
@@ -474,19 +474,19 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">ETIQUETADO em</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="../tags/dplyr/">dplyr</a>
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/rcpproll/">RcppRoll</a>
+  <a class="tag tag--primary tag--small" href="/tags/rcpproll/">RcppRoll</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/lubridate/">lubridate</a>
+  <a class="tag tag--primary tag--small" href="/tags/lubridate/">lubridate</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/stringr/">stringr</a>
+  <a class="tag tag--primary tag--small" href="/tags/stringr/">stringr</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/ggplot2/">ggplot2</a>
+  <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/ggridges/">ggridges</a>
+  <a class="tag tag--primary tag--small" href="/tags/ggridges/">ggridges</a>
 
-  <a class="tag tag--primary tag--small" href="../tags/ggthemes/">ggthemes</a>
+  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
 
                   </div>
                 
@@ -499,7 +499,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/qual-estado-tem-mais-pau-rodado/" data-tooltip="Qual Estado tem mais pau-rodado?">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">PRÓXIMO</span>
@@ -507,7 +507,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="../engenheiro-florestal-ou-cientista-de-dados/" data-tooltip="Engenheiro Florestal ou Cientista de Dados?">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/engenheiro-florestal-ou-cientista-de-dados/" data-tooltip="Engenheiro Florestal ou Cientista de Dados?">
               
                   <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
                   <i class="fa fa-angle-right"></i>
@@ -544,12 +544,6 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
         
       
       
-        <li class="post-action">
-          <a class="post-action-btn btn btn--default" href="#disqus_thread">
-            <i class="fa fa-comment-o"></i>
-          </a>
-        </li>
-      
       <li class="post-action">
         
           <a class="post-action-btn btn btn--default" href="#">
@@ -562,10 +556,6 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
 
 
             
-              
-                <div id="disqus_thread">
-  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
               
             
           </div>
@@ -585,7 +575,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/qual-estado-tem-mais-pau-rodado/" data-tooltip="Qual Estado tem mais pau-rodado?">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">PRÓXIMO</span>
@@ -593,7 +583,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="../engenheiro-florestal-ou-cientista-de-dados/" data-tooltip="Engenheiro Florestal ou Cientista de Dados?">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/engenheiro-florestal-ou-cientista-de-dados/" data-tooltip="Engenheiro Florestal ou Cientista de Dados?">
               
                   <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
                   <i class="fa fa-angle-right"></i>
@@ -629,12 +619,6 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
           </li>
         
       
-      
-        <li class="post-action">
-          <a class="post-action-btn btn btn--default" href="#disqus_thread">
-            <i class="fa fa-comment-o"></i>
-          </a>
-        </li>
       
       <li class="post-action">
         
@@ -691,7 +675,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
       <div id="about-card-job">
         <i class="fa fa-briefcase"></i>
         <br/>
-        Suzano Papel e celulose
+        Suzano Papel e Celulose
       </div>
     
     
@@ -726,7 +710,25 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../100-anos-do-posto-meteorologico-da-esalq/">
+              <a class="link-unstyled" href="/qual-estado-tem-mais-pau-rodado/">
+                <h3 class="media-heading">Qual Estado tem mais pau-rodado?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Em Cuiabá, cidade que nasci e cresci, pau-rodado é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada e sem qualquer sentido pejorativo.
+Muito bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre Estados e assim encontrar os Estados que tem mais e menos pau-rodado em sua população residente.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/100-anos-do-posto-meteorologico-da-esalq/">
                 <h3 class="media-heading">100 anos do posto meteorológico da ESALQ</h3>
               </a>
               <span class="media-meta">
@@ -744,7 +746,7 @@ No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separe
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../engenheiro-florestal-ou-cientista-de-dados/">
+              <a class="link-unstyled" href="/engenheiro-florestal-ou-cientista-de-dados/">
                 <h3 class="media-heading">Engenheiro Florestal ou Cientista de Dados?</h3>
               </a>
               <span class="media-meta">
@@ -762,7 +764,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/">
+              <a class="link-unstyled" href="/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/">
                 <h3 class="media-heading">Como um cientista de dados pesquisa o carro que quer comprar?</h3>
               </a>
               <span class="media-meta">
@@ -779,7 +781,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../graficos-com-dimensao-espacial-e-temporal/">
+              <a class="link-unstyled" href="/graficos-com-dimensao-espacial-e-temporal/">
                 <h3 class="media-heading">Gráficos com dimensão espacial e temporal</h3>
               </a>
               <span class="media-meta">
@@ -796,7 +798,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
+              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
                 <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
               </a>
               <span class="media-meta">
@@ -813,7 +815,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../interpolacao-pelo-inverso-do-quadrado-da-distancia/">
+              <a class="link-unstyled" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/">
                 <h3 class="media-heading">Interpolação pelo inverso do quadrado da distância</h3>
               </a>
               <span class="media-meta">
@@ -831,7 +833,7 @@ Primeiro, vamos importar e visualizar os dados que temos disponível.</div>
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../download-automatico-de-imagens-modis/">
+              <a class="link-unstyled" href="/download-automatico-de-imagens-modis/">
                 <h3 class="media-heading">Download automático de imagens MODIS</h3>
               </a>
               <span class="media-meta">
@@ -849,7 +851,7 @@ O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do p
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../indice-de-uniformidade-pv50/">
+              <a class="link-unstyled" href="/indice-de-uniformidade-pv50/">
                 <h3 class="media-heading">Índice de uniformidade (PV50)</h3>
               </a>
               <span class="media-meta">
@@ -867,7 +869,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="../anova-e-teste-de-tukey/">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
                 <h3 class="media-heading">ANOVA e teste de Tukey</h3>
               </a>
               <span class="media-meta">
@@ -877,24 +879,6 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
               </span>
               <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
 Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="../ajuste-de-um-modelo-linear-para-varios-fatores/">
-                <h3 class="media-heading">Ajuste de um modelo linear para vários fatores</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Aug 8, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.
-Mas felizmente existe uma máxima muito interessante entre programadores que é:</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -927,7 +911,7 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
 
 
-<script src="../js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
 
 
 
@@ -945,28 +929,6 @@ $(document).ready(function() {
 
 
   
-    
-      <script>
-        var disqus_config = function () {
-          this.page.url = '\/100-anos-do-posto-meteorologico-da-esalq\/';
-          
-            this.page.identifier = '\/100-anos-do-posto-meteorologico-da-esalq\/'
-          
-        };
-        (function() {
-          
-          
-          if (window.location.hostname == "localhost") {
-            return;
-          }
-          var d = document, s = d.createElement('script');
-          var disqus_shortname = 'italocegatta';
-          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      </script>
     
   
 

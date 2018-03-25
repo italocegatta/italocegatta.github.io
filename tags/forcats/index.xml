@@ -6,10 +6,20 @@
     <description>Recent content in Forcats on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 29 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/forcats/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Qual Estado tem mais pau-rodado?</title>
+      <link>/qual-estado-tem-mais-pau-rodado/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/qual-estado-tem-mais-pau-rodado/</guid>
+      <description>Em Cuiabá, cidade que nasci e cresci, pau-rodado é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada e sem qualquer sentido pejorativo.
+Muito bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre Estados e assim encontrar os Estados que tem mais e menos pau-rodado em sua população residente.</description>
+    </item>
     
     <item>
       <title>Como um cientista de dados pesquisa o carro que quer comprar?</title>
@@ -28,16 +38,6 @@
       <guid>/indice-de-uniformidade-pv50/</guid>
       <description>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
 O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</description>
-    </item>
-    
-    <item>
-      <title>Qual estado tem mais pau-rodado?</title>
-      <link>/qual-estado-tem-mais-pau-rodado/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/qual-estado-tem-mais-pau-rodado/</guid>
-      <description>Em Cuiabá, cidade que em que nasci e cresci, pau-rodado é subistantivo que define passoas que nasceram em outro estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada sem qualquer sentido pejorativo.
-Mutio bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre estados.</description>
     </item>
     
   </channel>

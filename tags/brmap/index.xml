@@ -6,10 +6,20 @@
     <description>Recent content in Brmap on Ítalo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 08 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/brmap/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Qual Estado tem mais pau-rodado?</title>
+      <link>/qual-estado-tem-mais-pau-rodado/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/qual-estado-tem-mais-pau-rodado/</guid>
+      <description>Em Cuiabá, cidade que nasci e cresci, pau-rodado é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada e sem qualquer sentido pejorativo.
+Muito bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre Estados e assim encontrar os Estados que tem mais e menos pau-rodado em sua população residente.</description>
+    </item>
     
     <item>
       <title>Gráficos com dimensão espacial e temporal</title>
@@ -27,16 +37,6 @@
       
       <guid>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</guid>
       <description>Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</description>
-    </item>
-    
-    <item>
-      <title>Qual estado tem mais pau-rodado?</title>
-      <link>/qual-estado-tem-mais-pau-rodado/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/qual-estado-tem-mais-pau-rodado/</guid>
-      <description>Em Cuiabá, cidade que em que nasci e cresci, pau-rodado é subistantivo que define passoas que nasceram em outro estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada sem qualquer sentido pejorativo.
-Mutio bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre estados.</description>
     </item>
     
   </channel>
