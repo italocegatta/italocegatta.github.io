@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/risco-de-incendio-pela-formula-de-monte-alegre/</loc>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/qual-estado-tem-mais-pau-rodado/</loc>
     <lastmod>2018-03-24T00:00:00+00:00</lastmod>
   </url>
@@ -144,7 +149,7 @@
   
   <url>
     <loc>/tags/dplyr/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,7 +161,7 @@
   
   <url>
     <loc>/tags/forcats/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -186,7 +191,7 @@
   
   <url>
     <loc>/tags/ggplot2/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -198,7 +203,7 @@
   
   <url>
     <loc>/tags/ggridges/</loc>
-    <lastmod>2017-10-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -234,7 +239,7 @@
   
   <url>
     <loc>/tags/lubridate/</loc>
-    <lastmod>2017-10-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -258,7 +263,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -288,13 +293,19 @@
   
   <url>
     <loc>/tags/readr/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/readxl/</loc>
     <lastmod>2016-07-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/risco-de-incendio/</loc>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -336,7 +347,7 @@
   
   <url>
     <loc>/tags/tidyr/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -360,7 +371,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

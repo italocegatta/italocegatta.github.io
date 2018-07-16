@@ -2,7 +2,27 @@ library(tidyverse)
 library(ggridges)
 library(lubridate)
 
-fma <- function(ur, ppt) {
+
+
+dados_fma  %>% 
+  filter(!is.na(risco)) %>% 
+  group_by(ano = year(data), risco) %>% 
+  tally() %>% 
+  ggplot(aes(ano, n, fill = risco)) +
+  geom_col(position = "fill", alpha = 0.8, show.legend = FALSE) +
+  labs(x = "Ano", y = "Frequência", fill = "Risco") +
+  scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent) +
+  scale_fill_brewer(palette = "Spectral", direction = -1) +
+  theme_void() +
+  ggsave("fma.png", width = 10, height = 6)
+
+
+fma <- function(data, ur, ppt) {
+  
+  if (any(data != sort(data))) {
+    stop("data precisa estar em ordem crescente")
+  }
+  
   n <- length(ur)
   fma <- rep(NA_real_, n)
   
@@ -30,15 +50,18 @@ fma <- function(ur, ppt) {
   fma
 }
 
-fma_classe <- function(fma) {
+fma_classe <- function(fma, limites = c(1, 3, 8, 20)) {
   case_when(
-    fma <= 1 ~ 1,
-    fma > 1 & fma <= 3 ~ 2,
-    fma > 3 & fma <= 8 ~ 3,
-    fma > 8 & fma <= 20 ~ 4,
-    fma > 20 ~ 5
+    fma <= 1 ~ "1",
+    fma > 1 & fma <= 3 ~"2",
+    fma > 3 & fma <= 8 ~ "3",
+    fma > 8 & fma <= 20 ~ "4",
+    fma > 20 ~ "5"
   )
 }
+
+x$ppt %>% fma_classe()
+
 
 dados <- read_csv2(
   "https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/clima_pira.csv",
@@ -46,11 +69,18 @@ dados <- read_csv2(
   ) %>% 
   filter(!is.na(data))
 
-dados
+
+x <- dados %>% head()
+
+any(x$data[c(1, 2, 4, 3, 5, 6)] != sort(x$data))
+any(x$data != sort(x$data))
+
+sum(dados$data != sort(dados$data))
 
 dados_fma <- dados %>% 
+  arrange(ppt) %>% 
   mutate(
-    fma = fma(ur13, ppt),
+    fma = fma(data, ur13, ppt),
     classe = fma_classe(fma),
     ano = year(data),
     mes = month(data)
@@ -58,11 +88,23 @@ dados_fma <- dados %>%
 
 
 dados_fma  %>% 
-  ggplot(aes(data, classe)) +
-    geom_col() +
-    coord_polar()
+  group_by(ano_mes = floor_date(data, "year"), classe) %>% 
+  tally() %>% 
+  ggplot(aes(n, fill = classe)) +
+    geom_bar(position = "fill") +
+    coord_polar() +
+    scale_fill_brewer(palette = "Spectral") 
 
-dados_fma %>% 
+dados_fma  %>% 
+  group_by(ano_mes = floor_date(data, "year"), classe) %>% 
+  tally() %>% 
+  ggplot(aes(ano_mes, n, fill = classe)) +
+  geom_col(position = "fill") +
+  coord_polar(theta = "y")+
+  scale_fill_brewer(palette = "Spectral") 
+
+
+geom_col()dados_fma %>% 
   ggplot(aes(fma, factor(mes))) +
   geom_density_ridges() +
   theme_bw()
