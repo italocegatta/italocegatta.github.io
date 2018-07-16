@@ -28,9 +28,9 @@
     
 
     
-    <meta name="description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e alerta de quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
+    <meta name="description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.">
-    <meta property="og:description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e alerta de quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
+    <meta property="og:description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Risco de incêndio pela Fórmula de Monte Alegre">
@@ -38,7 +38,7 @@ A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e alerta de quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
+    <meta name="twitter:description" content="No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.">
     
     
@@ -278,12 +278,11 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e alerta de quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.</p>
+              <p>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.</p>
 <p>A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por <span class="citation">Soares (1972)</span> e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio. É um índice que possui 5 classes de risco e é cumulativo, portanto precisa ser calculado todos os dias.</p>
 <p>O objetivo deste post é implementar a FMA utilizando dados de 1988 à 2017 da estação meteorológica convencional da <a href="http://www.esalq.usp.br/departamentos/leb/postocon.html">ESALQ em Piracicaba</a>.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, tidyr, forcats, lubridate, ggplot2, ggridges)
-pacman::p_load_gh(&quot;italocegatta/brmap&quot;)</code></pre>
+pacman::p_load(readr, dplyr, tidyr, forcats, lubridate, ggplot2, ggridges)</code></pre>
 <pre class="r"><code>base &lt;- read_csv2(
   &quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/posto_esalq_dia.csv&quot;,
   col_types = cols(.default = col_number(), data = col_character())
@@ -514,7 +513,7 @@ dados_fma</code></pre>
 ##  9 1988-01-09  17.1  61.3  0    Nulo   
 ## 10 1988-01-10   7.8  61.3  1.63 Pequeno
 ## # ... with 10,951 more rows</code></pre>
-<p>A primeira abordagem que quero mostrar é a evolução do valor FMA ao longo do ano. Considerando o dia juliano (dia do ano), podemos ver a evolução do valor FMA devido a ausência de chuvas fortes. O máximo dessa “corrida” de risco vai até próximo do dia 290, que corresponde ao meio de outubro.</p>
+<p>A primeira abordagem que quero mostrar é a evolução do valor FMA ao longo do ano. Considerando o dia do ano ou dia juliano, podemos ver a evolução do valor FMA devido a ausência de chuvas fortes. O máximo dessa “corrida” de risco vai até próximo do dia 290, que corresponde ao meio de outubro.</p>
 <pre class="r"><code>dados_fma %&gt;% 
   mutate(
     ano = year(data),
@@ -553,6 +552,7 @@ dados_fma</code></pre>
   theme_bw()</code></pre>
 <p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.png" width="3200" /></p>
 <p>Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais acertivo para uma certa região.</p>
+<p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>##  setting  value                       
 ##  version  R version 3.4.3 (2017-11-30)
@@ -571,20 +571,15 @@ dados_fma</code></pre>
 ##  bindrcpp     * 0.2.2      2018-03-29 CRAN (R 3.4.4)                    
 ##  blogdown       0.8        2018-07-15 CRAN (R 3.4.3)                    
 ##  bookdown       0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  brmap        * 0.0.5      2018-04-05 local                             
-##  class          7.3-14     2015-08-30 CRAN (R 3.4.3)                    
-##  classInt       0.2-3      2018-04-16 CRAN (R 3.4.4)                    
 ##  cli            1.0.0      2017-11-05 CRAN (R 3.4.3)                    
 ##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.3)                    
 ##  compiler       3.4.3      2017-12-06 local                             
 ##  crayon         1.3.4      2017-09-16 CRAN (R 3.4.3)                    
 ##  curl           3.2        2018-03-28 CRAN (R 3.4.4)                    
 ##  datasets     * 3.4.3      2017-12-06 local                             
-##  DBI            1.0.0      2018-05-02 CRAN (R 3.4.4)                    
 ##  devtools       1.13.6     2018-06-27 CRAN (R 3.4.4)                    
 ##  digest         0.6.15     2018-01-28 CRAN (R 3.4.3)                    
 ##  dplyr        * 0.7.6      2018-06-29 CRAN (R 3.4.4)                    
-##  e1071          1.6-8      2017-02-02 CRAN (R 3.4.3)                    
 ##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.3)                    
 ##  fansi          0.2.3      2018-05-06 CRAN (R 3.4.4)                    
 ##  forcats      * 0.3.0      2018-02-19 CRAN (R 3.4.4)                    
@@ -618,8 +613,6 @@ dados_fma</code></pre>
 ##  rmarkdown      1.10       2018-06-11 CRAN (R 3.4.4)                    
 ##  rprojroot      1.3-2      2018-01-03 CRAN (R 3.4.3)                    
 ##  scales         0.5.0.9000 2018-07-07 Github (hadley/scales@32e6d55)    
-##  sf           * 0.6-3      2018-05-17 CRAN (R 3.4.4)                    
-##  spData         0.2.9.0    2018-06-17 CRAN (R 3.4.3)                    
 ##  stats        * 3.4.3      2017-12-06 local                             
 ##  stringi        1.2.3      2018-06-12 CRAN (R 3.4.3)                    
 ##  stringr        1.3.1      2018-05-10 CRAN (R 3.4.4)                    
@@ -627,7 +620,6 @@ dados_fma</code></pre>
 ##  tidyr        * 0.8.1      2018-05-18 CRAN (R 3.4.4)                    
 ##  tidyselect     0.2.4      2018-02-26 CRAN (R 3.4.4)                    
 ##  tools          3.4.3      2017-12-06 local                             
-##  units          0.6-0      2018-06-09 CRAN (R 3.4.4)                    
 ##  utf8           1.1.4      2018-05-24 CRAN (R 3.4.4)                    
 ##  utils        * 3.4.3      2017-12-06 local                             
 ##  viridisLite    0.3.0      2018-02-01 CRAN (R 3.4.3)                    
@@ -901,7 +893,7 @@ dados_fma</code></pre>
                   Jul 7, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e alerta de quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
+              <div class="media-content hide-xs font-merryweather">No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.</div>
             </div>
             <div style="clear:both;"></div>
