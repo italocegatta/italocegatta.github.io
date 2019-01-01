@@ -181,7 +181,7 @@ if (!doNotTrack) {
     
       <a class="sidebar-button-link " href="https://github.com/italocegatta">
     
-      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      <i class="sidebar-button-icon fa fa-lg fa-code"></i>
       
       <span class="sidebar-button-desc">GitHub</span>
     </a>
@@ -191,7 +191,7 @@ if (!doNotTrack) {
     
       <a class="sidebar-button-link " href="https://www.linkedin.com/in/italocegatta">
     
-      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      <i class="sidebar-button-icon fa fa-lg fa-briefcase"></i>
       
       <span class="sidebar-button-desc">Linkedin</span>
     </a>
@@ -594,25 +594,13 @@ Figura  2: Representação em painel utilizando cores.
           </a>
         </li>
         
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-facebook-official"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </li>
-        
       
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
       
       <li class="post-action">
         
@@ -626,6 +614,10 @@ Figura  2: Representação em painel utilizando cores.
 
 
             
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
               
             
           </div>
@@ -671,25 +663,13 @@ Figura  2: Representação em painel utilizando cores.
           </a>
         </li>
         
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-facebook-official"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/graficos-com-dimensao-espacial-e-temporal/">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </li>
-        
       
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
       
       <li class="post-action">
         
@@ -706,24 +686,6 @@ Figura  2: Representação em painel utilizando cores.
       <div id="share-options-bar" class="share-options-bar" data-behavior="2">
   <i id="btn-close-shareoptions" class="fa fa-close"></i>
   <ul class="share-options">
-    
-      <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2Fgraficos-com-dimensao-espacial-e-temporal%2F">
-          <i class="fa fa-facebook-official"></i><span>Compartilhar no Facebook</span>
-        </a>
-      </li>
-    
-      <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2Fgraficos-com-dimensao-espacial-e-temporal%2F">
-          <i class="fa fa-twitter"></i><span>Compartilhar no Twitter</span>
-        </a>
-      </li>
-    
-      <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2Fgraficos-com-dimensao-espacial-e-temporal%2F">
-          <i class="fa fa-google-plus"></i><span>Compartilhar no Google&#43;</span>
-        </a>
-      </li>
     
   </ul>
 </div>
@@ -1001,6 +963,28 @@ $(document).ready(function() {
 
 
   
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/graficos-com-dimensao-espacial-e-temporal\/';
+          
+            this.page.identifier = '\/graficos-com-dimensao-espacial-e-temporal\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'rdatascience';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
     
   
 
