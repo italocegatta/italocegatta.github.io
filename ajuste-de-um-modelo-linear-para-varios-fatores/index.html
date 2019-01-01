@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Ajuste de um modelo linear para vários fatores</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ Mas felizmente existe uma máxima muito interessante entre programadores que é:
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -280,7 +283,11 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.<br />
+              
+              
+
+
+<p>Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.<br />
 <!-- more --></p>
 <p>Mas felizmente existe uma máxima muito interessante entre programadores que é:</p>
 <blockquote>
@@ -298,27 +305,27 @@ pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)</code></pre>
 dados</code></pre>
 <pre><code>## # A tibble: 1,881 x 9
 ##    N_tume I_meses Esp          Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
-##     &lt;int&gt;   &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
-##  1     55      24 E_botryoides    600.     1   4.10  6.50    NA    NA
-##  2     55      24 E_botryoides    600.     2   9.70  8.00    NA    NA
-##  3     55      24 E_botryoides    600.     3  NA    NA        5    NA
-##  4     55      24 E_botryoides    600.     4   7.60  7.50     2    NA
-##  5     55      24 E_botryoides    600.     5   3.80  5.00    NA    NA
-##  6     55      24 E_botryoides    600.     6  NA    NA        1    NA
-##  7     55      24 E_botryoides    600.     7  12.6   9.00     6    NA
-##  8     55      24 E_botryoides    600.     8  NA    NA        1    NA
-##  9     55      24 E_botryoides    600.     9   7.00  8.00    NA    NA
-## 10     55      24 E_botryoides    600.    10   7.50  7.50    NA    NA
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     55      24 E_botryoides     600     1    4.1   6.5    NA    NA
+##  2     55      24 E_botryoides     600     2    9.7   8      NA    NA
+##  3     55      24 E_botryoides     600     3   NA    NA       5    NA
+##  4     55      24 E_botryoides     600     4    7.6   7.5     2    NA
+##  5     55      24 E_botryoides     600     5    3.8   5      NA    NA
+##  6     55      24 E_botryoides     600     6   NA    NA       1    NA
+##  7     55      24 E_botryoides     600     7   12.6   9       6    NA
+##  8     55      24 E_botryoides     600     8   NA    NA       1    NA
+##  9     55      24 E_botryoides     600     9    7     8      NA    NA
+## 10     55      24 E_botryoides     600    10    7.5   7.5    NA    NA
 ## # ... with 1,871 more rows</code></pre>
 <p>Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura <a href="#fig:9-dap-h">1</a> mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.</p>
 <pre class="r"><code>ggplot(dados, aes(DAP_cm, H_m)) +
   geom_point(alpha=0.4) +
   geom_smooth(method=&quot;lm&quot;) +
-  theme_bw()</code></pre>
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:9-dap-h"></span>
-<img src="/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.png" alt="Relação entre o diâmetro e a altura sem destinção de espécie." width="4000" />
+<img src="/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.svg" alt="Relação entre o diâmetro e a altura sem distinção de espécie." width="960" />
 <p class="caption">
-Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
+Figura  1: Relação entre o diâmetro e a altura sem distinção de espécie.
 </p>
 </div>
 <p>Mas na prática, a relação diâmetro-altura é diferente entre espécie, como pode ser notado na Figura <a href="#fig:9-dap-h-spp">2</a>. Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.</p>
@@ -326,9 +333,9 @@ Figura  1: Relação entre o diâmetro e a altura sem destinção de espécie.
   geom_point(alpha=0.4) +
   geom_smooth(method=&quot;lm&quot;) +
   facet_wrap(~Esp) +
-  theme_bw()</code></pre>
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:9-dap-h-spp"></span>
-<img src="/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.png" alt="Relação entre o diâmetro e a altura por espécie." width="4000" />
+<img src="/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.svg" alt="Relação entre o diâmetro e a altura por espécie." width="960" />
 <p class="caption">
 Figura  2: Relação entre o diâmetro e a altura por espécie.
 </p>
@@ -364,36 +371,36 @@ Figura  2: Relação entre o diâmetro e a altura por espécie.
 
 dados_modl</code></pre>
 <pre><code>## # A tibble: 24 x 6
-##    Esp                     data              ajuste   resumo  coef   resid
-##    &lt;chr&gt;                   &lt;list&gt;            &lt;list&gt;   &lt;list&gt;  &lt;list&gt; &lt;lis&gt;
-##  1 E_botryoides            &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  2 E_brassiana             &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  3 E_camaldulensis         &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  4 E_citriodora            &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  5 E_cloeziana             &lt;tibble [51 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  6 E_dunnii_urophylla      &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  7 E_exserta               &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  8 E_grandis_AT            &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-##  9 E_grandis_camaldulensis &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
-## 10 E_grandis_CH            &lt;tibble [80 x 8]&gt; &lt;S3: lm&gt; &lt;data.~ &lt;data~ &lt;dat~
+##    Esp             data         ajuste   resumo      coef       resid      
+##    &lt;chr&gt;           &lt;list&gt;       &lt;list&gt;   &lt;list&gt;      &lt;list&gt;     &lt;list&gt;     
+##  1 E_botryoides    &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [6~
+##  2 E_brassiana     &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [6~
+##  3 E_camaldulensis &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [7~
+##  4 E_citriodora    &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [6~
+##  5 E_cloeziana     &lt;tibble [51~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [3~
+##  6 E_dunnii_uroph~ &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [7~
+##  7 E_exserta       &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [7~
+##  8 E_grandis_AT    &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [7~
+##  9 E_grandis_cama~ &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [6~
+## 10 E_grandis_CH    &lt;tibble [80~ &lt;S3: lm&gt; &lt;tibble [1~ &lt;tibble [~ &lt;tibble [6~
 ## # ... with 14 more rows</code></pre>
 <p>Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.</p>
 <pre class="r"><code>dados_modl %&gt;%
   select(Esp, resumo) %&gt;% 
   unnest(resumo)</code></pre>
 <pre><code>## # A tibble: 24 x 12
-##    Esp      r.squared adj.r.squared  sigma statistic  p.value    df logLik
-##    &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
-##  1 E_botry~     0.787         0.783 0.136      236.  3.85e-23     2   38.9
-##  2 E_brass~     0.703         0.698 0.160      140.  3.26e-17     2   26.2
-##  3 E_camal~     0.719         0.716 0.128      195.  1.14e-22     2   50.8
-##  4 E_citri~     0.602         0.596 0.102      101.  4.98e-15     2   60.4
-##  5 E_cloez~     0.260         0.234 0.167       10.2 3.42e- 3     2   12.5
-##  6 E_dunni~     0.720         0.716 0.161      180.  5.03e-21     2   30.3
-##  7 E_exser~     0.590         0.584 0.196       99.2 5.52e-15     2   16.1
-##  8 E_grand~     0.747         0.744 0.0772     225.  2.12e-24     2   90.1
-##  9 E_grand~     0.829         0.827 0.161      325.  2.11e-27     2   29.2
-## 10 E_grand~     0.776         0.773 0.105      233.  1.75e-23     2   58.8
+##    Esp   r.squared adj.r.squared  sigma statistic  p.value    df logLik
+##    &lt;chr&gt;     &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
+##  1 E_bo~     0.787         0.783 0.136      236.  3.85e-23     2   38.9
+##  2 E_br~     0.703         0.698 0.160      140.  3.26e-17     2   26.2
+##  3 E_ca~     0.719         0.716 0.128      195.  1.14e-22     2   50.8
+##  4 E_ci~     0.602         0.596 0.102      101.  4.98e-15     2   60.4
+##  5 E_cl~     0.260         0.234 0.167       10.2 3.42e- 3     2   12.5
+##  6 E_du~     0.720         0.716 0.161      180.  5.03e-21     2   30.3
+##  7 E_ex~     0.590         0.584 0.196       99.2 5.52e-15     2   16.1
+##  8 E_gr~     0.747         0.744 0.0772     225.  2.12e-24     2   90.1
+##  9 E_gr~     0.829         0.827 0.161      325.  2.11e-27     2   29.2
+## 10 E_gr~     0.776         0.773 0.105      233.  1.75e-23     2   58.8
 ## # ... with 14 more rows, and 4 more variables: AIC &lt;dbl&gt;, BIC &lt;dbl&gt;,
 ## #   deviance &lt;dbl&gt;, df.residual &lt;int&gt;</code></pre>
 <pre class="r"><code>dados_modl %&gt;%
@@ -417,18 +424,18 @@ dados_modl</code></pre>
   select(Esp, resid) %&gt;% 
   unnest(resid)</code></pre>
 <pre><code>## # A tibble: 1,633 x 11
-##    Esp      .rownames log.H_m. I.1.DAP_cm. .fitted .se.fit   .resid   .hat
-##    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-##  1 E_botry~ 1             1.87      0.244     1.63  0.0317  0.246   0.0539
-##  2 E_botry~ 2             2.08      0.103     2.21  0.0201 -0.128   0.0217
-##  3 E_botry~ 4             2.01      0.132     2.09  0.0171 -0.0751  0.0158
-##  4 E_botry~ 5             1.61      0.263     1.55  0.0361  0.0628  0.0702
-##  5 E_botry~ 7             2.20      0.0794    2.31  0.0242 -0.108   0.0315
-##  6 E_botry~ 9             2.08      0.143     2.04  0.0168  0.0360  0.0152
-##  7 E_botry~ 10            2.01      0.133     2.08  0.0170 -0.0678  0.0156
-##  8 E_botry~ 13            1.61      0.167     1.95  0.0178 -0.336   0.0171
-##  9 E_botry~ 14            2.30      0.0980    2.23  0.0209  0.0741  0.0234
-## 10 E_botry~ 15            2.14      0.120     2.14  0.0180  0.00425 0.0173
+##    Esp   .rownames log.H_m. I.1.DAP_cm. .fitted .se.fit   .resid   .hat
+##    &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+##  1 E_bo~ 1             1.87      0.244     1.63  0.0317  0.246   0.0539
+##  2 E_bo~ 2             2.08      0.103     2.21  0.0201 -0.128   0.0217
+##  3 E_bo~ 4             2.01      0.132     2.09  0.0171 -0.0751  0.0158
+##  4 E_bo~ 5             1.61      0.263     1.55  0.0361  0.0628  0.0702
+##  5 E_bo~ 7             2.20      0.0794    2.31  0.0242 -0.108   0.0315
+##  6 E_bo~ 9             2.08      0.143     2.04  0.0168  0.0360  0.0152
+##  7 E_bo~ 10            2.01      0.133     2.08  0.0170 -0.0678  0.0156
+##  8 E_bo~ 13            1.61      0.167     1.95  0.0178 -0.336   0.0171
+##  9 E_bo~ 14            2.30      0.0980    2.23  0.0209  0.0741  0.0234
+## 10 E_bo~ 15            2.14      0.120     2.14  0.0180  0.00425 0.0173
 ## # ... with 1,623 more rows, and 3 more variables: .sigma &lt;dbl&gt;,
 ## #   .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
 <p>Após o ajuste do modelo, temos de predizer as alturas. O único adendo para esse comando é que precisamos fazer em duas etapas, uma utilizando a função <code>predict</code> e outra para trazer o valor predito para a escala natural, pois o modelo foi ajustado na escala logarítmica.</p>
@@ -444,96 +451,84 @@ dados_modl</code></pre>
 
 dados_compl</code></pre>
 <pre><code>## # A tibble: 1,881 x 10
-##    Esp         hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
-##    &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
-##  1 E_botryoid~  5.08     55      24    600.     1   4.10  6.50    NA    NA
-##  2 E_botryoid~  9.09     55      24    600.     2   9.70  8.00    NA    NA
-##  3 E_botryoid~ NA        55      24    600.     3  NA    NA        5    NA
-##  4 E_botryoid~  8.08     55      24    600.     4   7.60  7.50     2    NA
-##  5 E_botryoid~  4.70     55      24    600.     5   3.80  5.00    NA    NA
-##  6 E_botryoid~ NA        55      24    600.     6  NA    NA        1    NA
-##  7 E_botryoid~ 10.0      55      24    600.     7  12.6   9.00     6    NA
-##  8 E_botryoid~ NA        55      24    600.     8  NA    NA        1    NA
-##  9 E_botryoid~  7.72     55      24    600.     9   7.00  8.00    NA    NA
-## 10 E_botryoid~  8.03     55      24    600.    10   7.50  7.50    NA    NA
+##    Esp          hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
+##    &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 E_botryoides  5.08     55      24     600     1    4.1   6.5    NA    NA
+##  2 E_botryoides  9.09     55      24     600     2    9.7   8      NA    NA
+##  3 E_botryoides NA        55      24     600     3   NA    NA       5    NA
+##  4 E_botryoides  8.08     55      24     600     4    7.6   7.5     2    NA
+##  5 E_botryoides  4.70     55      24     600     5    3.8   5      NA    NA
+##  6 E_botryoides NA        55      24     600     6   NA    NA       1    NA
+##  7 E_botryoides 10.0      55      24     600     7   12.6   9       6    NA
+##  8 E_botryoides NA        55      24     600     8   NA    NA       1    NA
+##  9 E_botryoides  7.72     55      24     600     9    7     8      NA    NA
+## 10 E_botryoides  8.03     55      24     600    10    7.5   7.5    NA    NA
 ## # ... with 1,871 more rows</code></pre>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;tidyr&quot;, &quot;broom&quot;, &quot;purrr&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package    * version    date       source                            
-##  assertthat   0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports    1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base       * 3.4.3      2017-12-06 local                             
-##  bindr        0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp   * 0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown     0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown     0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  broom      * 0.4.3      2017-11-20 CRAN (R 3.4.3)                    
-##  cli          1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace   1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler     3.4.3      2017-12-06 local                             
-##  crayon       1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl         3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets   * 3.4.3      2017-12-06 local                             
-##  devtools     1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest       0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr      * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate     0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  foreign      0.8-69     2017-06-22 CRAN (R 3.4.3)                    
-##  ggplot2    * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  glue         1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics   * 3.4.3      2017-12-06 local                             
-##  grDevices  * 3.4.3      2017-12-06 local                             
-##  grid         3.4.3      2017-12-06 local                             
-##  gtable       0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr        0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms          0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools    0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr        1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling     0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lattice      0.20-35    2017-03-25 CRAN (R 3.4.3)                    
-##  lazyeval     0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr     1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise      1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods    * 3.4.3      2017-12-06 local                             
-##  mnormt       1.5-5      2016-10-15 CRAN (R 3.4.1)                    
-##  munsell      0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  nlme         3.1-131    2017-02-06 CRAN (R 3.4.3)                    
-##  pacman     * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  parallel     3.4.3      2017-12-06 local                             
-##  pillar       1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr         1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  psych        1.7.8      2017-09-09 CRAN (R 3.4.3)                    
-##  purrr      * 0.2.4      2017-10-18 CRAN (R 3.4.3)                    
-##  R6           2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  Rcpp         0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr      * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  reshape2     1.4.3      2017-12-11 CRAN (R 3.4.3)                    
-##  rlang        0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown    1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot    1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales       0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats      * 3.4.3      2017-12-06 local                             
-##  stringi      1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr      1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble       1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tidyr      * 0.8.0      2018-01-29 CRAN (R 3.4.3)                    
-##  tidyselect   0.2.4      2018-02-26 CRAN (R 3.4.4)                    
-##  tools        3.4.3      2017-12-06 local                             
-##  utf8         1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils      * 3.4.3      2017-12-06 local                             
-##  withr        2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun         0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml         2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  backports      1.1.2    2017-12-13 [1] CRAN (R 3.5.0)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  broom        * 0.5.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr        * 0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -634,6 +629,7 @@ dados_compl</code></pre>
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -824,7 +820,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -877,24 +873,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -954,6 +933,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -961,7 +958,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Download automático de imagens MODIS</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do p
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ O MODOIS tem diversos produtos, mas neste post vamos tratar especificamente do p
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -280,8 +283,12 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.</p>
-<p>O MODOIS tem diversos <a href="https://modis.gsfc.nasa.gov/data/">produtos</a>, mas neste post vamos tratar especificamente do produto <a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006">MOD13Q1</a>, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m. Bom, se você está acostumado com imagens de satélite/drone/vant com resolução submétrica, pode ser que no primeiro momento esta escala te assuste. Mas vale lembrar que é um serviço gratuito e e de ótima qualidade.</p>
+              
+              
+
+
+<p>O MODIS (MODerate resolution Imaging Spectroradiometer) faz parte de um programa da NASA para monitoramento da superfície terrestre. Os satélites Terra e Aqua fornecem informações muito interessantes para o setor agroflorestal e nos permite entender de maneira bastante eficaz a dinâmica do uso do solo e de crescimento das nossas culturas.</p>
+<p>O MODOIS tem diversos <a href="https://modis.gsfc.nasa.gov/data/">produtos</a>, mas neste post vamos tratar especificamente do produto <a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006">MOD13Q1</a>, que disponibiliza a cada 16 dias um raster de EVI e NDVI com resolução de 250 m. Bom, se você está acostumado com imagens de satélite/drone/vant com resolução submétrica, pode ser que no primeiro momento esta escala te assuste. Mas vale lembrar que é um serviço gratuito e de ótima qualidade.</p>
 <p>As cenas do MODIS ficam disponíveis em um <a href="https://e4ftl01.cr.usgs.gov/">ftp</a> e navegando por lá podemos chegar na pasta do produto que nos <a href="http://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.006">interessa</a>. Temos então imagens de satélite processadas, com correção atmosférica, sem deslocamento espacial e com regularidade. O satélite varre a terra a cada dois dias e as melhores visadas são utilizadas para compor o produto que é disponibilizado a cada 16 dias. Há casos (de baixa frequência) em que a nebulosidade é tanta que não é possível compor a informação do pixel dentro desta janela</p>
 <p>Nosso objetivo para este poste é fazer o download das cenas de forma automática, um web scraping. No R há diversos pacotes que nos auxiliam neste processo. A primeira etapa é acessar o ftp que contém as cenas e extrair as datas das cenas disponíveis.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
@@ -300,8 +307,8 @@ scene_days &lt;- page_root %&gt;%
   str_replace_all(&quot;\\/&quot;, &quot;&quot;)
 
 glimpse(scene_days)</code></pre>
-<pre><code>##  chr [1:416] &quot;2000.02.18&quot; &quot;2000.03.05&quot; &quot;2000.03.21&quot; &quot;2000.04.06&quot; ...</code></pre>
-<p>Muito bem, temos até a data da ultima atualização deste post 416 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os <a href="https://modis-land.gsfc.nasa.gov/MODLAND_grid.html">tiles</a> de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este <a href="https://urs.earthdata.nasa.gov/users/new/">link</a>.</p>
+<pre><code>##  chr [1:433] &quot;2000.02.18&quot; &quot;2000.03.05&quot; &quot;2000.03.21&quot; &quot;2000.04.06&quot; ...</code></pre>
+<p>Muito bem, temos até a data da última atualização deste post 433 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os <a href="https://modis-land.gsfc.nasa.gov/MODLAND_grid.html">tiles</a> de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este <a href="https://urs.earthdata.nasa.gov/users/new/">link</a>.</p>
 <pre class="r"><code># inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -338,60 +345,54 @@ for (i in seq_along(scene_days)) {
 }</code></pre>
 <p>Como tudo que está neste blog, este script foi escrito para resolver um problema específico e com certeza tem muito espaço para melhoria. Os próximos passos da análise, extração dos rasters e processamento da imagem serão abordados em posts separados. No futuro, caso exista uma demanda, pode ser que as funções sejam reunidas em um pacote específico sobre isso.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;dplyr&quot;, &quot;xml2&quot;, &quot;rvest&quot;, &quot;httr&quot;, &quot;stringr&quot;, &quot;methods&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package    * version    date       source                          
-##  assertthat   0.2.0      2017-04-11 CRAN (R 3.4.3)                  
-##  backports    1.1.2      2017-12-13 CRAN (R 3.4.3)                  
-##  base       * 3.4.3      2017-12-06 local                           
-##  bindr        0.1.1      2018-03-13 CRAN (R 3.4.4)                  
-##  bindrcpp     0.2        2017-06-17 CRAN (R 3.4.3)                  
-##  blogdown     0.5        2018-01-24 CRAN (R 3.4.4)                  
-##  bookdown     0.7        2018-02-18 CRAN (R 3.4.4)                  
-##  compiler     3.4.3      2017-12-06 local                           
-##  curl         3.1        2017-12-12 CRAN (R 3.4.3)                  
-##  datasets   * 3.4.3      2017-12-06 local                           
-##  devtools     1.13.5     2018-02-18 CRAN (R 3.4.3)                  
-##  digest       0.6.15     2018-01-28 CRAN (R 3.4.3)                  
-##  dplyr      * 0.7.4      2017-09-28 CRAN (R 3.4.3)                  
-##  evaluate     0.10.1     2017-06-24 CRAN (R 3.4.3)                  
-##  glue         1.2.0      2017-10-29 CRAN (R 3.4.3)                  
-##  graphics   * 3.4.3      2017-12-06 local                           
-##  grDevices  * 3.4.3      2017-12-06 local                           
-##  htmltools    0.3.6      2017-04-28 CRAN (R 3.4.3)                  
-##  httr       * 1.3.1      2017-08-20 CRAN (R 3.4.3)                  
-##  knitr        1.20       2018-02-20 CRAN (R 3.4.4)                  
-##  magrittr     1.5        2014-11-22 CRAN (R 3.4.3)                  
-##  memoise      1.1.0      2017-04-21 CRAN (R 3.4.3)                  
-##  methods    * 3.4.3      2017-12-06 local                           
-##  pacman     * 0.4.6      2017-05-14 CRAN (R 3.4.3)                  
-##  pillar       1.2.1      2018-02-27 CRAN (R 3.4.4)                  
-##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.3)                  
-##  R6           2.2.2      2017-06-17 CRAN (R 3.4.3)                  
-##  Rcpp         0.12.16    2018-03-13 CRAN (R 3.4.4)                  
-##  rlang        0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)    
-##  rmarkdown    1.9        2018-03-01 CRAN (R 3.4.4)                  
-##  rprojroot    1.3-2      2018-01-03 CRAN (R 3.4.3)                  
-##  rvest      * 0.3.2      2016-06-17 CRAN (R 3.4.3)                  
-##  selectr      0.3-2      2018-03-05 CRAN (R 3.4.4)                  
-##  stats      * 3.4.3      2017-12-06 local                           
-##  stringi      1.1.7      2018-03-12 CRAN (R 3.4.4)                  
-##  stringr    * 1.3.0      2018-02-19 CRAN (R 3.4.4)                  
-##  tibble       1.4.2      2018-01-22 CRAN (R 3.4.3)                  
-##  tools        3.4.3      2017-12-06 local                           
-##  utils      * 3.4.3      2017-12-06 local                           
-##  withr        2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)
-##  xfun         0.1        2018-01-22 CRAN (R 3.4.4)                  
-##  xml2       * 1.2.0      2018-01-24 CRAN (R 3.4.3)                  
-##  yaml         2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package    * version  date       lib source        
+##  assertthat   0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH           1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr        0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli          1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  crayon       1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  curl         3.2      2018-03-28 [1] CRAN (R 3.5.1)
+##  dplyr      * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi        0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  glue         1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  httr       * 1.4.0    2018-12-11 [1] CRAN (R 3.5.2)
+##  jsonlite     1.6      2018-12-07 [1] CRAN (R 3.5.2)
+##  magrittr     1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  mime         0.6      2018-10-05 [1] CRAN (R 3.5.1)
+##  openssl      1.1      2018-11-15 [1] CRAN (R 3.5.1)
+##  pillar       1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig    2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr        0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  purrr        0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6           2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  Rcpp         1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  rlang        0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rvest      * 0.3.2    2016-06-17 [1] CRAN (R 3.5.1)
+##  selectr      0.4-1    2018-04-06 [1] CRAN (R 3.5.1)
+##  stringi      1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr    * 1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble       1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect   0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8         1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  xml2       * 1.2.0    2018-01-24 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -490,6 +491,7 @@ for (i in seq_along(scene_days)) {
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -680,7 +682,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -733,24 +735,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -810,6 +795,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -817,7 +820,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

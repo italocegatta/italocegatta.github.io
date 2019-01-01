@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Os gráficos que explicam nossos dados (barras)</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ Gráficos de barras são muito úteis para podermos comparar fatores. Quando est
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ Gráficos de barras são muito úteis para podermos comparar fatores. Quando est
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -280,12 +283,16 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o <a href="https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot">boxplot</a> e agora vamos ao gráfico de barras.</p>
+              
+              
+
+
+<p>Este é o segundo post de uma série que estou fazendo sobre tipos de gráficos. Falamos um pouco sobre o <a href="https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot">boxplot</a> e agora vamos ao gráfico de barras.</p>
 <!-- more -->
 <p>Gráficos de barras são muito úteis para podermos comparar fatores. Quando estão um ao lado do outro a comparação é feita rapidamente, já que as barras dão a noção de escala. Normalmente as barras informam um resumo (i. e. média, soma ou contagem), mas podemos ainda adicionar uma barra de erro ou desvio e deixar o gráfico mais detalhado.</p>
 <p>Continuaremos com o banco de dados apresentado no post sobre <a href="https://italocegatta.github.io/o-conceito-tidy-data.html">tidy data</a>.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, ggplot2, ggthemes)</code></pre>
+pacman::p_load(readr, dplyr, ggplot2)</code></pre>
 <pre class="r"><code>dados &lt;- read_csv2(
   &quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_vespa.csv&quot;
 )
@@ -293,7 +300,7 @@ pacman::p_load(readr, dplyr, ggplot2, ggthemes)</code></pre>
 dados</code></pre>
 <pre><code>## # A tibble: 2,100 x 5
 ##    Tratamento Individuo Coleta Local   Galhas
-##    &lt;chr&gt;          &lt;int&gt;  &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
 ##  1 Actara d1          1      1 Peciolo      1
 ##  2 Actara d1          2      1 Peciolo     NA
 ##  3 Actara d1          3      1 Peciolo     NA
@@ -320,7 +327,7 @@ total_trat &lt;- dados %&gt;%
 total_trat</code></pre>
 <pre><code>## # A tibble: 7 x 2
 ##   Tratamento  Galhas
-##   &lt;chr&gt;        &lt;int&gt;
+##   &lt;chr&gt;        &lt;dbl&gt;
 ## 1 Actara d1       73
 ## 2 Actara d2       57
 ## 3 Actara d3       30
@@ -330,10 +337,10 @@ total_trat</code></pre>
 ## 7 Testemunha      77</code></pre>
 <p>Agora já podemos fazer o primeiro gráfico simples e básico (Figura <a href="#fig:5-bar-basico">1</a>).</p>
 <pre class="r"><code>ggplot(total_trat, aes(Tratamento, Galhas)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  theme_few()</code></pre>
+  geom_col(alpha = 0.8) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-basico"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-1.png" alt="Número total de galhas de cada tratamento." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-1.svg" alt="Número total de galhas de cada tratamento." width="960" />
 <p class="caption">
 Figura  1: Número total de galhas de cada tratamento.
 </p>
@@ -348,7 +355,7 @@ total_trat_local</code></pre>
 <pre><code>## # A tibble: 21 x 3
 ## # Groups:   Tratamento [?]
 ##    Tratamento  Local   Galhas
-##    &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;
+##    &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;
 ##  1 Actara d1   Caule       13
 ##  2 Actara d1   Nervura     19
 ##  3 Actara d1   Peciolo     41
@@ -361,34 +368,34 @@ total_trat_local</code></pre>
 ## 10 Evidence d1 Caule        6
 ## # ... with 11 more rows</code></pre>
 <pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  theme_few() +
-  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+  geom_col(alpha = 0.8) +
+  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-local"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis agrupados." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais - níveis agrupados." width="960" />
 <p class="caption">
 Figura  2: Número total de galhas de cada tratamento em diferentes locais - níveis agrupados.
 </p>
 </div>
 <p>No caso da Figura <a href="#fig:5-bar-local">2</a>, à primeira vista comparamos as barras (fatores) e depois as cores (níveis). Podemos dar mais evidência aos níveis, transformando-os em barras como na Figura <a href="#fig:5-bar-local-dodge">3</a>.</p>
 <pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  theme_few() +
-  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+  geom_col(alpha = 0.8, position = &quot;dodge&quot;) +
+  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-local-dodge"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados." width="960" />
 <p class="caption">
 Figura  3: Número total de galhas de cada tratamento em diferentes locais - níveis lado a lados.
 </p>
 </div>
 <p>Como alternativa, podemos subdividir os níveis em painéis e deixar o gráfico mais balanceado, ou seja, sem concentrar a informação em fatores ou níveis (Figura <a href="#fig:5-bar-local-facet">4</a>).</p>
 <pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas )) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  geom_col(alpha = 0.8, position = &quot;dodge&quot;) +
   facet_wrap(~Local) +
-  theme_few() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+  theme_bw(16) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))</code></pre>
 <div class="figure"><span id="fig:5-bar-local-facet"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-1.png" alt="Número total de galhas de cada tratamento em diferentes locais - níveis em painel." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais - níveis em painel." width="960" />
 <p class="caption">
 Figura  4: Número total de galhas de cada tratamento em diferentes locais - níveis em painel.
 </p>
@@ -400,11 +407,11 @@ Figura  4: Número total de galhas de cada tratamento em diferentes locais - ní
 <p>Se quisermos adicionar o valor de cada nível ou fator na barra, temos de alterar o banco de dados para que ele coincida com o que queremos mostrar.</p>
 <p>Para a Figura <a href="#fig:5-bar-basico-annot">5</a>, modificamos apenas o código do gráfico.</p>
 <pre class="r"><code>ggplot(total_trat, aes(Tratamento, Galhas)) +
-  geom_bar(stat = &quot;identity&quot;) +
+  geom_col(alpha = 0.8) +
   geom_text(aes(label = Galhas), size = 6, vjust = -0.2) +
-  theme_few()</code></pre>
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-basico-annot"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-annot-1.png" alt="Número total de galhas de cada tratamento com o valor na respectiva barra." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-annot-1.svg" alt="Número total de galhas de cada tratamento com o valor na respectiva barra." width="960" />
 <p class="caption">
 Figura  5: Número total de galhas de cada tratamento com o valor na respectiva barra.
 </p>
@@ -415,40 +422,42 @@ Figura  5: Número total de galhas de cada tratamento com o valor na respectiva 
 # será mostrado
 
 ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
-    geom_col() +
+    geom_col(alpha = 0.8) +
     geom_text(
       aes(label = Galhas),
       position =  position_stack(vjust = 0.8), vjust = 1
     ) +
-    theme_few() +
-  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+    scale_fill_brewer(palette = &quot;Dark2&quot;) +
+    theme_bw(16) </code></pre>
 <div class="figure"><span id="fig:5-bar-local-annot"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-annot-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados." width="960" />
 <p class="caption">
 Figura  6: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis agrupados.
 </p>
 </div>
 <p>As Figuras <a href="#fig:5-bar-local-dodge-annot">7</a> e <a href="#fig:5-bar-local-facet-annot">8</a> foram criadas apenas alterando o código do gráfico.</p>
 <pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas, fill = Local)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  geom_text(aes(label = Galhas),
-    position = position_dodge(width=0.9), vjust = -0.2) +
-  theme_few() +
-  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+    geom_col(alpha = 0.8, position = &quot;dodge&quot;) +
+    geom_text(
+      aes(label = Galhas),
+      position = position_dodge(width=0.9), vjust = -0.2
+    ) +
+    scale_fill_brewer(palette = &quot;Dark2&quot;) +
+    theme_bw(16) </code></pre>
 <div class="figure"><span id="fig:5-bar-local-dodge-annot"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-annot-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados." width="960" />
 <p class="caption">
 Figura  7: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis lado a lados.
 </p>
 </div>
 <pre class="r"><code>ggplot(total_trat_local, aes(Tratamento, Galhas )) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-    geom_text(aes(label = Galhas), vjust = -0.2) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = Galhas), vjust = -0.2) +
   facet_wrap(~Local) +
-  theme_few() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+  theme_bw(16) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))</code></pre>
 <div class="figure"><span id="fig:5-bar-local-facet-annot"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-annot-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-annot-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel." width="960" />
 <p class="caption">
 Figura  8: Número total de galhas de cada tratamento em diferentes locais com o valor da respectiva barra - níveis em painel.
 </p>
@@ -475,21 +484,23 @@ media_trat_desv</code></pre>
 ## 3 Actara d3   0.133   2.31
 ## 4 Evidence d1 0.589   3.86
 ## 5 Evidence d2 0.267   2.62
-## 6 Evidence d3 0.163   2.00
+## 6 Evidence d3 0.163   2   
 ## 7 Testemunha  0.360   3.35</code></pre>
 <p>Após criar o <em>data frame</em> com o desvio, a Figura <a href="#fig:5-bar-basico-desv">9</a> é facilmente criada com o código abaixo.</p>
 <pre class="r"><code>ggplot(media_trat_desv, aes(Tratamento, Galhas)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  geom_errorbar(aes(ymin = Galhas - desv,
-     ymax = Galhas + desv), width = 0.4) +
-  theme_few()</code></pre>
+  geom_col(alpha = 0.8) +
+  geom_errorbar(
+    aes(ymin = Galhas - desv, ymax = Galhas + desv), 
+    width = 0.4, alpha = 0.8
+  ) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-basico-desv"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-desv-1.png" alt="Número total de galhas de cada tratamento com barra de desvio." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-basico-desv-1.svg" alt="Número total de galhas de cada tratamento com barra de desvio." width="960" />
 <p class="caption">
 Figura  9: Número total de galhas de cada tratamento com barra de desvio.
 </p>
 </div>
-<p>No caso das Figuras <a href="#fig:5-bar-local-dodge-desv">10</a> e <a href="#fig:5-bar-local-facet-desv">11</a>, precisamos dados dados agrupados por <code>Tratamento</code> e <code>Local</code>. O código para o gráfico é muito semelhante aos anteriores. Em alguns tratamentos há somente um indivíduo indivídio com contagem de galhas. Nesta situação não há barra de desvio.</p>
+<p>No caso das Figuras <a href="#fig:5-bar-local-dodge-desv">10</a> e <a href="#fig:5-bar-local-facet-desv">11</a>, precisamos dos dados agrupados por <code>Tratamento</code> e <code>Local</code>. O código para o gráfico é muito semelhante aos anteriores. Em alguns tratamentos há somente um indivíduo com contagem de galhas, portanto, nesta situação não há barra de desvio.</p>
 <pre class="r"><code># Seleciona apenas as Coletas de numero 5, em seguida calcula a mediana e o
 # desvio padrão em função de cada Trtatamento e Local.
 
@@ -504,110 +515,109 @@ mediana_trat_local_desv</code></pre>
 ## # Groups:   Tratamento [?]
 ##    Tratamento  Local    desv Galhas
 ##    &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Actara d1   Caule   0.329     2.
-##  2 Actara d1   Nervura 0.828     3.
-##  3 Actara d1   Peciolo 1.02      4.
-##  4 Actara d2   Caule   0.271     1.
-##  5 Actara d2   Nervura 0.281     2.
-##  6 Actara d2   Peciolo 1.18      4.
-##  7 Actara d3   Caule   0.112     2.
-##  8 Actara d3   Nervura 0.        2.
-##  9 Actara d3   Peciolo 0.297     3.
-## 10 Evidence d1 Caule   0.224     2.
+##  1 Actara d1   Caule   0.329      2
+##  2 Actara d1   Nervura 0.828      3
+##  3 Actara d1   Peciolo 1.02       4
+##  4 Actara d2   Caule   0.271      1
+##  5 Actara d2   Nervura 0.281      2
+##  6 Actara d2   Peciolo 1.18       4
+##  7 Actara d3   Caule   0.112      2
+##  8 Actara d3   Nervura 0          2
+##  9 Actara d3   Peciolo 0.297      3
+## 10 Evidence d1 Caule   0.224      2
 ## # ... with 11 more rows</code></pre>
 <pre class="r"><code>ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas, fill = Local)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  geom_errorbar(aes(ymin = Galhas - desv, ymax = Galhas + desv),
-    position = position_dodge(width=0.9), width = 0.4) +
-  theme_few() +
-  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+  geom_col(alpha = 0.5, position = &quot;dodge&quot;) +
+  geom_errorbar(
+    aes(ymin = Galhas - desv, ymax = Galhas + desv),
+    position = position_dodge(width=0.9), 
+    width = 0.4, alpha = 0.8
+  ) +
+  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:5-bar-local-dodge-desv"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-desv-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-dodge-desv-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lado." width="960" />
 <p class="caption">
-Figura  10: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lados.
+Figura  10: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis lado a lado.
 </p>
 </div>
 <pre class="r"><code>ggplot(mediana_trat_local_desv, aes(Tratamento, Galhas )) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  geom_errorbar(aes(ymin = Galhas - desv,
-    ymax = Galhas + desv), width = 0.4) +
+  geom_col(alpha = 0.8, position = &quot;dodge&quot;) +
+  geom_errorbar(
+    aes(ymin = Galhas - desv, ymax = Galhas + desv),
+    width = 0.4, alpha = 0.8
+  ) +
   facet_wrap(~Local) +
-  theme_few() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 0.5, vjust = 0.5))</code></pre>
+  theme_bw(16) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))</code></pre>
 <div class="figure"><span id="fig:5-bar-local-facet-desv"></span>
-<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-desv-1.png" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel." width="4000" />
+<img src="/post/2016-05-14-os-graficos-que-explicam-nossos-dados-barras_files/figure-html/5-bar-local-facet-desv-1.svg" alt="Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel." width="960" />
 <p class="caption">
 Figura  11: Número total de galhas de cada tratamento em diferentes locais com barra de desvio - níveis em painel.
 </p>
 </div>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-30                  
 ## 
-##  package      * version    date       source                            
-##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports      1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base         * 3.4.3      2017-12-06 local                             
-##  bindr          0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp     * 0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown       0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown       0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli            1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler       3.4.3      2017-12-06 local                             
-##  crayon         1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl           3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets     * 3.4.3      2017-12-06 local                             
-##  devtools       1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest         0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr        * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  ggplot2      * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  ggthemes     * 3.4.0      2017-02-19 CRAN (R 3.4.3)                    
-##  glue           1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics     * 3.4.3      2017-12-06 local                             
-##  grDevices    * 3.4.3      2017-12-06 local                             
-##  grid           3.4.3      2017-12-06 local                             
-##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr          0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms            0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr          1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling       0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval       0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr       1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods      * 3.4.3      2017-12-06 local                             
-##  munsell        0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar         1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr           1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  R6             2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.4.1)                    
-##  Rcpp           0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang          0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown      1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot      1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales         0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats        * 3.4.3      2017-12-06 local                             
-##  stringi        1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr        1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble         1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tools          3.4.3      2017-12-06 local                             
-##  utf8           1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils        * 3.4.3      2017-12-06 local                             
-##  withr          2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun           0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml           2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.0    2018-07-14 [1] CRAN (R 3.5.1)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 </div>
 
               
@@ -626,8 +636,6 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
   <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
   <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
 
                   </div>
                 
@@ -705,6 +713,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -895,7 +904,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -948,24 +957,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1025,6 +1017,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -1032,7 +1042,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

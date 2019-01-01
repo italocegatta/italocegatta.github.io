@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Análise de componentes principais</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ No R, temos a facilidade de poder fazer o cálculo dos componentes principais e 
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -280,7 +283,11 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do <a href="http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas">INMET</a>.</p>
+              
+              
+
+
+<p>Quando temos dados multivariados, a análise de componentes principais (PCA) é um recurso muito interessante e relativamente simples, em termos de conceito teórico e interpretação prática. Para exemplificar, vamos trabalhar com os dados climáticos de algumas cidades brasileiras. Os dados climáticos foram compilados a partir de estações automáticas do <a href="http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesautomaticas">INMET</a>.</p>
 <p>No R, temos a facilidade de poder fazer o cálculo dos componentes principais e logo em seguida poder apresentá-los em gráficos elegantes e de fácil entendimento. O Objetivo deste post é apresentar uma rápida demonstração de como rodar um PCA e gerar os gráficos derivados.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
 pacman::p_load(readr, dplyr, ggplot2, ggrepel)
@@ -291,40 +298,40 @@ pacman::p_load_gh(&quot;vqv/ggbiplot&quot;)</code></pre>
 
 print(dados, n=31)</code></pre>
 <pre><code>## # A tibble: 31 x 6
-##    Cidade             Koppen  Tmed   PPT   ETP    DEF
-##    &lt;chr&gt;              &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Bom Despacho       Cwa     22.6  802. 1112. 238.  
-##  2 Niquelandia        Aw      24.6  562. 1372. 656.  
-##  3 Arapoti            Cfb     18.5 1367.  670.  25.4 
-##  4 Rio Verde          Aw      23.3 1245. 1196. 425.  
-##  5 Belo Oriente       Aw      22.6 1054. 1105. 125.  
-##  6 Guanhaes           Cwa     20.6  818.  866. 188.  
-##  7 Eldorado do Sul    Cfa     20.6 1787.  859.  10.7 
-##  8 Sao Gabriel        Cfa     20.2 1783.  927.   2.80
-##  9 Inhambupe          As      24.2  715. 1318. 607.  
-## 10 Botucatu           Cfb     21.9 1013. 1030. 184.  
-## 11 Estrela do Sul     Cwa     23.4 1134. 1208. 206.  
-## 12 Buri               Cfa     20.0 1404.  805.   3.60
-## 13 Inocencia          Am      24.5 1020. 1375. 389.  
-## 14 Chapadao do Sul    Am      22.6 1027. 1098. 326.  
-## 15 Aracruz            Aw      23.9  849. 1277. 336.  
-## 16 Tres Lagoas        Aw      25.2  944. 1502. 538.  
-## 17 Tres Marias        Aw      22.2  811. 1052. 405.  
-## 18 Peixe              Aw      26.3 1208. 1630. 674.  
-## 19 Mogi Guacu         Cwa     22.4  924. 1100. 210.  
-## 20 Brejinho de Nazare Aw      25.9 1507. 1563. 496.  
-## 21 Monte Dourado      Am      27.4 2529. 1821. 530.  
-## 22 Otacilio Costa     Cfb     16.9 2092.  548.   0.  
-## 23 Telemaco Borba     Cfa     18.5 1367.  670.  28.0 
-## 24 Borebi             Cfa     22.1  948. 1058. 201.  
-## 25 Coracao de Jesus   As      23.9  413. 1275. 744.  
-## 26 Antonio Olinto     Cfb     17.7 1740.  616.   0.  
-## 27 Tres Barras        Cfb     17.3 1123.  581.  16.5 
-## 28 Urbano Santos      Aw      27.0 1438. 1750. 935.  
-## 29 Eunapolis          Am      22.9 1419. 1128.  31.2 
-## 30 Itagimirim         Aw      25.2  491. 1460. 870.  
+##    Cidade             Koppen  Tmed   PPT   ETP   DEF
+##    &lt;chr&gt;              &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Bom Despacho       Cwa     22.6  802. 1112. 238. 
+##  2 Niquelandia        Aw      24.6  562. 1372. 656. 
+##  3 Arapoti            Cfb     18.5 1367   670.  25.4
+##  4 Rio Verde          Aw      23.3 1245. 1196. 425. 
+##  5 Belo Oriente       Aw      22.6 1054. 1105. 125. 
+##  6 Guanhaes           Cwa     20.6  818.  866  188. 
+##  7 Eldorado do Sul    Cfa     20.6 1787.  859.  10.7
+##  8 Sao Gabriel        Cfa     20.2 1783.  927.   2.8
+##  9 Inhambupe          As      24.2  715. 1318. 607. 
+## 10 Botucatu           Cfb     21.9 1013. 1030  184. 
+## 11 Estrela do Sul     Cwa     23.4 1134. 1208. 206. 
+## 12 Buri               Cfa     20.0 1404.  805    3.6
+## 13 Inocencia          Am      24.5 1020. 1375. 389. 
+## 14 Chapadao do Sul    Am      22.6 1027. 1098. 326. 
+## 15 Aracruz            Aw      23.9  849. 1277. 336. 
+## 16 Tres Lagoas        Aw      25.2  944. 1502. 538. 
+## 17 Tres Marias        Aw      22.2  811. 1052. 405. 
+## 18 Peixe              Aw      26.3 1208. 1630. 674. 
+## 19 Mogi Guacu         Cwa     22.4  924. 1100. 210. 
+## 20 Brejinho de Nazare Aw      25.9 1507. 1563. 496. 
+## 21 Monte Dourado      Am      27.4 2529. 1821. 530. 
+## 22 Otacilio Costa     Cfb     16.9 2092.  548.   0  
+## 23 Telemaco Borba     Cfa     18.5 1367   670.  28  
+## 24 Borebi             Cfa     22.1  948. 1058. 201. 
+## 25 Coracao de Jesus   As      23.9  413. 1275. 744. 
+## 26 Antonio Olinto     Cfb     17.7 1740.  616.   0  
+## 27 Tres Barras        Cfb     17.3 1123.  581   16.5
+## 28 Urbano Santos      Aw      27.0 1438. 1750. 935  
+## 29 Eunapolis          Am      22.9 1419. 1128.  31.2
+## 30 Itagimirim         Aw      25.2  491. 1460. 870. 
 ## 31 Bocaiuva           Aw      23.9  413. 1276. 642.</code></pre>
-<p>A análise de componentes principais nos mostra o quanto cada grupo de variáveis explicam a variabilidade total dados. No nosso caso, o primeiro componente responde por 72% da variabilidade e tem efeito quase que igual da temperatura (Tmed), evapotranspiração (ETP) e déficit hídrico (DEF). O segundo componente é majoritariamente o efeito da chuva (PPT). Juntos, os dois componente explicam 95% dos dados.</p>
+<p>A análise de componentes principais nos mostra o quanto cada grupo de variáveis explicam a variabilidade total dados. No nosso caso, o primeiro componente responde por 72% da variabilidade e tem efeito quase que igual da temperatura (Tmed), evapotranspiração (ETP) e déficit hídrico (DEF). O segundo componente é majoritariamente o efeito da chuva (PPT). Juntos, os dois componentes explicam 95% dos dados.</p>
 <pre class="r"><code>pca &lt;- select(dados, Tmed:DEF) %&gt;%
   princomp(cor = T)
 
@@ -337,10 +344,10 @@ summary(pca); loadings(pca)</code></pre>
 <pre><code>## 
 ## Loadings:
 ##      Comp.1 Comp.2 Comp.3 Comp.4
-## Tmed  0.567 -0.201 -0.437  0.668
-## PPT  -0.241 -0.933  0.251       
-## ETP   0.561 -0.284 -0.261 -0.732
-## DEF   0.553         0.823       
+## Tmed  0.567  0.201  0.437  0.668
+## PPT  -0.241  0.933 -0.251       
+## ETP   0.561  0.284  0.261 -0.732
+## DEF   0.553        -0.823       
 ## 
 ##                Comp.1 Comp.2 Comp.3 Comp.4
 ## SS loadings      1.00   1.00   1.00   1.00
@@ -361,7 +368,7 @@ summary(pca); loadings(pca)</code></pre>
   lims(x = c(-2,2), y = c(-2,2)) +
   theme_bw()</code></pre>
 <div class="figure"><span id="fig:8-pca"></span>
-<img src="/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.png" alt="Representação gráfica dos componentes principais." width="3200" />
+<img src="/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-1.svg" alt="Representação gráfica dos componentes principais." width="768" />
 <p class="caption">
 Figura  1: Representação gráfica dos componentes principais.
 </p>
@@ -380,80 +387,75 @@ Figura  1: Representação gráfica dos componentes principais.
   theme_bw()+
   theme(legend.position = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:8-pca-koppen"></span>
-<img src="/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.png" alt="Representação gráfica dos componentes principais com classificação Koppen." width="3200" />
+<img src="/post/2016-08-01-analise-de-componentes-principais_files/figure-html/8-pca-koppen-1.svg" alt="Representação gráfica dos componentes principais com classificação Koppen." width="768" />
 <p class="caption">
 Figura  2: Representação gráfica dos componentes principais com classificação Koppen.
 </p>
 </div>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;ggrepel&quot;, &quot;ggbiplot&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package      * version    date       source                            
-##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports      1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base         * 3.4.3      2017-12-06 local                             
-##  bindr          0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp       0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown       0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown       0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli            1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler       3.4.3      2017-12-06 local                             
-##  crayon         1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl           3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets     * 3.4.3      2017-12-06 local                             
-##  devtools       1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest         0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr        * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  ggbiplot     * 0.55       2018-03-25 Github (vqv/ggbiplot@7325e88)     
-##  ggplot2      * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  ggrepel      * 0.7.0      2017-09-29 CRAN (R 3.4.3)                    
-##  glue           1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics     * 3.4.3      2017-12-06 local                             
-##  grDevices    * 3.4.3      2017-12-06 local                             
-##  grid         * 3.4.3      2017-12-06 local                             
-##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr          0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms            0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr          1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling       0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval       0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr       1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods      * 3.4.3      2017-12-06 local                             
-##  munsell        0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar         1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr         * 1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  R6             2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.4.1)                    
-##  Rcpp           0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang          0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown      1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot      1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales       * 0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats        * 3.4.3      2017-12-06 local                             
-##  stringi        1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr        1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble         1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tools          3.4.3      2017-12-06 local                             
-##  utf8           1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils        * 3.4.3      2017-12-06 local                             
-##  withr          2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun           0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml           2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source                       
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)               
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)               
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)               
+##  bindrcpp       0.2.2    2018-03-29 [1] CRAN (R 3.5.1)               
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)               
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)               
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)               
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)               
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)               
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)               
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)               
+##  ggbiplot     * 0.55     2018-12-31 [1] Github (vqv/ggbiplot@7325e88)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)               
+##  ggrepel      * 0.8.0    2018-05-09 [1] CRAN (R 3.5.1)               
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)               
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)               
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)               
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)               
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)               
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)               
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)               
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)               
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)               
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)               
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)               
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)               
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)               
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)               
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)               
+##  plyr         * 1.8.4    2016-06-08 [1] CRAN (R 3.5.1)               
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)               
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)               
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)               
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)               
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)               
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)               
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)               
+##  scales       * 1.0.0    2018-08-09 [1] CRAN (R 3.5.1)               
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)               
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)               
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)               
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)               
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)               
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)               
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)               
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -552,6 +554,7 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -742,7 +745,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -795,24 +798,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -872,6 +858,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -879,7 +883,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

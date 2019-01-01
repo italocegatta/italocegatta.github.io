@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Modelos on Ítalo Cegatta</title>
     <link>/categories/modelos/</link>
@@ -8,7 +8,7 @@
     <language>pt-br</language>
     <lastBuildDate>Sat, 27 Aug 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/modelos/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/categories/modelos/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,6 +19,254 @@
       <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
       <description>Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.
 Mas felizmente existe uma máxima muito interessante entre programadores que é:</description>
+      <content:encoded>
+        
+
+
+&lt;p&gt;Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.&lt;br /&gt;
+&lt;!-- more --&gt;&lt;/p&gt;
+&lt;p&gt;Mas felizmente existe uma máxima muito interessante entre programadores que é:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Don’t Repeat Yourself (DRY)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Depois que eu percebi o quanto a repetição humana gera erros, abracei totalmente o conceito DRY. Acreditem, vocês serão muito mais felizes e eficientes deixando o computador fazer as tarefas repetitivas e chatas.&lt;/p&gt;
+&lt;p&gt;Para exemplificar, vamos fazer algo muito comum nas ciências florestais, que é predizer as alturas das árvores. Medir a altura da árvore é uma atividade laboriosa, e há muito tempo se sabe que a altura total das árvores possui alta correlação com o seu diâmetro.&lt;/p&gt;
+&lt;p&gt;Utilizaremos mais uma vez os dados do &lt;a href=&#34;www.projetotume.com&#34;&gt;Projeto TUME&lt;/a&gt;, referente a medição de 24 meses do TUME 55 plantado no Mato Grosso do Sul.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, tidyr, broom, purrr, ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume_55_24.csv&amp;quot;
+)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 x 9
+##    N_tume I_meses Esp          Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
+##     &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1     55      24 E_botryoides     600     1    4.1   6.5    NA    NA
+##  2     55      24 E_botryoides     600     2    9.7   8      NA    NA
+##  3     55      24 E_botryoides     600     3   NA    NA       5    NA
+##  4     55      24 E_botryoides     600     4    7.6   7.5     2    NA
+##  5     55      24 E_botryoides     600     5    3.8   5      NA    NA
+##  6     55      24 E_botryoides     600     6   NA    NA       1    NA
+##  7     55      24 E_botryoides     600     7   12.6   9       6    NA
+##  8     55      24 E_botryoides     600     8   NA    NA       1    NA
+##  9     55      24 E_botryoides     600     9    7     8      NA    NA
+## 10     55      24 E_botryoides     600    10    7.5   7.5    NA    NA
+## # ... with 1,871 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nosso objetivo é simples: ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. A Figura &lt;a href=&#34;#fig:9-dap-h&#34;&gt;1&lt;/a&gt; mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura sem distinção de espécie.&#34; width=&#34;960&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Relação entre o diâmetro e a altura sem distinção de espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Mas na prática, a relação diâmetro-altura é diferente entre espécie, como pode ser notado na Figura &lt;a href=&#34;#fig:9-dap-h-spp&#34;&gt;2&lt;/a&gt;. Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(DAP_cm, H_m)) +
+  geom_point(alpha=0.4) +
+  geom_smooth(method=&amp;quot;lm&amp;quot;) +
+  facet_wrap(~Esp) +
+  theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;960&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Relação entre o diâmetro e a altura por espécie.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A primeira etapa é entender que um data.frame pode conter vários tipos de elementos, como números, caracteres, listas e também outros data.frames. Para isso utilizaremos a função &lt;code&gt;nest()&lt;/code&gt; do pacote &lt;code&gt;tidyr&lt;/code&gt; e aninharemos os dados em função das espécies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 2
+##    Esp                     data             
+##    &amp;lt;chr&amp;gt;                   &amp;lt;list&amp;gt;           
+##  1 E_botryoides            &amp;lt;tibble [80 x 8]&amp;gt;
+##  2 E_brassiana             &amp;lt;tibble [80 x 8]&amp;gt;
+##  3 E_camaldulensis         &amp;lt;tibble [80 x 8]&amp;gt;
+##  4 E_citriodora            &amp;lt;tibble [80 x 8]&amp;gt;
+##  5 E_cloeziana             &amp;lt;tibble [51 x 8]&amp;gt;
+##  6 E_dunnii_urophylla      &amp;lt;tibble [80 x 8]&amp;gt;
+##  7 E_exserta               &amp;lt;tibble [80 x 8]&amp;gt;
+##  8 E_grandis_AT            &amp;lt;tibble [80 x 8]&amp;gt;
+##  9 E_grandis_camaldulensis &amp;lt;tibble [80 x 8]&amp;gt;
+## 10 E_grandis_CH            &amp;lt;tibble [80 x 8]&amp;gt;
+## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função &lt;code&gt;map&lt;/code&gt;,do pacote &lt;code&gt;purrr&lt;/code&gt;. Podemos ainda extrair as informações desses modelos com as funções &lt;code&gt;glance&lt;/code&gt;, &lt;code&gt;tidy&lt;/code&gt; e &lt;code&gt;augment&lt;/code&gt;, do pacote &lt;code&gt;broom&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl &amp;lt;- dados %&amp;gt;%
+  group_by(Esp) %&amp;gt;% 
+  nest() %&amp;gt;% 
+  mutate(
+    ajuste = data %&amp;gt;% map(~ lm(log(H_m) ~ I(1/DAP_cm), data = .)),
+    resumo = map(ajuste, glance),
+    coef = map(ajuste, tidy),
+    resid = map(ajuste, augment)
+  )
+
+dados_modl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 6
+##    Esp             data         ajuste   resumo      coef       resid      
+##    &amp;lt;chr&amp;gt;           &amp;lt;list&amp;gt;       &amp;lt;list&amp;gt;   &amp;lt;list&amp;gt;      &amp;lt;list&amp;gt;     &amp;lt;list&amp;gt;     
+##  1 E_botryoides    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+##  2 E_brassiana     &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+##  3 E_camaldulensis &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
+##  4 E_citriodora    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+##  5 E_cloeziana     &amp;lt;tibble [51~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [3~
+##  6 E_dunnii_uroph~ &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
+##  7 E_exserta       &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
+##  8 E_grandis_AT    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
+##  9 E_grandis_cama~ &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+## 10 E_grandis_CH    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resumo) %&amp;gt;% 
+  unnest(resumo)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 12
+##    Esp   r.squared adj.r.squared  sigma statistic  p.value    df logLik
+##    &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1 E_bo~     0.787         0.783 0.136      236.  3.85e-23     2   38.9
+##  2 E_br~     0.703         0.698 0.160      140.  3.26e-17     2   26.2
+##  3 E_ca~     0.719         0.716 0.128      195.  1.14e-22     2   50.8
+##  4 E_ci~     0.602         0.596 0.102      101.  4.98e-15     2   60.4
+##  5 E_cl~     0.260         0.234 0.167       10.2 3.42e- 3     2   12.5
+##  6 E_du~     0.720         0.716 0.161      180.  5.03e-21     2   30.3
+##  7 E_ex~     0.590         0.584 0.196       99.2 5.52e-15     2   16.1
+##  8 E_gr~     0.747         0.744 0.0772     225.  2.12e-24     2   90.1
+##  9 E_gr~     0.829         0.827 0.161      325.  2.11e-27     2   29.2
+## 10 E_gr~     0.776         0.773 0.105      233.  1.75e-23     2   58.8
+## # ... with 14 more rows, and 4 more variables: AIC &amp;lt;dbl&amp;gt;, BIC &amp;lt;dbl&amp;gt;,
+## #   deviance &amp;lt;dbl&amp;gt;, df.residual &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, coef ) %&amp;gt;% 
+  unnest(coef)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 48 x 6
+##    Esp             term        estimate std.error statistic  p.value
+##    &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+##  1 E_botryoides    (Intercept)     2.63    0.0422     62.3  5.04e-59
+##  2 E_botryoides    I(1/DAP_cm)    -4.13    0.269     -15.4  3.85e-23
+##  3 E_brassiana     (Intercept)     2.01    0.0511     39.4  4.39e-44
+##  4 E_brassiana     I(1/DAP_cm)    -2.37    0.201     -11.8  3.26e-17
+##  5 E_camaldulensis (Intercept)     2.73    0.0461     59.2  2.33e-65
+##  6 E_camaldulensis I(1/DAP_cm)    -4.79    0.343     -14.0  1.14e-22
+##  7 E_citriodora    (Intercept)     2.55    0.0551     46.3  1.31e-52
+##  8 E_citriodora    I(1/DAP_cm)    -3.80    0.378     -10.1  4.98e-15
+##  9 E_cloeziana     (Intercept)     2.32    0.116      20.1  1.50e-18
+## 10 E_cloeziana     I(1/DAP_cm)    -2.84    0.892      -3.19 3.42e- 3
+## # ... with 38 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
+  select(Esp, resid) %&amp;gt;% 
+  unnest(resid)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,633 x 11
+##    Esp   .rownames log.H_m. I.1.DAP_cm. .fitted .se.fit   .resid   .hat
+##    &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;        &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1 E_bo~ 1             1.87      0.244     1.63  0.0317  0.246   0.0539
+##  2 E_bo~ 2             2.08      0.103     2.21  0.0201 -0.128   0.0217
+##  3 E_bo~ 4             2.01      0.132     2.09  0.0171 -0.0751  0.0158
+##  4 E_bo~ 5             1.61      0.263     1.55  0.0361  0.0628  0.0702
+##  5 E_bo~ 7             2.20      0.0794    2.31  0.0242 -0.108   0.0315
+##  6 E_bo~ 9             2.08      0.143     2.04  0.0168  0.0360  0.0152
+##  7 E_bo~ 10            2.01      0.133     2.08  0.0170 -0.0678  0.0156
+##  8 E_bo~ 13            1.61      0.167     1.95  0.0178 -0.336   0.0171
+##  9 E_bo~ 14            2.30      0.0980    2.23  0.0209  0.0741  0.0234
+## 10 E_bo~ 15            2.14      0.120     2.14  0.0180  0.00425 0.0173
+## # ... with 1,623 more rows, and 3 more variables: .sigma &amp;lt;dbl&amp;gt;,
+## #   .cooksd &amp;lt;dbl&amp;gt;, .std.resid &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Após o ajuste do modelo, temos de predizer as alturas. O único adendo para esse comando é que precisamos fazer em duas etapas, uma utilizando a função &lt;code&gt;predict&lt;/code&gt; e outra para trazer o valor predito para a escala natural, pois o modelo foi ajustado na escala logarítmica.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_pred &amp;lt;- dados_modl %&amp;gt;% 
+  mutate(
+    hpred = map2(ajuste, data, predict),
+    hpred = map(hpred, exp)
+  ) %&amp;gt;%
+  select(Esp, data, hpred)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, temos de volta um data.frame com as alturas preditas. Por mais que o ajuste tenha ficado razoável, na prática a construção de modelos de relação hipsométrica envolvem outras etapas e um maior rigor em termos estatísticos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_compl &amp;lt;- dados_pred %&amp;gt;%
+  unnest(hpred, data)
+
+dados_compl&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,881 x 10
+##    Esp          hpred N_tume I_meses Parc_m2 N_arv DAP_cm   H_m   Cod  Cod2
+##    &amp;lt;chr&amp;gt;        &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1 E_botryoides  5.08     55      24     600     1    4.1   6.5    NA    NA
+##  2 E_botryoides  9.09     55      24     600     2    9.7   8      NA    NA
+##  3 E_botryoides NA        55      24     600     3   NA    NA       5    NA
+##  4 E_botryoides  8.08     55      24     600     4    7.6   7.5     2    NA
+##  5 E_botryoides  4.70     55      24     600     5    3.8   5      NA    NA
+##  6 E_botryoides NA        55      24     600     6   NA    NA       1    NA
+##  7 E_botryoides 10.0      55      24     600     7   12.6   9       6    NA
+##  8 E_botryoides NA        55      24     600     8   NA    NA       1    NA
+##  9 E_botryoides  7.72     55      24     600     9    7     8      NA    NA
+## 10 E_botryoides  8.03     55      24     600    10    7.5   7.5    NA    NA
+## # ... with 1,871 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;broom&amp;quot;, &amp;quot;purrr&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2018-12-31                  
+## 
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  backports      1.1.2    2017-12-13 [1] CRAN (R 3.5.0)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  broom        * 0.5.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr        * 0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+
+      </content:encoded>
     </item>
     
   </channel>

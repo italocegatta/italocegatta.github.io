@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Os gráficos que explicam nossos dados (heatmap)</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -28,15 +28,15 @@
     
 
     
-    <meta name="description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
-    <meta property="og:description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
+    <meta name="description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexibilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
+    <meta property="og:description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexibilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Os gráficos que explicam nossos dados (heatmap)">
     <meta property="og:url" content="/os-graficos-que-explicam-nossos-dados-heatmap/">
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
+    <meta name="twitter:description" content="O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexibilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.">
     
     
 
@@ -58,7 +58,7 @@
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -69,14 +69,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -277,11 +280,15 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexbilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</p>
+              
+              
+
+
+<p>O heatmap é um gráfico muito útil para identificar padrões, principalmente quando temos muitas variáveis no gráfico. Essencialmente o heatmap necessita de 3 variáveis: uma variável resposta e duas outras variáveis para compor os eixos x e y. Não há restrição quanto ao tipo de variável, qualquer uma delas podem ser quantitativa ou qualitativa. Talvez esse seja o trunfo do heatmap, essa flexibilidade quanto a natureza das variáveis nos permite utilizá-lo em diversos momentos e substituir gráficos mais tradicionais quando eles não dão conta do recado.</p>
 <p>Vamos trabalhar com os dados do <a href="http://www.projetotume.com/">Projeto TUME</a>, especificamente com o TUME 0, plantado na Estação Experimental de Itatinga. O TUME é um projeto muito interessante e possui informações importantes sobre plantios de <em>Eucalyptus</em> no Brasil, vale a pena visitar o site e aproveitar o conteúdo disponível.</p>
 <p>Vamos primeiro carregar os dados e fazer algumas alterações. Para auxiliar na ordem dos fatores no gráfico vamos adicionar um atributo na coluna <code>Esp</code> informando a ordem crescente das espécies em função da altura dominante. Em seguida, apenas por conveniência, converti a idade dos inventários de meses para anos.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, ggplot2, ggthemes, viridis)</code></pre>
+pacman::p_load(readr, dplyr, ggplot2)</code></pre>
 <pre class="r"><code>dados &lt;- read_csv2(
   &quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/tume0.csv&quot;
 )
@@ -295,156 +302,149 @@ dados &lt;- dados %&gt;%
   )
 dados</code></pre>
 <pre><code>## # A tibble: 138 x 16
-##    N_tume Esp       I_meses Parc_m2 DAPmed DAPsd  Hmed   Hsd  Hdom N_fuste
-##     &lt;int&gt; &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;
-##  1      0 Clone_1        52   1426.  11.4   1.40 16.5   1.30 17.8     1789
-##  2      0 Clone_2        52   1426.  10.2   1.40 15.9   1.40 16.6     1662
-##  3      0 Clone_3        52   1426.  10.7   1.60 15.0   1.30 16.1     1824
-##  4      0 E_bentha~      52   1426.   9.00  2.70  9.80  2.30 13.0     1494
-##  5      0 E_botryo~      52   1426.   9.10  4.30 10.8   3.40 15.3     1368
-##  6      0 E_camald~      52   1426.   8.30  2.90  8.30  2.30 11.8     1557
-##  7      0 E_citrio~      52   1426.   8.00  3.50  8.30  2.80 12.0      954
-##  8      0 E_cloezi~      52    929.   7.50  2.50  7.00  2.00  9.60    1367
-##  9      0 E_deanei       52   1426.  10.6   2.90 11.3   1.80 13.4     1087
-## 10      0 E_dunnii       52   1426.   6.70  3.70  6.10  2.40 10.3      779
+##    N_tume Esp   I_meses Parc_m2 DAPmed DAPsd  Hmed   Hsd  Hdom N_fuste
+##     &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1      0 Clon~      52   1426.   11.4   1.4  16.5   1.3  17.8    1789
+##  2      0 Clon~      52   1426.   10.2   1.4  15.9   1.4  16.6    1662
+##  3      0 Clon~      52   1426.   10.7   1.6  15     1.3  16.1    1824
+##  4      0 E_be~      52   1426.    9     2.7   9.8   2.3  13      1494
+##  5      0 E_bo~      52   1426.    9.1   4.3  10.8   3.4  15.3    1368
+##  6      0 E_ca~      52   1426.    8.3   2.9   8.3   2.3  11.8    1557
+##  7      0 E_ci~      52   1426.    8     3.5   8.3   2.8  12       954
+##  8      0 E_cl~      52    929.    7.5   2.5   7     2     9.6    1367
+##  9      0 E_de~      52   1426.   10.6   2.9  11.3   1.8  13.4    1087
+## 10      0 E_du~      52   1426.    6.7   3.7   6.1   2.4  10.3     779
 ## # ... with 128 more rows, and 6 more variables: Sobr &lt;dbl&gt;, G &lt;dbl&gt;,
-## #   V &lt;int&gt;, IMA &lt;dbl&gt;, B &lt;int&gt;, Idade &lt;dbl&gt;</code></pre>
+## #   V &lt;dbl&gt;, IMA &lt;dbl&gt;, B &lt;dbl&gt;, Idade &lt;dbl&gt;</code></pre>
 <p>Se fizermos a seguinte pergunta: qual gráfico podemos utilizar para mostrar o crescimento da altura dominantes dos materiais? Penso que a resposta rápida seria, um gráfico de linhas! Ok, vamos tentar, veja a Figura <a href="#fig:6-linhas">1</a>.</p>
 <pre class="r"><code>ggplot(dados, aes(Idade, Hdom, color = Esp)) +
   geom_line(size=1.5) +
-  labs(x = &quot;Idade (anos)&quot;, y = &quot;Altura dominante (m)&quot;) +
-  theme_few() +
-  scale_color_viridis(
-    name = &quot;Materiais genéticos&quot;,
-    direction = -1, discrete = T
+  labs(
+    x = &quot;Idade (anos)&quot;, y = &quot;Altura dominante (m)&quot;,
+    color = &quot;Materiais genéticos&quot;
   ) +
+  scale_color_viridis_d(direction = -1) +
+  theme_bw(16) +
   guides(col = guide_legend(ncol = 1, reverse = TRUE))</code></pre>
 <div class="figure"><span id="fig:6-linhas"></span>
-<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.png" alt="Aumento da altura dominante utilizando gráficos de linhas." width="4000" />
+<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-linhas-1.svg" alt="Aumento da altura dominante utilizando gráficos de linhas." width="960" />
 <p class="caption">
 Figura  1: Aumento da altura dominante utilizando gráficos de linhas.
 </p>
 </div>
-<p>Muito bem, o gráfico consegue mostar a tendência e o padrão de crescimento. Mas se alguém perguntar sobre o <em>Eucaluptus dunnii</em>, capaz de demorarmos um tempo para encontrar a linha correspondente. Capaz ainda de não conseguirmos distinguir entre uma cor e outra. Essa é uma limitação do gráfico de linhas, quanto temos muitos fatores na legenda fica difícil a distinção entre eles. E quando se tem uma restrição de cor e o gráfico precisa estar em escala de cinza? Esquece! Há quem tente utilizar símbolos ou tipos de traços para distinguir os fatores, mas mesmo assim, não é uma tarefa fácil.</p>
-<p>É neste momento que podemos nos aproveitar do heatmap. Agora a intencidade de cor indica a variável resposta (Figura <a href="#fig:6-heatmap-cont">2</a>). Veja que fica mais fácil acompanhar o crescimento de uma espécies em especial.</p>
+<p>Muito bem, o gráfico consegue mostrar a tendência e o padrão de crescimento. Mas se alguém perguntar sobre o <em>Eucaluptus dunnii</em>, capaz de demorarmos um tempo para encontrar a linha correspondente. Capaz ainda de não conseguirmos distinguir entre uma cor e outra. Essa é uma limitação do gráfico de linhas, quanto temos muitos fatores na legenda fica difícil a distinção entre eles. E quando se tem uma restrição de cor e o gráfico precisa estar em escala de cinza? Esquece! Há quem tente utilizar símbolos ou tipos de traços para distinguir os fatores, mesmo assim, não é uma tarefa fácil.</p>
+<p>É neste momento que podemos nos aproveitar do heatmap. Agora a intensidade de cor indica a variável resposta (Figura <a href="#fig:6-heatmap-cont">2</a>). Veja que fica mais fácil acompanhar o crescimento de uma espécie em especial.</p>
 <pre class="r"><code>ggplot(dados, aes(factor(Idade), Esp, fill = Hdom)) +
-  geom_tile() +
-  labs(x = &quot;Idade (anos)&quot;, y = &quot;Materiais genéticos&quot;) +
-  theme_few() +
-  scale_fill_viridis(name = &quot;Altura dominante (m)&quot;, direction = -1) +
+  geom_tile(color = &quot;grey90&quot;) +
+  labs(
+    x = &quot;Idade (anos)&quot;, y = &quot;Altura dominante (m)&quot;,
+    fill = &quot;Materiais genéticos&quot;
+  ) +
+  scale_fill_viridis_c(direction = -1) +
+  theme_bw(16) +
   guides(col = guide_legend(reverse = TRUE))</code></pre>
 <div class="figure"><span id="fig:6-heatmap-cont"></span>
-<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.png" alt="Aumento da altura dominante utilizando heatmap com escala de cor contínua." width="4000" />
+<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-cont-1.svg" alt="Aumento da altura dominante utilizando heatmap com escala de cor contínua." width="960" />
 <p class="caption">
 Figura  2: Aumento da altura dominante utilizando heatmap com escala de cor contínua.
 </p>
 </div>
 <p>Se for do interesse controlar a escala de cor em intervalos e classes, a alteração é simples (Figura <a href="#fig:6-heatmap-discr">3</a>). Se reduzirmos as classes de cor, perdemos resolução na escala da variável resposta. Dependendo do objetivo do gráfico isso pode ser bom ou ruim. Neste caso, escolhi intervalos de 2 metros, pois achei mais adequado.</p>
-<pre class="r"><code>ggplot(dados, aes(factor(Idade),
-       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
- geom_tile() +
- labs(x = &quot;Idade (anos)&quot;, y = &quot;Materiais genéticos&quot;) +
- theme_few() +
- scale_fill_viridis(
-   name = &quot;Altura dominante (m)&quot;,
-   discrete = T, direction = -1
- ) +
- guides(col = guide_legend(reverse = TRUE))</code></pre>
+<pre class="r"><code>ggplot(dados, aes(factor(Idade), Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+  geom_tile(color = &quot;grey90&quot;) +
+  labs(
+    x = &quot;Idade (anos)&quot;, y = &quot;Materiais genéticos&quot;,
+    fill = &quot;Altura dominante (m)&quot;
+  ) +
+  scale_fill_viridis_d(direction = -1) +
+  theme_bw(16) +
+  guides(col = guide_legend(reverse = TRUE))</code></pre>
 <div class="figure"><span id="fig:6-heatmap-discr"></span>
-<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.png" alt="Aumento da altura dominante utilizando heatmap com escala de cor discreta." width="4000" />
+<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-1.svg" alt="Aumento da altura dominante utilizando heatmap com escala de cor discreta." width="960" />
 <p class="caption">
 Figura  3: Aumento da altura dominante utilizando heatmap com escala de cor discreta.
 </p>
 </div>
 <p>Se quisermos deixar explícito o valor da variável resposta podemos indicá-la no gráfico, como na Figura <a href="#fig:6-heatmap-discr-label">4</a>. Eu particularmente acho que fica muito poluído, mas em alguns casos pode ser interessante.</p>
-<pre class="r"><code>ggplot(dados, aes(factor(Idade),
-       Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
- geom_tile() +
- geom_text(aes(label = Hdom), color = &quot;white&quot;) +
- labs(x = &quot;Idade (anos)&quot;, y = &quot;Materiais genéticos&quot;) +
- theme_few() +
- scale_fill_viridis(
-   name = &quot;Altura dominante (m)&quot;,
-   discrete = T, direction = -1
- ) +
- guides(col = guide_legend(reverse = TRUE))</code></pre>
+<pre class="r"><code>ggplot(dados, aes(factor(Idade), Esp, fill = cut(Hdom, breaks = seq(0, 40, 2)))) +
+  geom_tile(color = &quot;grey90&quot;) +
+  geom_text(aes(label = Hdom), color = &quot;white&quot;, fontface = &quot;bold&quot;) +
+  labs(
+    x = &quot;Idade (anos)&quot;, y = &quot;Materiais genéticos&quot;,
+    fill = &quot;Altura dominante (m)&quot;
+  ) +
+  scale_fill_viridis_d(direction = -1, end = 0.92) +
+  theme_bw(16) +
+  guides(col = guide_legend(reverse = TRUE))</code></pre>
 <div class="figure"><span id="fig:6-heatmap-discr-label"></span>
-<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.png" alt="Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid." width="4000" />
+<img src="/post/2016-07-09-os-graficos-que-explicam-nossos-dados-heatmap_files/figure-html/6-heatmap-discr-label-1.svg" alt="Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid." width="960" />
 <p class="caption">
 Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor discreta e informação do valor no grid.
 </p>
 </div>
 <p>Note que o eixo x é uma variável temporal, entretanto o gráfico não dá a escala entre os anos. Um observador desatento pode achar que as medições ocorreram em intervalos regulares, mas isso não é verdade. Essa é uma desvantagem do heatmap. Quando as variáveis dos eixos são numéricas e representam uma escala comparativa, este atributo fica comprometido.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-30                  
 ## 
-##  package     * version    date       source                            
-##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports     1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base        * 3.4.3      2017-12-06 local                             
-##  bindr         0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown      0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown      0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli           1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace    1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler      3.4.3      2017-12-06 local                             
-##  crayon        1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl          3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets    * 3.4.3      2017-12-06 local                             
-##  devtools      1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest        0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate      0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  ggplot2     * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.4.3)                    
-##  glue          1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics    * 3.4.3      2017-12-06 local                             
-##  grDevices   * 3.4.3      2017-12-06 local                             
-##  grid          3.4.3      2017-12-06 local                             
-##  gridExtra     2.3        2017-09-09 CRAN (R 3.4.3)                    
-##  gtable        0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr         0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms           0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools     0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr         1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling      0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval      0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr      1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise       1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods     * 3.4.3      2017-12-06 local                             
-##  munsell       0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar        1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr          1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  R6            2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  Rcpp          0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang         0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown     1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot     1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales        0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats       * 3.4.3      2017-12-06 local                             
-##  stringi       1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr       1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble        1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tools         3.4.3      2017-12-06 local                             
-##  utf8          1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils       * 3.4.3      2017-12-06 local                             
-##  viridis     * 0.5.0      2018-02-02 CRAN (R 3.4.3)                    
-##  viridisLite * 0.3.0      2018-02-01 CRAN (R 3.4.3)                    
-##  withr         2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun          0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml          2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.0    2018-07-14 [1] CRAN (R 3.5.1)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -462,10 +462,6 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
   <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
   <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/viridis/">viridis</a>
 
                   </div>
                 
@@ -543,6 +539,7 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -733,7 +730,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -786,24 +783,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -863,6 +843,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -870,7 +868,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

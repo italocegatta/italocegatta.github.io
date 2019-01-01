@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Risco de incêndio pela Fórmula de Monte Alegre</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -278,7 +281,11 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.</p>
+              
+              
+
+
+<p>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.</p>
 <p>A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por <span class="citation">Soares (1972)</span> e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio. É um índice que possui 5 classes de risco e é cumulativo, portanto precisa ser calculado todos os dias.</p>
 <p>O objetivo deste post é implementar a FMA utilizando dados de 1988 à 2017 da estação meteorológica convencional da <a href="http://www.esalq.usp.br/departamentos/leb/postocon.html">ESALQ em Piracicaba</a>.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
@@ -359,7 +366,7 @@ base_fma</code></pre>
     ) +
     theme_bw() +
     theme(legend.position = &quot;top&quot;, panel.grid.minor.x = element_blank())</code></pre>
-<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.png" width="3200" /></p>
+<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg" width="960" /></p>
 <p>Olhando para a distribuição da umidade relativa em cada mês, podemos ver que em junho a mediana ainda está próximo dos 50% de umidade. E só em julho que os dias mais secos começam a ter mais frequência e essa tendência aumenta até setembro, depois retorna gradativamente até a mediana de 57% de umidade em dezembro.</p>
 <pre class="r"><code>base_fma %&gt;% 
   filter(!is.na(ur13)) %&gt;% 
@@ -370,7 +377,7 @@ base_fma</code></pre>
     scale_x_continuous(breaks = seq(10, 100, 10)) +
     scale_y_discrete(labels = format(ISOdate(2000, 1:12, 1), &quot;%b&quot;)) +
     theme_bw()</code></pre>
-<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.png" width="3200" /></p>
+<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg" width="960" /></p>
 <p>Sobre a Fórmula de Monte Alegre, o contexto que motivou seu desenvolvimento foi bastante trágico. Em 1963 um grande incêndio atingiu o estado do Paraná, com centenas de mortes e cerca de 2 milhões de hectares de florestas queimadas. Em 1972 o Professor Ronaldo Soares, da UFPR, defendeu sua tese de mestrado propondo a Fórmula de Monte Alegre com base em registros de incêndios florestais coletados a partir de 1965 na fazenda Monte Alegre (Klabin), em Telêmaco Borba-PR.</p>
 <p>A cálculo do índice é bastante simples, basta calcular o valor FMA do dia corrente e somar com o valor do dia anterior. O FMA é calculado através da seguinte expressão:</p>
 <p><img src="http://www.sciweavers.org/tex2img.php?eq=FMA%20%3D%20%20%5Csum_%7Bi%3D1%7D%5En%20%20%5Cfrac%7B100%7D%7BURi_%7B13h%7D%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="FMA =  \sum_{i=1}^n  \frac{100}{URi_{13h}} " width="139" height="62" /></p>
@@ -513,7 +520,7 @@ dados_fma</code></pre>
 ##  9 1988-01-09  17.1  61.3  0    Nulo   
 ## 10 1988-01-10   7.8  61.3  1.63 Pequeno
 ## # ... with 10,951 more rows</code></pre>
-<p>A primeira abordagem que quero mostrar é a evolução do valor FMA ao longo do ano. Considerando o dia do ano ou dia juliano, podemos ver a evolução do valor FMA devido a ausência de chuvas fortes. O máximo dessa “corrida” de risco vai até próximo do dia 290, que corresponde ao meio de outubro.</p>
+<p>A primeira abordagem que quero mostrar é a evolução do valor FMA ao longo do ano. Considerando o dia do ano ou dia juliano, podemos ver a evolução do valor FMA devido á ausência de chuvas fortes. O máximo dessa “corrida” de risco vai até próximo do dia 290, que corresponde ao meio de outubro.</p>
 <pre class="r"><code>dados_fma %&gt;% 
   mutate(
     ano = year(data),
@@ -525,7 +532,7 @@ dados_fma</code></pre>
   scale_fill_viridis_c(option = &quot;viridis&quot;) +
   scale_x_continuous(breaks = seq(20, 360, 20), expand = c(0, 0)) +
   theme_bw()</code></pre>
-<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png" width="3200" /></p>
+<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 <p>Calculando a frequência das classes dentro de cada ano, podemos ver que predomina o risco Muito Alto, seguido do risco Alto. O risco nulo, ocorre em aproximadamente 10% dos dias do ano.</p>
 <pre class="r"><code>dados_fma  %&gt;% 
   filter(!is.na(risco)) %&gt;% 
@@ -537,7 +544,7 @@ dados_fma</code></pre>
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent) +
   scale_fill_brewer(palette = &quot;Spectral&quot;, direction = -1) +
   theme_bw()</code></pre>
-<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.png" width="3200" /></p>
+<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg" width="960" /></p>
 <p>Olhando para a frequência de risco dentro dos meses, fica claro o maior risco próximo do mês de agosto, como sugeriram os gráficos de frequências de chuva e umidade relativa.</p>
 <pre class="r"><code>dados_fma  %&gt;% 
   filter(!is.na(risco)) %&gt;% 
@@ -550,82 +557,74 @@ dados_fma</code></pre>
   scale_y_continuous(labels = scales::percent) +
   scale_fill_brewer(palette = &quot;Spectral&quot;, direction = -1) +
   theme_bw()</code></pre>
-<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.png" width="3200" /></p>
-<p>Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais acertivo para uma certa região.</p>
+<p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg" width="960" /></p>
+<p>Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais assertivo para uma certa região.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;tidyr&quot;, &quot;forcats&quot;, &quot;lubridate&quot;, &quot;ggridges&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-07-15                  
+##  date     2018-12-31                  
 ## 
-##  package      * version    date       source                            
-##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports      1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base         * 3.4.3      2017-12-06 local                             
-##  bindr          0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp     * 0.2.2      2018-03-29 CRAN (R 3.4.4)                    
-##  blogdown       0.8        2018-07-15 CRAN (R 3.4.3)                    
-##  bookdown       0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli            1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler       3.4.3      2017-12-06 local                             
-##  crayon         1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl           3.2        2018-03-28 CRAN (R 3.4.4)                    
-##  datasets     * 3.4.3      2017-12-06 local                             
-##  devtools       1.13.6     2018-06-27 CRAN (R 3.4.4)                    
-##  digest         0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr        * 0.7.6      2018-06-29 CRAN (R 3.4.4)                    
-##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  fansi          0.2.3      2018-05-06 CRAN (R 3.4.4)                    
-##  forcats      * 0.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  ggplot2      * 3.0.0      2018-07-07 Github (tidyverse/ggplot2@3d022ed)
-##  ggridges     * 0.5.0      2018-04-05 CRAN (R 3.4.4)                    
-##  glue           1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics     * 3.4.3      2017-12-06 local                             
-##  grDevices    * 3.4.3      2017-12-06 local                             
-##  grid           3.4.3      2017-12-06 local                             
-##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  hms            0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr          1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling       0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval       0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  lubridate    * 1.7.4      2018-04-11 CRAN (R 3.4.4)                    
-##  magrittr       1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods      * 3.4.3      2017-12-06 local                             
-##  munsell        0.5.0      2018-06-12 CRAN (R 3.4.4)                    
-##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar         1.3.0      2018-07-14 CRAN (R 3.4.4)                    
-##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr           1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  purrr          0.2.5      2018-05-29 CRAN (R 3.4.4)                    
-##  R6             2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.4.1)                    
-##  Rcpp           0.12.17    2018-05-18 CRAN (R 3.4.4)                    
-##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang          0.2.1      2018-05-30 CRAN (R 3.4.4)                    
-##  rmarkdown      1.10       2018-06-11 CRAN (R 3.4.4)                    
-##  rprojroot      1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales         0.5.0.9000 2018-07-07 Github (hadley/scales@32e6d55)    
-##  stats        * 3.4.3      2017-12-06 local                             
-##  stringi        1.2.3      2018-06-12 CRAN (R 3.4.3)                    
-##  stringr        1.3.1      2018-05-10 CRAN (R 3.4.4)                    
-##  tibble         1.4.2      2018-01-22 CRAN (R 3.4.4)                    
-##  tidyr        * 0.8.1      2018-05-18 CRAN (R 3.4.4)                    
-##  tidyselect     0.2.4      2018-02-26 CRAN (R 3.4.4)                    
-##  tools          3.4.3      2017-12-06 local                             
-##  utf8           1.1.4      2018-05-24 CRAN (R 3.4.4)                    
-##  utils        * 3.4.3      2017-12-06 local                             
-##  viridisLite    0.3.0      2018-02-01 CRAN (R 3.4.3)                    
-##  withr          2.1.2      2018-07-07 Github (jimhester/withr@fe56f20)  
-##  xfun           0.3        2018-07-06 CRAN (R 3.4.4)                    
-##  yaml           2.1.19     2018-05-01 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  ggridges     * 0.5.1    2018-09-27 [1] CRAN (R 3.5.2)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lubridate    * 1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 <div id="referencias" class="section level1 unnumbered">
 <h1>Referências</h1>
 <div id="refs" class="references">
@@ -739,6 +738,7 @@ dados_fma</code></pre>
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -929,7 +929,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -982,24 +982,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1059,6 +1042,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -1066,7 +1067,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

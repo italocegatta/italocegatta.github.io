@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Os gráficos que explicam nossos dados (histograma)</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -58,7 +58,7 @@
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -69,14 +69,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -277,65 +280,73 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</p>
+              
+              
+
+
+<p>Histogramas são usados para mostrar a frequência com que uma variável ocorre. Isto é muito interessante para mostrar qual a distribuição dos seus dados e podemos apresentar em forma de frequência absoluta, relativa, percentual e acumulada. Para exemplificar este tipo gráfico, vamos utilizar os dados de inventário de uma propriedade fictícia na Amazônia. Estes dados são meramente ilustrativos e não tem valor real. O objetivo aqui é apresentar algumas particularidades da construção de gráficos de barras no R e facilitar a vida de quem quer abandonar os gráficos do Excel.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, ggplot2, ggthemes)</code></pre>
+pacman::p_load(readr, dplyr, ggplot2)</code></pre>
 <pre class="r"><code>dados &lt;- read_csv2(
   &quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_amazonia.csv&quot;
 )
 
 dados</code></pre>
 <pre><code>## # A tibble: 276 x 7
-##    Especie          Nome_cientifico     Comercial   DAP  HCom Volume    QF
-##    &lt;chr&gt;            &lt;chr&gt;               &lt;chr&gt;     &lt;int&gt; &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;
-##  1 NAO IDENTIFICADA Nao Identificada    Nao          20    10  0.230     2
-##  2 EMBIRA           Lecythidaceae       Nao          34    13  0.830     1
-##  3 NAO IDENTIFICADA Nao Identificada    Nao          18     6  0.110     1
-##  4 SUCUPIRA         Leguminosae-Papili~ Nao          18     7  0.130     1
-##  5 CANELA           Lauraceae           Nao          24    10  0.320     1
-##  6 TACHI            Lecythidaceae       Sim          21    10  0.250     1
-##  7 ENVIRA CAJU      Annonaceae          Nao          20    11  0.250     2
-##  8 JUTAI            Leguminosae-Caesal~ Nao          38    13  1.04      2
-##  9 CATUABA          Vochysiaceae        Sim          57    13  2.32      1
-## 10 NAO IDENTIFICADA Nao Identificada    Nao          22     7  0.190     2
+##    Especie       Nome_cientifico        Comercial   DAP  HCom Volume    QF
+##    &lt;chr&gt;         &lt;chr&gt;                  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1 NAO IDENTIFI~ Nao Identificada       Nao          20    10   0.23     2
+##  2 EMBIRA        Lecythidaceae          Nao          34    13   0.83     1
+##  3 NAO IDENTIFI~ Nao Identificada       Nao          18     6   0.11     1
+##  4 SUCUPIRA      Leguminosae-Papiliono~ Nao          18     7   0.13     1
+##  5 CANELA        Lauraceae              Nao          24    10   0.32     1
+##  6 TACHI         Lecythidaceae          Sim          21    10   0.25     1
+##  7 ENVIRA CAJU   Annonaceae             Nao          20    11   0.25     2
+##  8 JUTAI         Leguminosae-Caesalpin~ Nao          38    13   1.04     2
+##  9 CATUABA       Vochysiaceae           Sim          57    13   2.32     1
+## 10 NAO IDENTIFI~ Nao Identificada       Nao          22     7   0.19     2
 ## # ... with 266 more rows</code></pre>
 <p>Primeiro vamos ver qual a distribuição dos indivíduos em classes de diâmetro. A Figura <a href="#fig:7-hist-dap">1</a> mostra a frequência de indivíduos em classes de diâmetro de 10 cm. Visivelmente, podemos ver que a faixa de diâmetro mais frequente está entre 15 e 35 cm (centro de classe 20 e 30 cm, respectivamente).</p>
 <pre class="r"><code>ggplot(dados, aes(DAP)) +
-  geom_histogram(binwidth = 10, color = &quot;white&quot;) +
+  geom_histogram(binwidth = 10, color =&quot; black&quot;, alpha = 0.8) +
   labs(x = &quot;Diâmetro (cm)&quot;, y = &quot;Frequência (arv/ha)&quot;) +
-  scale_x_continuous(breaks = seq(0, 100,10)) +
-  theme_few()</code></pre>
+  scale_x_continuous(breaks = seq(0, 100, 10)) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:7-hist-dap"></span>
-<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-1.png" alt="Histograma com a frequência absoluta por classes de diâmetro." width="4000" />
+<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-1.svg" alt="Histograma com a frequência absoluta por classes de diâmetro." width="960" />
 <p class="caption">
 Figura  1: Histograma com a frequência absoluta por classes de diâmetro.
 </p>
 </div>
 <p>Mas, e quanto às espécies comerciais? Como elas estão distribuídas? A Figura <a href="#fig:7-hist-dap-comerc">2</a> faz esta diferenciação. E lembre-se, no manejo florestal da Amazônia só é permitido a exploração de árvores com diâmetro maior que 50 cm.</p>
 <pre class="r"><code>ggplot(dados, aes(DAP, fill = Comercial)) +
-  geom_histogram(binwidth = 10, color = &quot;white&quot;, alpha = 0.5) +
-  labs(x = &quot;Diâmetro (cm)&quot;, y = &quot;Frequência (arv/ha)&quot;) +
+  geom_histogram(binwidth = 10, color =&quot; black&quot;, alpha = 0.8) +
+  labs(
+    x = &quot;Diâmetro (cm)&quot;, y = &quot;Frequência (arv/ha)&quot;,
+    fill = &quot;Comercial?&quot;
+  ) +
   scale_x_continuous(breaks = seq(0, 100,10)) +
-  theme_few() +
-  theme(legend.position = c(.9, .9)) +
-  scale_fill_hue(&quot;Comercial?&quot;, labels = c(&quot;Não&quot;, &quot;Sim&quot;))</code></pre>
+  scale_fill_hue(labels = c(&quot;Não&quot;, &quot;Sim&quot;)) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:7-hist-dap-comerc"></span>
-<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-comerc-1.png" alt="Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial." width="4000" />
+<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-dap-comerc-1.svg" alt="Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial." width="960" />
 <p class="caption">
 Figura  2: Histograma com a frequência absoluta por classes de diâmetro e separação pelo fator de árvores de interesse comercial.
 </p>
 </div>
 <p>Vamos melhorar um pouco mais a informação sob o ponto de vista da exploração: qual a frequência de indivíduos que são de interesse comercial e tem diâmetro mais que 50 cm? (Figura <a href="#fig:7-hist-vol-exp">3</a>).</p>
 <pre class="r"><code>ggplot(dados, aes(Volume, fill = DAP &gt; 50 &amp; Comercial == &quot;Sim&quot;)) +
-  geom_histogram(binwidth = 0.5, color = &quot;white&quot;, alpha = 0.5) +
-  labs(x = Volume~individual ~ (m^3 / arv), y = &quot;Frequência (arv/ha)&quot;) +
+  geom_histogram(binwidth = 0.5, color =&quot; black&quot;, alpha = 0.8) +
+  labs(
+    x = Volume~individual~(m^3~arv^-1), y = &quot;Frequência (arv/ha)&quot;,
+    fill = &quot;Pode explorar?&quot;
+  ) +
   scale_y_continuous(breaks = seq(0, 150, 20)) +
   scale_x_continuous(breaks = seq(0, 10, 0.5)) +
-  theme_few()  +
-  theme(legend.position = c(.9, .9)) +
-  scale_fill_hue(&quot;Pode explorar?&quot;, labels = c(&quot;Não&quot;, &quot;Sim&quot;))</code></pre>
+  scale_fill_hue(labels = c(&quot;Não&quot;, &quot;Sim&quot;)) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:7-hist-vol-exp"></span>
-<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-1.png" alt="Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm." width="4000" />
+<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-1.svg" alt="Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm." width="960" />
 <p class="caption">
 Figura  3: Histograma com a frequência absoluta por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
 </p>
@@ -344,87 +355,84 @@ Figura  3: Histograma com a frequência absoluta por classes de volume individua
 <pre class="r"><code>ggplot(dados, aes(Volume, fill = DAP &gt; 50 &amp; Comercial == &quot;Sim&quot;)) +
   geom_histogram(
     aes(y = ..count../sum(..count..)),
-    binwidth = 0.5, color = &quot;white&quot;, alpha = 0.5
+    binwidth = 0.5, color =&quot; black&quot;, alpha = 0.8
   ) +
-  labs(x =  Volume~individual ~ (m^3 / arv), y = &quot;Frequência (arv/ha)&quot;) +
+  labs(
+    x = Volume~individual~(m^3~arv^-1), y = &quot;Frequência (arv/ha)&quot;,
+    fill = &quot;Pode explorar?&quot;
+  ) +
   scale_y_continuous(breaks = seq(0, .5, 0.05), labels = scales::percent) +
   scale_x_continuous(breaks = seq(0, 10, 0.5)) +
-  theme_few()  +
-  theme(legend.position = c(.9, .9)) +
-  scale_fill_hue(&quot;Pode explorar?&quot;, labels = c(&quot;Não&quot;, &quot;Sim&quot;))</code></pre>
+  scale_fill_hue(labels = c(&quot;Não&quot;, &quot;Sim&quot;)) +
+  theme_bw(16)</code></pre>
 <div class="figure"><span id="fig:7-hist-vol-exp-rel"></span>
-<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-rel-1.png" alt="Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm." width="4000" />
+<img src="/post/2016-07-15-os-graficos-que-explicam-nossos-dados-histograma_files/figure-html/7-hist-vol-exp-rel-1.svg" alt="Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm." width="960" />
 <p class="caption">
 Figura  4: Histograma com a frequência relativa por classes de volume individual e separação pelo fator de árvores de interesse comercial e diâmetro maior que 50 cm.
 </p>
 </div>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package    * version    date       source                            
-##  assertthat   0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports    1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base       * 3.4.3      2017-12-06 local                             
-##  bindr        0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp     0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown     0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown     0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli          1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace   1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler     3.4.3      2017-12-06 local                             
-##  crayon       1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl         3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets   * 3.4.3      2017-12-06 local                             
-##  devtools     1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest       0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr      * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate     0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  ggplot2    * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  ggthemes   * 3.4.0      2017-02-19 CRAN (R 3.4.3)                    
-##  glue         1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics   * 3.4.3      2017-12-06 local                             
-##  grDevices  * 3.4.3      2017-12-06 local                             
-##  grid         3.4.3      2017-12-06 local                             
-##  gtable       0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr        0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms          0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools    0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr        1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling     0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval     0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr     1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise      1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods    * 3.4.3      2017-12-06 local                             
-##  munsell      0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  pacman     * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar       1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr         1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  R6           2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  Rcpp         0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr      * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang        0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown    1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot    1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales       0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats      * 3.4.3      2017-12-06 local                             
-##  stringi      1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr      1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble       1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tools        3.4.3      2017-12-06 local                             
-##  utf8         1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils      * 3.4.3      2017-12-06 local                             
-##  withr        2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun         0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml         2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp       0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.0    2018-07-14 [1] CRAN (R 3.5.1)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -442,8 +450,6 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
   <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
   <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
 
                   </div>
                 
@@ -521,6 +527,7 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -711,7 +718,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -764,24 +771,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -841,6 +831,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -848,7 +856,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

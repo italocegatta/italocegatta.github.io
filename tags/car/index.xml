@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Car on Ítalo Cegatta</title>
     <link>/tags/car/</link>
@@ -8,7 +8,7 @@
     <language>pt-br</language>
     <lastBuildDate>Thu, 08 Sep 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/car/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/car/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,6 +19,242 @@
       <guid>/anova-e-teste-de-tukey/</guid>
       <description>Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
 Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</description>
+      <content:encoded>
+        
+
+
+&lt;p&gt;Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.&lt;/p&gt;
+&lt;p&gt;Pois bem, para percebermos a dimensão dos dados e qual a variabilidade de cada tratamento, vamos criar um boxplot (Figura &lt;a href=&#34;#fig:10-boxplot&#34;&gt;1&lt;/a&gt;). Caso você queira saber um pouco mais sobre este tipo de gráfico, veja o &lt;a href=&#34;https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot&#34;&gt;post sobre ele&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, tibble, ggplot2, car, agricolae)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados &amp;lt;- read_csv2(
+  &amp;quot;https://github.com/italocegatta/italocegatta.github.io_source/raw/master/content/dados/base_progenie.csv&amp;quot;
+)
+
+dados&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 30 x 3
+##    repeticao progenie volume
+##        &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;
+##  1         1 A           212
+##  2         2 A           206
+##  3         3 A           224
+##  4         4 A           289
+##  5         5 A           324
+##  6         6 A           219
+##  7         1 B           108
+##  8         2 B           194
+##  9         3 B           163
+## 10         4 B           111
+## # ... with 20 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(dados, aes(progenie, volume)) +
+  geom_boxplot(fill = &amp;quot;grey60&amp;quot;, alpha = 0.8) +
+  theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.svg&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;960&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  1: Variabilidade do volume por hectare de cada tratamento.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;A ANOVA é um método bastante consolidado no meio acadêmico. Basicamente, este método informa se existe um tratamento discrepante dentre os demais. Entretanto, ele exige que algumas premissas sejam atendidas, como: distribuição normal dos resíduos e homogeneidade de variância.&lt;/p&gt;
+&lt;p&gt;Primeiro, vamos utilizar o teste de Levene para verificar se há homogeneidade de variância, ou homocedasticidade. Como o p-valor é maior que 5% não temos evidência significativa para rejeitar a hipótese nula de homogeneidade, ou seja, nossos dados tem homogeneidade de variância.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;leveneTest(volume ~ factor(progenie), data=dados)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Levene&amp;#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&amp;gt;F)  
+## group  4  2.4677 0.07086 .
+##       25                  
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O segundo pressuposto é a normalidade dos resíduos. Utilizaremos o teste de Shapiro-Wilk cuja hipótese nula é a de que os dados seguem uma distribuição normal. Como o p-valor é superior ao limite de 5%, podemos aceitar a hipótese nula e considerar nossos dados normais.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;anova &amp;lt;-  aov(volume ~ progenie, data=dados)
+
+shapiro.test(resid(anova))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(anova)
+## W = 0.96097, p-value = 0.3279&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Uma vez que os pressupostos foram atendidos, seguiremos para a ANOVA. Note que, caso os testes de Levene e Shapiro-Wilk resultassem em um p-valor significante, ou seja, menor que 5%, teríamos que utilizar outro método estatístico para analisar nossos dados. Nesse caso, uma alternativa é utilizar testes não-paramétricos, uma vez que eles não exigem os pressupostos que acabamos de testar.&lt;/p&gt;
+&lt;p&gt;Nossa ANOVA resultou em um p-valor menor que 5%, portanto, temos evidências de que ao menos um tratamento se diferencia dos demais. Isso já é uma resposta, mas pouco acrescenta à nossa pesquisa pois queremos saber quem é este tratamento discrepante. Ou melhor, queremos poder comparar os tratamentos entre si e verificar quais são estatisticamente iguais ou diferentes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(anova)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##             Df Sum Sq Mean Sq F value   Pr(&amp;gt;F)    
+## progenie     4  86726   21681    8.89 0.000131 ***
+## Residuals   25  60974    2439                     
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para esta abordagem existem alguns testes de médias e cada um tem uma particularidade, mas de longe o mais utilizado é o de Tukey.&lt;/p&gt;
+&lt;p&gt;A interpretação do teste de Tukey é simples. Após determinarmos a diferença mínima significativa (ou Honest Significant Difference - HSD), podemos julgar se as médias são iguais ou não. Em termos práticos, esse valor nos dá uma margem de igualdade, pois se a diferença entre dois tratamentos for maior do que isso, os médias são diferentes.&lt;/p&gt;
+&lt;p&gt;A análise começa sempre pela maior média, no nosso caso a progênie A (245, 66). Com uma continha rápida, a média do tratamento A menos a diferença mínima significativa &lt;code&gt;245,66 - 83,73 = 161,93&lt;/code&gt;, aceitaremos que um tratamento é igual ao A se a média dele for maior que 161,93. O tratamento subsequente (o segundo do ranking) é a progênie D e como sua média é maior que 161,93 podemos dizer que ela é estatisticamente igual a progênie A.&lt;/p&gt;
+&lt;p&gt;As próximas comparações seguem a mesma lógica. Quando registramos que duas médias são iguais, nós as rotulamos com a mesma letra para facilitar a identificação. Veja no fim do output as letras evidenciando a igualdade entre os tratamentos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey &amp;lt;- HSD.test(anova, &amp;quot;progenie&amp;quot;)
+
+tukey&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $statistics
+##    MSerror Df     Mean       CV      MSD
+##   2438.953 25 165.7667 29.79233 83.73866
+## 
+## $parameters
+##    test   name.t ntr StudentizedRange alpha
+##   Tukey progenie   5         4.153363  0.05
+## 
+## $means
+##     volume      std r Min Max    Q25   Q50    Q75
+## A 245.6667 48.78798 6 206 324 213.75 221.5 272.75
+## B 159.6667 49.47996 6 108 236 119.75 154.5 186.25
+## C  80.5000 15.60449 6  63 100  70.00  76.5  93.50
+## D 190.1667 75.37484 6 100 267 121.75 207.0 251.75
+## E 152.8333 37.96534 6 106 210 133.75 141.5 175.50
+## 
+## $comparison
+## NULL
+## 
+## $groups
+##     volume groups
+## A 245.6667      a
+## D 190.1667     ab
+## B 159.6667     bc
+## E 152.8333     bc
+## C  80.5000      c
+## 
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;group&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey (Figura &lt;a href=&#34;#fig:10-barras-tukey&#34;&gt;2&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tukey$groups %&amp;gt;% 
+  rownames_to_column(var = &amp;quot;trt&amp;quot;) %&amp;gt;% 
+  mutate(trt = reorder(trt, -volume, mean)) %&amp;gt;% 
+  ggplot(aes(trt, volume)) +
+    geom_col(alpha = 0.8, color = &amp;quot;black&amp;quot;) +
+    geom_text(aes(label = groups), vjust = 1.8, size = 9, color = &amp;quot;white&amp;quot;) +
+    labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
+    theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.svg&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;960&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;tibble&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;car&amp;quot;, &amp;quot;agricolae&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2018-12-31                  
+## 
+## - Packages --------------------------------------------------------------
+##  package      * version   date       lib source        
+##  abind          1.4-5     2016-07-21 [1] CRAN (R 3.5.0)
+##  agricolae    * 1.2-8     2017-09-12 [1] CRAN (R 3.5.2)
+##  AlgDesign      1.1-7.3   2014-10-15 [1] CRAN (R 3.5.2)
+##  assertthat     0.2.0     2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1  2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1     2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2     2018-03-29 [1] CRAN (R 3.5.1)
+##  boot           1.3-20    2017-08-06 [2] CRAN (R 3.5.1)
+##  car          * 3.0-2     2018-08-23 [1] CRAN (R 3.5.2)
+##  carData      * 3.0-2     2018-09-30 [1] CRAN (R 3.5.2)
+##  cellranger     1.1.0     2016-07-27 [1] CRAN (R 3.5.1)
+##  class          7.3-14    2015-08-30 [2] CRAN (R 3.5.1)
+##  classInt       0.2-3     2018-04-16 [1] CRAN (R 3.5.1)
+##  cli            1.0.1     2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1     2018-06-23 [1] CRAN (R 3.5.1)
+##  cluster        2.0.7-1   2018-04-13 [2] CRAN (R 3.5.1)
+##  coda           0.19-2    2018-10-08 [1] CRAN (R 3.5.2)
+##  colorspace     1.3-2     2016-12-14 [1] CRAN (R 3.5.1)
+##  combinat       0.0-8     2012-10-29 [1] CRAN (R 3.5.2)
+##  crayon         1.3.4     2017-09-16 [1] CRAN (R 3.5.1)
+##  curl           3.2       2018-03-28 [1] CRAN (R 3.5.1)
+##  data.table     1.11.8    2018-09-30 [1] CRAN (R 3.5.1)
+##  deldir         0.1-15    2018-04-01 [1] CRAN (R 3.5.2)
+##  digest         0.6.18    2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8     2018-11-10 [1] CRAN (R 3.5.1)
+##  e1071          1.7-0     2018-07-28 [1] CRAN (R 3.5.1)
+##  expm           0.999-3   2018-09-22 [1] CRAN (R 3.5.2)
+##  fansi          0.4.0     2018-10-05 [1] CRAN (R 3.5.1)
+##  forcats        0.3.0     2018-02-19 [1] CRAN (R 3.5.1)
+##  foreign        0.8-70    2017-11-28 [2] CRAN (R 3.5.1)
+##  gdata          2.18.0    2017-06-06 [1] CRAN (R 3.5.2)
+##  ggplot2      * 3.1.0     2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0     2018-07-17 [1] CRAN (R 3.5.1)
+##  gmodels        2.18.1    2018-06-25 [1] CRAN (R 3.5.2)
+##  gtable         0.2.0     2016-02-26 [1] CRAN (R 3.5.1)
+##  gtools         3.8.1     2018-06-26 [1] CRAN (R 3.5.2)
+##  haven          2.0.0     2018-11-22 [1] CRAN (R 3.5.1)
+##  highr          0.7       2018-06-09 [1] CRAN (R 3.5.1)
+##  hms            0.4.2     2018-03-10 [1] CRAN (R 3.5.1)
+##  htmltools      0.3.6     2017-04-28 [1] CRAN (R 3.5.1)
+##  httpuv         1.4.5     2018-07-19 [1] CRAN (R 3.5.1)
+##  jsonlite       1.6       2018-12-07 [1] CRAN (R 3.5.2)
+##  klaR           0.6-14    2018-03-19 [1] CRAN (R 3.5.2)
+##  labeling       0.3       2014-08-23 [1] CRAN (R 3.5.0)
+##  labelled       2.0.1     2018-11-25 [1] CRAN (R 3.5.2)
+##  later          0.7.5     2018-09-18 [1] CRAN (R 3.5.1)
+##  lattice        0.20-35   2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1     2017-10-29 [1] CRAN (R 3.5.1)
+##  LearnBayes     2.15.1    2018-03-18 [1] CRAN (R 3.5.2)
+##  lme4           1.1-19    2018-11-10 [1] CRAN (R 3.5.1)
+##  magrittr       1.5       2014-11-22 [1] CRAN (R 3.5.1)
+##  maptools       0.9-4     2018-09-19 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50    2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14    2018-04-13 [2] CRAN (R 3.5.1)
+##  MatrixModels   0.4-1     2015-08-22 [1] CRAN (R 3.5.2)
+##  mgcv           1.8-24    2018-06-23 [2] CRAN (R 3.5.1)
+##  mime           0.6       2018-10-05 [1] CRAN (R 3.5.1)
+##  miniUI         0.1.1.1   2018-05-18 [1] CRAN (R 3.5.2)
+##  minqa          1.2.4     2014-10-09 [1] CRAN (R 3.5.1)
+##  munsell        0.5.0     2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137   2018-04-07 [2] CRAN (R 3.5.1)
+##  nloptr         1.2.1     2018-10-03 [1] CRAN (R 3.5.1)
+##  nnet           7.3-12    2016-02-02 [2] CRAN (R 3.5.1)
+##  openxlsx       4.1.0     2018-05-26 [1] CRAN (R 3.5.2)
+##  pbkrtest       0.4-7     2017-03-15 [1] CRAN (R 3.5.2)
+##  pillar         1.3.1     2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2     2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0     2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4     2016-06-08 [1] CRAN (R 3.5.1)
+##  promises       1.0.1     2018-04-13 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5     2018-05-29 [1] CRAN (R 3.5.1)
+##  quantreg       5.38      2018-12-18 [1] CRAN (R 3.5.2)
+##  questionr      0.7.0     2018-11-26 [1] CRAN (R 3.5.2)
+##  R6             2.3.0     2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2     2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0     2018-11-07 [1] CRAN (R 3.5.1)
+##  RcppEigen      0.3.3.5.0 2018-11-24 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1     2018-11-22 [1] CRAN (R 3.5.1)
+##  readxl         1.1.0     2018-04-20 [1] CRAN (R 3.5.1)
+##  rematch        1.0.1     2016-04-21 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3     2017-12-11 [1] CRAN (R 3.5.1)
+##  rio            0.5.16    2018-11-26 [1] CRAN (R 3.5.2)
+##  rlang          0.3.0.1   2018-10-25 [1] CRAN (R 3.5.1)
+##  rstudioapi     0.8       2018-10-02 [1] CRAN (R 3.5.1)
+##  scales         1.0.0     2018-08-09 [1] CRAN (R 3.5.1)
+##  shiny          1.2.0     2018-11-02 [1] CRAN (R 3.5.1)
+##  sourcetools    0.1.7     2018-04-25 [1] CRAN (R 3.5.1)
+##  sp             1.3-1     2018-06-05 [1] CRAN (R 3.5.1)
+##  SparseM        1.77      2017-04-23 [1] CRAN (R 3.5.2)
+##  spData         0.2.9.4   2018-09-15 [1] CRAN (R 3.5.1)
+##  spdep          0.8-1     2018-11-21 [1] CRAN (R 3.5.2)
+##  stringi        1.2.4     2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1     2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble       * 1.4.2     2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5     2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4     2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0     2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2     2018-03-15 [1] CRAN (R 3.5.1)
+##  xtable         1.8-3     2018-08-29 [1] CRAN (R 3.5.1)
+##  zip            1.0.0     2017-04-25 [1] CRAN (R 3.5.2)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+
+      </content:encoded>
     </item>
     
   </channel>

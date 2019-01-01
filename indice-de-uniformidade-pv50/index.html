@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Índice de uniformidade (PV50)</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -280,7 +283,11 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
+              
+              
+
+
+<p>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. <span class="citation">Hakamada (<a href="#ref-Hakamada2012">2012</a>)</span> apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de <em>Eucalyptus</em>.</p>
 <p>O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</p>
 <p>O PV50 é a porcentagem de volume acumulado das 50% menores árvores do seu conjunto de dados, considerando as falhas de plantio e árvores mortas <span class="citation">(Hakamada et al. <a href="#ref-Hakamada2015">2015</a>)</span>. A expressão do índice é dada da seguinte forma:</p>
 <p><img src="http://www.sciweavers.org/tex2img.php?eq=PV50%20%3D%20%5Cfrac%7B%5Csum_%7Bk%3D1%7D%5E%7B%5Cfrac%7Bn%7D%7B2%7D%7DV_%7Bij%7D%7D%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7DV_%7Bij%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="PV50 = \frac{\sum_{k=1}^{\frac{n}{2}}V_{ij}}{\sum_{k=1}^{n}V_{ij}}" width="139" height="62" /></p>
@@ -331,7 +338,7 @@ soma_metade</code></pre>
 PV50 &lt;- soma_metade / soma_todas * 100
 PV50</code></pre>
 <pre><code>## [1] 45.45455</code></pre>
-<p>O resultado deveria ser 50, mas como o número de árvores é impar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).</p>
+<p>O resultado deveria ser 50, mas como o número de árvores é ímpar, o R arredonda a posição 5,5 para 5 e pega até a quinta árvore no momento em que queremos somar as 50% menores. Para contornar isso, vamos calcular a soma das 50% menores árvores de uma forma diferente. Primeiro calculamos a soma acumulada e depois extraímos a média (semelhante ao modo de se calcular uma mediana).</p>
 <pre class="r"><code># vetor de soma acumulada
 soma_acumulada &lt;- cumsum(sort(arv11))
 soma_acumulada</code></pre>
@@ -448,9 +455,9 @@ glimpse(dados)</code></pre>
 <pre><code>## Observations: 1,222
 ## Variables: 7
 ## $ Esp     &lt;chr&gt; &quot;E_camaldulensis&quot;, &quot;E_camaldulensis&quot;, &quot;E_camaldulensis...
-## $ I_meses &lt;int&gt; 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34...
-## $ Parc_m2 &lt;int&gt; 288, 288, 288, 288, 288, 288, 288, 288, 288, 288, 288,...
-## $ N_arv   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,...
+## $ I_meses &lt;dbl&gt; 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34...
+## $ Parc_m2 &lt;dbl&gt; 288, 288, 288, 288, 288, 288, 288, 288, 288, 288, 288,...
+## $ N_arv   &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,...
 ## $ DAP_cm  &lt;dbl&gt; 5.411268, 12.254931, 3.978874, 6.429860, 9.676621, 5.6...
 ## $ H_m     &lt;dbl&gt; 7.651490, 11.424046, 5.909205, 8.572873, 10.498957, 7....
 ## $ Vol     &lt;dbl&gt; 0.008798406, 0.067375427, 0.003673747, 0.013918399, 0....</code></pre>
@@ -471,27 +478,27 @@ dados_pv50 &lt;- dados %&gt;%
 dados_pv50</code></pre>
 <pre><code>## # A tibble: 20 x 5
 ##    Esp                 I_meses Parc_m2  PV50 Vol_ha
-##    &lt;fct&gt;                 &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 E_camaldulensis          34    288.  21.4   47.5
-##  2 E_camaldulensis          46    288.  14.3   79.1
-##  3 E_camaldulensis          60    600.  13.2  110. 
-##  4 E_camaldulensis          85    288.  12.7  204. 
-##  5 E_citriodora             34    288.  17.8   46.6
-##  6 E_citriodora             46    288.  16.4   85.0
-##  7 E_citriodora             60    600.  12.5   97.0
-##  8 E_citriodora             85    288.  12.7  205. 
-##  9 E_dunnii                 34    288.  28.6  103. 
-## 10 E_dunnii                 46    288.  29.2  161. 
-## 11 E_dunnii                 60    600.  27.5  198. 
-## 12 E_dunnii                 85    288.  26.4  350. 
-## 13 E_paniculata             34    288.  27.4   46.4
-## 14 E_paniculata             46    288.  24.1   84.4
-## 15 E_paniculata             60    600.  19.6  115. 
-## 16 E_paniculata             85    288.  18.2  195. 
-## 17 E_urophylla_grandis      34    288.  26.3   85.7
-## 18 E_urophylla_grandis      46    288.  24.2  157. 
-## 19 E_urophylla_grandis      60    600.  20.3  217. 
-## 20 E_urophylla_grandis      85    288.  17.9  277.</code></pre>
+##    &lt;fct&gt;                 &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 E_camaldulensis          34     288  21.4   47.5
+##  2 E_camaldulensis          46     288  14.3   79.1
+##  3 E_camaldulensis          60     600  13.2  110. 
+##  4 E_camaldulensis          85     288  12.7  204. 
+##  5 E_citriodora             34     288  17.8   46.6
+##  6 E_citriodora             46     288  16.4   85.0
+##  7 E_citriodora             60     600  12.5   97.0
+##  8 E_citriodora             85     288  12.7  205. 
+##  9 E_dunnii                 34     288  28.6  103. 
+## 10 E_dunnii                 46     288  29.2  161. 
+## 11 E_dunnii                 60     600  27.5  198. 
+## 12 E_dunnii                 85     288  26.4  350. 
+## 13 E_paniculata             34     288  27.4   46.4
+## 14 E_paniculata             46     288  24.1   84.4
+## 15 E_paniculata             60     600  19.6  115. 
+## 16 E_paniculata             85     288  18.2  195. 
+## 17 E_urophylla_grandis      34     288  26.3   85.7
+## 18 E_urophylla_grandis      46     288  24.2  157. 
+## 19 E_urophylla_grandis      60     600  20.3  217. 
+## 20 E_urophylla_grandis      85     288  17.9  277.</code></pre>
 <p>Para entendermos os dados, vamos primeiro ver o crescimento em volume de cada espécies em função do tempo (Figura <a href="#fig:12-vol-idade">1</a>). Note que <em>E. dunnii</em> e <em>E. urophylla</em> x <em>E. grandis</em> tinham crescimento muito parecido até os 60 meses de idade.</p>
 <pre class="r"><code>ggplot(dados_pv50, aes(I_meses, Vol_ha, color = Esp)) +
   geom_point() +
@@ -502,40 +509,40 @@ dados_pv50</code></pre>
     y = Volume~m^3~ha^-1
   ) +
   scale_color_brewer(palette = &quot;Set1&quot;) +
-  theme_bw(base_size = 16) +
+  theme_bw(16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-vol-idade"></span>
-<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.png" alt="Crescimento em volume por hectare em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.svg" alt="Crescimento em volume por hectare em função da idade." width="960" />
 <p class="caption">
 Figura  1: Crescimento em volume por hectare em função da idade.
 </p>
 </div>
-<p>Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura <a href="#fig:12-pv50-idade">2</a>). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, <em>E. dunnii</em>, ao 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de <em>E. dunnii</em> representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.</p>
+<p>Agora podemos construir um gráfico que relaciona o PV50 e a idade (Figura <a href="#fig:12-pv50-idade">2</a>). A interpretação do índice é simples, o PV50 representa a porcentagem em volume que as 50% menores árvores contribuem para o volume total. Em nossos dados, <em>E. dunnii</em>, aos 85 meses de idade, tem um PV50 de aproximadamente 26. Isso quer dizer que aos 7 anos, as 50% menores árvores da parcela de <em>E. dunnii</em> representam apenas 26% do volume total. Ou seja, 50% das árvores contribuem muito pouco para o volume total da parcela e isso tem um impacto direto na produtividade.</p>
 <pre class="r"><code>ggplot(dados_pv50, aes(I_meses, PV50, color = Esp)) +
   geom_point() +
   geom_line() +
   labs(color = &quot;Espécies&quot;, x = &quot;Idade (meses)&quot;, y = &quot;PV50&quot;) +
   scale_color_brewer(palette = &quot;Set1&quot;) +
   scale_y_continuous(breaks = seq(10, 30, 2)) +
-  theme_bw(base_size = 16) +
+  theme_bw(16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-pv50-idade"></span>
-<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.png" alt="Variação do PV50 por espécies em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.svg" alt="Variação do PV50 por espécies em função da idade." width="960" />
 <p class="caption">
 Figura  2: Variação do PV50 por espécies em função da idade.
 </p>
 </div>
-<p>A Figura <a href="#fig:12-pv50-vol">3</a> mostra claramente a relação direta que há entre produção de madeira e a uniformidade ao longo do crescimento da floresta. Note também que na medida em que a idade avança, a uniformidade diminui, pois a dominância das árvores maiores sobre as menores fica cada vez mais forte.</p>
+<p>A Figura <a href="#fig:12-pv50-vol">3</a> mostra claramente a relação direta que há entre produção de madeira e a uniformidade ao longo do crescimento da floresta. Note também que na medida em que a idade avança, a uniformidade diminui, uma vez que a dominância das árvores maiores sobre as menores fica cada vez mais forte.</p>
 <pre class="r"><code>ggplot(dados_pv50, aes(Vol_ha, PV50)) +
   geom_point(aes(color = factor(I_meses))) +
   geom_smooth(method = &quot;lm&quot;, formula = y ~x, se = FALSE) +
   facet_wrap(~Esp, dir = &quot;v&quot;) +
   labs(color = &quot;Idade (meses)&quot;, x = Volume~m^3~ha^-1, y = &quot;PV50&quot;) +
   scale_color_brewer(palette = &quot;Dark2&quot;) +
-  theme_bw(base_size = 16) +
+  theme_bw(16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-pv50-vol"></span>
-<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.png" alt="Relação entre o PV50 e volume por hectare em função da idade." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.svg" alt="Relação entre o PV50 e volume por hectare em função da idade." width="960" />
 <p class="caption">
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 </p>
@@ -551,82 +558,77 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
     y = Volume~m^3~ha^-1
   ) +
   scale_color_brewer(palette = &quot;Set1&quot;) +
-  theme_bw(base_size = 16) +
+  theme_bw(16) +
   theme(legend.justification = &quot;top&quot;)</code></pre>
 <div class="figure"><span id="fig:12-vol-pv50-idade"></span>
-<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.png" alt="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto." width="4000" />
+<img src="/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.svg" alt="Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto." width="960" />
 <p class="caption">
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 </p>
 </div>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;forcats&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package      * version    date       source                            
-##  assertthat     0.2.0      2017-04-11 CRAN (R 3.4.3)                    
-##  backports      1.1.2      2017-12-13 CRAN (R 3.4.3)                    
-##  base         * 3.4.3      2017-12-06 local                             
-##  bindr          0.1.1      2018-03-13 CRAN (R 3.4.4)                    
-##  bindrcpp     * 0.2        2017-06-17 CRAN (R 3.4.3)                    
-##  blogdown       0.5        2018-01-24 CRAN (R 3.4.4)                    
-##  bookdown       0.7        2018-02-18 CRAN (R 3.4.4)                    
-##  cli            1.0.0      2017-11-05 CRAN (R 3.4.3)                    
-##  colorspace     1.3-2      2016-12-14 CRAN (R 3.4.3)                    
-##  compiler       3.4.3      2017-12-06 local                             
-##  crayon         1.3.4      2017-09-16 CRAN (R 3.4.3)                    
-##  curl           3.1        2017-12-12 CRAN (R 3.4.3)                    
-##  datasets     * 3.4.3      2017-12-06 local                             
-##  devtools       1.13.5     2018-02-18 CRAN (R 3.4.3)                    
-##  digest         0.6.15     2018-01-28 CRAN (R 3.4.3)                    
-##  dplyr        * 0.7.4      2017-09-28 CRAN (R 3.4.3)                    
-##  evaluate       0.10.1     2017-06-24 CRAN (R 3.4.3)                    
-##  forcats      * 0.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  ggplot2      * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504)
-##  glue           1.2.0      2017-10-29 CRAN (R 3.4.3)                    
-##  graphics     * 3.4.3      2017-12-06 local                             
-##  grDevices    * 3.4.3      2017-12-06 local                             
-##  grid           3.4.3      2017-12-06 local                             
-##  gtable         0.2.0      2016-02-26 CRAN (R 3.4.3)                    
-##  highr          0.6        2016-05-09 CRAN (R 3.4.3)                    
-##  hms            0.4.2      2018-03-10 CRAN (R 3.4.4)                    
-##  htmltools      0.3.6      2017-04-28 CRAN (R 3.4.3)                    
-##  knitr          1.20       2018-02-20 CRAN (R 3.4.4)                    
-##  labeling       0.3        2014-08-23 CRAN (R 3.4.1)                    
-##  lazyeval       0.2.1      2017-10-29 CRAN (R 3.4.3)                    
-##  magrittr       1.5        2014-11-22 CRAN (R 3.4.3)                    
-##  memoise        1.1.0      2017-04-21 CRAN (R 3.4.3)                    
-##  methods      * 3.4.3      2017-12-06 local                             
-##  munsell        0.4.3      2016-02-13 CRAN (R 3.4.3)                    
-##  pacman       * 0.4.6      2017-05-14 CRAN (R 3.4.3)                    
-##  pillar         1.2.1      2018-02-27 CRAN (R 3.4.4)                    
-##  pkgconfig      2.0.1      2017-03-21 CRAN (R 3.4.3)                    
-##  plyr           1.8.4      2016-06-08 CRAN (R 3.4.3)                    
-##  R6             2.2.2      2017-06-17 CRAN (R 3.4.3)                    
-##  RColorBrewer   1.1-2      2014-12-07 CRAN (R 3.4.1)                    
-##  Rcpp           0.12.16    2018-03-13 CRAN (R 3.4.4)                    
-##  readr        * 1.1.1      2017-05-16 CRAN (R 3.4.3)                    
-##  rlang          0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)      
-##  rmarkdown      1.9        2018-03-01 CRAN (R 3.4.4)                    
-##  rprojroot      1.3-2      2018-01-03 CRAN (R 3.4.3)                    
-##  scales         0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)    
-##  stats        * 3.4.3      2017-12-06 local                             
-##  stringi        1.1.7      2018-03-12 CRAN (R 3.4.4)                    
-##  stringr        1.3.0      2018-02-19 CRAN (R 3.4.4)                    
-##  tibble         1.4.2      2018-01-22 CRAN (R 3.4.3)                    
-##  tools          3.4.3      2017-12-06 local                             
-##  utf8           1.1.3      2018-01-03 CRAN (R 3.4.3)                    
-##  utils        * 3.4.3      2017-12-06 local                             
-##  withr          2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)  
-##  xfun           0.1        2018-01-22 CRAN (R 3.4.4)                    
-##  yaml           2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package      * version  date       lib source        
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
+##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 <div id="referencias" class="section level1 unnumbered">
 <h1>Referências</h1>
 <div id="refs" class="references">
@@ -734,6 +736,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -924,7 +927,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -977,24 +980,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1054,6 +1040,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -1061,7 +1065,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

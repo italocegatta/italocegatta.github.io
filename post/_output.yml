@@ -1,0 +1,4 @@
+blogdown::html_page:
+  fig_width: 10
+  fig_height: 8
+  dev: "svg"

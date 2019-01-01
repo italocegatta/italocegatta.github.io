@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Qual Estado tem mais pau-rodado?</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -61,7 +61,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -72,14 +72,17 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -278,37 +281,41 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Em Cuiabá, cidade que nasci e cresci, <em>pau-rodado</em> é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito <em>pau-rodado</em> de uma forma engraçada e sem qualquer sentido pejorativo.</p>
+              
+              
+
+
+<p>Em Cuiabá, cidade que nasci e cresci, <em>pau-rodado</em> é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito <em>pau-rodado</em> de uma forma engraçada e sem qualquer sentido pejorativo.</p>
 <p>Muito bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre Estados e assim encontrar os Estados que tem mais e menos <em>pau-rodado</em> em sua população residente. Serei breve e não vamos abordar todos os Estados, mas se você tiver curiosidade poderá aproveitar o código para uma análise mais ampla.</p>
 <p>A motivação partiu de uma matéria do <a href="https://www.nexojornal.com.br/grafico/2017/12/01/Fluxos-migrat%C3%B3rios-a-distribui%C3%A7%C3%A3o-da-popula%C3%A7%C3%A3o-de-cada-estado-pelo-pa%C3%ADs">Nexo Jornal</a> sobre este tema, porém ao nível estadual. Depois de algumas horas tentando decifrar o site do IBGE, cheguei na <a href="https://sidra.ibge.gov.br/tabela/1852">página</a> que informa a população residente, por lugar de nascimento e unidade da federação.</p>
 <p>Então vamos começar a análise carregando os pacotes do R necessários para este post.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, tidyr, forcats, sf, geosphere, brmap, ggplot2, ggrepel, geofacet, ggthemes)
+pacman::p_load(readr, dplyr, tidyr, forcats, sf, geosphere, brmap, ggplot2, ggrepel, geofacet)
 pacman::p_load_gh(&quot;italocegatta/brmap&quot;)</code></pre>
 <p>Os dados originais estão disponíveis neste <a href="https://sidra.ibge.gov.br/tabela/1852">link</a>, fiz apenas adequações porque o IBGE insiste em mesclar células nas tabelas disponibilizadas. Já nesta tabela você consegue olhar para o Estado que você mora e analisar quanto dos residentes nasceram em outros Estados. Mas o objetivo é enxergar isso de forma gráfica para ampliar a percepção dos dados.</p>
 <pre class="r"><code>base &lt;- read_csv2(&quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/pnad_2015_migracao.csv&quot;)
 
 base</code></pre>
 <pre><code>## # A tibble: 27 x 28
-##    Estado    Rondônia    Acre Amazonas Roraima   Pará   Amapá Tocantins
-##    &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-##  1 Rondônia   57.4     1.84     1.90    0.0800  0.700 NA         0.0200
-##  2 Acre        1.54   87.9      3.89    0.0200  0.170 NA         0.0200
-##  3 Amazonas    0.460   1.60    87.6     0.230   5.36   0.130     0.0600
-##  4 Roraima     0.650   0.240    5.16   55.6     6.54   0.0400    0.570 
-##  5 Pará        0.0300  0.0200   0.490   0.0200 84.6    0.190     1.07  
-##  6 Amapá       0.100   0.0300   0.200   0.170  20.8   72.7       0.100 
-##  7 Tocantins   0.0700  0.0700   0.0200 NA       2.83   0.0200   69.5   
-##  8 Maranhão    0.0300  0.0100   0.0500 NA       1.11   0.0100    0.320 
-##  9 Piauí       0.0400  0.0200   0.0400  0.0500  0.280 NA         0.110 
-## 10 Ceará       0.0300  0.0400   0.110  NA       0.220  0.0100    0.0300
-## # ... with 17 more rows, and 20 more variables: Maranhão &lt;dbl&gt;,
-## #   Piauí &lt;dbl&gt;, Ceará &lt;dbl&gt;, `Rio Grande do Norte` &lt;dbl&gt;, Paraíba &lt;dbl&gt;,
-## #   Pernambuco &lt;dbl&gt;, Alagoas &lt;dbl&gt;, Sergipe &lt;dbl&gt;, Bahia &lt;dbl&gt;, `Minas
-## #   Gerais` &lt;dbl&gt;, `Espírito Santo` &lt;dbl&gt;, `Rio de Janeiro` &lt;dbl&gt;, `São
-## #   Paulo` &lt;dbl&gt;, Paraná &lt;dbl&gt;, `Santa Catarina` &lt;dbl&gt;, `Rio Grande do
-## #   Sul` &lt;dbl&gt;, `Mato Grosso do Sul` &lt;dbl&gt;, `Mato Grosso` &lt;dbl&gt;,
-## #   Goiás &lt;dbl&gt;, `Distrito Federal` &lt;dbl&gt;</code></pre>
+##    Estado Rondônia  Acre Amazonas Roraima  Pará Amapá Tocantins Maranhão
+##    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Rondô~    57.4   1.84     1.9     0.08  0.7  NA        0.02      1.02
+##  2 Acre       1.54 87.9      3.89    0.02  0.17 NA        0.02      0.11
+##  3 Amazo~     0.46  1.6     87.6     0.23  5.36  0.13     0.06      0.87
+##  4 Rorai~     0.65  0.24     5.16   55.6   6.54  0.04     0.570    19.0 
+##  5 Pará       0.03  0.02     0.49    0.02 84.6   0.19     1.07      6.89
+##  6 Amapá      0.1   0.03     0.2     0.17 20.8  72.7      0.1       3.65
+##  7 Tocan~     0.07  0.07     0.02   NA     2.83  0.02    69.5       8.58
+##  8 Maran~     0.03  0.01     0.05   NA     1.11  0.01     0.32     92.4 
+##  9 Piauí      0.04  0.02     0.04    0.05  0.28 NA        0.11      3.97
+## 10 Ceará      0.03  0.04     0.11   NA     0.22  0.01     0.03      0.35
+## # ... with 17 more rows, and 19 more variables: Piauí &lt;dbl&gt;, Ceará &lt;dbl&gt;,
+## #   `Rio Grande do Norte` &lt;dbl&gt;, Paraíba &lt;dbl&gt;, Pernambuco &lt;dbl&gt;,
+## #   Alagoas &lt;dbl&gt;, Sergipe &lt;dbl&gt;, Bahia &lt;dbl&gt;, `Minas Gerais` &lt;dbl&gt;,
+## #   `Espírito Santo` &lt;dbl&gt;, `Rio de Janeiro` &lt;dbl&gt;, `São Paulo` &lt;dbl&gt;,
+## #   Paraná &lt;dbl&gt;, `Santa Catarina` &lt;dbl&gt;, `Rio Grande do Sul` &lt;dbl&gt;, `Mato
+## #   Grosso do Sul` &lt;dbl&gt;, `Mato Grosso` &lt;dbl&gt;, Goiás &lt;dbl&gt;, `Distrito
+## #   Federal` &lt;dbl&gt;</code></pre>
 <p>Dados longitudinais como estes ajudam humanos a enxergar os valores de forma mais fácil, mas do ponto de vista de processamento de dados, não dá pra fazer muita coisa com os dados assim. Vamos organizá-los seguindo a filosofia do <a href="https://italocegatta.github.io/o-conceito-tidy-data">Tidy data</a>.</p>
 <p>A nova tabela nos informa a porcentagem da população residente (coluna ‘valor’) para cada Estado, subdividindo os valores por local de nascimento. E agora vai a primeira simplificação: foram selecionados apenas os 6 Estados de nascimento mais representativos para cada Estado de residência.</p>
 <pre class="r"><code>df &lt;- base %&gt;% 
@@ -321,18 +328,18 @@ base</code></pre>
 
 df</code></pre>
 <pre><code>## # A tibble: 162 x 3
-##    nasce    reside    valor
-##    &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;
-##  1 Rondônia Rondônia 57.4  
-##  2 Acre     Rondônia  1.54 
-##  3 Amazonas Rondônia  0.460
-##  4 Acre     Acre     87.9  
-##  5 Amazonas Acre      1.60 
-##  6 Acre     Amazonas  3.89 
-##  7 Amazonas Amazonas 87.6  
-##  8 Roraima  Amazonas  5.16 
-##  9 Roraima  Roraima  55.6  
-## 10 Amazonas Pará      5.36 
+##    nasce    reside   valor
+##    &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
+##  1 Rondônia Rondônia 57.4 
+##  2 Acre     Rondônia  1.54
+##  3 Amazonas Rondônia  0.46
+##  4 Acre     Acre     87.9 
+##  5 Amazonas Acre      1.6 
+##  6 Acre     Amazonas  3.89
+##  7 Amazonas Amazonas 87.6 
+##  8 Roraima  Amazonas  5.16
+##  9 Roraima  Roraima  55.6 
+## 10 Amazonas Pará      5.36
 ## # ... with 152 more rows</code></pre>
 <p>Vamos nos preparar para a segunda simplificação: selecionar os extremos em termos de população que nasceu e reside no mesmo Estado. Então, RS, CE e PE são os Estados que mais tem moradores nascidos dentro do próprio Estado, enquanto RO, RR e DF tem uma parcela maior de residentes nascidos em outros Estados.</p>
 <pre class="r"><code>estados_interesse &lt;- df %&gt;%
@@ -349,7 +356,7 @@ estados_interesse</code></pre>
   st_centroid() %&gt;% 
   cbind(., st_coordinates(.)) %&gt;% 
   st_set_geometry(NULL) %&gt;% 
-  select(estado, lon = X, lat = Y)
+  select(estado = estado_nome, lon = X, lat = Y)
 
 estado_cent</code></pre>
 <pre><code>##                 estado       lon        lat
@@ -408,23 +415,23 @@ fluxo_linha</code></pre>
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +ellps=WGS84 +no_defs
 ## # A tibble: 36 x 6
-##    nasce            reside    valor   lon    lat                  geometry
-##    &lt;fct&gt;            &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;         &lt;LINESTRING [Â°]&gt;
-##  1 Rondônia         Rondônia 57.4   -62.8 -10.9  (-62.84197 -10.91322, -6~
-##  2 Roraima          Amazonas  5.16  -64.7  -4.15 (-61.39928 2.084226, -61~
-##  3 Roraima          Roraima  55.6   -61.4   2.08 (-61.39928 2.084226, -61~
-##  4 Roraima          Pará      6.54  -53.1  -3.97 (-61.39928 2.084226, -61~
-##  5 Roraima          Maranhão 19.0   -45.3  -5.06 (-61.39928 2.084226, -61~
-##  6 Distrito Federal Maranhão  4.42  -45.3  -5.06 (-47.79736 -15.78069, -4~
-##  7 Ceará            Piauí     0.390 -43.0  -7.39 (-39.61569 -5.093345, -3~
-##  8 Distrito Federal Piauí     5.08  -43.0  -7.39 (-47.79736 -15.78069, -4~
-##  9 Roraima          Ceará     2.76  -39.6  -5.09 (-61.39928 2.084226, -60~
-## 10 Ceará            Ceará    95.8   -39.6  -5.09 (-39.61569 -5.093345, -3~
+##    nasce    reside  valor   lon    lat                             geometry
+##    &lt;fct&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;                    &lt;LINESTRING [Â°]&gt;
+##  1 Rondônia Rondôn~ 57.4  -62.8 -10.9  (-62.84197 -10.91322, -62.84197 -10~
+##  2 Roraima  Amazon~  5.16 -64.7  -4.15 (-61.39928 2.084226, -61.46308 1.96~
+##  3 Roraima  Roraima 55.6  -61.4   2.08 (-61.39928 2.084226, -61.39928 2.08~
+##  4 Roraima  Pará     6.54 -53.1  -3.97 (-61.39928 2.084226, -61.23584 1.96~
+##  5 Roraima  Maranh~ 19.0  -45.3  -5.06 (-61.39928 2.084226, -61.08344 1.94~
+##  6 Distrit~ Maranh~  4.42 -45.3  -5.06 (-47.79736 -15.78069, -47.74601 -15~
+##  7 Ceará    Piauí    0.39 -43.0  -7.39 (-39.61569 -5.093345, -39.68117 -5.~
+##  8 Distrit~ Piauí    5.08 -43.0  -7.39 (-47.79736 -15.78069, -47.69952 -15~
+##  9 Roraima  Ceará    2.76 -39.6  -5.09 (-61.39928 2.084226, -60.97249 1.94~
+## 10 Ceará    Ceará   95.8  -39.6  -5.09 (-39.61569 -5.093345, -39.61569 -5.~
 ## # ... with 26 more rows</code></pre>
 <p>Para deixar o gráfico um pouco mais bonito, vamos dar cor ao valor que estamos estudando. Mas agora a feição será o polígono que representa o Estado de residentes.</p>
 <pre class="r"><code>fluxo_poligono &lt;- brmap_estado %&gt;% 
-  left_join(df, by =  c(&quot;estado&quot; = &quot;reside&quot;)) %&gt;% 
-  rename(reside = estado) %&gt;% 
+  left_join(df, by =  c(&quot;estado_nome&quot; = &quot;reside&quot;)) %&gt;% 
+  rename(reside = estado_nome) %&gt;% 
   filter(nasce %in% estados_interesse) %&gt;% 
   mutate(nasce = fct_relevel(nasce, estados_interesse)) %&gt;% 
   select(nasce, reside, valor)
@@ -437,24 +444,24 @@ fluxo_poligono</code></pre>
 ## epsg (SRID):    4674
 ## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs
 ## # A tibble: 36 x 4
-##    nasce            reside    valor                               geometry
-##    &lt;fct&gt;            &lt;chr&gt;     &lt;dbl&gt;                         &lt;POLYGON [Â°]&gt;
-##  1 Rondônia         Rondônia 57.4   ((-62.86662 -7.975868, -62.86017 -7.9~
-##  2 Roraima          Amazonas  5.16  ((-67.32609 2.029714, -67.31682 2.001~
-##  3 Roraima          Roraima  55.6   ((-60.20051 5.264343, -60.19828 5.260~
-##  4 Roraima          Pará      6.54  ((-54.95431 2.583692, -54.93542 2.518~
-##  5 Roraima          Maranhão 19.0   ((-45.84073 -1.045485, -45.84099 -1.0~
-##  6 Distrito Federal Maranhão  4.42  ((-45.84073 -1.045485, -45.84099 -1.0~
-##  7 Ceará            Piauí     0.390 ((-41.74605 -2.803497, -41.74241 -2.8~
-##  8 Distrito Federal Piauí     5.08  ((-41.74605 -2.803497, -41.74241 -2.8~
-##  9 Roraima          Ceará     2.76  ((-40.49717 -2.784509, -40.49173 -2.7~
-## 10 Ceará            Ceará    95.8   ((-40.49717 -2.784509, -40.49173 -2.7~
+##    nasce       reside  valor                                       geometry
+##    &lt;fct&gt;       &lt;chr&gt;   &lt;dbl&gt;                                 &lt;POLYGON [Â°]&gt;
+##  1 Rondônia    Rondôn~ 57.4  ((-62.86662 -7.975868, -62.86017 -7.982323, -~
+##  2 Roraima     Amazon~  5.16 ((-67.32609 2.029714, -67.31682 2.00125, -67.~
+##  3 Roraima     Roraima 55.6  ((-60.20051 5.264343, -60.19828 5.260453, -60~
+##  4 Roraima     Pará     6.54 ((-54.95431 2.583692, -54.93542 2.518585, -54~
+##  5 Roraima     Maranh~ 19.0  ((-45.84073 -1.045485, -45.84099 -1.046971, -~
+##  6 Distrito F~ Maranh~  4.42 ((-45.84073 -1.045485, -45.84099 -1.046971, -~
+##  7 Ceará       Piauí    0.39 ((-41.74605 -2.803497, -41.74241 -2.805697, -~
+##  8 Distrito F~ Piauí    5.08 ((-41.74605 -2.803497, -41.74241 -2.805697, -~
+##  9 Roraima     Ceará    2.76 ((-40.49717 -2.784509, -40.49173 -2.788106, -~
+## 10 Ceará       Ceará   95.8  ((-40.49717 -2.784509, -40.49173 -2.788106, -~
 ## # ... with 26 more rows</code></pre>
 <p>Pronto, já temos todos os dados que fazer o gráfico de interesse. Lembrando que optamos por dar destaque a 6 Estados e para cada um deles, os 6 Estados de nascimento que mais representam a população de residentes. Sim, é um tanto complexo. Eu fiquei algumas horas para poder criar o código e entender o que estava processando.</p>
 <p>Como exemplo vamos interpretar as informações de Roraima: do total de residentes, 55.6% nasceram no próprio Estado de Roraima; 5.2%, 6.5% e 19% nasceram no Amazonas, Pará e Maranhão, respectivamente.</p>
 <pre class="r"><code>ggplot() +
-  geom_sf(data = brmap_estado, color = &quot;grey80&quot;, fill = &quot;grey95&quot;, size = 0.3) +
-  geom_sf(data = fluxo_poligono, aes(fill = valor), color = &quot;grey80&quot;, size = 0.3) +
+  geom_sf(data = brmap_estado, color = &quot;white&quot;, fill = &quot;grey80&quot;, size = 0.3) +
+  geom_sf(data = fluxo_poligono, aes(fill = valor), color = &quot;white&quot;, size = 0.3) +
   geom_sf(data = fluxo_linha, color = &quot;cyan&quot;, size = 0.3) +
   geom_label_repel(
     data = fluxo_linha,
@@ -469,97 +476,172 @@ fluxo_poligono</code></pre>
   ) +
   scale_fill_viridis_c(guide = FALSE) +
   coord_sf(datum = NA) +
-  theme_void()</code></pre>
-<p><img src="/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-9-1.png" width="4800" /></p>
+  theme_void(16)</code></pre>
+<p><img src="/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-9-1.svg" width="960" /></p>
 <p>Pontos interessantes:</p>
 <ul>
-<li>Rondônia e Roraima retém uma proporção parecida da população dentro do próprio Estado, entretanto o pessoal que mora em Rondônia veio do Sul e Sudeste; ao passo que os moradores de Roraima vem do AM, PA e MA.</li>
+<li>Rondônia e Roraima retém uma proporção parecida da população dentro do próprio Estado, entretanto o pessoal que mora em Rondônia veio do Sul e Sudeste; ao passo que os moradores de Roraima vêm do AM, PA e MA.</li>
 <li>O Distrito Federal não me surpreendeu, grande parte de pessoas nasceram em GO, MG e BA.</li>
 <li>Um número expressivo de pessoas que nasceram em São Paulo e hoje moram no CE e PE… parece que o jogo virou, não é mesmo?</li>
 </ul>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;tidyr&quot;, &quot;forcats&quot;, &quot;sf&quot;, &quot;geosphere&quot;, &quot;ggrepel&quot;, &quot;geofacet&quot;, &quot;brmap&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-25                  
+##  date     2018-12-31                  
 ## 
-##  package     * version    date       source                             
-##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.3)                     
-##  backports     1.1.2      2017-12-13 CRAN (R 3.4.3)                     
-##  base        * 3.4.3      2017-12-06 local                              
-##  bindr         0.1.1      2018-03-13 CRAN (R 3.4.4)                     
-##  bindrcpp    * 0.2        2017-06-17 CRAN (R 3.4.3)                     
-##  blogdown      0.5        2018-01-24 CRAN (R 3.4.4)                     
-##  bookdown      0.7        2018-02-18 CRAN (R 3.4.4)                     
-##  brmap       * 0.0.4      2018-02-11 Github (italocegatta/brmap@af57fd2)
-##  class         7.3-14     2015-08-30 CRAN (R 3.4.3)                     
-##  classInt      0.1-24     2017-04-16 CRAN (R 3.4.3)                     
-##  cli           1.0.0      2017-11-05 CRAN (R 3.4.3)                     
-##  colorspace    1.3-2      2016-12-14 CRAN (R 3.4.3)                     
-##  compiler      3.4.3      2017-12-06 local                              
-##  crayon        1.3.4      2017-09-16 CRAN (R 3.4.3)                     
-##  curl          3.1        2017-12-12 CRAN (R 3.4.3)                     
-##  datasets    * 3.4.3      2017-12-06 local                              
-##  DBI           0.8        2018-03-02 CRAN (R 3.4.4)                     
-##  devtools      1.13.5     2018-02-18 CRAN (R 3.4.3)                     
-##  digest        0.6.15     2018-01-28 CRAN (R 3.4.3)                     
-##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.4.3)                     
-##  e1071         1.6-8      2017-02-02 CRAN (R 3.4.3)                     
-##  evaluate      0.10.1     2017-06-24 CRAN (R 3.4.3)                     
-##  forcats     * 0.3.0      2018-02-19 CRAN (R 3.4.4)                     
-##  geofacet    * 0.1.5      2017-07-19 CRAN (R 3.4.4)                     
-##  geosphere   * 1.5-7      2017-11-05 CRAN (R 3.4.4)                     
-##  ggplot2     * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504) 
-##  ggrepel     * 0.7.0      2017-09-29 CRAN (R 3.4.3)                     
-##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.4.3)                     
-##  glue          1.2.0      2017-10-29 CRAN (R 3.4.3)                     
-##  graphics    * 3.4.3      2017-12-06 local                              
-##  grDevices   * 3.4.3      2017-12-06 local                              
-##  grid          3.4.3      2017-12-06 local                              
-##  gtable        0.2.0      2016-02-26 CRAN (R 3.4.3)                     
-##  hms           0.4.2      2018-03-10 CRAN (R 3.4.4)                     
-##  htmltools     0.3.6      2017-04-28 CRAN (R 3.4.3)                     
-##  knitr         1.20       2018-02-20 CRAN (R 3.4.4)                     
-##  lattice       0.20-35    2017-03-25 CRAN (R 3.4.3)                     
-##  lazyeval      0.2.1      2017-10-29 CRAN (R 3.4.3)                     
-##  magrittr      1.5        2014-11-22 CRAN (R 3.4.3)                     
-##  memoise       1.1.0      2017-04-21 CRAN (R 3.4.3)                     
-##  methods     * 3.4.3      2017-12-06 local                              
-##  munsell       0.4.3      2016-02-13 CRAN (R 3.4.3)                     
-##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.4.3)                     
-##  pillar        1.2.1      2018-02-27 CRAN (R 3.4.4)                     
-##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.4.3)                     
-##  plyr          1.8.4      2016-06-08 CRAN (R 3.4.3)                     
-##  purrr         0.2.4      2017-10-18 CRAN (R 3.4.3)                     
-##  R6            2.2.2      2017-06-17 CRAN (R 3.4.3)                     
-##  Rcpp          0.12.16    2018-03-13 CRAN (R 3.4.4)                     
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.4.3)                     
-##  rlang         0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)       
-##  rmarkdown     1.9        2018-03-01 CRAN (R 3.4.4)                     
-##  rprojroot     1.3-2      2018-01-03 CRAN (R 3.4.3)                     
-##  scales        0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)     
-##  sf          * 0.6-1      2018-03-22 CRAN (R 3.4.3)                     
-##  sp            1.2-7      2018-01-19 CRAN (R 3.4.3)                     
-##  stats       * 3.4.3      2017-12-06 local                              
-##  stringi       1.1.7      2018-03-12 CRAN (R 3.4.4)                     
-##  stringr       1.3.0      2018-02-19 CRAN (R 3.4.4)                     
-##  tibble        1.4.2      2018-01-22 CRAN (R 3.4.3)                     
-##  tidyr       * 0.8.0      2018-01-29 CRAN (R 3.4.3)                     
-##  tidyselect    0.2.4      2018-02-26 CRAN (R 3.4.4)                     
-##  tools         3.4.3      2017-12-06 local                              
-##  udunits2      0.13       2016-11-17 CRAN (R 3.4.1)                     
-##  units         0.5-1      2018-01-08 CRAN (R 3.4.3)                     
-##  utf8          1.1.3      2018-01-03 CRAN (R 3.4.3)                     
-##  utils       * 3.4.3      2017-12-06 local                              
-##  viridisLite   0.3.0      2018-02-01 CRAN (R 3.4.3)                     
-##  withr         2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)   
-##  xfun          0.1        2018-01-22 CRAN (R 3.4.4)                     
-##  yaml          2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package       * version     date       lib
+##  assertthat      0.2.0       2017-04-11 [1]
+##  BH              1.66.0-1    2018-02-13 [1]
+##  bindr           0.1.1       2018-03-13 [1]
+##  bindrcpp      * 0.2.2       2018-03-29 [1]
+##  brmap         * 0.0.5       2018-09-16 [1]
+##  class           7.3-14      2015-08-30 [2]
+##  classInt        0.3-1       2018-12-18 [1]
+##  cli             1.0.1       2018-09-25 [1]
+##  clipr           0.4.1       2018-06-23 [1]
+##  colorspace      1.3-2       2016-12-14 [1]
+##  crayon          1.3.4       2017-09-16 [1]
+##  curl            3.2         2018-03-28 [1]
+##  DBI             1.0.0       2018-05-02 [1]
+##  digest          0.6.18      2018-10-10 [1]
+##  dplyr         * 0.7.8       2018-11-10 [1]
+##  e1071           1.7-0       2018-07-28 [1]
+##  fansi           0.4.0       2018-10-05 [1]
+##  forcats       * 0.3.0       2018-02-19 [1]
+##  geofacet      * 0.1.9       2018-03-29 [1]
+##  geogrid         0.1.1       2018-12-11 [1]
+##  geosphere     * 1.5-7       2017-11-05 [1]
+##  ggplot2       * 3.1.0       2018-10-25 [1]
+##  ggrepel       * 0.8.0       2018-05-09 [1]
+##  glue            1.3.0       2018-07-17 [1]
+##  gridExtra       2.3         2017-09-09 [1]
+##  gtable          0.2.0       2016-02-26 [1]
+##  hms             0.4.2       2018-03-10 [1]
+##  httr            1.4.0       2018-12-11 [1]
+##  imguR           1.0.3       2016-03-29 [1]
+##  jpeg            0.1-8       2014-01-23 [1]
+##  jsonlite        1.6         2018-12-07 [1]
+##  labeling        0.3         2014-08-23 [1]
+##  lattice         0.20-35     2017-03-25 [2]
+##  lazyeval        0.2.1       2017-10-29 [1]
+##  magrittr        1.5         2014-11-22 [1]
+##  MASS            7.3-50      2018-04-30 [2]
+##  Matrix          1.2-14      2018-04-13 [2]
+##  mgcv            1.8-24      2018-06-23 [2]
+##  mime            0.6         2018-10-05 [1]
+##  munsell         0.5.0       2018-06-12 [1]
+##  nlme            3.1-137     2018-04-07 [2]
+##  openssl         1.1         2018-11-15 [1]
+##  pillar          1.3.1       2018-12-15 [1]
+##  pkgconfig       2.0.2       2018-08-16 [1]
+##  plogr           0.2.0       2018-03-25 [1]
+##  plyr            1.8.4       2016-06-08 [1]
+##  png             0.1-7       2013-12-03 [1]
+##  purrr           0.2.5       2018-05-29 [1]
+##  R6              2.3.0       2018-10-04 [1]
+##  RColorBrewer    1.1-2       2014-12-07 [1]
+##  Rcpp            1.0.0       2018-11-07 [1]
+##  RcppArmadillo   0.9.200.5.0 2018-11-28 [1]
+##  readr         * 1.3.1       2018-12-21 [1]
+##  reshape2        1.4.3       2017-12-11 [1]
+##  rgeos           0.4-2       2018-11-08 [1]
+##  rlang           0.3.0.1     2018-10-25 [1]
+##  rnaturalearth   0.1.0       2017-03-21 [1]
+##  scales          1.0.0       2018-08-09 [1]
+##  sf            * 0.7-2       2018-12-20 [1]
+##  sp              1.3-1       2018-06-05 [1]
+##  stringi         1.2.4       2018-07-20 [1]
+##  stringr         1.3.1       2018-05-10 [1]
+##  tibble          1.4.2       2018-01-22 [1]
+##  tidyr         * 0.8.2       2018-10-28 [1]
+##  tidyselect      0.2.5       2018-10-11 [1]
+##  units           0.6-2       2018-12-05 [1]
+##  utf8            1.1.4       2018-05-24 [1]
+##  viridisLite     0.3.0       2018-02-01 [1]
+##  withr           2.1.2       2018-03-15 [1]
+##  source                             
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  Github (italocegatta/brmap@181fc73)
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -591,8 +673,6 @@ fluxo_poligono</code></pre>
   <a class="tag tag--primary tag--small" href="/tags/ggrepel/">ggrepel</a>
 
   <a class="tag tag--primary tag--small" href="/tags/geofacet/">geofacet</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
 
                   </div>
                 
@@ -670,6 +750,7 @@ fluxo_poligono</code></pre>
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -860,7 +941,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -913,24 +994,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -990,6 +1054,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -997,7 +1079,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

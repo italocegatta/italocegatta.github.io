@@ -19,7 +19,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.37.1 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Gráficos com dimensão espacial e temporal</title>
     <meta name="author" content="Ítalo Cegatta">
     <meta name="keywords" content="">
@@ -28,15 +28,15 @@
     
 
     
-    <meta name="description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
-    <meta property="og:description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
+    <meta name="description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
+    <meta property="og:description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Gráficos com dimensão espacial e temporal">
     <meta property="og:url" content="/graficos-com-dimensao-espacial-e-temporal/">
     <meta property="og:site_name" content="Ítalo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Ítalo Cegatta">
-    <meta name="twitter:description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
+    <meta name="twitter:description" content="O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.">
     
     
 
@@ -58,7 +58,7 @@
     
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
@@ -69,14 +69,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-77144482-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-77144482-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -275,18 +278,22 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no <a href="http://www.inpe.br/queimadas/situacao-atual">Programa Queimadas Monitoramento por Satélites</a>. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.</p>
+              
+              
+
+
+<p>O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no <a href="http://www.inpe.br/queimadas/situacao-atual">Programa Queimadas Monitoramento por Satélites</a>. O site é bem interessante e apresenta algumas estatísticas úteis sobre as queimadas na América do Sul e Brasil. Iremos trabalhar com a tabela que resume os focos de incêndios por ano e Estado brasileiro.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, gganimate, viridis, scales)
+pacman::p_load(readr, dplyr, sf, ggplot2, ggthemes, geofacet, scales)
 pacman::p_load_gh(&quot;italocegatta/brmap&quot;)
-pacman::p_load_gh(&quot;dgrtwo/gganimate&quot;)</code></pre>
+pacman::p_load_gh(&quot;thomasp85/gganimate&quot;)</code></pre>
 <p>O primeiro passo foi copiar os dados da página e organizá-los no formato <a href="https://italocegatta.github.io/o-conceito-tidy-data/">tidy</a>. Poderíamos fazer uma análise exploratória dos dados, mas quero manter o foco em algo bem pontual: como mostrar os dados brutos de uma só vez? Ou seja, considerando a dimensão de tempo (ano), geografia (localização do estado) e variável resposta (focos) na mesma janela gráfica, de que forma poderíamos apresentar os dados?</p>
 <pre class="r"><code>focos &lt;- read_csv2(&quot;https://raw.githubusercontent.com/italocegatta/italocegatta.github.io_source/master/content/dados/base_incendios.csv&quot;)
 
 focos</code></pre>
 <pre><code>## # A tibble: 162 x 3
 ##    sigla   ano focos
-##    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 AC     2011    13
 ##  2 AL     2011   127
 ##  3 AM     2011   159
@@ -300,36 +307,36 @@ focos</code></pre>
 ## # ... with 152 more rows</code></pre>
 <p>Vamos agora adicionar a referência espacial aos dados utilizando os polígonos do pacote <a href="https://github.com/italocegatta/brmap">brmap</a>.</p>
 <pre class="r"><code>estados_focos &lt;-  focos %&gt;% 
-  left_join(brmap_estado, by = &quot;sigla&quot;)
+  left_join(brmap_estado, by = c(&quot;sigla&quot; = &quot;estado_sigla&quot;))
 
 estados_focos</code></pre>
-<pre><code>## # A tibble: 162 x 6
-##    sigla   ano focos cod_estado estado                            geometry
-##    &lt;chr&gt; &lt;int&gt; &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;                       &lt;POLYGON [Â°]&gt;
-##  1 AC     2011    13        12. Acre             ((-73.18253 -7.335496, -~
-##  2 AL     2011   127        27. Alagoas          ((-35.46659 -8.817636, -~
-##  3 AM     2011   159        13. Amazonas         ((-67.32609 2.029714, -6~
-##  4 AP     2011     5        16. Amapá            ((-51.1797 4.000081, -51~
-##  5 BA     2011   883        29. Bahia            ((-39.36446 -8.53785, -3~
-##  6 CE     2011    44        23. Ceará            ((-40.49717 -2.784509, -~
-##  7 DF     2011     8        53. Distrito Federal ((-48.05328 -15.50026, -~
-##  8 ES     2011    55        32. Espírito Santo   ((-40.50333 -17.91068, -~
-##  9 GO     2011   492        52. Goiás            ((-50.16015 -12.42007, -~
-## 10 MA     2011   656        21. Maranhão         ((-45.84073 -1.045485, -~
-## # ... with 152 more rows</code></pre>
-<p>A primeira abordagem vai utilizar o pacote <a href="https://github.com/hafen/geofacet">geofacet</a>. Ele permite criarmos um grid de referência para orientar a função <code>facet_wrap</code> de <code>ggplot2</code>. O pacote já vem carregado com um grid do Brasil, o <code>br_grid1</code>, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extramamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras…) e dimenções (color, shape, size…). O gráfico <a href="#fig:focos-geofacet">1</a> está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil.</p>
+<pre><code>## # A tibble: 162 x 7
+##    sigla   ano focos cod_regiao cod_estado estado_nome
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;int&gt;      &lt;int&gt; &lt;chr&gt;      
+##  1 AC     2011    13          1         12 Acre       
+##  2 AL     2011   127          2         27 Alagoas    
+##  3 AM     2011   159          1         13 Amazonas   
+##  4 AP     2011     5          1         16 Amapá      
+##  5 BA     2011   883          2         29 Bahia      
+##  6 CE     2011    44          2         23 Ceará      
+##  7 DF     2011     8          5         53 Distrito F~
+##  8 ES     2011    55          3         32 Espírito S~
+##  9 GO     2011   492          5         52 Goiás      
+## 10 MA     2011   656          2         21 Maranhão   
+## # ... with 152 more rows, and 1 more variable: geometry &lt;POLYGON [Â°]&gt;</code></pre>
+<p>A primeira abordagem vai utilizar o pacote <a href="https://github.com/hafen/geofacet">geofacet</a>. Ele permite criarmos um grid de referência para orientar a função <code>facet_wrap</code> de <code>ggplot2</code>. O pacote já vem carregado com um grid do Brasil, o <code>br_grid1</code>, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extremamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras…) e dimensões (color, shape, size…). O gráfico <a href="#fig:focos-geofacet">1</a> está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil.</p>
 <pre class="r"><code>ggplot(estados_focos, aes(ano, focos)) +
   geom_line() +
-  facet_geo(~estado, grid = br_grid1) +
+  facet_geo(~estado_nome, grid = br_states_grid1) +
   labs(
     x = &quot;Ano&quot;,
     y = &quot;Nº de focos de incêndios&quot;
   ) +
   scale_x_continuous(breaks = 2011:2017, labels = 11:17) +
   scale_y_continuous(label = unit_format(unit = &quot;k&quot;, scale = 1e-3)) +
-  theme_few()</code></pre>
+  theme_bw()</code></pre>
 <div class="figure"><span id="fig:focos-geofacet"></span>
-<img src="/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-geofacet-1.png" alt="Representação em painel orientado utilizando linhas." width="4000" />
+<img src="/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-geofacet-1.svg" alt="Representação em painel orientado utilizando linhas." width="960" />
 <p class="caption">
 Figura  1: Representação em painel orientado utilizando linhas.
 </p>
@@ -339,111 +346,192 @@ Figura  1: Representação em painel orientado utilizando linhas.
   geom_sf(aes(fill = focos), color = NA) +
   facet_wrap(~ano) +
   labs(fill = &quot;Nº de focos de incêndios&quot;) +
-  scale_fill_viridis(label = unit_format(unit = &quot;k&quot;, scale = 1e-3)) +
+  scale_fill_viridis_c(label = unit_format(unit = &quot;k&quot;, scale = 1e-3)) +
   coord_sf(datum = NA) +
-  theme_bw() +
+  theme_bw(16) +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
   guides(fill = guide_colorbar(barwidth = 15, title.position = &quot;top&quot;))</code></pre>
 <div class="figure"><span id="fig:focos-facet"></span>
-<img src="/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-facet-1.png" alt="Representação em painel utilizando cores." width="4000" />
+<img src="/post/2017-07-08-graficos-com-dimensao-espacial-e-temporal_files/figure-html/focos-facet-1.svg" alt="Representação em painel utilizando cores." width="960" />
 <p class="caption">
 Figura  2: Representação em painel utilizando cores.
 </p>
 </div>
 <p>E por fim, nossa terceira tentativa vai unificar os painéis do gráfico <a href="#fig:focos-facet">2</a> em um gif animado. A limitação do gráfico é que muitas vezes nossos gráficos vão para documentos estáticos como PDF e Word, inviabilizando o gif.</p>
-<pre class="r"><code>(ggplot(estados_focos) +
-  geom_sf(aes(fill = focos, frame = ano), color = NA) +
-  ggtitle(&quot;Ano:&quot;) +
-  labs(fill = &quot;Nº de focos de incêndios&quot;) +
-  scale_fill_viridis(label = unit_format(unit = &quot;k&quot;, scale = 1e-3)) +
-  theme_bw() +
+<pre class="r"><code>ggplot(estados_focos) +
+  geom_sf(aes(fill = focos), color = NA) +
+  labs(
+    title = &quot;Ano: {current_frame}&quot;,
+    fill = &quot;Nº de focos de incêndios&quot;
+  ) +
+  scale_fill_viridis_c(label = unit_format(unit = &quot;k&quot;, scale = 1e-3)) +
+  theme_bw(18) +
   theme(legend.position = &quot;bottom&quot;, legend.justification = &quot;right&quot;) +
-  guides(fill = guide_colorbar(barwidth = 15, title.position = &quot;top&quot;))
-  ) %&gt;% 
-  gganimate()</code></pre>
+  guides(fill = guide_colorbar(barwidth = 15, title.position = &quot;top&quot;)) +
+  transition_manual(ano)</code></pre>
 <p><a href="http://imgur.com/KoLpSsF"><img src="http://i.imgur.com/KoLpSsF.gif" style="width:100%" /></a></p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
-<pre class="r"><code>devtools::session_info()</code></pre>
-<pre><code>##  setting  value                       
-##  version  R version 3.4.3 (2017-11-30)
+<pre class="r"><code>sessioninfo::session_info(c(&quot;readr&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;sf&quot;, &quot;geofacet&quot;, &quot;gganimate&quot;, &quot;scales&quot;, &quot;brmap&quot;))</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
 ##  language (EN)                        
 ##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-03-24                  
+##  date     2018-12-31                  
 ## 
-##  package     * version    date       source                             
-##  animation     2.5        2017-03-30 CRAN (R 3.4.4)                     
-##  assertthat    0.2.0      2017-04-11 CRAN (R 3.4.3)                     
-##  backports     1.1.2      2017-12-13 CRAN (R 3.4.3)                     
-##  base        * 3.4.3      2017-12-06 local                              
-##  base64enc     0.1-3      2015-07-28 CRAN (R 3.4.1)                     
-##  bindr         0.1.1      2018-03-13 CRAN (R 3.4.4)                     
-##  bindrcpp      0.2        2017-06-17 CRAN (R 3.4.3)                     
-##  blogdown      0.5        2018-01-24 CRAN (R 3.4.4)                     
-##  bookdown      0.7        2018-02-18 CRAN (R 3.4.4)                     
-##  brmap       * 0.0.4      2018-02-11 Github (italocegatta/brmap@af57fd2)
-##  class         7.3-14     2015-08-30 CRAN (R 3.4.3)                     
-##  classInt      0.1-24     2017-04-16 CRAN (R 3.4.3)                     
-##  cli           1.0.0      2017-11-05 CRAN (R 3.4.3)                     
-##  colorspace    1.3-2      2016-12-14 CRAN (R 3.4.3)                     
-##  compiler      3.4.3      2017-12-06 local                              
-##  crayon        1.3.4      2017-09-16 CRAN (R 3.4.3)                     
-##  curl          3.1        2017-12-12 CRAN (R 3.4.3)                     
-##  datasets    * 3.4.3      2017-12-06 local                              
-##  DBI           0.8        2018-03-02 CRAN (R 3.4.4)                     
-##  devtools      1.13.5     2018-02-18 CRAN (R 3.4.3)                     
-##  digest        0.6.15     2018-01-28 CRAN (R 3.4.3)                     
-##  dplyr       * 0.7.4      2017-09-28 CRAN (R 3.4.3)                     
-##  e1071         1.6-8      2017-02-02 CRAN (R 3.4.3)                     
-##  evaluate      0.10.1     2017-06-24 CRAN (R 3.4.3)                     
-##  geofacet    * 0.1.5      2017-07-19 CRAN (R 3.4.4)                     
-##  gganimate   * 0.1.0.9000 2018-03-25 Github (dgrtwo/gganimate@bf82002)  
-##  ggplot2     * 2.2.1.9000 2018-03-25 Github (tidyverse/ggplot2@3c9c504) 
-##  ggthemes    * 3.4.0      2017-02-19 CRAN (R 3.4.3)                     
-##  glue          1.2.0      2017-10-29 CRAN (R 3.4.3)                     
-##  graphics    * 3.4.3      2017-12-06 local                              
-##  grDevices   * 3.4.3      2017-12-06 local                              
-##  grid          3.4.3      2017-12-06 local                              
-##  gridExtra     2.3        2017-09-09 CRAN (R 3.4.3)                     
-##  gtable        0.2.0      2016-02-26 CRAN (R 3.4.3)                     
-##  highr         0.6        2016-05-09 CRAN (R 3.4.3)                     
-##  hms           0.4.2      2018-03-10 CRAN (R 3.4.4)                     
-##  htmltools     0.3.6      2017-04-28 CRAN (R 3.4.3)                     
-##  knitr         1.20       2018-02-20 CRAN (R 3.4.4)                     
-##  labeling      0.3        2014-08-23 CRAN (R 3.4.1)                     
-##  lazyeval      0.2.1      2017-10-29 CRAN (R 3.4.3)                     
-##  magrittr      1.5        2014-11-22 CRAN (R 3.4.3)                     
-##  memoise       1.1.0      2017-04-21 CRAN (R 3.4.3)                     
-##  methods     * 3.4.3      2017-12-06 local                              
-##  munsell       0.4.3      2016-02-13 CRAN (R 3.4.3)                     
-##  pacman      * 0.4.6      2017-05-14 CRAN (R 3.4.3)                     
-##  pillar        1.2.1      2018-02-27 CRAN (R 3.4.4)                     
-##  pkgconfig     2.0.1      2017-03-21 CRAN (R 3.4.3)                     
-##  plyr          1.8.4      2016-06-08 CRAN (R 3.4.3)                     
-##  R6            2.2.2      2017-06-17 CRAN (R 3.4.3)                     
-##  Rcpp          0.12.16    2018-03-13 CRAN (R 3.4.4)                     
-##  readr       * 1.1.1      2017-05-16 CRAN (R 3.4.3)                     
-##  rlang         0.2.0.9001 2018-03-25 Github (r-lib/rlang@870a6bf)       
-##  rmarkdown     1.9        2018-03-01 CRAN (R 3.4.4)                     
-##  rprojroot     1.3-2      2018-01-03 CRAN (R 3.4.3)                     
-##  scales      * 0.5.0.9000 2018-02-11 Github (hadley/scales@d767915)     
-##  sf          * 0.6-1      2018-03-22 CRAN (R 3.4.3)                     
-##  stats       * 3.4.3      2017-12-06 local                              
-##  stringi       1.1.7      2018-03-12 CRAN (R 3.4.4)                     
-##  stringr       1.3.0      2018-02-19 CRAN (R 3.4.4)                     
-##  tibble        1.4.2      2018-01-22 CRAN (R 3.4.3)                     
-##  tools         3.4.3      2017-12-06 local                              
-##  udunits2      0.13       2016-11-17 CRAN (R 3.4.1)                     
-##  units         0.5-1      2018-01-08 CRAN (R 3.4.3)                     
-##  utf8          1.1.3      2018-01-03 CRAN (R 3.4.3)                     
-##  utils       * 3.4.3      2017-12-06 local                              
-##  viridis     * 0.5.0      2018-02-02 CRAN (R 3.4.3)                     
-##  viridisLite * 0.3.0      2018-02-01 CRAN (R 3.4.3)                     
-##  withr         2.1.2      2018-03-25 Github (jimhester/withr@79d7b0d)   
-##  xfun          0.1        2018-01-22 CRAN (R 3.4.4)                     
-##  yaml          2.1.18     2018-03-08 CRAN (R 3.4.4)</code></pre>
+## - Packages --------------------------------------------------------------
+##  package       * version     date       lib
+##  assertthat      0.2.0       2017-04-11 [1]
+##  BH              1.66.0-1    2018-02-13 [1]
+##  bindr           0.1.1       2018-03-13 [1]
+##  bindrcpp        0.2.2       2018-03-29 [1]
+##  brmap         * 0.0.5       2018-09-16 [1]
+##  class           7.3-14      2015-08-30 [2]
+##  classInt        0.3-1       2018-12-18 [1]
+##  cli             1.0.1       2018-09-25 [1]
+##  clipr           0.4.1       2018-06-23 [1]
+##  colorspace      1.3-2       2016-12-14 [1]
+##  crayon          1.3.4       2017-09-16 [1]
+##  curl            3.2         2018-03-28 [1]
+##  DBI             1.0.0       2018-05-02 [1]
+##  digest          0.6.18      2018-10-10 [1]
+##  dplyr         * 0.7.8       2018-11-10 [1]
+##  e1071           1.7-0       2018-07-28 [1]
+##  fansi           0.4.0       2018-10-05 [1]
+##  farver          1.1.0       2018-11-20 [1]
+##  geofacet      * 0.1.9       2018-03-29 [1]
+##  geogrid         0.1.1       2018-12-11 [1]
+##  gganimate     * 0.9.9.9999  2018-12-31 [1]
+##  ggplot2       * 3.1.0       2018-10-25 [1]
+##  ggrepel         0.8.0       2018-05-09 [1]
+##  glue            1.3.0       2018-07-17 [1]
+##  gridExtra       2.3         2017-09-09 [1]
+##  gtable          0.2.0       2016-02-26 [1]
+##  hms             0.4.2       2018-03-10 [1]
+##  httr            1.4.0       2018-12-11 [1]
+##  imguR           1.0.3       2016-03-29 [1]
+##  jpeg            0.1-8       2014-01-23 [1]
+##  jsonlite        1.6         2018-12-07 [1]
+##  labeling        0.3         2014-08-23 [1]
+##  lattice         0.20-35     2017-03-25 [2]
+##  lazyeval        0.2.1       2017-10-29 [1]
+##  magrittr        1.5         2014-11-22 [1]
+##  MASS            7.3-50      2018-04-30 [2]
+##  Matrix          1.2-14      2018-04-13 [2]
+##  mgcv            1.8-24      2018-06-23 [2]
+##  mime            0.6         2018-10-05 [1]
+##  munsell         0.5.0       2018-06-12 [1]
+##  nlme            3.1-137     2018-04-07 [2]
+##  openssl         1.1         2018-11-15 [1]
+##  pillar          1.3.1       2018-12-15 [1]
+##  pkgconfig       2.0.2       2018-08-16 [1]
+##  plogr           0.2.0       2018-03-25 [1]
+##  plyr            1.8.4       2016-06-08 [1]
+##  png             0.1-7       2013-12-03 [1]
+##  prettyunits     1.0.2       2015-07-13 [1]
+##  progress        1.2.0       2018-06-14 [1]
+##  purrr           0.2.5       2018-05-29 [1]
+##  R6              2.3.0       2018-10-04 [1]
+##  RColorBrewer    1.1-2       2014-12-07 [1]
+##  Rcpp            1.0.0       2018-11-07 [1]
+##  RcppArmadillo   0.9.200.5.0 2018-11-28 [1]
+##  readr         * 1.3.1       2018-12-21 [1]
+##  reshape2        1.4.3       2017-12-11 [1]
+##  rgeos           0.4-2       2018-11-08 [1]
+##  rlang           0.3.0.1     2018-10-25 [1]
+##  rnaturalearth   0.1.0       2017-03-21 [1]
+##  scales        * 1.0.0       2018-08-09 [1]
+##  sf            * 0.7-2       2018-12-20 [1]
+##  sp              1.3-1       2018-06-05 [1]
+##  stringi         1.2.4       2018-07-20 [1]
+##  stringr         1.3.1       2018-05-10 [1]
+##  tibble          1.4.2       2018-01-22 [1]
+##  tidyselect      0.2.5       2018-10-11 [1]
+##  tweenr          1.0.1       2018-12-14 [1]
+##  units           0.6-2       2018-12-05 [1]
+##  utf8            1.1.4       2018-05-24 [1]
+##  viridisLite     0.3.0       2018-02-01 [1]
+##  withr           2.1.2       2018-03-15 [1]
+##  source                              
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  Github (italocegatta/brmap@181fc73) 
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.2)                      
+##  Github (thomasp85/gganimate@299fd58)
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library</code></pre>
 
               
             </div>
@@ -462,13 +550,9 @@ Figura  2: Representação em painel utilizando cores.
 
   <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
 
-  <a class="tag tag--primary tag--small" href="/tags/ggthemes/">ggthemes</a>
-
   <a class="tag tag--primary tag--small" href="/tags/geofacet/">geofacet</a>
 
   <a class="tag tag--primary tag--small" href="/tags/gganimate/">gganimate</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/viridis/">viridis</a>
 
   <a class="tag tag--primary tag--small" href="/tags/scales/">scales</a>
 
@@ -493,7 +577,7 @@ Figura  2: Representação em painel utilizando cores.
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/" data-tooltip="Web scraping: dados de páginas da internet na palma da sua mão">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/" data-tooltip="Interpolação pelo inverso do quadrado da distância">
               
                   <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
                   <i class="fa fa-angle-right"></i>
@@ -550,6 +634,7 @@ Figura  2: Representação em painel utilizando cores.
   <span class="copyrights">
     &copy; 2018 Ítalo Cegatta. All Rights Reserved
   </span>
+  <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
 
       </div>
@@ -569,7 +654,7 @@ Figura  2: Representação em painel utilizando cores.
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/" data-tooltip="Web scraping: dados de páginas da internet na palma da sua mão">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/interpolacao-pelo-inverso-do-quadrado-da-distancia/" data-tooltip="Interpolação pelo inverso do quadrado da distância">
               
                   <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
                   <i class="fa fa-angle-right"></i>
@@ -740,7 +825,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em ‘comemoração’ a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
@@ -793,24 +878,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas resgistradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/">
-                <h3 class="media-heading">Web scraping: dados de páginas da internet na palma da sua mão</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jun 6, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Você já precisou copiar na mão uma informação de texto, valor ou tabela de uma pagina web? Pelo menos no meu trabalho isto é muito comum. Por mais que os dados estejam lá site, eles nunca estão disponíveis todos juntos e no formato que queremos, parece que é de sacanagem. Diante disto, o objetivo deste post é mostrar como podemos utilizar o R para coletar dados de uma página web e esquecer o famooooso ctrl+c/ctrl+v.</div>
+              <div class="media-content hide-xs font-merryweather">O post de hoje é sobre visualização de dados com dimensão espacial e temporal. Basicamente são gráficos que têm uma representação geográfica associada a informações que variam no tempo. Este tipo de análise é comum no meu dia a dia e por isso resolvi deixar 3 alternativas registradas aqui. O contexto que iremos abordar está relacionado ao banco de dados de focos de incêndios registrados pelo INPE no Programa Queimadas Monitoramento por Satélites.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -870,6 +938,24 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
+                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
+Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -877,7 +963,7 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         20 posts found
+         19 posts found
       </p>
     </div>
   </div>

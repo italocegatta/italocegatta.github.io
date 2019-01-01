@@ -33,11 +33,6 @@
   </url>
   
   <url>
-    <loc>/web-scraping-dados-de-paginas-da-internet-na-palma-da-sua-mao/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</loc>
     <lastmod>2017-04-30T00:00:00+00:00</lastmod>
   </url>
@@ -208,12 +203,6 @@
   </url>
   
   <url>
-    <loc>/tags/ggthemes/</loc>
-    <lastmod>2018-03-24T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/categories/graficos/</loc>
     <lastmod>2018-03-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -311,7 +300,7 @@
   
   <url>
     <loc>/tags/rvest/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-01-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -348,18 +337,6 @@
   <url>
     <loc>/tags/tidyr/</loc>
     <lastmod>2018-07-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/viridis/</loc>
-    <lastmod>2017-07-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/web-scraping/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
