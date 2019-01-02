@@ -215,7 +215,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
   scale_fill_viridis_c(guide = FALSE) +
   coord_sf(datum = NA) +
   theme_void(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Pontos interessantes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Rondônia e Roraima retém uma proporção parecida da população dentro do próprio Estado, entretanto o pessoal que mora em Rondônia veio do Sul e Sudeste; ao passo que os moradores de Roraima vêm do AM, PA e MA.&lt;/li&gt;
@@ -234,7 +234,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-01-01                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib

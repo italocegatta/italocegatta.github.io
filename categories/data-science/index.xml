@@ -6,10 +6,343 @@
     <description>Recent content in Data Science on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 03 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>O quão popular é o seu nome?</title>
+      <link>/o-quao-popular-e-o-seu-nome/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/o-quao-popular-e-o-seu-nome/</guid>
+      <description>No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site https://censo2010.ibge.gov.br/nomes e conferir as estatísticas do nome de interesse.
+O site é legal, mas eu queria ter os dados na mão para fazer as coisas do meu jeito.</description>
+      <content:encoded>
+        
+
+
+&lt;p&gt;No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site &lt;a href=&#34;https://censo2010.ibge.gov.br/nomes&#34; class=&#34;uri&#34;&gt;https://censo2010.ibge.gov.br/nomes&lt;/a&gt; e conferir as estatísticas do nome de interesse.&lt;/p&gt;
+&lt;p&gt;O site é legal, mas eu queria ter os dados na mão para fazer as coisas do meu jeito. Então decidi escrever um pacote no R para acessar os dados da &lt;a href=&#34;https://servicodados.ibge.gov.br/api/docs/censos/nomes?versao=2&#34;&gt;API&lt;/a&gt; que o IBGE montou para esse banco.&lt;/p&gt;
+&lt;p&gt;O pacote chama &lt;code&gt;brnome&lt;/code&gt; e está disponível no meu &lt;a href=&#34;https://github.com/italocegatta/brnome&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
+pacman::p_load(readr, dplyr, purrr, tidyr, ggplot2, forcats, wordcloud)
+pacman::p_load_gh(&amp;quot;italocegatta/brnome&amp;quot;)
+pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Vamos começar com a função &lt;code&gt;brnome_freq()&lt;/code&gt; e entender a distribuição espacial e temporal (década de nascimento) do nome da minha queria e sapeca sobrinha, Eliza.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_freq &amp;lt;- brnome_freq(nome = &amp;quot;eliza&amp;quot;)
+
+eliza_freq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 6
+##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
+## 1 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1920       1749
+## 2 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1930       2651
+## 3 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1940       3098
+## 4 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1950       3800
+## 5 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1960       4023
+## 6 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1970       3805
+## 7 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1980       4697
+## 8 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1990       4340
+## 9 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000       5595&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notem que as colunas &lt;code&gt;sexo&lt;/code&gt; e &lt;code&gt;localidade&lt;/code&gt; estão vazias pois não foram especificadas. Significa que foi considerado homens e mulheres para todo o Brasil.&lt;/p&gt;
+&lt;p&gt;Será que tem algum homem batizado com o nome Eliza? Tem, e eu não sei se foi de propósito ou um erro de coleta. Fica aí o questionamento hehehehe.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo = &amp;quot;m&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 6
+##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
+## 1 ELIZA M     &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000         34&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A pesquisa também pode ser feita para um determinado município ou estado. Neste caso, você precisa utilizar o código oficial do IBGE para as localidades. Como exemplo vamos ver para Cuiabá (&lt;code&gt;5103403&lt;/code&gt;) e Mato Grosso (&lt;code&gt;51&lt;/code&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo  =&amp;quot;f&amp;quot;, localidade_cod = 5103403)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 6
+##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
+## 1 ELIZA F     5103403    Cuiabá                       1940         12
+## 2 ELIZA F     5103403    Cuiabá                       1950         26
+## 3 ELIZA F     5103403    Cuiabá                       1960         23
+## 4 ELIZA F     5103403    Cuiabá                       1970         28
+## 5 ELIZA F     5103403    Cuiabá                       1980         18
+## 6 ELIZA F     5103403    Cuiabá                       1990         22
+## 7 ELIZA F     5103403    Cuiabá                       2000         39&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo  =&amp;quot;f&amp;quot;, localidade_cod = 51)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 6
+##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
+## 1 ELIZA F     51         Mato Grosso                  1920         16
+## 2 ELIZA F     51         Mato Grosso                  1930         36
+## 3 ELIZA F     51         Mato Grosso                  1940         52
+## 4 ELIZA F     51         Mato Grosso                  1950         78
+## 5 ELIZA F     51         Mato Grosso                  1960         91
+## 6 ELIZA F     51         Mato Grosso                  1970        103
+## 7 ELIZA F     51         Mato Grosso                  1980         93
+## 8 ELIZA F     51         Mato Grosso                  1990         87
+## 9 ELIZA F     51         Mato Grosso                  2000        152&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para consultar os códigos das localidades, o pacote disponibiliza um dataframe para auxiliar neste ponto.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;localidades&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5,597 x 3
+##    localidade localidade_nome       tipo     
+##    &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                 &amp;lt;chr&amp;gt;    
+##  1 1100015    Alta Floresta D&amp;#39;Oeste Município
+##  2 1100023    Ariquemes             Município
+##  3 1100031    Cabixi                Município
+##  4 1100049    Cacoal                Município
+##  5 1100056    Cerejeiras            Município
+##  6 1100064    Colorado do Oeste     Município
+##  7 1100072    Corumbiara            Município
+##  8 1100080    Costa Marques         Município
+##  9 1100098    Espigão D&amp;#39;Oeste       Município
+## 10 1100106    Guajará-Mirim         Município
+## # ... with 5,587 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Bom, consultas simples como está podem ser feitas pelo site do IBGE, mas como somos programadores e temos tempo para fazer essas coisas, vamos ver a frequência do nome Eliza para todos os estados do Brasil.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado &amp;lt;- localidades %&amp;gt;% 
+  filter(tipo == &amp;quot;Estado&amp;quot;) %&amp;gt;% 
+  mutate(
+    freq = map(
+      localidade,
+      ~brnome_freq(nome = &amp;quot;Eliza&amp;quot;, localidade_cod = .x) 
+    )
+  ) %&amp;gt;% 
+  select(freq) %&amp;gt;% 
+  unnest()
+
+eliza_estado&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 218 x 6
+##    nome  sexo  localidade localidade_nome decada_nascimento frequencia
+##    &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
+##  1 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1940         23
+##  2 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1950         31
+##  3 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1960         38
+##  4 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1970         42
+##  5 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1980         36
+##  6 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1990         46
+##  7 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     2000         61
+##  8 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1940         16
+##  9 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1960         16
+## 10 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1970         15
+## # ... with 208 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Primeiro vamos analisar a frequência do nome pela década de nascimento somando os valores de todos os estados.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado %&amp;gt;% 
+  group_by(decada_nascimento) %&amp;gt;% 
+  summarise(frequencia = sum(frequencia)) %&amp;gt;% 
+  ggplot(aes(decada_nascimento, frequencia)) +
+    geom_line(size = 2) +
+    geom_point(shape = 21, color = &amp;quot;white&amp;quot;, fill =  &amp;quot;#80b1d3&amp;quot;, size = 5, stroke = 2) +
+    labs(x = &amp;quot;Década de nascimento&amp;quot;, y = &amp;quot;Frequência do nome Eliza&amp;quot;) +
+    scale_x_continuous(breaks = seq(1900, 2020, 10)) + 
+    scale_y_continuous(limits = c(0, NA), labels = scales::unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) + 
+    theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Também podemos ver a distribuição espacial pelos estados do Brasil.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado %&amp;gt;% 
+  left_join(brmap_estado, by = c(&amp;quot;localidade_nome&amp;quot; = &amp;quot;estado_nome&amp;quot;)) %&amp;gt;% 
+  ggplot(aes(fill = frequencia)) +
+    geom_sf(color = &amp;quot;white&amp;quot;) +
+    scale_fill_distiller(palette = &amp;quot;Purples&amp;quot;, direction = 1) +
+    labs(fill = &amp;quot;Frequência do nome Eliza&amp;quot;) +
+    theme_bw(16) +
+    theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
+    guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A segunda função presente no pacote acesso o rank dos nomes mais populares por sexo e década de nascimento e localidade.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rank_sexo &amp;lt;- bind_rows(brnome_rank(sexo = &amp;quot;f&amp;quot;), brnome_rank(sexo = &amp;quot;m&amp;quot;))
+
+rank_sexo %&amp;gt;%
+  ggplot(aes(decada_nascimento, rank, fill = frequencia, label = nome)) +
+  geom_line(aes(group = nome), alpha = 0.5) +
+  geom_label(color = &amp;quot;black&amp;quot;, size = 3) +
+  facet_wrap(~sexo, labeller = labeller(sexo = c(&amp;quot;F&amp;quot; = &amp;quot;Feminino&amp;quot;, &amp;quot;M&amp;quot; = &amp;quot;Masculino&amp;quot;))) +
+  labs(x = &amp;quot;Décade de nascimento&amp;quot;, y = &amp;quot;Ranking&amp;quot;, fill = &amp;quot;Frequência&amp;quot;) +
+  scale_y_reverse(breaks = 1:20) +
+  scale_fill_distiller(
+    palette = &amp;quot;PuBuGn&amp;quot;, direction = 1, 
+    labels = scales::unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)
+  ) +
+  theme_bw(18) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
+  guides(fill = guide_colorbar(barwidth = 20, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-13-1.svg&#34; width=&#34;1536&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A consulta do rank também pode ser feita por localidade e década, como por exemplo os nomes mais comuns em Cuiabá na década de 1990.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_rank(sexo = &amp;quot;f&amp;quot;, localidade_cod = 5103403, decada_nascimento = 1990) %&amp;gt;% 
+  select(nome, localidade_nome, frequencia, rank)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 20 x 4
+##    nome      localidade_nome frequencia  rank
+##    &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;                &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+##  1 ANA       Cuiabá                1591     1
+##  2 JESSICA   Cuiabá                 932     2
+##  3 CAMILA    Cuiabá                 677     3
+##  4 BRUNA     Cuiabá                 667     4
+##  5 AMANDA    Cuiabá                 645     5
+##  6 ALINE     Cuiabá                 641     6
+##  7 LETICIA   Cuiabá                 630     7
+##  8 MARIA     Cuiabá                 625     8
+##  9 FERNANDA  Cuiabá                 521     9
+## 10 LUANA     Cuiabá                 491    10
+## 11 LARISSA   Cuiabá                 432    11
+## 12 MARIANA   Cuiabá                 409    12
+## 13 JULIANA   Cuiabá                 381    13
+## 14 GABRIELA  Cuiabá                 370    14
+## 15 PATRICIA  Cuiabá                 366    15
+## 16 NATALIA   Cuiabá                 354    16
+## 17 VANESSA   Cuiabá                 341    17
+## 18 RAFAELA   Cuiabá                 335    18
+## 19 PAMELA    Cuiabá                 321    19
+## 20 JAQUELINE Cuiabá                 310    20&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pra finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_nomes &amp;lt;- rank_sexo %&amp;gt;% 
+  group_by(nome) %&amp;gt;% 
+  summarise(frequencia = sum(frequencia))
+
+set.seed(1)
+wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-15-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;purrr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;brmap&amp;quot;, &amp;quot;brnome&amp;quot;, &amp;quot;wordcloud&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  Portuguese_Brazil.1252      
+##  ctype    Portuguese_Brazil.1252      
+##  tz       America/Sao_Paulo           
+##  date     2019-01-01                  
+## 
+## - Packages --------------------------------------------------------------
+##  package      * version    date       lib
+##  assertthat     0.2.0      2017-04-11 [1]
+##  BH             1.66.0-1   2018-02-13 [1]
+##  bindr          0.1.1      2018-03-13 [1]
+##  bindrcpp     * 0.2.2      2018-03-29 [1]
+##  brmap        * 0.0.5      2018-09-16 [1]
+##  brnome       * 0.0.0.9000 2019-01-01 [1]
+##  class          7.3-14     2015-08-30 [2]
+##  classInt       0.3-1      2018-12-18 [1]
+##  cli            1.0.1      2018-09-25 [1]
+##  clipr          0.4.1      2018-06-23 [1]
+##  colorspace     1.3-2      2016-12-14 [1]
+##  crayon         1.3.4      2017-09-16 [1]
+##  curl           3.2        2018-03-28 [1]
+##  DBI            1.0.0      2018-05-02 [1]
+##  digest         0.6.18     2018-10-10 [1]
+##  dplyr        * 0.7.8      2018-11-10 [1]
+##  e1071          1.7-0      2018-07-28 [1]
+##  fansi          0.4.0      2018-10-05 [1]
+##  forcats      * 0.3.0      2018-02-19 [1]
+##  ggplot2      * 3.1.0      2018-10-25 [1]
+##  glue           1.3.0      2018-07-17 [1]
+##  gtable         0.2.0      2016-02-26 [1]
+##  hms            0.4.2      2018-03-10 [1]
+##  httr           1.4.0      2018-12-11 [1]
+##  jsonlite       1.6        2018-12-07 [1]
+##  labeling       0.3        2014-08-23 [1]
+##  lattice        0.20-35    2017-03-25 [2]
+##  lazyeval       0.2.1      2017-10-29 [1]
+##  magrittr       1.5        2014-11-22 [1]
+##  MASS           7.3-50     2018-04-30 [2]
+##  Matrix         1.2-14     2018-04-13 [2]
+##  mgcv           1.8-24     2018-06-23 [2]
+##  mime           0.6        2018-10-05 [1]
+##  munsell        0.5.0      2018-06-12 [1]
+##  nlme           3.1-137    2018-04-07 [2]
+##  openssl        1.1        2018-11-15 [1]
+##  pillar         1.3.1      2018-12-15 [1]
+##  pkgconfig      2.0.2      2018-08-16 [1]
+##  plogr          0.2.0      2018-03-25 [1]
+##  plyr           1.8.4      2016-06-08 [1]
+##  purrr        * 0.2.5      2018-05-29 [1]
+##  R6             2.3.0      2018-10-04 [1]
+##  RColorBrewer * 1.1-2      2014-12-07 [1]
+##  Rcpp           1.0.0      2018-11-07 [1]
+##  readr        * 1.3.1      2018-12-21 [1]
+##  reshape2       1.4.3      2017-12-11 [1]
+##  rlang          0.3.0.1    2018-10-25 [1]
+##  rvest          0.3.2      2016-06-17 [1]
+##  scales         1.0.0      2018-08-09 [1]
+##  selectr        0.4-1      2018-04-06 [1]
+##  sf           * 0.7-2      2018-12-20 [1]
+##  stringi        1.2.4      2018-07-20 [1]
+##  stringr        1.3.1      2018-05-10 [1]
+##  tibble         1.4.2      2018-01-22 [1]
+##  tidyr        * 0.8.2      2018-10-28 [1]
+##  tidyselect     0.2.5      2018-10-11 [1]
+##  units          0.6-2      2018-12-05 [1]
+##  utf8           1.1.4      2018-05-24 [1]
+##  viridisLite    0.3.0      2018-02-01 [1]
+##  withr          2.1.2      2018-03-15 [1]
+##  wordcloud    * 2.6        2018-08-24 [1]
+##  xml2           1.2.0      2018-01-24 [1]
+##  source                             
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  Github (italocegatta/brmap@181fc73)
+##  local                              
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+## 
+## [1] C:/Users/Italo/Documents/R/win-library/3.5
+## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+
+      </content:encoded>
+    </item>
     
     <item>
       <title>Engenheiro Florestal ou Cientista de Dados?</title>

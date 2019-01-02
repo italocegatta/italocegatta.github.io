@@ -364,7 +364,7 @@ base_fma</code></pre>
       values = c(&quot;#4292c6&quot;, &quot;#084594&quot;),
       labels = c(&quot;Chuva fraca (&lt;5 mm)&quot;,&quot;Chuva forte (&gt;5 mm)&quot;)
     ) +
-    theme_bw() +
+    theme_bw(16) +
     theme(legend.position = &quot;top&quot;, panel.grid.minor.x = element_blank())</code></pre>
 <p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg" width="960" /></p>
 <p>Olhando para a distribuição da umidade relativa em cada mês, podemos ver que em junho a mediana ainda está próximo dos 50% de umidade. E só em julho que os dias mais secos começam a ter mais frequência e essa tendência aumenta até setembro, depois retorna gradativamente até a mediana de 57% de umidade em dezembro.</p>
@@ -376,7 +376,7 @@ base_fma</code></pre>
     labs(x = &quot;Umidade Relativa às 13h (%)&quot;, y = &quot;Mês do ano&quot;) +
     scale_x_continuous(breaks = seq(10, 100, 10)) +
     scale_y_discrete(labels = format(ISOdate(2000, 1:12, 1), &quot;%b&quot;)) +
-    theme_bw()</code></pre>
+    theme_bw(16)</code></pre>
 <p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg" width="960" /></p>
 <p>Sobre a Fórmula de Monte Alegre, o contexto que motivou seu desenvolvimento foi bastante trágico. Em 1963 um grande incêndio atingiu o estado do Paraná, com centenas de mortes e cerca de 2 milhões de hectares de florestas queimadas. Em 1972 o Professor Ronaldo Soares, da UFPR, defendeu sua tese de mestrado propondo a Fórmula de Monte Alegre com base em registros de incêndios florestais coletados a partir de 1965 na fazenda Monte Alegre (Klabin), em Telêmaco Borba-PR.</p>
 <p>A cálculo do índice é bastante simples, basta calcular o valor FMA do dia corrente e somar com o valor do dia anterior. O FMA é calculado através da seguinte expressão:</p>
@@ -543,7 +543,7 @@ dados_fma</code></pre>
   labs(x = &quot;Ano&quot;, y = &quot;Frequência&quot;, fill = &quot;Risco&quot;) +
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent) +
   scale_fill_brewer(palette = &quot;Spectral&quot;, direction = -1) +
-  theme_bw()</code></pre>
+  theme_bw(16)</code></pre>
 <p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg" width="960" /></p>
 <p>Olhando para a frequência de risco dentro dos meses, fica claro o maior risco próximo do mês de agosto, como sugeriram os gráficos de frequências de chuva e umidade relativa.</p>
 <pre class="r"><code>dados_fma  %&gt;% 
@@ -556,7 +556,7 @@ dados_fma</code></pre>
   scale_x_continuous(breaks = 1:12, labels = format(ISOdate(2000, 1:12, 1), &quot;%b&quot;)) +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_brewer(palette = &quot;Spectral&quot;, direction = -1) +
-  theme_bw()</code></pre>
+  theme_bw(16)</code></pre>
 <p><img src="/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg" width="960" /></p>
 <p>Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais assertivo para uma certa região.</p>
 <p>Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.</p>
@@ -571,7 +571,7 @@ dados_fma</code></pre>
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-01-01                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -673,7 +673,7 @@ dados_fma</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/o-quao-popular-e-o-seu-nome/" data-tooltip="O quão popular é o seu nome?">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">PRÓXIMO</span>
@@ -728,7 +728,7 @@ dados_fma</code></pre>
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2018 Ítalo Cegatta. All Rights Reserved
+    &copy; 2019 Ítalo Cegatta. All Rights Reserved
   </span>
   <a href="https://github.com/akirak/hugo-tranquilpeak-theme">Tranquilpeak theme</a>
 </footer>
@@ -742,7 +742,7 @@ dados_fma</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/o-quao-popular-e-o-seu-nome/" data-tooltip="O quão popular é o seu nome?">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">PRÓXIMO</span>
@@ -843,6 +843,24 @@ dados_fma</code></pre>
       <div class="no-result text-color-light text-center"></div>
       <div class="results">
         
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/o-quao-popular-e-o-seu-nome/">
+                <h3 class="media-heading">O quão popular é o seu nome?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Sep 9, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site https://censo2010.ibge.gov.br/nomes e conferir as estatísticas do nome de interesse.
+O site é legal, mas eu queria ter os dados na mão para fazer as coisas do meu jeito.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
         
           <div class="media">
             
@@ -1004,24 +1022,6 @@ O objetivo deste post é mostrar, passo a passo, como calcular este índice no R
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/anova-e-teste-de-tukey/">
-                <h3 class="media-heading">ANOVA e teste de Tukey</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Sep 9, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
-Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1029,7 +1029,7 @@ Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se
          data-message-zero=""
          data-message-one=""
          data-message-other="">
-         19 posts found
+         20 posts found
       </p>
     </div>
   </div>
