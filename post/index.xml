@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>O quão popular é o seu nome?</title>
       <link>/o-quao-popular-e-o-seu-nome/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/o-quao-popular-e-o-seu-nome/</guid>
       <description>No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site https://censo2010.ibge.gov.br/nomes e conferir as estatísticas do nome de interesse.
@@ -188,7 +188,7 @@ rank_sexo %&amp;gt;%
 ## 18 RAFAELA   Cuiabá                 335    18
 ## 19 PAMELA    Cuiabá                 321    19
 ## 20 JAQUELINE Cuiabá                 310    20&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Pra finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.&lt;/p&gt;
+&lt;p&gt;Para finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_nomes &amp;lt;- rank_sexo %&amp;gt;% 
   group_by(nome) %&amp;gt;% 
   summarise(frequencia = sum(frequencia))
@@ -208,7 +208,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-01-02                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib

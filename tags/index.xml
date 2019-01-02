@@ -26,7 +26,7 @@
     <item>
       <title>Brmap</title>
       <link>/tags/brmap/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/brmap/</guid>
       <description></description>
@@ -38,7 +38,7 @@
     <item>
       <title>Brnome</title>
       <link>/tags/brnome/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/brnome/</guid>
       <description></description>
@@ -74,7 +74,7 @@
     <item>
       <title>Dplyr</title>
       <link>/tags/dplyr/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/dplyr/</guid>
       <description></description>
@@ -98,7 +98,7 @@
     <item>
       <title>Forcats</title>
       <link>/tags/forcats/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/forcats/</guid>
       <description></description>
@@ -158,7 +158,7 @@
     <item>
       <title>Ggplot2</title>
       <link>/tags/ggplot2/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/ggplot2/</guid>
       <description></description>
@@ -230,7 +230,7 @@
     <item>
       <title>Purrr</title>
       <link>/tags/purrr/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/purrr/</guid>
       <description></description>
@@ -326,9 +326,21 @@
     <item>
       <title>Tidyr</title>
       <link>/tags/tidyr/</link>
-      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/tidyr/</guid>
+      <description></description>
+      <content:encoded>
+        
+      </content:encoded>
+    </item>
+    
+    <item>
+      <title>Wordcloud</title>
+      <link>/tags/wordcloud/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/wordcloud/</guid>
       <description></description>
       <content:encoded>
         

@@ -255,13 +255,13 @@ if (!doNotTrack) {
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2018-09-30T00:00:00Z">
+      <time itemprop="datePublished" datetime="2019-01-01T00:00:00Z">
         
   
   
   
   
-    30 Setembro 2018
+    1 Janeiro 2019
   
 
       </time>
@@ -450,7 +450,7 @@ rank_sexo %&gt;%
 ## 18 RAFAELA   Cuiabá                 335    18
 ## 19 PAMELA    Cuiabá                 321    19
 ## 20 JAQUELINE Cuiabá                 310    20</code></pre>
-<p>Pra finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.</p>
+<p>Para finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.</p>
 <pre class="r"><code>top_nomes &lt;- rank_sexo %&gt;% 
   group_by(nome) %&gt;% 
   summarise(frequencia = sum(frequencia))
@@ -470,7 +470,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))</code></pre>
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-01-02                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
@@ -627,6 +627,8 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))</code></pre>
   <a class="tag tag--primary tag--small" href="/tags/brnome/">brnome</a>
 
   <a class="tag tag--primary tag--small" href="/tags/brmap/">brmap</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/wordcloud/">wordcloud</a>
 
                   </div>
                 
@@ -818,7 +820,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))</code></pre>
               </a>
               <span class="media-meta">
                 <span class="media-date text-small">
-                  Sep 9, 2018
+                  Jan 1, 2019
                 </span>
               </span>
               <div class="media-content hide-xs font-merryweather">No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site https://censo2010.ibge.gov.br/nomes e conferir as estatísticas do nome de interesse.
