@@ -46,14 +46,14 @@ eliza_freq&lt;/code&gt;&lt;/pre&gt;
 ## 7 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1980       4697
 ## 8 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1990       4340
 ## 9 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000       5595&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Notem que as colunas &lt;code&gt;sexo&lt;/code&gt; e &lt;code&gt;localidade&lt;/code&gt; estão vazias pois não foram especificadas. Significa que foi considerado homens e mulheres para todo o Brasil.&lt;/p&gt;
-&lt;p&gt;Será que tem algum homem batizado com o nome Eliza? Tem, e eu não sei se foi de propósito ou um erro de coleta. Fica aí o questionamento hehehehe.&lt;/p&gt;
+&lt;p&gt;Notem que as colunas &lt;code&gt;sexo&lt;/code&gt; e &lt;code&gt;localidade&lt;/code&gt; estão vazias pois não foram especificadas. Significa que foi considerada a busca de homens e mulheres para todo o Brasil.&lt;/p&gt;
+&lt;p&gt;Será que tem algum homem batizado com o nome Eliza? Tem, e eu não sei se foi de propósito ou se foi um erro de coleta. Fica aí o questionamento hehehehe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo = &amp;quot;m&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 6
 ##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
 ##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
 ## 1 ELIZA M     &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000         34&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A pesquisa também pode ser feita para um determinado município ou estado. Neste caso, você precisa utilizar o código oficial do IBGE para as localidades. Como exemplo vamos ver para Cuiabá (&lt;code&gt;5103403&lt;/code&gt;) e Mato Grosso (&lt;code&gt;51&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;A pesquisa também pode ser feita para um determinado município ou estado. Neste caso, você precisa utilizar o código oficial do IBGE de localidades. Como exemplo, vamos ver os resultados para Cuiabá (&lt;code&gt;5103403&lt;/code&gt;) e Mato Grosso (&lt;code&gt;51&lt;/code&gt;).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo  =&amp;quot;f&amp;quot;, localidade_cod = 5103403)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 6
 ##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
@@ -78,7 +78,7 @@ eliza_freq&lt;/code&gt;&lt;/pre&gt;
 ## 7 ELIZA F     51         Mato Grosso                  1980         93
 ## 8 ELIZA F     51         Mato Grosso                  1990         87
 ## 9 ELIZA F     51         Mato Grosso                  2000        152&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Para consultar os códigos das localidades, o pacote disponibiliza um dataframe para auxiliar neste ponto.&lt;/p&gt;
+&lt;p&gt;Para consultar os códigos das localidades, o pacote disponibiliza um dataframe auxiliar &lt;code&gt;localidades&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;localidades&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 5,597 x 3
 ##    localidade localidade_nome       tipo     
@@ -94,7 +94,7 @@ eliza_freq&lt;/code&gt;&lt;/pre&gt;
 ##  9 1100098    Espigão D&amp;#39;Oeste       Município
 ## 10 1100106    Guajará-Mirim         Município
 ## # ... with 5,587 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Bom, consultas simples como está podem ser feitas pelo site do IBGE, mas como somos programadores e temos tempo para fazer essas coisas, vamos ver a frequência do nome Eliza para todos os estados do Brasil.&lt;/p&gt;
+&lt;p&gt;Bom, consultas simples como está podem ser feitas diretamente pelo site do IBGE, mas podemos deixar um pouco mais complexo e pegar a frequência do nome Eliza para todos os estados do Brasil.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado &amp;lt;- localidades %&amp;gt;% 
   filter(tipo == &amp;quot;Estado&amp;quot;) %&amp;gt;% 
   mutate(
@@ -127,7 +127,7 @@ eliza_estado&lt;/code&gt;&lt;/pre&gt;
   summarise(frequencia = sum(frequencia)) %&amp;gt;% 
   ggplot(aes(decada_nascimento, frequencia)) +
     geom_line(size = 2) +
-    geom_point(shape = 21, color = &amp;quot;white&amp;quot;, fill =  &amp;quot;#80b1d3&amp;quot;, size = 5, stroke = 2) +
+    geom_point(shape = 21, color = &amp;quot;white&amp;quot;, fill =  &amp;quot;#80b1d3&amp;quot;, size = 7, stroke = 2) +
     labs(x = &amp;quot;Década de nascimento&amp;quot;, y = &amp;quot;Frequência do nome Eliza&amp;quot;) +
     scale_x_continuous(breaks = seq(1900, 2020, 10)) + 
     scale_y_continuous(limits = c(0, NA), labels = scales::unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) + 
@@ -144,7 +144,7 @@ eliza_estado&lt;/code&gt;&lt;/pre&gt;
     theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
     guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;A segunda função presente no pacote acesso o rank dos nomes mais populares por sexo e década de nascimento e localidade.&lt;/p&gt;
+&lt;p&gt;A segunda função presente no pacote acesso o rank dos nomes mais populares por sexo, década de nascimento e localidade.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rank_sexo &amp;lt;- bind_rows(brnome_rank(sexo = &amp;quot;f&amp;quot;), brnome_rank(sexo = &amp;quot;m&amp;quot;))
 
 rank_sexo %&amp;gt;%
@@ -208,7 +208,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-02                  
+##  date     2019-01-20                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
