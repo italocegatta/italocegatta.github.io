@@ -244,11 +244,12 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
 &lt;p&gt;A Tabela Fipe expressa preços médios de veículos no mercado nacional, servindo apenas como um parâmetro para negociações ou avaliações. Os preços efetivamente praticados variam em função da região, conservação, cor, acessórios ou qualquer outro fator que possa influenciar as condições de oferta e procura por um veículo específico.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;A motivação para este pacote foi exclusivamente pessoal e por isso a utilização das funções está bastante restrita. Por isso, se alguém quiser ajudar no desenvolvimento do pacote é só chegar e mandar um &lt;a href=&#34;https://github.com/italocegatta/fipe&#34;&gt;Pull Request&lt;/a&gt; no Github, contribuições serão muito bem-vindas.&lt;/p&gt;
-&lt;p&gt;Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço de uma BMW X6 M ano 2015 em julho de 2017.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
 pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
 pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6_m_2015 &amp;lt;- fipe_carro(
+&lt;p&gt;Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço de uma BMW X6 M ano 2015 em julho de 2017.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# acesso aos dados no site da tabela fipe
+bmw_x6_m_2015 &amp;lt;- fipe_carro(
   modelo = &amp;quot;x6 m&amp;quot;, marca = &amp;quot;bmw&amp;quot;, 
   ano = 2015,  data_referencia = &amp;quot;2017-07-01&amp;quot;
 )
