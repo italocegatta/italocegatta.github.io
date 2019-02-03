@@ -361,177 +361,51 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 &lt;p&gt;A Tabela Fipe expressa preços médios de veículos no mercado nacional, servindo apenas como um parâmetro para negociações ou avaliações. Os preços efetivamente praticados variam em função da região, conservação, cor, acessórios ou qualquer outro fator que possa influenciar as condições de oferta e procura por um veículo específico.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;A motivação para este pacote foi exclusivamente pessoal e por isso a utilização das funções está bastante restrita. Por isso, se alguém quiser ajudar no desenvolvimento do pacote é só chegar e mandar um &lt;a href=&#34;https://github.com/italocegatta/fipe&#34;&gt;Pull Request&lt;/a&gt; no Github, contribuições serão muito bem-vindas.&lt;/p&gt;
-&lt;p&gt;Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço atual de uma BMW X6 M ano 2015. O primeiro passo é definir o mês de referência que se deseja consultar o preço do veículo. A FIPE disponibiliza os valores consolidados desde janeiro de 2001.&lt;/p&gt;
+&lt;p&gt;Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço de uma BMW X6 M ano 2015 em julho de 2017.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
 pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
 pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe_referencia()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 216 x 2
-##    data_ref   cod_ref
-##    &amp;lt;date&amp;gt;       &amp;lt;int&amp;gt;
-##  1 2018-12-01     236
-##  2 2018-11-01     235
-##  3 2018-10-01     234
-##  4 2018-09-01     233
-##  5 2018-08-01     232
-##  6 2018-07-01     231
-##  7 2018-06-01     230
-##  8 2018-05-01     229
-##  9 2018-04-01     228
-## 10 2018-03-01     227
-## # ... with 206 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Como o objetivo saber o preço atual do veículo, pegaremos o código &lt;code&gt;215&lt;/code&gt; (mês em que escrevo este post). Agora vamos procurar o código da marca BMW. Note que precisamos inserir o código do mês de referência para consultar a marca, essa é uma exigência do site da FIPE. Lembrando que o pacote não possui nenhum banco de dados armazenado, todas as informações são consultadas no site da tabela FIPE no ato da execução da função.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe_marca(cod_ref = 215)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 87 x 2
-##    marca        cod_marca
-##    &amp;lt;chr&amp;gt;            &amp;lt;int&amp;gt;
-##  1 Acura                1
-##  2 Agrale               2
-##  3 Alfa Romeo           3
-##  4 AM Gen               4
-##  5 Asia Motors          5
-##  6 ASTON MARTIN       189
-##  7 Audi                 6
-##  8 BMW                  7
-##  9 BRM                  8
-## 10 Buggy                9
-## # ... with 77 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Por sorte, o código &lt;code&gt;7&lt;/code&gt; da BMW aparece logo nos primeiros valores por ordem alfabética. Podemos seguir para o próximo passo e pegar o código do modelo que queremos. A consulta a baixo mostras que a BMW tem 221 modelos cadastrados na tabela FIPE. Como já definimos o modelo que queremos, vamos filtrar do dataframe para enxergar o código do modelo.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(bmw &amp;lt;- fipe_modelo(cod_ref = 215, cod_marca = 7))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 221 x 2
-##    modelo                                 cod_modelo
-##    &amp;lt;chr&amp;gt;                                       &amp;lt;int&amp;gt;
-##  1 116iA 1.6 TB 16V 136cv 5p                    6146
-##  2 118iA 2.0 16V 136cv 3p                       5576
-##  3 118iA 2.0 16V 136cv 5p                       4960
-##  4 118iA Full 1.6 TB 16V 170cv 5p               6147
-##  5 118iA/ Urban/Sport 1.6 TB 16V 170cv 5p       5923
-##  6 120i 2.0 16V 150cv/ 156cv 5p                  152
-##  7 120iA 2.0 16V 150cv/ 156cv 5p                 153
-##  8 120iA 2.0 16V 156cv 3p                       4700
-##  9 120iA Cabrio 2.0 16V 156cv 2p                4683
-## 10 120iA Sport 2.0/ActiveFlex 16V Aut.          7178
-## # ... with 211 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;filter(bmw, str_detect(modelo, &amp;quot;X6 M&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 2
-##   modelo                            cod_modelo
-##   &amp;lt;chr&amp;gt;                                  &amp;lt;int&amp;gt;
-## 1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut.       5189&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Pronto, agora já sabemos que o código que a FIPE dá para o modelo X6 M é o &lt;code&gt;5189&lt;/code&gt;. Teríamos tudo pronto, se não fosse o padrão que a FIPE adota no campo&lt;code&gt;ano&lt;/code&gt;, onde o ano do modelo é acrescido de um código de combustível. A diferenciação para os “0 km” é feita na mesma coluna, utilizando a identificação 32000-*. Enfim, contornando as falhas estruturais no banco de dados deles, agora sabemos os códigos que identificam o ano do modelo, bem como o carro 0 km. Como eu optei por procurar o valor do carro 2015, iremos considerar o código &lt;code&gt;2015-1&lt;/code&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe_ano(cod_ref = 215, cod_marca = 7, cod_modelo = 5189)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 2
-##   ano   cod_ano
-##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;  
-## 1 0 km  32000-1
-## 2 2017  2017-1 
-## 3 2016  2016-1 
-## 4 2015  2015-1 
-## 5 2014  2014-1 
-## 6 2013  2013-1 
-## 7 2012  2012-1 
-## 8 2011  2011-1 
-## 9 2010  2010-1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Agora sim vamos ao bendito preço da BMW!&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fipe(cod_ref = 215, cod_marca = 7, cod_modelo = 5189, cod_ano = &amp;quot;2015-1&amp;quot;) %&amp;gt;% 
-  glimpse()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 1
-## Variables: 7
-## $ cod_fipe    &amp;lt;chr&amp;gt; &amp;quot;009144-8&amp;quot;
-## $ ref         &amp;lt;date&amp;gt; 2017-07-01
-## $ marca       &amp;lt;chr&amp;gt; &amp;quot;BMW&amp;quot;
-## $ modelo      &amp;lt;chr&amp;gt; &amp;quot;X6 M 4.4 4x4 V8 32V Bi-Turbo Aut.&amp;quot;
-## $ ano         &amp;lt;chr&amp;gt; &amp;quot;2015&amp;quot;
-## $ combustivel &amp;lt;chr&amp;gt; &amp;quot;Gasolina&amp;quot;
-## $ valor       &amp;lt;dbl&amp;gt; 368603&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6_m_2015 &amp;lt;- fipe_carro(
+  modelo = &amp;quot;x6 m&amp;quot;, 
+  marca = &amp;quot;bmw&amp;quot;, 
+  ano = 2015,
+  data_referencia = &amp;quot;2017-07-01&amp;quot;
+)
+
+bmw_x6_m_2015&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 5
+##   modelo                            marca ano   data_referencia  valor
+##   &amp;lt;chr&amp;gt;                             &amp;lt;chr&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;date&amp;gt;           &amp;lt;dbl&amp;gt;
+## 1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   2015  2017-07-01      368603&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Achamos o preço do carro que eu queria. Apenas R$ 368 mil. Uma pechincha. Obviamente, saber quanto vale uma BMW X6 não faz diferença alguma no meu dia. Um abraço pra quem tem condições de comprar um carro desse sem precisar vender um rim.&lt;/p&gt;
-&lt;p&gt;Agora que já conhecemos as funções e o fluxo para consultar o valor dos carros, vamos ampliar a consulta e justificar as horas que passamos aprendendo a programar. Já sabemos o preço do X6 M em julho/2017, mas e nos meses anteriores? Como será que foi a depreciação média do carro usado nos últimos meses? E os outros modelos X6, quanto será que estão valendo?&lt;/p&gt;
-&lt;p&gt;Digamos que, agora, estas questões podem ser respondidas de forma bem rápida. Eu mostro.&lt;/p&gt;
-&lt;p&gt;Vamos retomar os passos, mas agora no nível hard. Vou analisar o comportamento dos preços desde 2009. Para deixar a consulta mais rápida, serão considerados apenas 3 meses de referência por ano.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(base_marca &amp;lt;- fipe_referencia() %&amp;gt;%
-  filter(data_ref %in% seq.Date(as.Date(&amp;quot;2009-01-01&amp;quot;), as.Date(&amp;quot;2017-07-01&amp;quot;), by = &amp;quot;4 months&amp;quot;)) %&amp;gt;%
-  mutate(marca = map(cod_ref, fipe_marca)) %&amp;gt;%
-  unnest() %&amp;gt;% 
-  filter(marca == &amp;quot;BMW&amp;quot;)
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 26 x 4
-##    data_ref   cod_ref marca cod_marca
-##    &amp;lt;date&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
-##  1 2017-05-01     212 BMW           7
-##  2 2017-01-01     202 BMW           7
-##  3 2016-09-01     196 BMW           7
-##  4 2016-05-01     191 BMW           7
-##  5 2016-01-01     187 BMW           7
-##  6 2015-09-01     183 BMW           7
-##  7 2015-05-01     179 BMW           7
-##  8 2015-01-01     174 BMW           7
-##  9 2014-09-01     170 BMW           7
-## 10 2014-05-01     166 BMW           7
-## # ... with 16 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Notem que agora temos um dataframe com códigos de referência entre janeiro/2008 a maio/2017. Seguindo a análise, precisamos encontrar os códigos dos modelos X6.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(base_modelo &amp;lt;- mutate(base_marca, modelo = map2(cod_ref, cod_marca, fipe_modelo)) %&amp;gt;%
-  unnest() %&amp;gt;% 
-  filter(str_detect(modelo, &amp;quot;X6&amp;quot;))
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 82 x 6
-##    data_ref   cod_ref marca cod_marca modelo                     cod_modelo
-##    &amp;lt;date&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;                           &amp;lt;int&amp;gt;
-##  1 2017-05-01     212 BMW           7 X6 M 4.4 4x4 V8 32V Bi-Tu~       5189
-##  2 2017-05-01     212 BMW           7 X6 XDRIVE 35i 3.0 306cv B~       4745
-##  3 2017-05-01     212 BMW           7 X6 XDRIVE 50i 4.4 407cv B~       4746
-##  4 2017-05-01     212 BMW           7 X6 XDRIVE 50i M Sport 4.4~       7088
-##  5 2017-01-01     202 BMW           7 X6 M 4.4 4x4 V8 32V Bi-Tu~       5189
-##  6 2017-01-01     202 BMW           7 X6 XDRIVE 35i 3.0 306cv B~       4745
-##  7 2017-01-01     202 BMW           7 X6 XDRIVE 50i 4.4 407cv B~       4746
-##  8 2017-01-01     202 BMW           7 X6 XDRIVE 50i M Sport 4.4~       7088
-##  9 2016-09-01     196 BMW           7 X6 M 4.4 4x4 V8 32V Bi-Tu~       5189
-## 10 2016-09-01     196 BMW           7 X6 XDRIVE 35i 3.0 306cv B~       4745
-## # ... with 72 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;O próximo passo é pegar, para cada versão, os diferentes anos de fabricação do carro. A função vai consultar os anos de fabricação que a FIPE consolidou para cada uma das 82 linhas (combinação entre modelo e mês de referência).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(base_consulta &amp;lt;- mutate(base_modelo, ano = pmap(list(cod_ref, cod_marca, cod_modelo), fipe_ano)) %&amp;gt;%
-  unnest()
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 480 x 8
-##    data_ref   cod_ref marca cod_marca modelo       cod_modelo ano   cod_ano
-##    &amp;lt;date&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;  
-##  1 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 0 km  32000-1
-##  2 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2017  2017-1 
-##  3 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2016  2016-1 
-##  4 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2015  2015-1 
-##  5 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2014  2014-1 
-##  6 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2013  2013-1 
-##  7 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2012  2012-1 
-##  8 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2011  2011-1 
-##  9 2017-05-01     212 BMW           7 X6 M 4.4 4x~       5189 2010  2010-1 
-## 10 2017-05-01     212 BMW           7 X6 XDRIVE 3~       4745 0 km  32000-1
+&lt;p&gt;Agora que já conhecemos a função que pega o valor dos carros, vamos ampliar a consulta e justificar as horas que passamos aprendendo a programar. Já sabemos o preço do X6 M em julho/2017, mas e nos meses anteriores? Como foi a depreciação média do carro usado nos últimos meses? E os outros modelos X6, quanto será que estão valendo?&lt;/p&gt;
+&lt;p&gt;Digamos que, agora, estas questões podem ser respondidas de forma bem rápida. Calma que eu mostro. Modificando a consulta anterior, iremos simplificar o nome do modelo para apenas x6, assim serão retornadas todas as versões do mesmo. A segunda alteração é a ausência do ano de fabricação, o que significa que serão retornados todos os anos na consulta. E por último, definimos os meses de referência para poder acompanhar a variação do preço ao longo nos anos.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6 &amp;lt;- fipe_carro(
+  modelo = &amp;quot;x6&amp;quot;, 
+  marca = &amp;quot;bmw&amp;quot;, 
+  data_referencia = seq.Date(as.Date(&amp;quot;2009-01-01&amp;quot;), as.Date(&amp;quot;2017-07-01&amp;quot;), by = &amp;quot;4 months&amp;quot;)
+)
+
+bmw_x6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 480 x 5
+##    modelo                            marca ano   data_referencia  valor
+##    &amp;lt;chr&amp;gt;                             &amp;lt;chr&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;date&amp;gt;           &amp;lt;dbl&amp;gt;
+##  1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-05-01      477030
+##  2 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-09-01      465300
+##  3 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-01-01      468543
+##  4 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-05-01      459500
+##  5 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-09-01      462000
+##  6 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-01-01      464510
+##  7 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-05-01      558789
+##  8 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-09-01      573333
+##  9 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-01-01      550000
+## 10 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-05-01      494950
 ## # ... with 470 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Se na sua internet a função anterior demorou, prepara que a próxima vai demorar um tanto mais. Temos 480 requisições para fazer no site da FIPE em busca dos preços que queremos.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(consulta &amp;lt;- mutate(
-  base_consulta, 
-  consulta = pmap(list(cod_ref, cod_marca, cod_modelo, cod_ano), fipe)
-  )  %&amp;gt;%
-  select(consulta) %&amp;gt;% 
-  unnest() %&amp;gt;% 
-  select(ref, modelo, ano, valor)
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 480 x 4
-##    ref        modelo                            ano    valor
-##    &amp;lt;date&amp;gt;     &amp;lt;chr&amp;gt;                             &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
-##  1 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 0 km  644550
-##  2 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2017  520193
-##  3 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2016  475803
-##  4 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2015  365088
-##  5 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2014  317505
-##  6 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2013  291749
-##  7 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2012  231191
-##  8 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2011  204481
-##  9 2017-05-01 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. 2010  193629
-## 10 2017-05-01 X6 XDRIVE 35i 3.0 306cv Bi-Turbo  0 km  415744
-## # ... with 470 more rows&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Depois de 4 passos, temos o banco de dados desejado. Imagina coletar estes dados, na mão, pelo site oficial!&lt;/p&gt;
+&lt;p&gt;Lembrando que o pacote não possui nenhum banco de dados armazenado, todas as informações são consultadas no site da tabela FIPE no ato da execução da função. Se sua internet não for muito rápida, pode ser que tenha demorado um pouquinho. Mas agora temos o banco de dados desejado. Imagina coletar estes dados, na mão, pelo site oficial!?!&lt;/p&gt;
 &lt;p&gt;Bom agora o pacote está apresentado. Pretendo fazer outros posts com estudos de casos mais específicos, portanto vou deixar apenas um gráfico que resume a consulta que acabamos de fazer.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;consulta %&amp;gt;%
-  mutate(ano = fct_relevel(ano, &amp;quot;0 km&amp;quot;, after = Inf)) %&amp;gt;% 
-  ggplot(aes(ref, valor, color =  ano, group = ano)) +
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6 %&amp;gt;%
+  #mutate(ano = fct_relevel(ano, &amp;quot;0 km&amp;quot;, after = Inf)) %&amp;gt;% 
+  ggplot(aes(data_referencia, valor, color = ano, group = ano)) +
     geom_line(color = &amp;quot;grey30&amp;quot;) +
     geom_point(size = 3) +
     facet_wrap(~modelo) +
@@ -545,7 +419,7 @@ pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt
     scale_color_viridis_d() +
     theme_bw() +
     theme(legend.position = &amp;quot;top&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-07-29-como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar_files/figure-html/plot_fipe-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2017-07-29-como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;purrr&amp;quot;, &amp;quot;stringr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;fipe&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
@@ -558,115 +432,64 @@ pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-02-03                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package      * version    date       lib
-##  assertthat     0.2.0      2017-04-11 [1]
-##  BH             1.66.0-1   2018-02-13 [1]
-##  bindr          0.1.1      2018-03-13 [1]
-##  bindrcpp     * 0.2.2      2018-03-29 [1]
-##  cli            1.0.1      2018-09-25 [1]
-##  clipr          0.4.1      2018-06-23 [1]
-##  colorspace     1.3-2      2016-12-14 [1]
-##  crayon         1.3.4      2017-09-16 [1]
-##  curl           3.2        2018-03-28 [1]
-##  digest         0.6.18     2018-10-10 [1]
-##  dplyr        * 0.7.8      2018-11-10 [1]
-##  fansi          0.4.0      2018-10-05 [1]
-##  fipe         * 0.0.0.9000 2018-12-31 [1]
-##  forcats      * 0.3.0      2018-02-19 [1]
-##  ggplot2      * 3.1.0      2018-10-25 [1]
-##  glue           1.3.0      2018-07-17 [1]
-##  gtable         0.2.0      2016-02-26 [1]
-##  hms            0.4.2      2018-03-10 [1]
-##  httr           1.4.0      2018-12-11 [1]
-##  jsonlite       1.6        2018-12-07 [1]
-##  labeling       0.3        2014-08-23 [1]
-##  lattice        0.20-35    2017-03-25 [2]
-##  lazyeval       0.2.1      2017-10-29 [1]
-##  lubridate      1.7.4      2018-04-11 [1]
-##  magrittr       1.5        2014-11-22 [1]
-##  MASS           7.3-50     2018-04-30 [2]
-##  Matrix         1.2-14     2018-04-13 [2]
-##  mgcv           1.8-24     2018-06-23 [2]
-##  mime           0.6        2018-10-05 [1]
-##  munsell        0.5.0      2018-06-12 [1]
-##  nlme           3.1-137    2018-04-07 [2]
-##  openssl        1.1        2018-11-15 [1]
-##  pillar         1.3.1      2018-12-15 [1]
-##  pkgconfig      2.0.2      2018-08-16 [1]
-##  plogr          0.2.0      2018-03-25 [1]
-##  plyr           1.8.4      2016-06-08 [1]
-##  purrr        * 0.2.5      2018-05-29 [1]
-##  R6             2.3.0      2018-10-04 [1]
-##  RColorBrewer   1.1-2      2014-12-07 [1]
-##  Rcpp           1.0.0      2018-11-07 [1]
-##  readr          1.3.1      2018-12-21 [1]
-##  reshape2       1.4.3      2017-12-11 [1]
-##  rlang          0.3.0.1    2018-10-25 [1]
-##  scales         1.0.0      2018-08-09 [1]
-##  stringi        1.2.4      2018-07-20 [1]
-##  stringr      * 1.3.1      2018-05-10 [1]
-##  tibble         1.4.2      2018-01-22 [1]
-##  tidyr        * 0.8.2      2018-10-28 [1]
-##  tidyselect     0.2.5      2018-10-11 [1]
-##  utf8           1.1.4      2018-05-24 [1]
-##  viridisLite    0.3.0      2018-02-01 [1]
-##  withr          2.1.2      2018-03-15 [1]
-##  source                            
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.0)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  Github (italocegatta/fipe@0445ac6)
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.2)                    
-##  CRAN (R 3.5.2)                    
-##  CRAN (R 3.5.0)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.2)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.0)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.2)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
-##  CRAN (R 3.5.1)                    
+##  package      * version  date       lib source        
+##  askpass        1.1      2019-01-13 [1] CRAN (R 3.5.2)
+##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
+##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
+##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
+##  clipr          0.5.0    2019-01-11 [1] CRAN (R 3.5.2)
+##  colorspace     1.4-0    2019-01-13 [1] CRAN (R 3.5.2)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  curl           3.3      2019-01-10 [1] CRAN (R 3.5.2)
+##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
+##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  fipe         * 0.0.1    2019-02-03 [1] local         
+##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  httr           1.4.0    2018-12-11 [1] CRAN (R 3.5.2)
+##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
+##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lubridate      1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
+##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
+##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  mime           0.6      2018-10-05 [1] CRAN (R 3.5.1)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
+##  openssl        1.2.1    2019-01-17 [1] CRAN (R 3.5.2)
+##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr        * 0.3.0    2019-01-27 [1] CRAN (R 3.5.2)
+##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  readr          1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.3.1    2019-01-08 [1] CRAN (R 3.5.2)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
+##  stringr      * 1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
+##  sys            2.1      2018-11-13 [1] CRAN (R 3.5.2)
+##  tibble         2.0.1    2019-01-12 [1] CRAN (R 3.5.2)
+##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
 ## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
