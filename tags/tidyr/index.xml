@@ -1106,10 +1106,8 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
 pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6_m_2015 &amp;lt;- fipe_carro(
-  modelo = &amp;quot;x6 m&amp;quot;, 
-  marca = &amp;quot;bmw&amp;quot;, 
-  ano = 2015,
-  data_referencia = &amp;quot;2017-07-01&amp;quot;
+  modelo = &amp;quot;x6 m&amp;quot;, marca = &amp;quot;bmw&amp;quot;, 
+  ano = 2015,  data_referencia = &amp;quot;2017-07-01&amp;quot;
 )
 
 bmw_x6_m_2015&lt;/code&gt;&lt;/pre&gt;
@@ -1121,8 +1119,7 @@ bmw_x6_m_2015&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Agora que já conhecemos a função que pega o valor dos carros, vamos ampliar a consulta e justificar as horas que passamos aprendendo a programar. Já sabemos o preço do X6 M em julho/2017, mas e nos meses anteriores? Como foi a depreciação média do carro usado nos últimos meses? E os outros modelos X6, quanto será que estão valendo?&lt;/p&gt;
 &lt;p&gt;Digamos que, agora, estas questões podem ser respondidas de forma bem rápida. Calma que eu mostro. Modificando a consulta anterior, iremos simplificar o nome do modelo para apenas x6, assim serão retornadas todas as versões do mesmo. A segunda alteração é a ausência do ano de fabricação, o que significa que serão retornados todos os anos na consulta. E por último, definimos os meses de referência para poder acompanhar a variação do preço ao longo nos anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6 &amp;lt;- fipe_carro(
-  modelo = &amp;quot;x6&amp;quot;, 
-  marca = &amp;quot;bmw&amp;quot;, 
+  modelo = &amp;quot;x6&amp;quot;, marca = &amp;quot;bmw&amp;quot;, 
   data_referencia = seq.Date(as.Date(&amp;quot;2009-01-01&amp;quot;), as.Date(&amp;quot;2017-07-01&amp;quot;), by = &amp;quot;4 months&amp;quot;)
 )
 
