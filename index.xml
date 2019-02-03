@@ -1350,7 +1350,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
 pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
 pacman::p_load_gh(&amp;quot;italocegatta/fipe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço de uma BMW X6 M ano 2015 em julho de 2017.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# acesso aos dados no site da tabela fipe
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# acesso aos dados no site da fipe
 bmw_x6_m_2015 &amp;lt;- fipe_carro(
   modelo = &amp;quot;x6 m&amp;quot;, marca = &amp;quot;bmw&amp;quot;, 
   ano = 2015,  data_referencia = &amp;quot;2017-07-01&amp;quot;
@@ -1387,7 +1387,6 @@ bmw_x6&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lembrando que o pacote não possui nenhum banco de dados armazenado, todas as informações são consultadas no site da tabela FIPE no ato da execução da função. Se sua internet não for muito rápida, pode ser que tenha demorado um pouquinho. Mas agora temos o banco de dados desejado. Imagina coletar estes dados, na mão, pelo site oficial!?!&lt;/p&gt;
 &lt;p&gt;Bom agora o pacote está apresentado. Pretendo fazer outros posts com estudos de casos mais específicos, portanto vou deixar apenas um gráfico que resume a consulta que acabamos de fazer.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bmw_x6 %&amp;gt;%
-  #mutate(ano = fct_relevel(ano, &amp;quot;0 km&amp;quot;, after = Inf)) %&amp;gt;% 
   ggplot(aes(data_referencia, valor, color = ano, group = ano)) +
     geom_line(color = &amp;quot;grey30&amp;quot;) +
     geom_point(size = 3) +
