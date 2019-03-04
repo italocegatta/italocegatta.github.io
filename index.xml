@@ -135,7 +135,7 @@ eliza_estado&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Também podemos ver a distribuição espacial pelos estados do Brasil.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado %&amp;gt;% 
-  left_join(brmap_estado, by = c(&amp;quot;localidade_nome&amp;quot; = &amp;quot;estado_nome&amp;quot;)) %&amp;gt;% 
+  left_join(brmap_estado_simples, by = c(&amp;quot;localidade_nome&amp;quot; = &amp;quot;estado_nome&amp;quot;)) %&amp;gt;% 
   ggplot(aes(fill = frequencia)) +
     geom_sf(color = &amp;quot;white&amp;quot;) +
     scale_fill_distiller(palette = &amp;quot;Purples&amp;quot;, direction = 1) +
@@ -144,7 +144,7 @@ eliza_estado&lt;/code&gt;&lt;/pre&gt;
     theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
     guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;A segunda função presente no pacote acesso o rank dos nomes mais populares por sexo, década de nascimento e localidade.&lt;/p&gt;
+&lt;p&gt;A segunda função presente no pacote acessa o rank dos nomes mais populares por sexo, década de nascimento e localidade.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rank_sexo &amp;lt;- bind_rows(brnome_rank(sexo = &amp;quot;f&amp;quot;), brnome_rank(sexo = &amp;quot;m&amp;quot;))
 
 rank_sexo %&amp;gt;%
@@ -208,29 +208,30 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-20                  
+##  date     2019-03-04                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
+##  askpass        1.1        2019-01-13 [1]
 ##  assertthat     0.2.0      2017-04-11 [1]
-##  BH             1.66.0-1   2018-02-13 [1]
-##  bindr          0.1.1      2018-03-13 [1]
-##  bindrcpp     * 0.2.2      2018-03-29 [1]
-##  brmap        * 0.0.5      2018-09-16 [1]
+##  backports      1.1.3      2018-12-14 [1]
+##  BH             1.69.0-1   2019-01-07 [1]
+##  brmap        * 0.1.0      2019-03-04 [1]
 ##  brnome       * 0.0.0.9000 2019-01-01 [1]
 ##  class          7.3-14     2015-08-30 [2]
 ##  classInt       0.3-1      2018-12-18 [1]
 ##  cli            1.0.1      2018-09-25 [1]
-##  clipr          0.4.1      2018-06-23 [1]
-##  colorspace     1.3-2      2016-12-14 [1]
+##  clipr          0.5.0      2019-01-11 [1]
+##  colorspace     1.4-0      2019-01-13 [1]
 ##  crayon         1.3.4      2017-09-16 [1]
-##  curl           3.2        2018-03-28 [1]
+##  curl           3.3        2019-01-10 [1]
 ##  DBI            1.0.0      2018-05-02 [1]
 ##  digest         0.6.18     2018-10-10 [1]
-##  dplyr        * 0.7.8      2018-11-10 [1]
-##  e1071          1.7-0      2018-07-28 [1]
+##  dplyr        * 0.8.0.1    2019-02-15 [1]
+##  e1071          1.7-0.1    2019-01-21 [1]
+##  ellipsis       0.1.0      2019-02-19 [1]
 ##  fansi          0.4.0      2018-10-05 [1]
-##  forcats      * 0.3.0      2018-02-19 [1]
+##  forcats      * 0.4.0      2019-02-17 [1]
 ##  ggplot2      * 3.1.0      2018-10-25 [1]
 ##  glue           1.3.0      2018-07-17 [1]
 ##  gtable         0.2.0      2016-02-26 [1]
@@ -247,53 +248,57 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  mime           0.6        2018-10-05 [1]
 ##  munsell        0.5.0      2018-06-12 [1]
 ##  nlme           3.1-137    2018-04-07 [2]
-##  openssl        1.1        2018-11-15 [1]
+##  openssl        1.2.1      2019-01-17 [1]
 ##  pillar         1.3.1      2018-12-15 [1]
 ##  pkgconfig      2.0.2      2018-08-16 [1]
 ##  plogr          0.2.0      2018-03-25 [1]
 ##  plyr           1.8.4      2016-06-08 [1]
-##  purrr        * 0.2.5      2018-05-29 [1]
-##  R6             2.3.0      2018-10-04 [1]
+##  purrr        * 0.3.1      2019-03-03 [1]
+##  R6             2.4.0      2019-02-14 [1]
 ##  RColorBrewer * 1.1-2      2014-12-07 [1]
 ##  Rcpp           1.0.0      2018-11-07 [1]
 ##  readr        * 1.3.1      2018-12-21 [1]
 ##  reshape2       1.4.3      2017-12-11 [1]
-##  rlang          0.3.0.1    2018-10-25 [1]
+##  rlang          0.3.1      2019-01-08 [1]
 ##  rvest          0.3.2      2016-06-17 [1]
 ##  scales         1.0.0      2018-08-09 [1]
 ##  selectr        0.4-1      2018-04-06 [1]
-##  sf           * 0.7-2      2018-12-20 [1]
-##  stringi        1.2.4      2018-07-20 [1]
-##  stringr        1.3.1      2018-05-10 [1]
-##  tibble         1.4.2      2018-01-22 [1]
-##  tidyr        * 0.8.2      2018-10-28 [1]
+##  sf           * 0.7-3      2019-02-21 [1]
+##  stringi        1.3.1      2019-02-13 [1]
+##  stringr        1.4.0      2019-02-10 [1]
+##  sys            3.0        2019-02-25 [1]
+##  tibble         2.0.1      2019-01-12 [1]
+##  tidyr        * 0.8.3.9000 2019-03-04 [1]
 ##  tidyselect     0.2.5      2018-10-11 [1]
 ##  units          0.6-2      2018-12-05 [1]
 ##  utf8           1.1.4      2018-05-24 [1]
+##  vctrs          0.1.0.9002 2019-03-04 [1]
 ##  viridisLite    0.3.0      2018-02-01 [1]
 ##  withr          2.1.2      2018-03-15 [1]
 ##  wordcloud    * 2.6        2018-08-24 [1]
 ##  xml2           1.2.0      2018-01-24 [1]
+##  zeallot        0.1.0      2018-01-28 [1]
 ##  source                             
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  Github (italocegatta/brmap@181fc73)
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  Github (italocegatta/brmap@648023a)
 ##  local                              
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
@@ -310,33 +315,36 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  Github (tidyverse/tidyr@5ce48b5)   
 ##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  Github (r-lib/vctrs@5aa87f2)       
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
 ## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
@@ -790,7 +798,7 @@ estados_interesse&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Rio Grande do Sul&amp;quot; &amp;quot;Ceará&amp;quot;             &amp;quot;Pernambuco&amp;quot;       
 ## [4] &amp;quot;Rondônia&amp;quot;          &amp;quot;Roraima&amp;quot;           &amp;quot;Distrito Federal&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Preparando para o mapa, vamos pegar as coordenadas dos centroides de cada Estado.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;estado_cent &amp;lt;- brmap_estado %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;estado_cent &amp;lt;- brmap_estado_simples %&amp;gt;% 
   st_centroid() %&amp;gt;% 
   cbind(., st_coordinates(.)) %&amp;gt;% 
   st_set_geometry(NULL) %&amp;gt;% 
@@ -798,33 +806,33 @@ estados_interesse&lt;/code&gt;&lt;/pre&gt;
 
 estado_cent&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##                 estado       lon        lat
-## 1             Rondônia -62.84197 -10.913218
-## 2                 Acre -70.47328  -9.212886
-## 3             Amazonas -64.65314  -4.154177
-## 4              Roraima -61.39928   2.084226
-## 5                 Pará -53.06424  -3.974791
-## 6                Amapá -51.95592   1.443319
-## 7            Tocantins -48.32923 -10.150316
-## 8             Maranhão -45.27922  -5.061285
-## 9                Piauí -42.96862  -7.387530
-## 10               Ceará -39.61569  -5.093345
-## 11 Rio Grande do Norte -36.67348  -5.839677
-## 12             Paraíba -36.83262  -7.121055
-## 13          Pernambuco -37.99843  -8.326066
-## 14             Alagoas -36.62494  -9.513863
-## 15             Sergipe -37.44390 -10.584475
-## 16               Bahia -41.72094 -12.475023
-## 17        Minas Gerais -44.67343 -18.456187
-## 18      Espírito Santo -40.67106 -19.575176
-## 19      Rio de Janeiro -42.65238 -22.188741
-## 20           São Paulo -48.73391 -22.263472
-## 21              Paraná -51.61668 -24.635899
-## 22      Santa Catarina -50.47480 -27.247356
-## 23   Rio Grande do Sul -53.32029 -29.705681
-## 24  Mato Grosso do Sul -54.84563 -20.327310
-## 25         Mato Grosso -55.91215 -12.948967
-## 26               Goiás -49.62361 -16.042227
-## 27    Distrito Federal -47.79736 -15.780692&lt;/code&gt;&lt;/pre&gt;
+## 1             Rondônia -62.84198 -10.913179
+## 2                 Acre -70.47331  -9.212856
+## 3             Amazonas -64.65314  -4.154180
+## 4              Roraima -61.39929   2.084236
+## 5                 Pará -53.06412  -3.974753
+## 6                Amapá -51.95593   1.443332
+## 7            Tocantins -48.32923 -10.150295
+## 8             Maranhão -45.27924  -5.060364
+## 9                Piauí -42.96862  -7.387507
+## 10               Ceará -39.61569  -5.093333
+## 11 Rio Grande do Norte -36.67345  -5.839671
+## 12             Paraíba -36.83252  -7.121067
+## 13          Pernambuco -37.99844  -8.326032
+## 14             Alagoas -36.62489  -9.513860
+## 15             Sergipe -37.44398 -10.584509
+## 16               Bahia -41.72093 -12.475028
+## 17        Minas Gerais -44.67342 -18.456183
+## 18      Espírito Santo -40.67104 -19.575096
+## 19      Rio de Janeiro -42.65244 -22.188742
+## 20           São Paulo -48.73408 -22.263477
+## 21              Paraná -51.61670 -24.635890
+## 22      Santa Catarina -50.47486 -27.247326
+## 23   Rio Grande do Sul -53.32041 -29.705543
+## 24  Mato Grosso do Sul -54.84563 -20.327333
+## 25         Mato Grosso -55.91218 -12.949089
+## 26               Goiás -49.62337 -16.042019
+## 27    Distrito Federal -47.79736 -15.780667&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;E agora, o pulo do gato. Vamos criar as linhas que ligam os Estados entre si e em seguida adicionar à tabela que informa as relações de fluxo. Portanto, para cada relação entre Estado de nascimento/residência temos uma feição de linha e o valor que representa a porcentagem de residentes.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coord &amp;lt;- df %&amp;gt;% 
   left_join(estado_cent, by = c(&amp;quot;nasce&amp;quot; = &amp;quot;estado&amp;quot;)) %&amp;gt;% 
@@ -849,25 +857,25 @@ fluxo_linha&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Simple feature collection with 36 features and 5 fields
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: -64.65314 ymin: -29.70568 xmax: -36.62494 ymax: 2.084226
+## bbox:           xmin: -64.65314 ymin: -29.70554 xmax: -36.62489 ymax: 2.084236
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +ellps=WGS84 +no_defs
 ## # A tibble: 36 x 6
 ##    nasce    reside  valor   lon    lat                             geometry
 ##    &amp;lt;fct&amp;gt;    &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;                    &amp;lt;LINESTRING [Â°]&amp;gt;
-##  1 Rondônia Rondôn~ 57.4  -62.8 -10.9  (-62.84197 -10.91322, -62.84197 -10~
-##  2 Roraima  Amazon~  5.16 -64.7  -4.15 (-61.39928 2.084226, -61.46308 1.96~
-##  3 Roraima  Roraima 55.6  -61.4   2.08 (-61.39928 2.084226, -61.39928 2.08~
-##  4 Roraima  Pará     6.54 -53.1  -3.97 (-61.39928 2.084226, -61.23584 1.96~
-##  5 Roraima  Maranh~ 19.0  -45.3  -5.06 (-61.39928 2.084226, -61.08344 1.94~
-##  6 Distrit~ Maranh~  4.42 -45.3  -5.06 (-47.79736 -15.78069, -47.74601 -15~
-##  7 Ceará    Piauí    0.39 -43.0  -7.39 (-39.61569 -5.093345, -39.68117 -5.~
-##  8 Distrit~ Piauí    5.08 -43.0  -7.39 (-47.79736 -15.78069, -47.69952 -15~
-##  9 Roraima  Ceará    2.76 -39.6  -5.09 (-61.39928 2.084226, -60.97249 1.94~
-## 10 Ceará    Ceará   95.8  -39.6  -5.09 (-39.61569 -5.093345, -39.61569 -5.~
+##  1 Rondônia Rondôn~ 57.4  -62.8 -10.9  (-62.84198 -10.91318, -62.84198 -10~
+##  2 Roraima  Amazon~  5.16 -64.7  -4.15 (-61.39929 2.084236, -61.46309 1.96~
+##  3 Roraima  Roraima 55.6  -61.4   2.08 (-61.39929 2.084236, -61.39929 2.08~
+##  4 Roraima  Pará     6.54 -53.1  -3.97 (-61.39929 2.084236, -61.23585 1.96~
+##  5 Roraima  Maranh~ 19.0  -45.3  -5.06 (-61.39929 2.084236, -61.08345 1.94~
+##  6 Distrit~ Maranh~  4.42 -45.3  -5.06 (-47.79736 -15.78067, -47.74601 -15~
+##  7 Ceará    Piauí    0.39 -43.0  -7.39 (-39.61569 -5.093333, -39.68117 -5.~
+##  8 Distrit~ Piauí    5.08 -43.0  -7.39 (-47.79736 -15.78067, -47.69952 -15~
+##  9 Roraima  Ceará    2.76 -39.6  -5.09 (-61.39929 2.084236, -60.9725 1.942~
+## 10 Ceará    Ceará   95.8  -39.6  -5.09 (-39.61569 -5.093333, -39.61569 -5.~
 ## # ... with 26 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Para deixar o gráfico um pouco mais bonito, vamos dar cor ao valor que estamos estudando. Mas agora a feição será o polígono que representa o Estado de residentes.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fluxo_poligono &amp;lt;- brmap_estado %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fluxo_poligono &amp;lt;- brmap_estado_simples %&amp;gt;% 
   left_join(df, by =  c(&amp;quot;estado_nome&amp;quot; = &amp;quot;reside&amp;quot;)) %&amp;gt;% 
   rename(reside = estado_nome) %&amp;gt;% 
   filter(nasce %in% estados_interesse) %&amp;gt;% 
@@ -878,27 +886,27 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Simple feature collection with 36 features and 3 fields
 ## geometry type:  POLYGON
 ## dimension:      XY
-## bbox:           xmin: -73.80156 ymin: -33.75118 xmax: -34.79288 ymax: 5.271841
+## bbox:           xmin: -73.80156 ymin: -33.75077 xmax: -34.79288 ymax: 5.271841
 ## epsg (SRID):    4674
 ## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs
 ## # A tibble: 36 x 4
 ##    nasce       reside  valor                                       geometry
 ##    &amp;lt;fct&amp;gt;       &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;                                 &amp;lt;POLYGON [Â°]&amp;gt;
-##  1 Rondônia    Rondôn~ 57.4  ((-62.86662 -7.975868, -62.86017 -7.982323, -~
-##  2 Roraima     Amazon~  5.16 ((-67.32609 2.029714, -67.31682 2.00125, -67.~
-##  3 Roraima     Roraima 55.6  ((-60.20051 5.264343, -60.19828 5.260453, -60~
-##  4 Roraima     Pará     6.54 ((-54.95431 2.583692, -54.93542 2.518585, -54~
-##  5 Roraima     Maranh~ 19.0  ((-45.84073 -1.045485, -45.84099 -1.046971, -~
-##  6 Distrito F~ Maranh~  4.42 ((-45.84073 -1.045485, -45.84099 -1.046971, -~
-##  7 Ceará       Piauí    0.39 ((-41.74605 -2.803497, -41.74241 -2.805697, -~
-##  8 Distrito F~ Piauí    5.08 ((-41.74605 -2.803497, -41.74241 -2.805697, -~
-##  9 Roraima     Ceará    2.76 ((-40.49717 -2.784509, -40.49173 -2.788106, -~
-## 10 Ceará       Ceará   95.8  ((-40.49717 -2.784509, -40.49173 -2.788106, -~
+##  1 Rondônia    Rondôn~ 57.4  ((-61.58313 -8.798689, -61.5801 -8.802692, -6~
+##  2 Roraima     Amazon~  5.16 ((-63.37209 2.211862, -63.35979 2.197102, -63~
+##  3 Roraima     Roraima 55.6  ((-58.8955 1.227694, -58.89546 0.9047314, -58~
+##  4 Roraima     Pará     6.54 ((-54.87225 2.433747, -54.87625 2.426694, -54~
+##  5 Roraima     Maranh~ 19.0  ((-41.81411 -2.739309, -41.82457 -2.756218, -~
+##  6 Distrito F~ Maranh~  4.42 ((-41.81411 -2.739309, -41.82457 -2.756218, -~
+##  7 Ceará       Piauí    0.39 ((-41.32268 -2.92132, -41.32156 -2.935416, -4~
+##  8 Distrito F~ Piauí    5.08 ((-41.32268 -2.92132, -41.32156 -2.935416, -4~
+##  9 Roraima     Ceará    2.76 ((-37.25329 -4.831556, -37.44645 -4.880961, -~
+## 10 Ceará       Ceará   95.8  ((-37.25329 -4.831556, -37.44645 -4.880961, -~
 ## # ... with 26 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Pronto, já temos todos os dados que fazer o gráfico de interesse. Lembrando que optamos por dar destaque a 6 Estados e para cada um deles, os 6 Estados de nascimento que mais representam a população de residentes. Sim, é um tanto complexo. Eu fiquei algumas horas para poder criar o código e entender o que estava processando.&lt;/p&gt;
 &lt;p&gt;Como exemplo vamos interpretar as informações de Roraima: do total de residentes, 55.6% nasceram no próprio Estado de Roraima; 5.2%, 6.5% e 19% nasceram no Amazonas, Pará e Maranhão, respectivamente.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
-  geom_sf(data = brmap_estado, color = &amp;quot;white&amp;quot;, fill = &amp;quot;grey80&amp;quot;, size = 0.3) +
+  geom_sf(data = brmap_estado_simples, color = &amp;quot;white&amp;quot;, fill = &amp;quot;grey80&amp;quot;, size = 0.3) +
   geom_sf(data = fluxo_poligono, aes(fill = valor), color = &amp;quot;white&amp;quot;, size = 0.3) +
   geom_sf(data = fluxo_linha, color = &amp;quot;cyan&amp;quot;, size = 0.3) +
   geom_label_repel(
@@ -915,7 +923,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
   scale_fill_viridis_c(guide = FALSE) +
   coord_sf(datum = NA) +
   theme_void(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Pontos interessantes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Rondônia e Roraima retém uma proporção parecida da população dentro do próprio Estado, entretanto o pessoal que mora em Rondônia veio do Sul e Sudeste; ao passo que os moradores de Roraima vêm do AM, PA e MA.&lt;/li&gt;
@@ -934,28 +942,29 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-03-04                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib
+##  askpass         1.1         2019-01-13 [1]
 ##  assertthat      0.2.0       2017-04-11 [1]
-##  BH              1.66.0-1    2018-02-13 [1]
-##  bindr           0.1.1       2018-03-13 [1]
-##  bindrcpp      * 0.2.2       2018-03-29 [1]
-##  brmap         * 0.0.5       2018-09-16 [1]
+##  backports       1.1.3       2018-12-14 [1]
+##  BH              1.69.0-1    2019-01-07 [1]
+##  brmap         * 0.1.0       2019-03-04 [1]
 ##  class           7.3-14      2015-08-30 [2]
 ##  classInt        0.3-1       2018-12-18 [1]
 ##  cli             1.0.1       2018-09-25 [1]
-##  clipr           0.4.1       2018-06-23 [1]
-##  colorspace      1.3-2       2016-12-14 [1]
+##  clipr           0.5.0       2019-01-11 [1]
+##  colorspace      1.4-0       2019-01-13 [1]
 ##  crayon          1.3.4       2017-09-16 [1]
-##  curl            3.2         2018-03-28 [1]
+##  curl            3.3         2019-01-10 [1]
 ##  DBI             1.0.0       2018-05-02 [1]
 ##  digest          0.6.18      2018-10-10 [1]
-##  dplyr         * 0.7.8       2018-11-10 [1]
-##  e1071           1.7-0       2018-07-28 [1]
+##  dplyr         * 0.8.0.1     2019-02-15 [1]
+##  e1071           1.7-0.1     2019-01-21 [1]
+##  ellipsis        0.1.0       2019-02-19 [1]
 ##  fansi           0.4.0       2018-10-05 [1]
-##  forcats       * 0.3.0       2018-02-19 [1]
+##  forcats       * 0.4.0       2019-02-17 [1]
 ##  geofacet      * 0.1.9       2018-03-29 [1]
 ##  geogrid         0.1.1       2018-12-11 [1]
 ##  geosphere     * 1.5-7       2017-11-05 [1]
@@ -979,46 +988,73 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  mime            0.6         2018-10-05 [1]
 ##  munsell         0.5.0       2018-06-12 [1]
 ##  nlme            3.1-137     2018-04-07 [2]
-##  openssl         1.1         2018-11-15 [1]
+##  openssl         1.2.1       2019-01-17 [1]
 ##  pillar          1.3.1       2018-12-15 [1]
 ##  pkgconfig       2.0.2       2018-08-16 [1]
 ##  plogr           0.2.0       2018-03-25 [1]
 ##  plyr            1.8.4       2016-06-08 [1]
 ##  png             0.1-7       2013-12-03 [1]
-##  purrr           0.2.5       2018-05-29 [1]
-##  R6              2.3.0       2018-10-04 [1]
+##  purrr           0.3.1       2019-03-03 [1]
+##  R6              2.4.0       2019-02-14 [1]
 ##  RColorBrewer    1.1-2       2014-12-07 [1]
 ##  Rcpp            1.0.0       2018-11-07 [1]
-##  RcppArmadillo   0.9.200.5.0 2018-11-28 [1]
+##  RcppArmadillo   0.9.200.7.0 2019-01-17 [1]
 ##  readr         * 1.3.1       2018-12-21 [1]
 ##  reshape2        1.4.3       2017-12-11 [1]
 ##  rgeos           0.4-2       2018-11-08 [1]
-##  rlang           0.3.0.1     2018-10-25 [1]
+##  rlang           0.3.1       2019-01-08 [1]
 ##  rnaturalearth   0.1.0       2017-03-21 [1]
 ##  scales          1.0.0       2018-08-09 [1]
-##  sf            * 0.7-2       2018-12-20 [1]
+##  sf            * 0.7-3       2019-02-21 [1]
 ##  sp              1.3-1       2018-06-05 [1]
-##  stringi         1.2.4       2018-07-20 [1]
-##  stringr         1.3.1       2018-05-10 [1]
-##  tibble          1.4.2       2018-01-22 [1]
-##  tidyr         * 0.8.2       2018-10-28 [1]
+##  stringi         1.3.1       2019-02-13 [1]
+##  stringr         1.4.0       2019-02-10 [1]
+##  sys             3.0         2019-02-25 [1]
+##  tibble          2.0.1       2019-01-12 [1]
+##  tidyr         * 0.8.3.9000  2019-03-04 [1]
 ##  tidyselect      0.2.5       2018-10-11 [1]
 ##  units           0.6-2       2018-12-05 [1]
 ##  utf8            1.1.4       2018-05-24 [1]
+##  vctrs           0.1.0.9002  2019-03-04 [1]
 ##  viridisLite     0.3.0       2018-02-01 [1]
 ##  withr           2.1.2       2018-03-15 [1]
+##  zeallot         0.1.0       2018-01-28 [1]
 ##  source                             
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  Github (italocegatta/brmap@648023a)
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
-##  Github (italocegatta/brmap@181fc73)
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
@@ -1027,56 +1063,36 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.0)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  Github (tidyverse/tidyr@5ce48b5)   
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.2)                     
 ##  CRAN (R 3.5.1)                     
+##  Github (r-lib/vctrs@5aa87f2)       
 ##  CRAN (R 3.5.1)                     
 ##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
 ## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
@@ -1515,22 +1531,22 @@ focos&lt;/code&gt;&lt;/pre&gt;
 ## # ... with 152 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Vamos agora adicionar a referência espacial aos dados utilizando os polígonos do pacote &lt;a href=&#34;https://github.com/italocegatta/brmap&#34;&gt;brmap&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;estados_focos &amp;lt;-  focos %&amp;gt;% 
-  left_join(brmap_estado, by = c(&amp;quot;sigla&amp;quot; = &amp;quot;estado_sigla&amp;quot;))
+  left_join(brmap_estado_simples, by = c(&amp;quot;sigla&amp;quot; = &amp;quot;estado_sigla&amp;quot;))
 
 estados_focos&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 162 x 7
-##    sigla   ano focos cod_regiao cod_estado estado_nome
+##    sigla   ano focos estado_cod regiao_cod estado_nome
 ##    &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;      
-##  1 AC     2011    13          1         12 Acre       
-##  2 AL     2011   127          2         27 Alagoas    
-##  3 AM     2011   159          1         13 Amazonas   
-##  4 AP     2011     5          1         16 Amapá      
-##  5 BA     2011   883          2         29 Bahia      
-##  6 CE     2011    44          2         23 Ceará      
-##  7 DF     2011     8          5         53 Distrito F~
-##  8 ES     2011    55          3         32 Espírito S~
-##  9 GO     2011   492          5         52 Goiás      
-## 10 MA     2011   656          2         21 Maranhão   
+##  1 AC     2011    13         12          1 Acre       
+##  2 AL     2011   127         27          2 Alagoas    
+##  3 AM     2011   159         13          1 Amazonas   
+##  4 AP     2011     5         16          1 Amapá      
+##  5 BA     2011   883         29          2 Bahia      
+##  6 CE     2011    44         23          2 Ceará      
+##  7 DF     2011     8         53          5 Distrito F~
+##  8 ES     2011    55         32          3 Espírito S~
+##  9 GO     2011   492         52          5 Goiás      
+## 10 MA     2011   656         21          2 Maranhão   
 ## # ... with 152 more rows, and 1 more variable: geometry &amp;lt;POLYGON [Â°]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A primeira abordagem vai utilizar o pacote &lt;a href=&#34;https://github.com/hafen/geofacet&#34;&gt;geofacet&lt;/a&gt;. Ele permite criarmos um grid de referência para orientar a função &lt;code&gt;facet_wrap&lt;/code&gt; de &lt;code&gt;ggplot2&lt;/code&gt;. O pacote já vem carregado com um grid do Brasil, o &lt;code&gt;br_grid1&lt;/code&gt;, mas você pode construir e utilizar seu próprio grid. Eu, particularmente, gosto desta representação pois é extremamente flexível e comporta uma infinidade de gráficos (linhas, pontos, barras…) e dimensões (color, shape, size…). O gráfico &lt;a href=&#34;#fig:focos-geofacet&#34;&gt;1&lt;/a&gt; está bem simples mas cumpre seu papel em facilitar a percepção da variação anual e dar uma noção da região espacial do Estado no Brasil.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(estados_focos, aes(ano, focos)) +
@@ -1590,31 +1606,30 @@ Figura  2: Representação em painel utilizando cores.
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-03-04                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib
+##  askpass         1.1         2019-01-13 [1]
 ##  assertthat      0.2.0       2017-04-11 [1]
-##  BH              1.66.0-1    2018-02-13 [1]
-##  bindr           0.1.1       2018-03-13 [1]
-##  bindrcpp        0.2.2       2018-03-29 [1]
-##  brmap         * 0.0.5       2018-09-16 [1]
+##  BH              1.69.0-1    2019-01-07 [1]
+##  brmap         * 0.1.0       2019-03-04 [1]
 ##  class           7.3-14      2015-08-30 [2]
 ##  classInt        0.3-1       2018-12-18 [1]
 ##  cli             1.0.1       2018-09-25 [1]
-##  clipr           0.4.1       2018-06-23 [1]
-##  colorspace      1.3-2       2016-12-14 [1]
+##  clipr           0.5.0       2019-01-11 [1]
+##  colorspace      1.4-0       2019-01-13 [1]
 ##  crayon          1.3.4       2017-09-16 [1]
-##  curl            3.2         2018-03-28 [1]
+##  curl            3.3         2019-01-10 [1]
 ##  DBI             1.0.0       2018-05-02 [1]
 ##  digest          0.6.18      2018-10-10 [1]
-##  dplyr         * 0.7.8       2018-11-10 [1]
-##  e1071           1.7-0       2018-07-28 [1]
+##  dplyr         * 0.8.0.1     2019-02-15 [1]
+##  e1071           1.7-0.1     2019-01-21 [1]
 ##  fansi           0.4.0       2018-10-05 [1]
 ##  farver          1.1.0       2018-11-20 [1]
 ##  geofacet      * 0.1.9       2018-03-29 [1]
 ##  geogrid         0.1.1       2018-12-11 [1]
-##  gganimate     * 0.9.9.9999  2018-12-31 [1]
+##  gganimate     * 1.0.2       2019-03-03 [1]
 ##  ggplot2       * 3.1.0       2018-10-25 [1]
 ##  ggrepel         0.8.0       2018-05-09 [1]
 ##  glue            1.3.0       2018-07-17 [1]
@@ -1635,7 +1650,7 @@ Figura  2: Representação em painel utilizando cores.
 ##  mime            0.6         2018-10-05 [1]
 ##  munsell         0.5.0       2018-06-12 [1]
 ##  nlme            3.1-137     2018-04-07 [2]
-##  openssl         1.1         2018-11-15 [1]
+##  openssl         1.2.1       2019-01-17 [1]
 ##  pillar          1.3.1       2018-12-15 [1]
 ##  pkgconfig       2.0.2       2018-08-16 [1]
 ##  plogr           0.2.0       2018-03-25 [1]
@@ -1643,100 +1658,101 @@ Figura  2: Representação em painel utilizando cores.
 ##  png             0.1-7       2013-12-03 [1]
 ##  prettyunits     1.0.2       2015-07-13 [1]
 ##  progress        1.2.0       2018-06-14 [1]
-##  purrr           0.2.5       2018-05-29 [1]
-##  R6              2.3.0       2018-10-04 [1]
+##  purrr           0.3.1       2019-03-03 [1]
+##  R6              2.4.0       2019-02-14 [1]
 ##  RColorBrewer    1.1-2       2014-12-07 [1]
 ##  Rcpp            1.0.0       2018-11-07 [1]
-##  RcppArmadillo   0.9.200.5.0 2018-11-28 [1]
+##  RcppArmadillo   0.9.200.7.0 2019-01-17 [1]
 ##  readr         * 1.3.1       2018-12-21 [1]
 ##  reshape2        1.4.3       2017-12-11 [1]
 ##  rgeos           0.4-2       2018-11-08 [1]
-##  rlang           0.3.0.1     2018-10-25 [1]
+##  rlang           0.3.1       2019-01-08 [1]
 ##  rnaturalearth   0.1.0       2017-03-21 [1]
 ##  scales        * 1.0.0       2018-08-09 [1]
-##  sf            * 0.7-2       2018-12-20 [1]
+##  sf            * 0.7-3       2019-02-21 [1]
 ##  sp              1.3-1       2018-06-05 [1]
-##  stringi         1.2.4       2018-07-20 [1]
-##  stringr         1.3.1       2018-05-10 [1]
-##  tibble          1.4.2       2018-01-22 [1]
+##  stringi         1.3.1       2019-02-13 [1]
+##  stringr         1.4.0       2019-02-10 [1]
+##  sys             3.0         2019-02-25 [1]
+##  tibble          2.0.1       2019-01-12 [1]
 ##  tidyselect      0.2.5       2018-10-11 [1]
 ##  tweenr          1.0.1       2018-12-14 [1]
 ##  units           0.6-2       2018-12-05 [1]
 ##  utf8            1.1.4       2018-05-24 [1]
 ##  viridisLite     0.3.0       2018-02-01 [1]
 ##  withr           2.1.2       2018-03-15 [1]
-##  source                              
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.0)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  Github (italocegatta/brmap@181fc73) 
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.2)                      
-##  Github (thomasp85/gganimate@299fd58)
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.0)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.0)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.0)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.0)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.1)                      
+##  source                             
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  Github (italocegatta/brmap@648023a)
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.0)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.2)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
+##  CRAN (R 3.5.1)                     
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
 ## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
