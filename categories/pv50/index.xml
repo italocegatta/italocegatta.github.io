@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Pv50 on Italo Cegatta</title>
-    <link>/categories/pv50/</link>
+    <link>https://italocegatta.github.io/categories/pv50/</link>
     <description>Recent content in Pv50 on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Sun, 09 Oct 2016 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/categories/pv50/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/categories/pv50/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Índice de uniformidade (PV50)</title>
-      <link>/indice-de-uniformidade-pv50/</link>
+      <link>https://italocegatta.github.io/indice-de-uniformidade-pv50/</link>
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>/indice-de-uniformidade-pv50/</guid>
+      <guid>https://italocegatta.github.io/indice-de-uniformidade-pv50/</guid>
       <description>O PV50 é hoje o índice mais utilizado quando queremos expressar a uniformidade de um plantio florestal. Hakamada (2012) apresentou um estudo detalhado sobre diversos índices e concluiu que o PV50 é o índice mais indicado para explicar a relação entre uniformidade, qualidade silvicultural e produtividade em plantios homogêneos de Eucalyptus.
 O objetivo deste post é mostrar, passo a passo, como calcular este índice no R e fazer uma breve análise de seus resultados.</description>
       <content:encoded>
@@ -248,7 +248,7 @@ dados_pv50&lt;/code&gt;&lt;/pre&gt;
   theme_bw(16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.svg&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-idade-1.svg&#34; alt=&#34;Crescimento em volume por hectare em função da idade.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Crescimento em volume por hectare em função da idade.
 &lt;/p&gt;
@@ -263,7 +263,7 @@ Figura  1: Crescimento em volume por hectare em função da idade.
   theme_bw(16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.svg&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-idade-1.svg&#34; alt=&#34;Variação do PV50 por espécies em função da idade.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Variação do PV50 por espécies em função da idade.
 &lt;/p&gt;
@@ -278,7 +278,7 @@ Figura  2: Variação do PV50 por espécies em função da idade.
   theme_bw(16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-pv50-vol&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.svg&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-pv50-vol-1.svg&#34; alt=&#34;Relação entre o PV50 e volume por hectare em função da idade.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
 &lt;/p&gt;
@@ -297,7 +297,7 @@ Figura  3: Relação entre o PV50 e volume por hectare em função da idade.
   theme_bw(16) +
   theme(legend.justification = &amp;quot;top&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:12-vol-pv50-idade&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.svg&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-10-09-indice-de-uniformidade-pv50_files/figure-html/12-vol-pv50-idade-1.svg&#34; alt=&#34;Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Crescimento do volume em função da idade, com informação do PV50 no tamanho do ponto.
 &lt;/p&gt;
@@ -306,7 +306,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;forcats&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -314,65 +314,67 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
-##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
 &lt;div id=&#34;ref-Hakamada2012&#34;&gt;
-&lt;p&gt;Hakamada, Rodrigo Eiji. 2012. “Uso do inventário florestal como ferramenta de monitoramento da qualidade silvicultura em povoamentos clonais de Eucalyptus.” PhD thesis, Piracicaba: Universidade de São Paulo; Biblioteca Digital de Teses e Dissertações da Universidade de São Paulo. doi:&lt;a href=&#34;https://doi.org/10.11606/D.11.2012.tde-05072012-100431&#34;&gt;10.11606/D.11.2012.tde-05072012-100431&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hakamada, Rodrigo Eiji. 2012. “Uso do inventário florestal como ferramenta de monitoramento da qualidade silvicultura em povoamentos clonais de Eucalyptus.” PhD thesis, Piracicaba: Universidade de São Paulo; Biblioteca Digital de Teses e Dissertações da Universidade de São Paulo. &lt;a href=&#34;https://doi.org/10.11606/D.11.2012.tde-05072012-100431&#34;&gt;https://doi.org/10.11606/D.11.2012.tde-05072012-100431&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-Hakamada2015&#34;&gt;
-&lt;p&gt;Hakamada, Rodrigo Eiji, José Luiz Stape, Cristiane Camargo Zani de Lemos, Adriano Emanuel Amaral Almeida, and Luis Fernando Silva. 2015. “Uniformidade entre árvores durante uma rotação e sua relação com a produtividade em Eucalyptus clonais.” &lt;em&gt;CERNE&lt;/em&gt; 21 (3). Universidade Federal de Lavras: 465–72. doi:&lt;a href=&#34;https://doi.org/10.1590/01047760201521031716&#34;&gt;10.1590/01047760201521031716&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hakamada, Rodrigo Eiji, José Luiz Stape, Cristiane Camargo Zani de Lemos, Adriano Emanuel Amaral Almeida, and Luis Fernando Silva. 2015. “Uniformidade entre árvores durante uma rotação e sua relação com a produtividade em Eucalyptus clonais.” &lt;em&gt;CERNE&lt;/em&gt; 21 (3): 465–72. &lt;a href=&#34;https://doi.org/10.1590/01047760201521031716&#34;&gt;https://doi.org/10.1590/01047760201521031716&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tidyr on Italo Cegatta</title>
-    <link>/tags/tidyr/</link>
+    <link>https://italocegatta.github.io/tags/tidyr/</link>
     <description>Recent content in Tidyr on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/tidyr/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/tags/tidyr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>O quão popular é o seu nome?</title>
-      <link>/o-quao-popular-e-o-seu-nome/</link>
+      <link>https://italocegatta.github.io/o-quao-popular-e-o-seu-nome/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/o-quao-popular-e-o-seu-nome/</guid>
+      <guid>https://italocegatta.github.io/o-quao-popular-e-o-seu-nome/</guid>
       <description>No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site https://censo2010.ibge.gov.br/nomes e conferir as estatísticas do nome de interesse.
 O site é legal, mas eu queria ter os dados na mão para fazer as coisas do meu jeito.</description>
       <content:encoded>
         
 
 
-&lt;p&gt;No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site &lt;a href=&#34;https://censo2010.ibge.gov.br/nomes&#34; class=&#34;uri&#34;&gt;https://censo2010.ibge.gov.br/nomes&lt;/a&gt; e conferir as estatísticas do nome de interesse.&lt;/p&gt;
+&lt;p&gt;No Censo 2010, o IBGE incorporou no levantamento a coleta de nomes (apenas o primeiro) e sobrenome (apenas o último). Para quem é curioso por coisas sem muita utilidade prática (e eu jogo forte nesse time!), vale a pena entrar no site &lt;a href=&#34;https://censo2010.ibge.gov.br/nomes&#34;&gt;https://censo2010.ibge.gov.br/nomes&lt;/a&gt; e conferir as estatísticas do nome de interesse.&lt;/p&gt;
 &lt;p&gt;O site é legal, mas eu queria ter os dados na mão para fazer as coisas do meu jeito. Então decidi escrever um pacote no R para acessar os dados da &lt;a href=&#34;https://servicodados.ibge.gov.br/api/docs/censos/nomes?versao=2&#34;&gt;API&lt;/a&gt; que o IBGE montou para esse banco.&lt;/p&gt;
 &lt;p&gt;O pacote chama &lt;code&gt;brnome&lt;/code&gt; e está disponível no meu &lt;a href=&#34;https://github.com/italocegatta/brnome&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
@@ -34,50 +34,62 @@ pacman::p_load_gh(&amp;quot;italocegatta/brmap&amp;quot;)&lt;/code&gt;&lt;/pre&g
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_freq &amp;lt;- brnome_freq(nome = &amp;quot;eliza&amp;quot;)
 
 eliza_freq&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 6
-##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
-##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
-## 1 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1920       1749
-## 2 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1930       2651
-## 3 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1940       3098
-## 4 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1950       3800
-## 5 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1960       4023
-## 6 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1970       3805
-## 7 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1980       4697
-## 8 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         1990       4340
-## 9 ELIZA &amp;lt;NA&amp;gt;  &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000       5595&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 7
+##   nome  sexo  localidade_cod localidade_nome nascimento_peri~
+##   &amp;lt;chr&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;           
+## 1 ELIZA NA    BR             Brasil          [    , 1930]    
+## 2 ELIZA NA    BR             Brasil          [1930, 1940]    
+## 3 ELIZA NA    BR             Brasil          [1940, 1950]    
+## 4 ELIZA NA    BR             Brasil          [1950, 1960]    
+## 5 ELIZA NA    BR             Brasil          [1960, 1970]    
+## 6 ELIZA NA    BR             Brasil          [1970, 1980]    
+## 7 ELIZA NA    BR             Brasil          [1980, 1990]    
+## 8 ELIZA NA    BR             Brasil          [1990, 2000]    
+## 9 ELIZA NA    BR             Brasil          [2000, 2010]    
+## # ... with 2 more variables: nascimento_decada &amp;lt;int&amp;gt;, frequencia &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Notem que as colunas &lt;code&gt;sexo&lt;/code&gt; e &lt;code&gt;localidade&lt;/code&gt; estão vazias pois não foram especificadas. Significa que foi considerada a busca de homens e mulheres para todo o Brasil.&lt;/p&gt;
 &lt;p&gt;Será que tem algum homem batizado com o nome Eliza? Tem, e eu não sei se foi de propósito ou se foi um erro de coleta. Fica aí o questionamento hehehehe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo = &amp;quot;m&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 6
-##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
-##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
-## 1 ELIZA M     &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;                         2000         34&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 7
+##   nome  sexo  localidade_cod localidade_nome nascimento_peri~
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;           
+## 1 ELIZA M     BR             Brasil          [    , 1930]    
+## 2 ELIZA M     BR             Brasil          [1930, 1940]    
+## 3 ELIZA M     BR             Brasil          [1940, 1950]    
+## 4 ELIZA M     BR             Brasil          [1950, 1960]    
+## 5 ELIZA M     BR             Brasil          [1960, 1970]    
+## 6 ELIZA M     BR             Brasil          [1970, 1980]    
+## 7 ELIZA M     BR             Brasil          [1980, 1990]    
+## 8 ELIZA M     BR             Brasil          [1990, 2000]    
+## 9 ELIZA M     BR             Brasil          [2000, 2010]    
+## # ... with 2 more variables: nascimento_decada &amp;lt;int&amp;gt;, frequencia &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A pesquisa também pode ser feita para um determinado município ou estado. Neste caso, você precisa utilizar o código oficial do IBGE de localidades. Como exemplo, vamos ver os resultados para Cuiabá (&lt;code&gt;5103403&lt;/code&gt;) e Mato Grosso (&lt;code&gt;51&lt;/code&gt;).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo  =&amp;quot;f&amp;quot;, localidade_cod = 5103403)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 6
-##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
-##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
-## 1 ELIZA F     5103403    Cuiabá                       1940         12
-## 2 ELIZA F     5103403    Cuiabá                       1950         26
-## 3 ELIZA F     5103403    Cuiabá                       1960         23
-## 4 ELIZA F     5103403    Cuiabá                       1970         28
-## 5 ELIZA F     5103403    Cuiabá                       1980         18
-## 6 ELIZA F     5103403    Cuiabá                       1990         22
-## 7 ELIZA F     5103403    Cuiabá                       2000         39&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, sexo  =&amp;quot;f&amp;quot;, localidade_cod = 51)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 6
-##   nome  sexo  localidade localidade_nome decada_nascimento frequencia
-##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
-## 1 ELIZA F     51         Mato Grosso                  1920         16
-## 2 ELIZA F     51         Mato Grosso                  1930         36
-## 3 ELIZA F     51         Mato Grosso                  1940         52
-## 4 ELIZA F     51         Mato Grosso                  1950         78
-## 5 ELIZA F     51         Mato Grosso                  1960         91
-## 6 ELIZA F     51         Mato Grosso                  1970        103
-## 7 ELIZA F     51         Mato Grosso                  1980         93
-## 8 ELIZA F     51         Mato Grosso                  1990         87
-## 9 ELIZA F     51         Mato Grosso                  2000        152&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, localidade_cod = 5103403)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 7
+##   nome  sexo  localidade_cod localidade_nome nascimento_peri~
+##   &amp;lt;chr&amp;gt; &amp;lt;lgl&amp;gt;          &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;           
+## 1 ELIZA NA           5103403 Cuiabá          [1940, 1950]    
+## 2 ELIZA NA           5103403 Cuiabá          [1950, 1960]    
+## 3 ELIZA NA           5103403 Cuiabá          [1960, 1970]    
+## 4 ELIZA NA           5103403 Cuiabá          [1970, 1980]    
+## 5 ELIZA NA           5103403 Cuiabá          [1980, 1990]    
+## 6 ELIZA NA           5103403 Cuiabá          [1990, 2000]    
+## 7 ELIZA NA           5103403 Cuiabá          [2000, 2010]    
+## # ... with 2 more variables: nascimento_decada &amp;lt;int&amp;gt;, frequencia &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_freq(nome = &amp;quot;eliza&amp;quot;, localidade_cod = 51)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 7
+##   nome  sexo  localidade_cod localidade_nome nascimento_peri~
+##   &amp;lt;chr&amp;gt; &amp;lt;lgl&amp;gt;          &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;           
+## 1 ELIZA NA                51 Mato Grosso     [    , 1930]    
+## 2 ELIZA NA                51 Mato Grosso     [1930, 1940]    
+## 3 ELIZA NA                51 Mato Grosso     [1940, 1950]    
+## 4 ELIZA NA                51 Mato Grosso     [1950, 1960]    
+## 5 ELIZA NA                51 Mato Grosso     [1960, 1970]    
+## 6 ELIZA NA                51 Mato Grosso     [1970, 1980]    
+## 7 ELIZA NA                51 Mato Grosso     [1980, 1990]    
+## 8 ELIZA NA                51 Mato Grosso     [1990, 2000]    
+## 9 ELIZA NA                51 Mato Grosso     [2000, 2010]    
+## # ... with 2 more variables: nascimento_decada &amp;lt;int&amp;gt;, frequencia &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Para consultar os códigos das localidades, o pacote disponibiliza um dataframe auxiliar &lt;code&gt;localidades&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;localidades&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 5,597 x 3
@@ -107,35 +119,37 @@ eliza_freq&lt;/code&gt;&lt;/pre&gt;
   unnest()
 
 eliza_estado&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 218 x 6
-##    nome  sexo  localidade localidade_nome decada_nascimento frequencia
-##    &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;                       &amp;lt;int&amp;gt;      &amp;lt;int&amp;gt;
-##  1 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1940         23
-##  2 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1950         31
-##  3 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1960         38
-##  4 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1970         42
-##  5 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1980         36
-##  6 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     1990         46
-##  7 ELIZA &amp;lt;NA&amp;gt;  11         Rondônia                     2000         61
-##  8 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1940         16
-##  9 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1960         16
-## 10 ELIZA &amp;lt;NA&amp;gt;  12         Acre                         1970         15
-## # ... with 208 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 218 x 7
+##    nome  sexo  localidade_cod localidade_nome nascimento_peri~
+##    &amp;lt;chr&amp;gt; &amp;lt;lgl&amp;gt;          &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;           
+##  1 ELIZA NA                11 Rondônia        [1940, 1950]    
+##  2 ELIZA NA                11 Rondônia        [1950, 1960]    
+##  3 ELIZA NA                11 Rondônia        [1960, 1970]    
+##  4 ELIZA NA                11 Rondônia        [1970, 1980]    
+##  5 ELIZA NA                11 Rondônia        [1980, 1990]    
+##  6 ELIZA NA                11 Rondônia        [1990, 2000]    
+##  7 ELIZA NA                11 Rondônia        [2000, 2010]    
+##  8 ELIZA NA                12 Acre            [1940, 1950]    
+##  9 ELIZA NA                12 Acre            [1960, 1970]    
+## 10 ELIZA NA                12 Acre            [1970, 1980]    
+## # ... with 208 more rows, and 2 more variables: nascimento_decada &amp;lt;int&amp;gt;,
+## #   frequencia &amp;lt;int&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Primeiro vamos analisar a frequência do nome pela década de nascimento somando os valores de todos os estados.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado %&amp;gt;% 
-  group_by(decada_nascimento) %&amp;gt;% 
+  group_by(nascimento_decada) %&amp;gt;% 
   summarise(frequencia = sum(frequencia)) %&amp;gt;% 
-  ggplot(aes(decada_nascimento, frequencia)) +
-    geom_line(size = 2) +
+  ggplot(aes(nascimento_decada, frequencia)) +
+    geom_line(size = 1) +
     geom_point(shape = 21, color = &amp;quot;white&amp;quot;, fill =  &amp;quot;#80b1d3&amp;quot;, size = 7, stroke = 2) +
     labs(x = &amp;quot;Década de nascimento&amp;quot;, y = &amp;quot;Frequência do nome Eliza&amp;quot;) +
     scale_x_continuous(breaks = seq(1900, 2020, 10)) + 
     scale_y_continuous(limits = c(0, NA), labels = scales::unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)) + 
     theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Também podemos ver a distribuição espacial pelos estados do Brasil.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eliza_estado %&amp;gt;% 
   left_join(brmap_estado_simples, by = c(&amp;quot;localidade_nome&amp;quot; = &amp;quot;estado_nome&amp;quot;)) %&amp;gt;% 
+  st_as_sf() %&amp;gt;% 
   ggplot(aes(fill = frequencia)) +
     geom_sf(color = &amp;quot;white&amp;quot;) +
     scale_fill_distiller(palette = &amp;quot;Purples&amp;quot;, direction = 1) +
@@ -143,64 +157,40 @@ eliza_estado&lt;/code&gt;&lt;/pre&gt;
     theme_bw(16) +
     theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
     guides(fill = guide_colorbar(barwidth = 15, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A segunda função presente no pacote acessa o rank dos nomes mais populares por sexo, década de nascimento e localidade.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rank_sexo &amp;lt;- bind_rows(brnome_rank(sexo = &amp;quot;f&amp;quot;), brnome_rank(sexo = &amp;quot;m&amp;quot;))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rank_decada &amp;lt;- map_dfr(seq(1930, 2000, 10), ~brnome_rank(decada = .x))
 
-rank_sexo %&amp;gt;%
-  ggplot(aes(decada_nascimento, rank, fill = frequencia, label = nome)) +
+rank_decada %&amp;gt;%
+  ggplot(aes(decada, ranking, fill = frequencia, label = nome)) +
   geom_line(aes(group = nome), alpha = 0.5) +
   geom_label(color = &amp;quot;black&amp;quot;, size = 3) +
-  facet_wrap(~sexo, labeller = labeller(sexo = c(&amp;quot;F&amp;quot; = &amp;quot;Feminino&amp;quot;, &amp;quot;M&amp;quot; = &amp;quot;Masculino&amp;quot;))) +
+  #facet_wrap(~sexo, labeller = labeller(sexo = c(&amp;quot;F&amp;quot; = &amp;quot;Feminino&amp;quot;, &amp;quot;M&amp;quot; = &amp;quot;Masculino&amp;quot;))) +
   labs(x = &amp;quot;Décade de nascimento&amp;quot;, y = &amp;quot;Ranking&amp;quot;, fill = &amp;quot;Frequência&amp;quot;) +
+  scale_x_continuous(breaks = seq(1930, 2000, 10)) +
   scale_y_reverse(breaks = 1:20) +
   scale_fill_distiller(
     palette = &amp;quot;PuBuGn&amp;quot;, direction = 1, 
     labels = scales::unit_format(unit = &amp;quot;k&amp;quot;, scale = 1e-3)
   ) +
-  theme_bw(18) +
+  theme_bw() +
   theme(legend.position = &amp;quot;bottom&amp;quot;, legend.justification = &amp;quot;right&amp;quot;) +
   guides(fill = guide_colorbar(barwidth = 20, title.position = &amp;quot;top&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-13-1.svg&#34; width=&#34;1536&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;A consulta do rank também pode ser feita por localidade e década, como por exemplo os nomes mais comuns em Cuiabá na década de 1990.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;brnome_rank(sexo = &amp;quot;f&amp;quot;, localidade_cod = 5103403, decada_nascimento = 1990) %&amp;gt;% 
-  select(nome, localidade_nome, frequencia, rank)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 20 x 4
-##    nome      localidade_nome frequencia  rank
-##    &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;                &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
-##  1 ANA       Cuiabá                1591     1
-##  2 JESSICA   Cuiabá                 932     2
-##  3 CAMILA    Cuiabá                 677     3
-##  4 BRUNA     Cuiabá                 667     4
-##  5 AMANDA    Cuiabá                 645     5
-##  6 ALINE     Cuiabá                 641     6
-##  7 LETICIA   Cuiabá                 630     7
-##  8 MARIA     Cuiabá                 625     8
-##  9 FERNANDA  Cuiabá                 521     9
-## 10 LUANA     Cuiabá                 491    10
-## 11 LARISSA   Cuiabá                 432    11
-## 12 MARIANA   Cuiabá                 409    12
-## 13 JULIANA   Cuiabá                 381    13
-## 14 GABRIELA  Cuiabá                 370    14
-## 15 PATRICIA  Cuiabá                 366    15
-## 16 NATALIA   Cuiabá                 354    16
-## 17 VANESSA   Cuiabá                 341    17
-## 18 RAFAELA   Cuiabá                 335    18
-## 19 PAMELA    Cuiabá                 321    19
-## 20 JAQUELINE Cuiabá                 310    20&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Para finalizar, vamos fazer um gráfico com os nomes mais frequentes em forma de nuvem de palavras.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_nomes &amp;lt;- rank_sexo %&amp;gt;% 
-  group_by(nome) %&amp;gt;% 
-  summarise(frequencia = sum(frequencia))
-
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_nomes &amp;lt;- bind_rows(
+  brnome_rank(sexo = &amp;quot;f&amp;quot;),
+  brnome_rank(sexo = &amp;quot;m&amp;quot;)
+)
+  
 set.seed(1)
 wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-15-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2019-01-01-o-quao-popular-e-o-seu-nome_files/figure-html/unnamed-chunk-11-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;purrr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;brmap&amp;quot;, &amp;quot;brnome&amp;quot;, &amp;quot;wordcloud&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -208,156 +198,158 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-03-04                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
 ##  askpass        1.1        2019-01-13 [1]
-##  assertthat     0.2.0      2017-04-11 [1]
-##  backports      1.1.3      2018-12-14 [1]
+##  assertthat     0.2.1      2019-03-21 [1]
+##  backports      1.1.4      2019-04-10 [1]
 ##  BH             1.69.0-1   2019-01-07 [1]
 ##  brmap        * 0.1.0      2019-03-04 [1]
-##  brnome       * 0.0.0.9000 2019-01-01 [1]
-##  class          7.3-14     2015-08-30 [2]
-##  classInt       0.3-1      2018-12-18 [1]
-##  cli            1.0.1      2018-09-25 [1]
-##  clipr          0.5.0      2019-01-11 [1]
-##  colorspace     1.4-0      2019-01-13 [1]
+##  brnome       * 0.0.0.9000 2019-07-08 [1]
+##  class          7.3-15     2019-01-01 [2]
+##  classInt       0.3-3      2019-04-26 [1]
+##  cli            1.1.0      2019-03-19 [1]
+##  clipr          0.6.0      2019-04-15 [1]
+##  colorspace     1.4-1      2019-03-18 [1]
 ##  crayon         1.3.4      2017-09-16 [1]
 ##  curl           3.3        2019-01-10 [1]
 ##  DBI            1.0.0      2018-05-02 [1]
-##  digest         0.6.18     2018-10-10 [1]
-##  dplyr        * 0.8.0.1    2019-02-15 [1]
-##  e1071          1.7-0.1    2019-01-21 [1]
-##  ellipsis       0.1.0      2019-02-19 [1]
+##  digest         0.6.20     2019-07-04 [1]
+##  dplyr        * 0.8.3      2019-07-04 [1]
+##  e1071          1.7-2      2019-06-05 [1]
+##  ellipsis       0.2.0.1    2019-07-02 [1]
 ##  fansi          0.4.0      2018-10-05 [1]
 ##  forcats      * 0.4.0      2019-02-17 [1]
-##  ggplot2      * 3.1.0      2018-10-25 [1]
-##  glue           1.3.0      2018-07-17 [1]
-##  gtable         0.2.0      2016-02-26 [1]
+##  ggplot2      * 3.2.0      2019-06-16 [1]
+##  glue           1.3.1      2019-03-12 [1]
+##  gtable         0.3.0      2019-03-25 [1]
 ##  hms            0.4.2      2018-03-10 [1]
 ##  httr           1.4.0      2018-12-11 [1]
 ##  jsonlite       1.6        2018-12-07 [1]
+##  KernSmooth     2.23-15    2015-06-29 [2]
 ##  labeling       0.3        2014-08-23 [1]
-##  lattice        0.20-35    2017-03-25 [2]
-##  lazyeval       0.2.1      2017-10-29 [1]
+##  lattice        0.20-38    2018-11-04 [2]
+##  lazyeval       0.2.2      2019-03-15 [1]
 ##  magrittr       1.5        2014-11-22 [1]
-##  MASS           7.3-50     2018-04-30 [2]
-##  Matrix         1.2-14     2018-04-13 [2]
-##  mgcv           1.8-24     2018-06-23 [2]
-##  mime           0.6        2018-10-05 [1]
+##  MASS           7.3-51.1   2018-11-01 [2]
+##  Matrix         1.2-17     2019-03-22 [1]
+##  mgcv           1.8-28     2019-03-21 [1]
+##  mime           0.7        2019-06-11 [1]
 ##  munsell        0.5.0      2018-06-12 [1]
 ##  nlme           3.1-137    2018-04-07 [2]
-##  openssl        1.2.1      2019-01-17 [1]
-##  pillar         1.3.1      2018-12-15 [1]
+##  openssl        1.4        2019-05-31 [1]
+##  pillar         1.4.2      2019-06-29 [1]
 ##  pkgconfig      2.0.2      2018-08-16 [1]
 ##  plogr          0.2.0      2018-03-25 [1]
 ##  plyr           1.8.4      2016-06-08 [1]
-##  purrr        * 0.3.1      2019-03-03 [1]
+##  purrr        * 0.3.2      2019-03-15 [1]
 ##  R6             2.4.0      2019-02-14 [1]
 ##  RColorBrewer * 1.1-2      2014-12-07 [1]
-##  Rcpp           1.0.0      2018-11-07 [1]
+##  Rcpp           1.0.1      2019-03-17 [1]
 ##  readr        * 1.3.1      2018-12-21 [1]
 ##  reshape2       1.4.3      2017-12-11 [1]
-##  rlang          0.3.1      2019-01-08 [1]
-##  rvest          0.3.2      2016-06-17 [1]
+##  rlang          0.4.0      2019-06-25 [1]
+##  rvest          0.3.4      2019-05-15 [1]
 ##  scales         1.0.0      2018-08-09 [1]
 ##  selectr        0.4-1      2018-04-06 [1]
-##  sf           * 0.7-3      2019-02-21 [1]
-##  stringi        1.3.1      2019-02-13 [1]
+##  sf           * 0.7-6      2019-07-05 [1]
+##  stringi        1.4.3      2019-03-12 [1]
 ##  stringr        1.4.0      2019-02-10 [1]
-##  sys            3.0        2019-02-25 [1]
-##  tibble         2.0.1      2019-01-12 [1]
-##  tidyr        * 0.8.3.9000 2019-03-04 [1]
+##  sys            3.2        2019-04-23 [1]
+##  tibble         2.1.3      2019-06-06 [1]
+##  tidyr        * 0.8.3      2019-03-01 [1]
 ##  tidyselect     0.2.5      2018-10-11 [1]
-##  units          0.6-2      2018-12-05 [1]
+##  units          0.6-3      2019-05-03 [1]
 ##  utf8           1.1.4      2018-05-24 [1]
-##  vctrs          0.1.0.9002 2019-03-04 [1]
+##  vctrs          0.2.0      2019-07-05 [1]
 ##  viridisLite    0.3.0      2018-02-01 [1]
 ##  withr          2.1.2      2018-03-15 [1]
 ##  wordcloud    * 2.6        2018-08-24 [1]
 ##  xml2           1.2.0      2018-01-24 [1]
 ##  zeallot        0.1.0      2018-01-28 [1]
-##  source                             
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  Github (italocegatta/brmap@648023a)
-##  local                              
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  Github (tidyverse/tidyr@5ce48b5)   
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  Github (r-lib/vctrs@5aa87f2)       
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
+##  source                              
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.2)                      
+##  local                               
+##  Github (italocegatta/brnome@85a10a7)
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.0)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.2)                      
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
     
     <item>
       <title>Risco de incêndio pela Fórmula de Monte Alegre</title>
-      <link>/risco-de-incendio-pela-formula-de-monte-alegre/</link>
+      <link>https://italocegatta.github.io/risco-de-incendio-pela-formula-de-monte-alegre/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/risco-de-incendio-pela-formula-de-monte-alegre/</guid>
+      <guid>https://italocegatta.github.io/risco-de-incendio-pela-formula-de-monte-alegre/</guid>
       <description>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.</description>
       <content:encoded>
@@ -445,7 +437,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
     ) +
     theme_bw(16) +
     theme(legend.position = &amp;quot;top&amp;quot;, panel.grid.minor.x = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Olhando para a distribuição da umidade relativa em cada mês, podemos ver que em junho a mediana ainda está próximo dos 50% de umidade. E só em julho que os dias mais secos começam a ter mais frequência e essa tendência aumenta até setembro, depois retorna gradativamente até a mediana de 57% de umidade em dezembro.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;base_fma %&amp;gt;% 
   filter(!is.na(ur13)) %&amp;gt;% 
@@ -456,7 +448,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
     scale_x_continuous(breaks = seq(10, 100, 10)) +
     scale_y_discrete(labels = format(ISOdate(2000, 1:12, 1), &amp;quot;%b&amp;quot;)) +
     theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Sobre a Fórmula de Monte Alegre, o contexto que motivou seu desenvolvimento foi bastante trágico. Em 1963 um grande incêndio atingiu o estado do Paraná, com centenas de mortes e cerca de 2 milhões de hectares de florestas queimadas. Em 1972 o Professor Ronaldo Soares, da UFPR, defendeu sua tese de mestrado propondo a Fórmula de Monte Alegre com base em registros de incêndios florestais coletados a partir de 1965 na fazenda Monte Alegre (Klabin), em Telêmaco Borba-PR.&lt;/p&gt;
 &lt;p&gt;A cálculo do índice é bastante simples, basta calcular o valor FMA do dia corrente e somar com o valor do dia anterior. O FMA é calculado através da seguinte expressão:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://www.sciweavers.org/tex2img.php?eq=FMA%20%3D%20%20%5Csum_%7Bi%3D1%7D%5En%20%20%5Cfrac%7B100%7D%7BURi_%7B13h%7D%7D%20&amp;bc=White&amp;fc=Black&amp;im=jpg&amp;fs=12&amp;ff=arev&amp;edit=0&#34; align=&#34;center&#34; border=&#34;0&#34; alt=&#34;FMA =  \sum_{i=1}^n  \frac{100}{URi_{13h}} &#34; width=&#34;139&#34; height=&#34;62&#34; /&gt;&lt;/p&gt;
@@ -464,7 +456,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;colgroup&gt;
 &lt;col width=&#34;14%&#34; /&gt;
-&lt;col width=&#34;85%&#34; /&gt;
+&lt;col width=&#34;86%&#34; /&gt;
 &lt;/colgroup&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -611,7 +603,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_fill_viridis_c(option = &amp;quot;viridis&amp;quot;) +
   scale_x_continuous(breaks = seq(20, 360, 20), expand = c(0, 0)) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Calculando a frequência das classes dentro de cada ano, podemos ver que predomina o risco Muito Alto, seguido do risco Alto. O risco nulo, ocorre em aproximadamente 10% dos dias do ano.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_fma  %&amp;gt;% 
   filter(!is.na(risco)) %&amp;gt;% 
@@ -623,7 +615,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent) +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;, direction = -1) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Olhando para a frequência de risco dentro dos meses, fica claro o maior risco próximo do mês de agosto, como sugeriram os gráficos de frequências de chuva e umidade relativa.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_fma  %&amp;gt;% 
   filter(!is.na(risco)) %&amp;gt;% 
@@ -636,13 +628,13 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_y_continuous(labels = scales::percent) +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;, direction = -1) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais assertivo para uma certa região.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;lubridate&amp;quot;, &amp;quot;ggridges&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -650,60 +642,62 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
 ##  ggridges     * 0.5.1    2018-09-27 [1] CRAN (R 3.5.2)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  lubridate    * 1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
-##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
@@ -711,7 +705,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Alvares, Clayton Alcarde, Italo Ramos Cegatta, Lucas Augusto Abra Vieira, Rafaela de Freitas Pavani, Eduardo Moré Mattos, Paulo Cesar Sentelhas, José Luiz Stape, and Ronaldo Viana Soares. 2014. “Perigo de Incêndio Florestal: Aplicação Da Fórmula de Monte Alegre E Avaliação Do Histórico Para Piracicaba, Sp.” &lt;em&gt;Scientia Forestalis, Piracicaba&lt;/em&gt; 42 (104): 511–22.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-soares1972&#34;&gt;
-&lt;p&gt;Soares, Ronaldo Viana. 1972. “Determinação de Um índice de Perigo de Incêndio Para a Região Centro Paranaense, Brasil. Turrialba, Costa Rica, Catie/Iica,. 72 P.” PhD thesis, Tese de Mestrado.&lt;/p&gt;
+&lt;p&gt;Soares, Ronaldo Viana. 1972. “Determinação de Um ı́ndice de Perigo de Incêndio Para a Região Centro Paranaense, Brasil. Turrialba, Costa Rica, Catie/Iica,. 72 P.” PhD thesis, Tese de Mestrado.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -721,10 +715,10 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Qual Estado tem mais pau-rodado?</title>
-      <link>/qual-estado-tem-mais-pau-rodado/</link>
+      <link>https://italocegatta.github.io/qual-estado-tem-mais-pau-rodado/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/qual-estado-tem-mais-pau-rodado/</guid>
+      <guid>https://italocegatta.github.io/qual-estado-tem-mais-pau-rodado/</guid>
       <description>Em Cuiabá, cidade que nasci e cresci, pau-rodado é um substantivo que define pessoas que nasceram em outro Estado mas moram em Cuiabá e ali construíram suas vidas. Aliás, Cuiabá sempre foi conhecida por ser uma Cidade super acolhedora e talvez por isso todos encaram o dito pau-rodado de uma forma engraçada e sem qualquer sentido pejorativo.
 Muito bem, meu interesse com este post é analisar o comportamento dos fluxos migratórios entre Estados e assim encontrar os Estados que tem mais e menos pau-rodado em sua população residente.</description>
       <content:encoded>
@@ -861,18 +855,18 @@ fluxo_linha&lt;/code&gt;&lt;/pre&gt;
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +ellps=WGS84 +no_defs
 ## # A tibble: 36 x 6
-##    nasce    reside  valor   lon    lat                             geometry
-##    &amp;lt;fct&amp;gt;    &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;                    &amp;lt;LINESTRING [Â°]&amp;gt;
-##  1 Rondônia Rondôn~ 57.4  -62.8 -10.9  (-62.84198 -10.91318, -62.84198 -10~
-##  2 Roraima  Amazon~  5.16 -64.7  -4.15 (-61.39929 2.084236, -61.46309 1.96~
-##  3 Roraima  Roraima 55.6  -61.4   2.08 (-61.39929 2.084236, -61.39929 2.08~
-##  4 Roraima  Pará     6.54 -53.1  -3.97 (-61.39929 2.084236, -61.23585 1.96~
-##  5 Roraima  Maranh~ 19.0  -45.3  -5.06 (-61.39929 2.084236, -61.08345 1.94~
-##  6 Distrit~ Maranh~  4.42 -45.3  -5.06 (-47.79736 -15.78067, -47.74601 -15~
-##  7 Ceará    Piauí    0.39 -43.0  -7.39 (-39.61569 -5.093333, -39.68117 -5.~
-##  8 Distrit~ Piauí    5.08 -43.0  -7.39 (-47.79736 -15.78067, -47.69952 -15~
-##  9 Roraima  Ceará    2.76 -39.6  -5.09 (-61.39929 2.084236, -60.9725 1.942~
-## 10 Ceará    Ceará   95.8  -39.6  -5.09 (-39.61569 -5.093333, -39.61569 -5.~
+##    nasce    reside  valor                             geometry   lon    lat
+##    &amp;lt;fct&amp;gt;    &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;                     &amp;lt;LINESTRING [°]&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
+##  1 Rondônia Rondôn~ 57.4  (-62.84198 -10.91318, -62.84198 -10~ -62.8 -10.9 
+##  2 Roraima  Amazon~  5.16 (-61.39929 2.084236, -61.46309 1.96~ -64.7  -4.15
+##  3 Roraima  Roraima 55.6  (-61.39929 2.084236, -61.39929 2.08~ -61.4   2.08
+##  4 Roraima  Pará     6.54 (-61.39929 2.084236, -61.23585 1.96~ -53.1  -3.97
+##  5 Roraima  Maranh~ 19.0  (-61.39929 2.084236, -61.08345 1.94~ -45.3  -5.06
+##  6 Distrit~ Maranh~  4.42 (-47.79736 -15.78067, -47.74601 -15~ -45.3  -5.06
+##  7 Ceará    Piauí    0.39 (-39.61569 -5.093333, -39.68117 -5.~ -43.0  -7.39
+##  8 Distrit~ Piauí    5.08 (-47.79736 -15.78067, -47.69952 -15~ -43.0  -7.39
+##  9 Roraima  Ceará    2.76 (-61.39929 2.084236, -60.9725 1.942~ -39.6  -5.09
+## 10 Ceará    Ceará   95.8  (-39.61569 -5.093333, -39.61569 -5.~ -39.6  -5.09
 ## # ... with 26 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Para deixar o gráfico um pouco mais bonito, vamos dar cor ao valor que estamos estudando. Mas agora a feição será o polígono que representa o Estado de residentes.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fluxo_poligono &amp;lt;- brmap_estado_simples %&amp;gt;% 
@@ -891,7 +885,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs
 ## # A tibble: 36 x 4
 ##    nasce       reside  valor                                       geometry
-##    &amp;lt;fct&amp;gt;       &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;                                 &amp;lt;POLYGON [Â°]&amp;gt;
+##  * &amp;lt;fct&amp;gt;       &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;                                  &amp;lt;POLYGON [°]&amp;gt;
 ##  1 Rondônia    Rondôn~ 57.4  ((-61.58313 -8.798689, -61.5801 -8.802692, -6~
 ##  2 Roraima     Amazon~  5.16 ((-63.37209 2.211862, -63.35979 2.197102, -63~
 ##  3 Roraima     Roraima 55.6  ((-58.8955 1.227694, -58.89546 0.9047314, -58~
@@ -923,7 +917,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
   scale_fill_viridis_c(guide = FALSE) +
   coord_sf(datum = NA) +
   theme_void(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-03-24-qual-estado-tem-mais-pau-rodado_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Pontos interessantes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Rondônia e Roraima retém uma proporção parecida da população dentro do próprio Estado, entretanto o pessoal que mora em Rondônia veio do Sul e Sudeste; ao passo que os moradores de Roraima vêm do AM, PA e MA.&lt;/li&gt;
@@ -934,7 +928,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;sf&amp;quot;, &amp;quot;geosphere&amp;quot;, &amp;quot;ggrepel&amp;quot;, &amp;quot;geofacet&amp;quot;, &amp;quot;brmap&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -942,170 +936,97 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-03-04                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package       * version     date       lib
-##  askpass         1.1         2019-01-13 [1]
-##  assertthat      0.2.0       2017-04-11 [1]
-##  backports       1.1.3       2018-12-14 [1]
-##  BH              1.69.0-1    2019-01-07 [1]
-##  brmap         * 0.1.0       2019-03-04 [1]
-##  class           7.3-14      2015-08-30 [2]
-##  classInt        0.3-1       2018-12-18 [1]
-##  cli             1.0.1       2018-09-25 [1]
-##  clipr           0.5.0       2019-01-11 [1]
-##  colorspace      1.4-0       2019-01-13 [1]
-##  crayon          1.3.4       2017-09-16 [1]
-##  curl            3.3         2019-01-10 [1]
-##  DBI             1.0.0       2018-05-02 [1]
-##  digest          0.6.18      2018-10-10 [1]
-##  dplyr         * 0.8.0.1     2019-02-15 [1]
-##  e1071           1.7-0.1     2019-01-21 [1]
-##  ellipsis        0.1.0       2019-02-19 [1]
-##  fansi           0.4.0       2018-10-05 [1]
-##  forcats       * 0.4.0       2019-02-17 [1]
-##  geofacet      * 0.1.9       2018-03-29 [1]
-##  geogrid         0.1.1       2018-12-11 [1]
-##  geosphere     * 1.5-7       2017-11-05 [1]
-##  ggplot2       * 3.1.0       2018-10-25 [1]
-##  ggrepel       * 0.8.0       2018-05-09 [1]
-##  glue            1.3.0       2018-07-17 [1]
-##  gridExtra       2.3         2017-09-09 [1]
-##  gtable          0.2.0       2016-02-26 [1]
-##  hms             0.4.2       2018-03-10 [1]
-##  httr            1.4.0       2018-12-11 [1]
-##  imguR           1.0.3       2016-03-29 [1]
-##  jpeg            0.1-8       2014-01-23 [1]
-##  jsonlite        1.6         2018-12-07 [1]
-##  labeling        0.3         2014-08-23 [1]
-##  lattice         0.20-35     2017-03-25 [2]
-##  lazyeval        0.2.1       2017-10-29 [1]
-##  magrittr        1.5         2014-11-22 [1]
-##  MASS            7.3-50      2018-04-30 [2]
-##  Matrix          1.2-14      2018-04-13 [2]
-##  mgcv            1.8-24      2018-06-23 [2]
-##  mime            0.6         2018-10-05 [1]
-##  munsell         0.5.0       2018-06-12 [1]
-##  nlme            3.1-137     2018-04-07 [2]
-##  openssl         1.2.1       2019-01-17 [1]
-##  pillar          1.3.1       2018-12-15 [1]
-##  pkgconfig       2.0.2       2018-08-16 [1]
-##  plogr           0.2.0       2018-03-25 [1]
-##  plyr            1.8.4       2016-06-08 [1]
-##  png             0.1-7       2013-12-03 [1]
-##  purrr           0.3.1       2019-03-03 [1]
-##  R6              2.4.0       2019-02-14 [1]
-##  RColorBrewer    1.1-2       2014-12-07 [1]
-##  Rcpp            1.0.0       2018-11-07 [1]
-##  RcppArmadillo   0.9.200.7.0 2019-01-17 [1]
-##  readr         * 1.3.1       2018-12-21 [1]
-##  reshape2        1.4.3       2017-12-11 [1]
-##  rgeos           0.4-2       2018-11-08 [1]
-##  rlang           0.3.1       2019-01-08 [1]
-##  rnaturalearth   0.1.0       2017-03-21 [1]
-##  scales          1.0.0       2018-08-09 [1]
-##  sf            * 0.7-3       2019-02-21 [1]
-##  sp              1.3-1       2018-06-05 [1]
-##  stringi         1.3.1       2019-02-13 [1]
-##  stringr         1.4.0       2019-02-10 [1]
-##  sys             3.0         2019-02-25 [1]
-##  tibble          2.0.1       2019-01-12 [1]
-##  tidyr         * 0.8.3.9000  2019-03-04 [1]
-##  tidyselect      0.2.5       2018-10-11 [1]
-##  units           0.6-2       2018-12-05 [1]
-##  utf8            1.1.4       2018-05-24 [1]
-##  vctrs           0.1.0.9002  2019-03-04 [1]
-##  viridisLite     0.3.0       2018-02-01 [1]
-##  withr           2.1.2       2018-03-15 [1]
-##  zeallot         0.1.0       2018-01-28 [1]
-##  source                             
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  Github (italocegatta/brmap@648023a)
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.0)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.2)                     
-##  Github (tidyverse/tidyr@5ce48b5)   
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
-##  CRAN (R 3.5.1)                     
-##  Github (r-lib/vctrs@5aa87f2)       
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.1)                     
-##  CRAN (R 3.5.2)                     
+##  package       * version     date       lib source        
+##  askpass         1.1         2019-01-13 [1] CRAN (R 3.5.2)
+##  assertthat      0.2.1       2019-03-21 [1] CRAN (R 3.5.3)
+##  backports       1.1.4       2019-04-10 [1] CRAN (R 3.5.3)
+##  BH              1.69.0-1    2019-01-07 [1] CRAN (R 3.5.2)
+##  brmap         * 0.1.0       2019-03-04 [1] local         
+##  class           7.3-15      2019-01-01 [2] CRAN (R 3.5.3)
+##  classInt        0.3-3       2019-04-26 [1] CRAN (R 3.5.3)
+##  cli             1.1.0       2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr           0.6.0       2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace      1.4-1       2019-03-18 [1] CRAN (R 3.5.3)
+##  crayon          1.3.4       2017-09-16 [1] CRAN (R 3.5.1)
+##  curl            3.3         2019-01-10 [1] CRAN (R 3.5.2)
+##  DBI             1.0.0       2018-05-02 [1] CRAN (R 3.5.1)
+##  digest          0.6.20      2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr         * 0.8.3       2019-07-04 [1] CRAN (R 3.5.3)
+##  e1071           1.7-2       2019-06-05 [1] CRAN (R 3.5.3)
+##  ellipsis        0.2.0.1     2019-07-02 [1] CRAN (R 3.5.3)
+##  fansi           0.4.0       2018-10-05 [1] CRAN (R 3.5.1)
+##  forcats       * 0.4.0       2019-02-17 [1] CRAN (R 3.5.2)
+##  geofacet      * 0.1.10      2019-03-13 [1] CRAN (R 3.5.3)
+##  geogrid         0.1.1       2018-12-11 [1] CRAN (R 3.5.2)
+##  geosphere     * 1.5-10      2019-05-26 [1] CRAN (R 3.5.3)
+##  ggplot2       * 3.2.0       2019-06-16 [1] CRAN (R 3.5.3)
+##  ggrepel       * 0.8.1       2019-05-07 [1] CRAN (R 3.5.3)
+##  glue            1.3.1       2019-03-12 [1] CRAN (R 3.5.3)
+##  gridExtra       2.3         2017-09-09 [1] CRAN (R 3.5.1)
+##  gtable          0.3.0       2019-03-25 [1] CRAN (R 3.5.3)
+##  hms             0.4.2       2018-03-10 [1] CRAN (R 3.5.1)
+##  httr            1.4.0       2018-12-11 [1] CRAN (R 3.5.2)
+##  imguR           1.0.3       2016-03-29 [1] CRAN (R 3.5.1)
+##  jpeg            0.1-8       2014-01-23 [1] CRAN (R 3.5.0)
+##  jsonlite        1.6         2018-12-07 [1] CRAN (R 3.5.2)
+##  KernSmooth      2.23-15     2015-06-29 [2] CRAN (R 3.5.3)
+##  labeling        0.3         2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice         0.20-38     2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval        0.2.2       2019-03-15 [1] CRAN (R 3.5.3)
+##  magrittr        1.5         2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS            7.3-51.1    2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix          1.2-17      2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv            1.8-28      2019-03-21 [1] CRAN (R 3.5.3)
+##  mime            0.7         2019-06-11 [1] CRAN (R 3.5.3)
+##  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme            3.1-137     2018-04-07 [2] CRAN (R 3.5.3)
+##  openssl         1.4         2019-05-31 [1] CRAN (R 3.5.3)
+##  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.3)
+##  pkgconfig       2.0.2       2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr           0.2.0       2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr            1.8.4       2016-06-08 [1] CRAN (R 3.5.1)
+##  png             0.1-7       2013-12-03 [1] CRAN (R 3.5.0)
+##  purrr           0.3.2       2019-03-15 [1] CRAN (R 3.5.3)
+##  R6              2.4.0       2019-02-14 [1] CRAN (R 3.5.2)
+##  RColorBrewer    1.1-2       2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp            1.0.1       2019-03-17 [1] CRAN (R 3.5.3)
+##  RcppArmadillo   0.9.500.2.0 2019-06-12 [1] CRAN (R 3.5.3)
+##  readr         * 1.3.1       2018-12-21 [1] CRAN (R 3.5.2)
+##  reshape2        1.4.3       2017-12-11 [1] CRAN (R 3.5.1)
+##  rgeos           0.4-3       2019-04-24 [1] CRAN (R 3.5.3)
+##  rlang           0.4.0       2019-06-25 [1] CRAN (R 3.5.3)
+##  rnaturalearth   0.1.0       2017-03-21 [1] CRAN (R 3.5.1)
+##  scales          1.0.0       2018-08-09 [1] CRAN (R 3.5.1)
+##  sf            * 0.7-6       2019-07-05 [1] CRAN (R 3.5.3)
+##  sp              1.3-1       2018-06-05 [1] CRAN (R 3.5.1)
+##  stringi         1.4.3       2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr         1.4.0       2019-02-10 [1] CRAN (R 3.5.2)
+##  sys             3.2         2019-04-23 [1] CRAN (R 3.5.3)
+##  tibble          2.1.3       2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr         * 0.8.3       2019-03-01 [1] CRAN (R 3.5.3)
+##  tidyselect      0.2.5       2018-10-11 [1] CRAN (R 3.5.1)
+##  units           0.6-3       2019-05-03 [1] CRAN (R 3.5.3)
+##  utf8            1.1.4       2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs           0.2.0       2019-07-05 [1] CRAN (R 3.5.3)
+##  viridisLite     0.3.0       2018-02-01 [1] CRAN (R 3.5.1)
+##  withr           2.1.2       2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot         0.1.0       2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
     
     <item>
       <title>Como um cientista de dados pesquisa o carro que quer comprar?</title>
-      <link>/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/</link>
+      <link>https://italocegatta.github.io/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/</link>
       <pubDate>Sat, 29 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/</guid>
+      <guid>https://italocegatta.github.io/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/</guid>
       <description>Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.</description>
       <content:encoded>
         
@@ -1172,12 +1093,12 @@ bmw_x6&lt;/code&gt;&lt;/pre&gt;
     scale_color_viridis_d() +
     theme_bw() +
     theme(legend.position = &amp;quot;top&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-07-29-como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-07-29-como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;purrr&amp;quot;, &amp;quot;stringr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;fipe&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -1185,77 +1106,79 @@ bmw_x6&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-02-03                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package      * version  date       lib source        
-##  askpass        1.1      2019-01-13 [1] CRAN (R 3.5.2)
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.5.0    2019-01-11 [1] CRAN (R 3.5.2)
-##  colorspace     1.4-0    2019-01-13 [1] CRAN (R 3.5.2)
-##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  curl           3.3      2019-01-10 [1] CRAN (R 3.5.2)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
-##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  fipe         * 0.0.1    2019-02-03 [1] local         
-##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
-##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
-##  httr           1.4.0    2018-12-11 [1] CRAN (R 3.5.2)
-##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)
-##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
-##  lubridate      1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
-##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
-##  mime           0.6      2018-10-05 [1] CRAN (R 3.5.1)
-##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  openssl        1.2.1    2019-01-17 [1] CRAN (R 3.5.2)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
-##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
-##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
-##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr        * 0.3.0    2019-01-27 [1] CRAN (R 3.5.2)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
-##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
-##  readr          1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
-##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.1    2019-01-08 [1] CRAN (R 3.5.2)
-##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr      * 1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  sys            2.1      2018-11-13 [1] CRAN (R 3.5.2)
-##  tibble         2.0.1    2019-01-12 [1] CRAN (R 3.5.2)
-##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
-##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
-##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
-##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
-##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  package      * version  date       lib source                            
+##  askpass        1.1      2019-01-13 [1] CRAN (R 3.5.2)                    
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)                    
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)                    
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)                    
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)                    
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)                    
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)                    
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)                    
+##  curl           3.3      2019-01-10 [1] CRAN (R 3.5.2)                    
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)                    
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)                    
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)                    
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)                    
+##  fipe         * 0.0.1    2019-06-20 [1] Github (italocegatta/fipe@56db15e)
+##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)                    
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)                    
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)                    
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)                    
+##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)                    
+##  httr           1.4.0    2018-12-11 [1] CRAN (R 3.5.2)                    
+##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)                    
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)                    
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)                    
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)                    
+##  lubridate      1.7.4    2018-04-11 [1] CRAN (R 3.5.1)                    
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)                    
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)                    
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)                    
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)                    
+##  mime           0.7      2019-06-11 [1] CRAN (R 3.5.3)                    
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)                    
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)                    
+##  openssl        1.4      2019-05-31 [1] CRAN (R 3.5.3)                    
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)                    
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)                    
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)                    
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)                    
+##  purrr        * 0.3.2    2019-03-15 [1] CRAN (R 3.5.3)                    
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)                    
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)                    
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)                    
+##  readr          1.3.1    2018-12-21 [1] CRAN (R 3.5.2)                    
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)                    
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)                    
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)                    
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)                    
+##  stringr      * 1.4.0    2019-02-10 [1] CRAN (R 3.5.2)                    
+##  sys            3.2      2019-04-23 [1] CRAN (R 3.5.3)                    
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)                    
+##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)                    
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)                    
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)                    
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)                    
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)                    
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)                    
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)                    
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
     
     <item>
       <title>Ajuste de um modelo linear para vários fatores</title>
-      <link>/ajuste-de-um-modelo-linear-para-varios-fatores/</link>
+      <link>https://italocegatta.github.io/ajuste-de-um-modelo-linear-para-varios-fatores/</link>
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
+      <guid>https://italocegatta.github.io/ajuste-de-um-modelo-linear-para-varios-fatores/</guid>
       <description>Ajustar um modelo linear ou não linear é algo relativamente simples no R. Mas em muitos casos precisamos ajustá-lo para vários fatores e dependendo da quantidade isso se torna uma tarefa chata. Se você, assim como eu, já precisou fazer isso no Excel, sabe o que é perder mais que uma tarde copiando e colando informações entres abas e planilhas.
 Mas felizmente existe uma máxima muito interessante entre programadores que é:</description>
       <content:encoded>
@@ -1298,7 +1221,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   geom_smooth(method=&amp;quot;lm&amp;quot;) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura sem distinção de espécie.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura sem distinção de espécie.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Relação entre o diâmetro e a altura sem distinção de espécie.
 &lt;/p&gt;
@@ -1310,7 +1233,7 @@ Figura  1: Relação entre o diâmetro e a altura sem distinção de espécie.
   facet_wrap(~Esp) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:9-dap-h-spp&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-08-27-ajuste-de-um-modelo-linear-para-varios-fatores_files/figure-html/9-dap-h-spp-1.svg&#34; alt=&#34;Relação entre o diâmetro e a altura por espécie.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Relação entre o diâmetro e a altura por espécie.
 &lt;/p&gt;
@@ -1346,18 +1269,18 @@ Figura  2: Relação entre o diâmetro e a altura por espécie.
 
 dados_modl&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 24 x 6
-##    Esp             data         ajuste   resumo      coef       resid      
-##    &amp;lt;chr&amp;gt;           &amp;lt;list&amp;gt;       &amp;lt;list&amp;gt;   &amp;lt;list&amp;gt;      &amp;lt;list&amp;gt;     &amp;lt;list&amp;gt;     
-##  1 E_botryoides    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
-##  2 E_brassiana     &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
-##  3 E_camaldulensis &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
-##  4 E_citriodora    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
-##  5 E_cloeziana     &amp;lt;tibble [51~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [3~
-##  6 E_dunnii_uroph~ &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
-##  7 E_exserta       &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
-##  8 E_grandis_AT    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [7~
-##  9 E_grandis_cama~ &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
-## 10 E_grandis_CH    &amp;lt;tibble [80~ &amp;lt;S3: lm&amp;gt; &amp;lt;tibble [1~ &amp;lt;tibble [~ &amp;lt;tibble [6~
+##    Esp             data         ajuste resumo       coef       resid       
+##    &amp;lt;chr&amp;gt;           &amp;lt;list&amp;gt;       &amp;lt;list&amp;gt; &amp;lt;list&amp;gt;       &amp;lt;list&amp;gt;     &amp;lt;list&amp;gt;      
+##  1 E_botryoides    &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [66~
+##  2 E_brassiana     &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [61~
+##  3 E_camaldulensis &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [78~
+##  4 E_citriodora    &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [69~
+##  5 E_cloeziana     &amp;lt;tibble [51~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [31~
+##  6 E_dunnii_uroph~ &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [72~
+##  7 E_exserta       &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [71~
+##  8 E_grandis_AT    &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [78~
+##  9 E_grandis_cama~ &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [69~
+## 10 E_grandis_CH    &amp;lt;tibble [80~ &amp;lt;lm&amp;gt;   &amp;lt;tibble [1 ~ &amp;lt;tibble [~ &amp;lt;tibble [69~
 ## # ... with 14 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_modl %&amp;gt;%
@@ -1443,7 +1366,7 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;broom&amp;quot;, &amp;quot;purrr&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -1451,69 +1374,71 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  backports      1.1.2    2017-12-13 [1] CRAN (R 3.5.0)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  broom        * 0.5.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  broom        * 0.5.2    2019-04-07 [1] CRAN (R 3.5.3)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  generics       0.0.2    2018-11-29 [1] CRAN (R 3.5.2)
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr        * 0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  purrr        * 0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
-##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
-##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
     
     <item>
       <title>Os gráficos que explicam nossos dados (boxplot)</title>
-      <link>/os-graficos-que-explicam-nossos-dados-boxplot/</link>
+      <link>https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot/</link>
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
+      <guid>https://italocegatta.github.io/os-graficos-que-explicam-nossos-dados-boxplot/</guid>
       <description>Nossos dados merecem ser apresentados de forma clara, atraente e inspiradora. Não há nada mais frustrante que dar duro no campo para coletar os dados e depois apresentá-los numa simples tabela de resumos. Podemos e devemos fazer mais, certo?
 Vou começar agora uma série de posts sobre tipos de gráficos. Como disse no primeiro post desse blog, minha intenção é documentar os scripts que escrevi durante a graduação, portanto os gráficos que vou apresentar se resumem aos que tive de fazer por conta de alguma demanda específica.</description>
       <content:encoded>
@@ -1579,7 +1504,7 @@ total&lt;/code&gt;&lt;/pre&gt;
   geom_boxplot(fill = &amp;quot;grey60&amp;quot;, alpha = 0.8) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-total&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-total-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas de todos os tratamentos.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
 &lt;/p&gt;
@@ -1589,7 +1514,7 @@ Figura  1: Boxplot que mostra o nº de galhas de todos os tratamentos.
   geom_boxplot(fill = &amp;quot;grey60&amp;quot;, alpha = 0.8) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-trat&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-trat-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas em função de cada tratamento.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Boxplot que mostra o nº de galhas em função de cada tratamento.
 &lt;/p&gt;
@@ -1626,7 +1551,7 @@ local&lt;/code&gt;&lt;/pre&gt;
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-local&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-local-1.svg&#34; alt=&#34;Boxplot que mostra o nº de galhas por local e tratamento.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  3: Boxplot que mostra o nº de galhas por local e tratamento.
 &lt;/p&gt;
@@ -1661,7 +1586,7 @@ total_coleta&lt;/code&gt;&lt;/pre&gt;
   theme_bw(16) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:4-boxplot-coleta&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.svg&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-05-06-os-graficos-que-explicam-nossos-dados-boxplot_files/figure-html/4-boxplot-coleta-1.svg&#34; alt=&#34;Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e coletas.
 &lt;/p&gt;
@@ -1671,7 +1596,7 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -1679,86 +1604,84 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-30                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package      * version    date       lib source                        
-##  assertthat     0.2.0      2017-04-11 [1] CRAN (R 3.5.1)                
-##  backports      1.1.2      2017-12-13 [1] CRAN (R 3.5.0)                
-##  base64enc      0.1-3      2015-07-28 [1] CRAN (R 3.5.0)                
-##  bindr          0.1.1      2018-03-13 [1] CRAN (R 3.5.1)                
-##  bindrcpp     * 0.2.2      2018-03-29 [1] CRAN (R 3.5.1)                
-##  blogdown       0.9        2018-10-23 [1] CRAN (R 3.5.2)                
-##  bookdown       0.9        2018-12-21 [1] CRAN (R 3.5.2)                
-##  callr          3.0.0      2018-08-24 [1] CRAN (R 3.5.1)                
-##  cli            1.0.1      2018-09-25 [1] CRAN (R 3.5.1)                
-##  colorspace     1.3-2      2016-12-14 [1] CRAN (R 3.5.1)                
-##  crayon         1.3.4      2017-09-16 [1] CRAN (R 3.5.1)                
-##  curl           3.2        2018-03-28 [1] CRAN (R 3.5.1)                
-##  desc           1.2.0      2018-05-01 [1] CRAN (R 3.5.1)                
-##  devtools       2.0.1      2018-10-26 [1] CRAN (R 3.5.1)                
-##  digest         0.6.18     2018-10-10 [1] CRAN (R 3.5.1)                
-##  dplyr        * 0.7.8      2018-11-10 [1] CRAN (R 3.5.1)                
-##  evaluate       0.12       2018-10-09 [1] CRAN (R 3.5.1)                
-##  fansi          0.4.0      2018-10-05 [1] CRAN (R 3.5.1)                
-##  fs             1.2.6      2018-08-23 [1] CRAN (R 3.5.1)                
-##  ggplot2      * 3.1.0      2018-10-25 [1] CRAN (R 3.5.1)                
-##  ggthemes     * 4.0.1      2018-08-24 [1] CRAN (R 3.5.1)                
-##  glue           1.3.0      2018-07-17 [1] CRAN (R 3.5.1)                
-##  gtable         0.2.0      2016-02-26 [1] CRAN (R 3.5.1)                
-##  highr          0.7        2018-06-09 [1] CRAN (R 3.5.1)                
-##  hms            0.4.2      2018-03-10 [1] CRAN (R 3.5.1)                
-##  htmltools      0.3.6      2017-04-28 [1] CRAN (R 3.5.1)                
-##  knitr          1.20       2018-02-20 [1] CRAN (R 3.5.1)                
-##  labeling       0.3        2014-08-23 [1] CRAN (R 3.5.0)                
-##  lazyeval       0.2.1      2017-10-29 [1] CRAN (R 3.5.1)                
-##  magrittr       1.5        2014-11-22 [1] CRAN (R 3.5.1)                
-##  memoise        1.1.0      2017-04-21 [1] CRAN (R 3.5.1)                
-##  munsell        0.5.0      2018-06-12 [1] CRAN (R 3.5.1)                
-##  pacman       * 0.5.0      2018-10-22 [1] CRAN (R 3.5.1)                
-##  pillar         1.3.0      2018-07-14 [1] CRAN (R 3.5.1)                
-##  pkgbuild       1.0.2      2018-10-16 [1] CRAN (R 3.5.1)                
-##  pkgconfig      2.0.2      2018-08-16 [1] CRAN (R 3.5.1)                
-##  pkgload        1.0.2      2018-10-29 [1] CRAN (R 3.5.1)                
-##  plyr           1.8.4      2016-06-08 [1] CRAN (R 3.5.1)                
-##  prettyunits    1.0.2      2015-07-13 [1] CRAN (R 3.5.1)                
-##  processx       3.2.0      2018-08-16 [1] CRAN (R 3.5.1)                
-##  ps             1.2.1      2018-11-06 [1] CRAN (R 3.5.1)                
-##  purrr          0.2.5      2018-05-29 [1] CRAN (R 3.5.1)                
-##  R6             2.3.0      2018-10-04 [1] CRAN (R 3.5.1)                
-##  RColorBrewer   1.1-2      2014-12-07 [1] CRAN (R 3.5.0)                
-##  Rcpp           1.0.0      2018-11-07 [1] CRAN (R 3.5.1)                
-##  readr        * 1.2.1      2018-11-22 [1] CRAN (R 3.5.1)                
-##  remotes        2.0.2      2018-10-30 [1] CRAN (R 3.5.1)                
-##  rlang          0.3.0.1    2018-10-25 [1] CRAN (R 3.5.1)                
-##  rmarkdown      1.10       2018-06-11 [1] CRAN (R 3.5.1)                
-##  rprojroot      1.3-2      2018-01-03 [1] CRAN (R 3.5.1)                
-##  scales         1.0.0      2018-08-09 [1] CRAN (R 3.5.1)                
-##  sessioninfo    1.1.1      2018-11-05 [1] CRAN (R 3.5.1)                
-##  stringi        1.2.4      2018-07-20 [1] CRAN (R 3.5.1)                
-##  stringr        1.3.1      2018-05-10 [1] CRAN (R 3.5.1)                
-##  testthat       2.0.1      2018-10-13 [1] CRAN (R 3.5.1)                
-##  tibble         1.4.2      2018-01-22 [1] CRAN (R 3.5.1)                
-##  tidyr        * 0.8.2      2018-10-28 [1] CRAN (R 3.5.1)                
-##  tidyselect     0.2.5      2018-10-11 [1] CRAN (R 3.5.1)                
-##  usethis        1.4.0.9000 2018-09-29 [1] Github (r-lib/usethis@1e3c6a6)
-##  utf8           1.1.4      2018-05-24 [1] CRAN (R 3.5.1)                
-##  withr          2.1.2      2018-03-15 [1] CRAN (R 3.5.1)                
-##  xfun           0.4        2018-10-23 [1] CRAN (R 3.5.1)                
-##  yaml           2.2.0      2018-07-25 [1] CRAN (R 3.5.1)                
+##  package      * version date       lib source        
+##  assertthat     0.2.1   2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4   2019-04-10 [1] CRAN (R 3.5.3)
+##  blogdown       0.13    2019-06-11 [1] CRAN (R 3.5.3)
+##  bookdown       0.11    2019-05-28 [1] CRAN (R 3.5.3)
+##  callr          3.3.0   2019-07-04 [1] CRAN (R 3.5.3)
+##  cli            1.1.0   2019-03-19 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1   2019-03-18 [1] CRAN (R 3.5.3)
+##  crayon         1.3.4   2017-09-16 [1] CRAN (R 3.5.1)
+##  curl           3.3     2019-01-10 [1] CRAN (R 3.5.2)
+##  desc           1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
+##  devtools       2.1.0   2019-07-06 [1] CRAN (R 3.5.3)
+##  digest         0.6.20  2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3   2019-07-04 [1] CRAN (R 3.5.3)
+##  evaluate       0.14    2019-05-28 [1] CRAN (R 3.5.3)
+##  fansi          0.4.0   2018-10-05 [1] CRAN (R 3.5.1)
+##  fs             1.3.1   2019-05-06 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.0   2019-06-16 [1] CRAN (R 3.5.3)
+##  ggthemes     * 4.2.0   2019-05-13 [1] CRAN (R 3.5.3)
+##  glue           1.3.1   2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0   2019-03-25 [1] CRAN (R 3.5.3)
+##  highr          0.8     2019-03-20 [1] CRAN (R 3.5.3)
+##  hms            0.4.2   2018-03-10 [1] CRAN (R 3.5.1)
+##  htmltools      0.3.6   2017-04-28 [1] CRAN (R 3.5.1)
+##  knitr          1.23    2019-05-18 [1] CRAN (R 3.5.3)
+##  labeling       0.3     2014-08-23 [1] CRAN (R 3.5.0)
+##  lazyeval       0.2.2   2019-03-15 [1] CRAN (R 3.5.3)
+##  magrittr       1.5     2014-11-22 [1] CRAN (R 3.5.1)
+##  memoise        1.1.0   2017-04-21 [1] CRAN (R 3.5.1)
+##  munsell        0.5.0   2018-06-12 [1] CRAN (R 3.5.1)
+##  pacman       * 0.5.1   2019-03-11 [1] CRAN (R 3.5.3)
+##  pillar         1.4.2   2019-06-29 [1] CRAN (R 3.5.3)
+##  pkgbuild       1.0.3   2019-03-20 [1] CRAN (R 3.5.3)
+##  pkgconfig      2.0.2   2018-08-16 [1] CRAN (R 3.5.1)
+##  pkgload        1.0.2   2018-10-29 [1] CRAN (R 3.5.1)
+##  prettyunits    1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
+##  processx       3.4.0   2019-07-03 [1] CRAN (R 3.5.3)
+##  ps             1.3.0   2018-12-21 [1] CRAN (R 3.5.2)
+##  purrr          0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
+##  RColorBrewer   1.1-2   2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
+##  readr        * 1.3.1   2018-12-21 [1] CRAN (R 3.5.2)
+##  remotes        2.1.0   2019-06-24 [1] CRAN (R 3.5.3)
+##  rlang          0.4.0   2019-06-25 [1] CRAN (R 3.5.3)
+##  rmarkdown      1.13    2019-05-22 [1] CRAN (R 3.5.3)
+##  rprojroot      1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
+##  scales         1.0.0   2018-08-09 [1] CRAN (R 3.5.1)
+##  sessioninfo    1.1.1   2018-11-05 [1] CRAN (R 3.5.2)
+##  stringi        1.4.3   2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
+##  testthat       2.1.1   2019-04-23 [1] CRAN (R 3.5.3)
+##  tibble         2.1.3   2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr        * 0.8.3   2019-03-01 [1] CRAN (R 3.5.3)
+##  tidyselect     0.2.5   2018-10-11 [1] CRAN (R 3.5.1)
+##  usethis        1.5.1   2019-07-04 [1] CRAN (R 3.5.3)
+##  utf8           1.1.4   2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0   2019-07-05 [1] CRAN (R 3.5.3)
+##  withr          2.1.2   2018-03-15 [1] CRAN (R 3.5.1)
+##  xfun           0.8     2019-06-25 [1] CRAN (R 3.5.3)
+##  yaml           2.2.0   2018-07-25 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0   2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
     
     <item>
       <title>O conceito tidy data</title>
-      <link>/o-conceito-tidy-data/</link>
+      <link>https://italocegatta.github.io/o-conceito-tidy-data/</link>
       <pubDate>Sat, 30 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/o-conceito-tidy-data/</guid>
+      <guid>https://italocegatta.github.io/o-conceito-tidy-data/</guid>
       <description>A ideia central desse post é bem simples: dados bem organizados valem a pena e economizam seu tempo!
 Em minha primeira iniciação científica (quando comecei a trabalhar com o R), propus um experimento para avaliar a eficiência de 2 inseticidas para o controle de uma praga que ataca mudas de eucalipto (Cegatta and Villegas 2013). Eu estava no primeiro ano da faculdade, sabia muito pouco de Excel e nada de R.</description>
       <content:encoded>
@@ -1879,7 +1802,7 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::session_info()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -1887,79 +1810,78 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-30                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package     * version    date       lib source                        
-##  assertthat    0.2.0      2017-04-11 [1] CRAN (R 3.5.1)                
-##  backports     1.1.2      2017-12-13 [1] CRAN (R 3.5.0)                
-##  base64enc     0.1-3      2015-07-28 [1] CRAN (R 3.5.0)                
-##  bindr         0.1.1      2018-03-13 [1] CRAN (R 3.5.1)                
-##  bindrcpp      0.2.2      2018-03-29 [1] CRAN (R 3.5.1)                
-##  blogdown      0.9        2018-10-23 [1] CRAN (R 3.5.2)                
-##  bookdown      0.9        2018-12-21 [1] CRAN (R 3.5.2)                
-##  callr         3.0.0      2018-08-24 [1] CRAN (R 3.5.1)                
-##  cellranger    1.1.0      2016-07-27 [1] CRAN (R 3.5.1)                
-##  cli           1.0.1      2018-09-25 [1] CRAN (R 3.5.1)                
-##  crayon        1.3.4      2017-09-16 [1] CRAN (R 3.5.1)                
-##  curl          3.2        2018-03-28 [1] CRAN (R 3.5.1)                
-##  desc          1.2.0      2018-05-01 [1] CRAN (R 3.5.1)                
-##  devtools      2.0.1      2018-10-26 [1] CRAN (R 3.5.1)                
-##  digest        0.6.18     2018-10-10 [1] CRAN (R 3.5.1)                
-##  dplyr       * 0.7.8      2018-11-10 [1] CRAN (R 3.5.1)                
-##  evaluate      0.12       2018-10-09 [1] CRAN (R 3.5.1)                
-##  fansi         0.4.0      2018-10-05 [1] CRAN (R 3.5.1)                
-##  fs            1.2.6      2018-08-23 [1] CRAN (R 3.5.1)                
-##  glue          1.3.0      2018-07-17 [1] CRAN (R 3.5.1)                
-##  highr         0.7        2018-06-09 [1] CRAN (R 3.5.1)                
-##  htmltools     0.3.6      2017-04-28 [1] CRAN (R 3.5.1)                
-##  httr        * 1.3.1      2017-08-20 [1] CRAN (R 3.5.1)                
-##  knitr         1.20       2018-02-20 [1] CRAN (R 3.5.1)                
-##  magrittr      1.5        2014-11-22 [1] CRAN (R 3.5.1)                
-##  memoise       1.1.0      2017-04-21 [1] CRAN (R 3.5.1)                
-##  pacman      * 0.5.0      2018-10-22 [1] CRAN (R 3.5.1)                
-##  pillar        1.3.0      2018-07-14 [1] CRAN (R 3.5.1)                
-##  pkgbuild      1.0.2      2018-10-16 [1] CRAN (R 3.5.1)                
-##  pkgconfig     2.0.2      2018-08-16 [1] CRAN (R 3.5.1)                
-##  pkgload       1.0.2      2018-10-29 [1] CRAN (R 3.5.1)                
-##  prettyunits   1.0.2      2015-07-13 [1] CRAN (R 3.5.1)                
-##  processx      3.2.0      2018-08-16 [1] CRAN (R 3.5.1)                
-##  ps            1.2.1      2018-11-06 [1] CRAN (R 3.5.1)                
-##  purrr         0.2.5      2018-05-29 [1] CRAN (R 3.5.1)                
-##  R6            2.3.0      2018-10-04 [1] CRAN (R 3.5.1)                
-##  Rcpp          1.0.0      2018-11-07 [1] CRAN (R 3.5.1)                
-##  readxl      * 1.1.0      2018-04-20 [1] CRAN (R 3.5.1)                
-##  remotes       2.0.2      2018-10-30 [1] CRAN (R 3.5.1)                
-##  rlang         0.3.0.1    2018-10-25 [1] CRAN (R 3.5.1)                
-##  rmarkdown     1.10       2018-06-11 [1] CRAN (R 3.5.1)                
-##  rprojroot     1.3-2      2018-01-03 [1] CRAN (R 3.5.1)                
-##  sessioninfo   1.1.1      2018-11-05 [1] CRAN (R 3.5.1)                
-##  stringi       1.2.4      2018-07-20 [1] CRAN (R 3.5.1)                
-##  stringr       1.3.1      2018-05-10 [1] CRAN (R 3.5.1)                
-##  testthat      2.0.1      2018-10-13 [1] CRAN (R 3.5.1)                
-##  tibble        1.4.2      2018-01-22 [1] CRAN (R 3.5.1)                
-##  tidyr       * 0.8.2      2018-10-28 [1] CRAN (R 3.5.1)                
-##  tidyselect    0.2.5      2018-10-11 [1] CRAN (R 3.5.1)                
-##  usethis       1.4.0.9000 2018-09-29 [1] Github (r-lib/usethis@1e3c6a6)
-##  utf8          1.1.4      2018-05-24 [1] CRAN (R 3.5.1)                
-##  withr         2.1.2      2018-03-15 [1] CRAN (R 3.5.1)                
-##  xfun          0.4        2018-10-23 [1] CRAN (R 3.5.1)                
-##  yaml          2.2.0      2018-07-25 [1] CRAN (R 3.5.1)                
+##  package     * version date       lib source        
+##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.5.3)
+##  backports     1.1.4   2019-04-10 [1] CRAN (R 3.5.3)
+##  blogdown      0.13    2019-06-11 [1] CRAN (R 3.5.3)
+##  bookdown      0.11    2019-05-28 [1] CRAN (R 3.5.3)
+##  callr         3.3.0   2019-07-04 [1] CRAN (R 3.5.3)
+##  cellranger    1.1.0   2016-07-27 [1] CRAN (R 3.5.1)
+##  cli           1.1.0   2019-03-19 [1] CRAN (R 3.5.3)
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.5.1)
+##  curl          3.3     2019-01-10 [1] CRAN (R 3.5.2)
+##  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
+##  devtools      2.1.0   2019-07-06 [1] CRAN (R 3.5.3)
+##  digest        0.6.20  2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr       * 0.8.3   2019-07-04 [1] CRAN (R 3.5.3)
+##  evaluate      0.14    2019-05-28 [1] CRAN (R 3.5.3)
+##  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.5.1)
+##  fs            1.3.1   2019-05-06 [1] CRAN (R 3.5.3)
+##  glue          1.3.1   2019-03-12 [1] CRAN (R 3.5.3)
+##  highr         0.8     2019-03-20 [1] CRAN (R 3.5.3)
+##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.1)
+##  httr        * 1.4.0   2018-12-11 [1] CRAN (R 3.5.2)
+##  knitr         1.23    2019-05-18 [1] CRAN (R 3.5.3)
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.5.1)
+##  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.5.1)
+##  pacman      * 0.5.1   2019-03-11 [1] CRAN (R 3.5.3)
+##  pillar        1.4.2   2019-06-29 [1] CRAN (R 3.5.3)
+##  pkgbuild      1.0.3   2019-03-20 [1] CRAN (R 3.5.3)
+##  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.1)
+##  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.1)
+##  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
+##  processx      3.4.0   2019-07-03 [1] CRAN (R 3.5.3)
+##  ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.2)
+##  purrr         0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
+##  R6            2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
+##  Rcpp          1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
+##  readxl      * 1.3.1   2019-03-13 [1] CRAN (R 3.5.3)
+##  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.5.3)
+##  rlang         0.4.0   2019-06-25 [1] CRAN (R 3.5.3)
+##  rmarkdown     1.13    2019-05-22 [1] CRAN (R 3.5.3)
+##  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
+##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.2)
+##  stringi       1.4.3   2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
+##  testthat      2.1.1   2019-04-23 [1] CRAN (R 3.5.3)
+##  tibble        2.1.3   2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr       * 0.8.3   2019-03-01 [1] CRAN (R 3.5.3)
+##  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.1)
+##  usethis       1.5.1   2019-07-04 [1] CRAN (R 3.5.3)
+##  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs         0.2.0   2019-07-05 [1] CRAN (R 3.5.3)
+##  withr         2.1.2   2018-03-15 [1] CRAN (R 3.5.1)
+##  xfun          0.8     2019-06-25 [1] CRAN (R 3.5.3)
+##  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.1)
+##  zeallot       0.1.0   2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
 &lt;div id=&#34;ref-cegatta_eficiencia_2013&#34;&gt;
-&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34; class=&#34;uri&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Cegatta, Italo Ramos, and Cristian Villegas. 2013. “Eficiência de dois inseticidas sistêmicos no controle de Leptocybe invasa em mudas de Eucalyptus camaldulensis.” &lt;em&gt;Revista Instituto Florestal&lt;/em&gt; 25 (2). &lt;a href=&#34;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&#34;&gt;iflorestal.sp.gov.br/files/2014/05/RIF25-2{\_}215-221.pdf&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-grolemund_r_2016&#34;&gt;
-&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34; class=&#34;uri&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grolemund, Garrett, and Hadley Wickham. 2016. &lt;em&gt;R for Data Science&lt;/em&gt;. O’Reilly Media. &lt;a href=&#34;http://r4ds.had.co.nz/&#34;&gt;http://r4ds.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-wickham_tidy_2014&#34;&gt;
-&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34; class=&#34;uri&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Wickham, Hadley. 2014. “Tidy data.” &lt;em&gt;The Journal of Statistical Software&lt;/em&gt; 59 (10). &lt;a href=&#34;http://www.jstatsoft.org/v59/i10/&#34;&gt;http://www.jstatsoft.org/v59/i10/&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

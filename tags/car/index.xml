@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Car on Italo Cegatta</title>
-    <link>/tags/car/</link>
+    <link>https://italocegatta.github.io/tags/car/</link>
     <description>Recent content in Car on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Thu, 08 Sep 2016 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/car/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/tags/car/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>ANOVA e teste de Tukey</title>
-      <link>/anova-e-teste-de-tukey/</link>
+      <link>https://italocegatta.github.io/anova-e-teste-de-tukey/</link>
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/anova-e-teste-de-tukey/</guid>
+      <guid>https://italocegatta.github.io/anova-e-teste-de-tukey/</guid>
       <description>Análise de variância (ANOVA) e testes de médias são métodos comuns em artigos científicos. Você com certeza já viu aquelas letrinhas indicando a diferença entre tratamentos em algum estudo publicado. Por mais que este método esteja entrando em desuso - há uma tendência em abandonar esse tipo de abordagem estatística - penso que ainda o veremos por muitos anos no meio científico.
 Como contexto, temos um teste de 5 progênies de eucalipto e queremos avaliar se volume por hectare (nossa variável resposta), difere entre os tratamentos.</description>
       <content:encoded>
@@ -52,7 +52,7 @@ dados&lt;/code&gt;&lt;/pre&gt;
   geom_boxplot(fill = &amp;quot;grey60&amp;quot;, alpha = 0.8) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-boxplot&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.svg&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-boxplot-1.svg&#34; alt=&#34;Variabilidade do volume por hectare de cada tratamento.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  1: Variabilidade do volume por hectare de cada tratamento.
 &lt;/p&gt;
@@ -129,7 +129,7 @@ tukey&lt;/code&gt;&lt;/pre&gt;
     labs(x = &amp;quot;Progênies&amp;quot;, y = &amp;quot;Médias&amp;quot;) +
     theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:10-barras-tukey&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.svg&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;960&#34; /&gt;
+&lt;img src=&#34;https://italocegatta.github.io/post/2016-09-08-anova-e-teste-de-tukey_files/figure-html/10-barras-tukey-1.svg&#34; alt=&#34;Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.&#34; width=&#34;960&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente iguais pelo teste de Tukey a 5% de significância.
 &lt;/p&gt;
@@ -138,7 +138,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;tibble&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;car&amp;quot;, &amp;quot;agricolae&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -146,113 +146,121 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version   date       lib source        
 ##  abind          1.4-5     2016-07-21 [1] CRAN (R 3.5.0)
-##  agricolae    * 1.2-8     2017-09-12 [1] CRAN (R 3.5.2)
+##  agricolae    * 1.3-1     2019-04-04 [1] CRAN (R 3.5.3)
 ##  AlgDesign      1.1-7.3   2014-10-15 [1] CRAN (R 3.5.2)
-##  assertthat     0.2.0     2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.66.0-1  2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1     2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2     2018-03-29 [1] CRAN (R 3.5.1)
-##  boot           1.3-20    2017-08-06 [2] CRAN (R 3.5.1)
-##  car          * 3.0-2     2018-08-23 [1] CRAN (R 3.5.2)
+##  assertthat     0.2.1     2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4     2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1  2019-01-07 [1] CRAN (R 3.5.2)
+##  boot           1.3-20    2017-08-06 [2] CRAN (R 3.5.3)
+##  car          * 3.0-3     2019-05-27 [1] CRAN (R 3.5.3)
 ##  carData      * 3.0-2     2018-09-30 [1] CRAN (R 3.5.2)
 ##  cellranger     1.1.0     2016-07-27 [1] CRAN (R 3.5.1)
-##  class          7.3-14    2015-08-30 [2] CRAN (R 3.5.1)
-##  classInt       0.2-3     2018-04-16 [1] CRAN (R 3.5.1)
-##  cli            1.0.1     2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1     2018-06-23 [1] CRAN (R 3.5.1)
-##  cluster        2.0.7-1   2018-04-13 [2] CRAN (R 3.5.1)
-##  coda           0.19-2    2018-10-08 [1] CRAN (R 3.5.2)
-##  colorspace     1.3-2     2016-12-14 [1] CRAN (R 3.5.1)
+##  class          7.3-15    2019-01-01 [2] CRAN (R 3.5.3)
+##  classInt       0.3-3     2019-04-26 [1] CRAN (R 3.5.3)
+##  cli            1.1.0     2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0     2019-04-15 [1] CRAN (R 3.5.3)
+##  cluster        2.0.7-1   2018-04-13 [2] CRAN (R 3.5.3)
+##  coda           0.19-3    2019-07-05 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1     2019-03-18 [1] CRAN (R 3.5.3)
 ##  combinat       0.0-8     2012-10-29 [1] CRAN (R 3.5.2)
 ##  crayon         1.3.4     2017-09-16 [1] CRAN (R 3.5.1)
-##  curl           3.2       2018-03-28 [1] CRAN (R 3.5.1)
-##  data.table     1.11.8    2018-09-30 [1] CRAN (R 3.5.1)
-##  deldir         0.1-15    2018-04-01 [1] CRAN (R 3.5.2)
-##  digest         0.6.18    2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8     2018-11-10 [1] CRAN (R 3.5.1)
-##  e1071          1.7-0     2018-07-28 [1] CRAN (R 3.5.1)
-##  expm           0.999-3   2018-09-22 [1] CRAN (R 3.5.2)
+##  curl           3.3       2019-01-10 [1] CRAN (R 3.5.2)
+##  data.table     1.12.2    2019-04-07 [1] CRAN (R 3.5.3)
+##  DBI            1.0.0     2018-05-02 [1] CRAN (R 3.5.1)
+##  deldir         0.1-22    2019-07-05 [1] CRAN (R 3.5.3)
+##  digest         0.6.20    2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3     2019-07-04 [1] CRAN (R 3.5.3)
+##  e1071          1.7-2     2019-06-05 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1   2019-07-02 [1] CRAN (R 3.5.3)
+##  expm           0.999-4   2019-03-21 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0     2018-10-05 [1] CRAN (R 3.5.1)
-##  forcats        0.3.0     2018-02-19 [1] CRAN (R 3.5.1)
-##  foreign        0.8-70    2017-11-28 [2] CRAN (R 3.5.1)
+##  forcats        0.4.0     2019-02-17 [1] CRAN (R 3.5.2)
+##  foreign        0.8-71    2018-07-20 [2] CRAN (R 3.5.3)
 ##  gdata          2.18.0    2017-06-06 [1] CRAN (R 3.5.2)
-##  ggplot2      * 3.1.0     2018-10-25 [1] CRAN (R 3.5.1)
-##  glue           1.3.0     2018-07-17 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.2.0     2019-06-16 [1] CRAN (R 3.5.3)
+##  glue           1.3.1     2019-03-12 [1] CRAN (R 3.5.3)
 ##  gmodels        2.18.1    2018-06-25 [1] CRAN (R 3.5.2)
-##  gtable         0.2.0     2016-02-26 [1] CRAN (R 3.5.1)
+##  gtable         0.3.0     2019-03-25 [1] CRAN (R 3.5.3)
 ##  gtools         3.8.1     2018-06-26 [1] CRAN (R 3.5.2)
-##  haven          2.0.0     2018-11-22 [1] CRAN (R 3.5.1)
-##  highr          0.7       2018-06-09 [1] CRAN (R 3.5.1)
+##  haven          2.1.1     2019-07-04 [1] CRAN (R 3.5.3)
+##  highr          0.8       2019-03-20 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2     2018-03-10 [1] CRAN (R 3.5.1)
 ##  htmltools      0.3.6     2017-04-28 [1] CRAN (R 3.5.1)
-##  httpuv         1.4.5     2018-07-19 [1] CRAN (R 3.5.1)
+##  httpuv         1.5.1     2019-04-05 [1] CRAN (R 3.5.3)
 ##  jsonlite       1.6       2018-12-07 [1] CRAN (R 3.5.2)
+##  KernSmooth     2.23-15   2015-06-29 [2] CRAN (R 3.5.3)
 ##  klaR           0.6-14    2018-03-19 [1] CRAN (R 3.5.2)
 ##  labeling       0.3       2014-08-23 [1] CRAN (R 3.5.0)
-##  labelled       2.0.1     2018-11-25 [1] CRAN (R 3.5.2)
-##  later          0.7.5     2018-09-18 [1] CRAN (R 3.5.1)
-##  lattice        0.20-35   2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1     2017-10-29 [1] CRAN (R 3.5.1)
+##  labelled       2.2.1     2019-05-26 [1] CRAN (R 3.5.3)
+##  later          0.8.0     2019-02-11 [1] CRAN (R 3.5.2)
+##  lattice        0.20-38   2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2     2019-03-15 [1] CRAN (R 3.5.3)
 ##  LearnBayes     2.15.1    2018-03-18 [1] CRAN (R 3.5.2)
-##  lme4           1.1-19    2018-11-10 [1] CRAN (R 3.5.1)
+##  lme4           1.1-21    2019-03-05 [1] CRAN (R 3.5.3)
 ##  magrittr       1.5       2014-11-22 [1] CRAN (R 3.5.1)
-##  maptools       0.9-4     2018-09-19 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50    2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14    2018-04-13 [2] CRAN (R 3.5.1)
+##  maptools       0.9-5     2019-02-18 [1] CRAN (R 3.5.2)
+##  MASS           7.3-51.1  2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17    2019-03-22 [1] CRAN (R 3.5.3)
 ##  MatrixModels   0.4-1     2015-08-22 [1] CRAN (R 3.5.2)
-##  mgcv           1.8-24    2018-06-23 [2] CRAN (R 3.5.1)
-##  mime           0.6       2018-10-05 [1] CRAN (R 3.5.1)
+##  mgcv           1.8-28    2019-03-21 [1] CRAN (R 3.5.3)
+##  mime           0.7       2019-06-11 [1] CRAN (R 3.5.3)
 ##  miniUI         0.1.1.1   2018-05-18 [1] CRAN (R 3.5.2)
 ##  minqa          1.2.4     2014-10-09 [1] CRAN (R 3.5.1)
 ##  munsell        0.5.0     2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137   2018-04-07 [2] CRAN (R 3.5.1)
+##  nlme           3.1-137   2018-04-07 [2] CRAN (R 3.5.3)
 ##  nloptr         1.2.1     2018-10-03 [1] CRAN (R 3.5.1)
-##  nnet           7.3-12    2016-02-02 [2] CRAN (R 3.5.1)
-##  openxlsx       4.1.0     2018-05-26 [1] CRAN (R 3.5.2)
+##  nnet           7.3-12    2016-02-02 [2] CRAN (R 3.5.3)
+##  openxlsx       4.1.0.1   2019-05-28 [1] CRAN (R 3.5.3)
 ##  pbkrtest       0.4-7     2017-03-15 [1] CRAN (R 3.5.2)
-##  pillar         1.3.1     2018-12-15 [1] CRAN (R 3.5.2)
+##  pillar         1.4.2     2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2     2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0     2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4     2016-06-08 [1] CRAN (R 3.5.1)
+##  prettyunits    1.0.2     2015-07-13 [1] CRAN (R 3.5.1)
+##  progress       1.2.2     2019-05-16 [1] CRAN (R 3.5.3)
 ##  promises       1.0.1     2018-04-13 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5     2018-05-29 [1] CRAN (R 3.5.1)
-##  quantreg       5.38      2018-12-18 [1] CRAN (R 3.5.2)
+##  purrr          0.3.2     2019-03-15 [1] CRAN (R 3.5.3)
+##  quantreg       5.41      2019-06-28 [1] CRAN (R 3.5.3)
 ##  questionr      0.7.0     2018-11-26 [1] CRAN (R 3.5.2)
-##  R6             2.3.0     2018-10-04 [1] CRAN (R 3.5.1)
+##  R6             2.4.0     2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2     2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0     2018-11-07 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1     2019-03-17 [1] CRAN (R 3.5.3)
 ##  RcppEigen      0.3.3.5.0 2018-11-24 [1] CRAN (R 3.5.1)
-##  readr        * 1.2.1     2018-11-22 [1] CRAN (R 3.5.1)
-##  readxl         1.1.0     2018-04-20 [1] CRAN (R 3.5.1)
+##  readr        * 1.3.1     2018-12-21 [1] CRAN (R 3.5.2)
+##  readxl         1.3.1     2019-03-13 [1] CRAN (R 3.5.3)
 ##  rematch        1.0.1     2016-04-21 [1] CRAN (R 3.5.1)
 ##  reshape2       1.4.3     2017-12-11 [1] CRAN (R 3.5.1)
 ##  rio            0.5.16    2018-11-26 [1] CRAN (R 3.5.2)
-##  rlang          0.3.0.1   2018-10-25 [1] CRAN (R 3.5.1)
-##  rstudioapi     0.8       2018-10-02 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0     2019-06-25 [1] CRAN (R 3.5.3)
+##  rstudioapi     0.10      2019-03-19 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0     2018-08-09 [1] CRAN (R 3.5.1)
-##  shiny          1.2.0     2018-11-02 [1] CRAN (R 3.5.1)
+##  sf             0.7-6     2019-07-05 [1] CRAN (R 3.5.3)
+##  shiny          1.3.2     2019-04-22 [1] CRAN (R 3.5.3)
 ##  sourcetools    0.1.7     2018-04-25 [1] CRAN (R 3.5.1)
 ##  sp             1.3-1     2018-06-05 [1] CRAN (R 3.5.1)
 ##  SparseM        1.77      2017-04-23 [1] CRAN (R 3.5.2)
-##  spData         0.2.9.4   2018-09-15 [1] CRAN (R 3.5.1)
-##  spdep          0.8-1     2018-11-21 [1] CRAN (R 3.5.2)
-##  stringi        1.2.4     2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1     2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble       * 1.4.2     2018-01-22 [1] CRAN (R 3.5.1)
+##  spData         0.3.0     2019-01-07 [1] CRAN (R 3.5.2)
+##  spdep          1.1-2     2019-04-05 [1] CRAN (R 3.5.3)
+##  stringi        1.4.3     2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0     2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble       * 2.1.3     2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5     2018-10-11 [1] CRAN (R 3.5.1)
+##  units          0.6-3     2019-05-03 [1] CRAN (R 3.5.3)
 ##  utf8           1.1.4     2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0     2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0     2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2     2018-03-15 [1] CRAN (R 3.5.1)
-##  xtable         1.8-3     2018-08-29 [1] CRAN (R 3.5.1)
-##  zip            1.0.0     2017-04-25 [1] CRAN (R 3.5.2)
+##  xtable         1.8-4     2019-04-21 [1] CRAN (R 3.5.3)
+##  zeallot        0.1.0     2018-01-28 [1] CRAN (R 3.5.2)
+##  zip            2.0.3     2019-07-03 [1] CRAN (R 3.5.3)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>

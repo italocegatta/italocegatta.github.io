@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>R on Italo Cegatta</title>
-    <link>/categories/r/</link>
+    <link>https://italocegatta.github.io/categories/r/</link>
     <description>Recent content in R on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Tue, 26 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>O R é para você</title>
-      <link>/o-r-e-para-voce/</link>
+      <link>https://italocegatta.github.io/o-r-e-para-voce/</link>
       <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/o-r-e-para-voce/</guid>
+      <guid>https://italocegatta.github.io/o-r-e-para-voce/</guid>
       <description>Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.
 Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R?</description>
       <content:encoded>
@@ -25,7 +25,8 @@ Vou tentar focar esse texto em duas perguntas muito importantes para quem está 
 
 &lt;p&gt;Se dedicar para aprender uma nova linguagem de programação não é uma tarefa fácil. Principalmente para quem não tem um background de lógica de programação. Não me lembro de me perguntar se valeria a pena ou não estudar o R. Eu estava tão entusiasmado com toda aquela situação de gráficos, tabelas e estatísticas que, quando vi, já tinha passado algumas madrugadas programando.&lt;/p&gt;
 &lt;!-- more --&gt;
-&lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por onde posso começar?&lt;/p&gt;
+&lt;p&gt;Vou tentar focar esse texto em duas perguntas muito importantes para quem está chegando agora na comunidade R: será que vale a pena aprender a programar em R? Se sim, por
+onde posso começar?&lt;/p&gt;
 &lt;div id=&#34;sobre-o-r&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Sobre o R&lt;/h2&gt;
 &lt;p&gt;O R é um software open-source mantido por um grupo de voluntários de vários países, o R-core team. No site oficial do &lt;a href=&#34;https://www.r-project.org/&#34;&gt;projeto&lt;/a&gt; &lt;span class=&#34;citation&#34;&gt;(R Core Team &lt;a href=&#34;#ref-r_development_core_team_r:_2016&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt; a primeira descrição sobre ele é a seguinte:&lt;/p&gt;
@@ -102,22 +103,22 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 &lt;h2&gt;Referências&lt;/h2&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
 &lt;div id=&#34;ref-batista_curso_2015&#34;&gt;
-&lt;p&gt;Batista, João. 2015. “Curso Relâmpago de R.” &lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&#34; class=&#34;uri&#34;&gt;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Batista, João. 2015. “Curso Relâmpago de R.” &lt;a href=&#34;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&#34;&gt;http://cmq.esalq.usp.br/wiki/doku.php?id=publico:tutoriais:r-relampago:start&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-chambers_software_2008&#34;&gt;
-&lt;p&gt;Chambers, John. 2008. &lt;em&gt;Software for Data Analysis&lt;/em&gt;. Statistics and Computing. New York, NY: Springer New York. &lt;a href=&#34;http://link.springer.com/10.1007/978-0-387-75936-4&#34; class=&#34;uri&#34;&gt;http://link.springer.com/10.1007/978-0-387-75936-4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Chambers, John. 2008. &lt;em&gt;Software for Data Analysis&lt;/em&gt;. Statistics and Computing. New York, NY: Springer New York. &lt;a href=&#34;http://link.springer.com/10.1007/978-0-387-75936-4&#34;&gt;http://link.springer.com/10.1007/978-0-387-75936-4&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-docsity_statistical_2014&#34;&gt;
-&lt;p&gt;Docsity. 2014. “Statistical Language Wars: Comparison among SAS, R and SPSS.” &lt;a href=&#34;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&#34; class=&#34;uri&#34;&gt;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Docsity. 2014. “Statistical Language Wars: Comparison among SAS, R and SPSS.” &lt;a href=&#34;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&#34;&gt;http://www.docsity.com/en/news/programming-2/statistical-language-wars-comparison-sas-spss/&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-iwaya_geeks_2012&#34;&gt;
-&lt;p&gt;Iwaya, Akemi. 2012. “Geeks versus Non-Geeks when Doing Repetitive Tasks [Funny Chart].” &lt;a href=&#34;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&#34; class=&#34;uri&#34;&gt;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Iwaya, Akemi. 2012. “Geeks versus Non-Geeks when Doing Repetitive Tasks [Funny Chart].” &lt;a href=&#34;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&#34;&gt;http://www.howtogeek.com/102420/geeks-versus-non-geeks-when-doing-repetitive-tasks-funny-chart/&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-r_development_core_team_r:_2016&#34;&gt;
-&lt;p&gt;R Core Team. 2016. “R: A Language and Environment for Statistical Computing.” &lt;em&gt;R Foundation for Statistical Computing&lt;/em&gt; 3.3.0. Vienna: R Foundation for Statistical Computing. &lt;a href=&#34;http://www.r-project.org&#34; class=&#34;uri&#34;&gt;http://www.r-project.org&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;R Core Team. 2016. “R: A Language and Environment for Statistical Computing.” &lt;em&gt;R Foundation for Statistical Computing&lt;/em&gt; 3.3.0. &lt;a href=&#34;http://www.r-project.org&#34;&gt;http://www.r-project.org&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-revolution_analitics_rs_2016&#34;&gt;
-&lt;p&gt;Revolution Analitics. 2016. “R’s popularity.” &lt;a href=&#34;http://blog.revolutionanalytics.com/popularity&#34; class=&#34;uri&#34;&gt;http://blog.revolutionanalytics.com/popularity&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Revolution Analitics. 2016. “R’s popularity.” &lt;a href=&#34;http://blog.revolutionanalytics.com/popularity&#34;&gt;http://blog.revolutionanalytics.com/popularity&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -127,10 +128,10 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
     
     <item>
       <title>Sobre esse blog</title>
-      <link>/sobre-esse-blog/</link>
+      <link>https://italocegatta.github.io/sobre-esse-blog/</link>
       <pubDate>Thu, 21 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/sobre-esse-blog/</guid>
+      <guid>https://italocegatta.github.io/sobre-esse-blog/</guid>
       <description>Algumas situações me motivaram a criar esse site e alimentá-lo como um blog. Provavelmente os motivos para que eu o continue atualizando vão mudar e na medida que isso acontecer, atualizarei esse post.
 Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais.</description>
       <content:encoded>

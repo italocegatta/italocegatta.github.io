@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Italo Cegatta</title>
-    <link>/tags/</link>
+    <link>https://italocegatta.github.io/tags/</link>
     <description>Recent content in Tags on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Thu, 08 Sep 2016 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Agricolae</title>
-      <link>/tags/agricolae/</link>
+      <link>https://italocegatta.github.io/tags/agricolae/</link>
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/agricolae/</guid>
+      <guid>https://italocegatta.github.io/tags/agricolae/</guid>
       <description></description>
       <content:encoded>
         
@@ -25,10 +25,10 @@
     
     <item>
       <title>Brmap</title>
-      <link>/tags/brmap/</link>
+      <link>https://italocegatta.github.io/tags/brmap/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/brmap/</guid>
+      <guid>https://italocegatta.github.io/tags/brmap/</guid>
       <description></description>
       <content:encoded>
         
@@ -37,10 +37,10 @@
     
     <item>
       <title>Brnome</title>
-      <link>/tags/brnome/</link>
+      <link>https://italocegatta.github.io/tags/brnome/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/brnome/</guid>
+      <guid>https://italocegatta.github.io/tags/brnome/</guid>
       <description></description>
       <content:encoded>
         
@@ -49,10 +49,10 @@
     
     <item>
       <title>Broom</title>
-      <link>/tags/broom/</link>
+      <link>https://italocegatta.github.io/tags/broom/</link>
       <pubDate>Sat, 27 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/broom/</guid>
+      <guid>https://italocegatta.github.io/tags/broom/</guid>
       <description></description>
       <content:encoded>
         
@@ -61,10 +61,10 @@
     
     <item>
       <title>Car</title>
-      <link>/tags/car/</link>
+      <link>https://italocegatta.github.io/tags/car/</link>
       <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/car/</guid>
+      <guid>https://italocegatta.github.io/tags/car/</guid>
       <description></description>
       <content:encoded>
         
@@ -73,10 +73,10 @@
     
     <item>
       <title>Dplyr</title>
-      <link>/tags/dplyr/</link>
+      <link>https://italocegatta.github.io/tags/dplyr/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/dplyr/</guid>
+      <guid>https://italocegatta.github.io/tags/dplyr/</guid>
       <description></description>
       <content:encoded>
         
@@ -85,10 +85,10 @@
     
     <item>
       <title>Fipe</title>
-      <link>/tags/fipe/</link>
+      <link>https://italocegatta.github.io/tags/fipe/</link>
       <pubDate>Sat, 29 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/fipe/</guid>
+      <guid>https://italocegatta.github.io/tags/fipe/</guid>
       <description></description>
       <content:encoded>
         
@@ -97,10 +97,10 @@
     
     <item>
       <title>Forcats</title>
-      <link>/tags/forcats/</link>
+      <link>https://italocegatta.github.io/tags/forcats/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/forcats/</guid>
+      <guid>https://italocegatta.github.io/tags/forcats/</guid>
       <description></description>
       <content:encoded>
         
@@ -109,10 +109,10 @@
     
     <item>
       <title>Geofacet</title>
-      <link>/tags/geofacet/</link>
+      <link>https://italocegatta.github.io/tags/geofacet/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/geofacet/</guid>
+      <guid>https://italocegatta.github.io/tags/geofacet/</guid>
       <description></description>
       <content:encoded>
         
@@ -121,10 +121,10 @@
     
     <item>
       <title>Geosphere</title>
-      <link>/tags/geosphere/</link>
+      <link>https://italocegatta.github.io/tags/geosphere/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/geosphere/</guid>
+      <guid>https://italocegatta.github.io/tags/geosphere/</guid>
       <description></description>
       <content:encoded>
         
@@ -133,10 +133,10 @@
     
     <item>
       <title>Gganimate</title>
-      <link>/tags/gganimate/</link>
+      <link>https://italocegatta.github.io/tags/gganimate/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/gganimate/</guid>
+      <guid>https://italocegatta.github.io/tags/gganimate/</guid>
       <description></description>
       <content:encoded>
         
@@ -145,10 +145,10 @@
     
     <item>
       <title>Ggbiplot</title>
-      <link>/tags/ggbiplot/</link>
+      <link>https://italocegatta.github.io/tags/ggbiplot/</link>
       <pubDate>Mon, 01 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggbiplot/</guid>
+      <guid>https://italocegatta.github.io/tags/ggbiplot/</guid>
       <description></description>
       <content:encoded>
         
@@ -157,10 +157,10 @@
     
     <item>
       <title>Ggplot2</title>
-      <link>/tags/ggplot2/</link>
+      <link>https://italocegatta.github.io/tags/ggplot2/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggplot2/</guid>
+      <guid>https://italocegatta.github.io/tags/ggplot2/</guid>
       <description></description>
       <content:encoded>
         
@@ -169,10 +169,10 @@
     
     <item>
       <title>Ggrepel</title>
-      <link>/tags/ggrepel/</link>
+      <link>https://italocegatta.github.io/tags/ggrepel/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggrepel/</guid>
+      <guid>https://italocegatta.github.io/tags/ggrepel/</guid>
       <description></description>
       <content:encoded>
         
@@ -181,10 +181,10 @@
     
     <item>
       <title>Ggridges</title>
-      <link>/tags/ggridges/</link>
+      <link>https://italocegatta.github.io/tags/ggridges/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggridges/</guid>
+      <guid>https://italocegatta.github.io/tags/ggridges/</guid>
       <description></description>
       <content:encoded>
         
@@ -193,10 +193,10 @@
     
     <item>
       <title>Httr</title>
-      <link>/tags/httr/</link>
+      <link>https://italocegatta.github.io/tags/httr/</link>
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/httr/</guid>
+      <guid>https://italocegatta.github.io/tags/httr/</guid>
       <description></description>
       <content:encoded>
         
@@ -205,10 +205,10 @@
     
     <item>
       <title>Leaflet</title>
-      <link>/tags/leaflet/</link>
+      <link>https://italocegatta.github.io/tags/leaflet/</link>
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/leaflet/</guid>
+      <guid>https://italocegatta.github.io/tags/leaflet/</guid>
       <description></description>
       <content:encoded>
         
@@ -217,10 +217,10 @@
     
     <item>
       <title>Lubridate</title>
-      <link>/tags/lubridate/</link>
+      <link>https://italocegatta.github.io/tags/lubridate/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/lubridate/</guid>
+      <guid>https://italocegatta.github.io/tags/lubridate/</guid>
       <description></description>
       <content:encoded>
         
@@ -229,10 +229,10 @@
     
     <item>
       <title>Purrr</title>
-      <link>/tags/purrr/</link>
+      <link>https://italocegatta.github.io/tags/purrr/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/purrr/</guid>
+      <guid>https://italocegatta.github.io/tags/purrr/</guid>
       <description></description>
       <content:encoded>
         
@@ -241,10 +241,10 @@
     
     <item>
       <title>Rcpproll</title>
-      <link>/tags/rcpproll/</link>
+      <link>https://italocegatta.github.io/tags/rcpproll/</link>
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rcpproll/</guid>
+      <guid>https://italocegatta.github.io/tags/rcpproll/</guid>
       <description></description>
       <content:encoded>
         
@@ -253,10 +253,10 @@
     
     <item>
       <title>Readr</title>
-      <link>/tags/readr/</link>
+      <link>https://italocegatta.github.io/tags/readr/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/readr/</guid>
+      <guid>https://italocegatta.github.io/tags/readr/</guid>
       <description></description>
       <content:encoded>
         
@@ -265,10 +265,10 @@
     
     <item>
       <title>Readxl</title>
-      <link>/tags/readxl/</link>
+      <link>https://italocegatta.github.io/tags/readxl/</link>
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/readxl/</guid>
+      <guid>https://italocegatta.github.io/tags/readxl/</guid>
       <description></description>
       <content:encoded>
         
@@ -277,10 +277,10 @@
     
     <item>
       <title>Rvest</title>
-      <link>/tags/rvest/</link>
+      <link>https://italocegatta.github.io/tags/rvest/</link>
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rvest/</guid>
+      <guid>https://italocegatta.github.io/tags/rvest/</guid>
       <description></description>
       <content:encoded>
         
@@ -289,10 +289,10 @@
     
     <item>
       <title>Scales</title>
-      <link>/tags/scales/</link>
+      <link>https://italocegatta.github.io/tags/scales/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/scales/</guid>
+      <guid>https://italocegatta.github.io/tags/scales/</guid>
       <description></description>
       <content:encoded>
         
@@ -301,10 +301,10 @@
     
     <item>
       <title>Sf</title>
-      <link>/tags/sf/</link>
+      <link>https://italocegatta.github.io/tags/sf/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/sf/</guid>
+      <guid>https://italocegatta.github.io/tags/sf/</guid>
       <description></description>
       <content:encoded>
         
@@ -313,10 +313,10 @@
     
     <item>
       <title>Stringr</title>
-      <link>/tags/stringr/</link>
+      <link>https://italocegatta.github.io/tags/stringr/</link>
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/stringr/</guid>
+      <guid>https://italocegatta.github.io/tags/stringr/</guid>
       <description></description>
       <content:encoded>
         
@@ -325,10 +325,10 @@
     
     <item>
       <title>Tidyr</title>
-      <link>/tags/tidyr/</link>
+      <link>https://italocegatta.github.io/tags/tidyr/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tidyr/</guid>
+      <guid>https://italocegatta.github.io/tags/tidyr/</guid>
       <description></description>
       <content:encoded>
         
@@ -337,10 +337,10 @@
     
     <item>
       <title>Wordcloud</title>
-      <link>/tags/wordcloud/</link>
+      <link>https://italocegatta.github.io/tags/wordcloud/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/wordcloud/</guid>
+      <guid>https://italocegatta.github.io/tags/wordcloud/</guid>
       <description></description>
       <content:encoded>
         
@@ -349,10 +349,10 @@
     
     <item>
       <title>Xml2</title>
-      <link>/tags/xml2/</link>
+      <link>https://italocegatta.github.io/tags/xml2/</link>
       <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/xml2/</guid>
+      <guid>https://italocegatta.github.io/tags/xml2/</guid>
       <description></description>
       <content:encoded>
         

@@ -2,34 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Leaflet on Italo Cegatta</title>
-    <link>/tags/leaflet/</link>
+    <link>https://italocegatta.github.io/tags/leaflet/</link>
     <description>Recent content in Leaflet on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/tags/leaflet/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Interpolação pelo inverso do quadrado da distância</title>
-      <link>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</link>
+      <link>https://italocegatta.github.io/interpolacao-pelo-inverso-do-quadrado-da-distancia/</link>
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>/interpolacao-pelo-inverso-do-quadrado-da-distancia/</guid>
+      <guid>https://italocegatta.github.io/interpolacao-pelo-inverso-do-quadrado-da-distancia/</guid>
       <description>É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do INMET.
 Primeiro, vamos importar e visualizar os dados que temos disponível.</description>
       <content:encoded>
         
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet/leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leafletfix/leafletfix.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-binding/leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://italocegatta.github.io/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/leaflet/leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://italocegatta.github.io/rmarkdown-libs/leafletfix/leafletfix.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://italocegatta.github.io/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://italocegatta.github.io/rmarkdown-libs/leaflet-binding/leaflet.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;É comum quando temos um determinado valor distribuído espacialmente e queremos estimá-lo para um ponto específico. Existem inúmeras formas de se chegar nesta estimativa, mas quero mostrar apenas uma neste post. O objetivo é estimar o quanto choveu em Itapetininga-SP, a partir de dados de chuva de outras 6 cidades próximas. Utilizaremos para isso os dados das estações automáticas do &lt;a href=&#34;http://www.inmet.gov.br/portal/index.php?r=estacoes/estacoesAutomaticas&#34;&gt;INMET&lt;/a&gt;.&lt;/p&gt;
@@ -136,13 +136,16 @@ dados_itape&lt;/code&gt;&lt;/pre&gt;
 ## 5 Piracicaba         -47.6 -22.7  30.8   108. 
 ## 6 Barra Bonita       -48.6 -22.5  42.8   135. 
 ## 7 Itapetininga       -48.1 -23.6  32.1    NA&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bom, agora vamos retornar ao mapa e adicionar o quanto choveu em Itapetininga de acordo com a interpolação por IDW. &lt;br&gt; &lt;br&gt; &lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:100%;height:500px;&#34; class=&#34;leaflet html-widget&#34;&gt;&lt;/div&gt;
+&lt;p&gt;Muito bom, agora vamos retornar ao mapa e adicionar o quanto choveu em Itapetininga de acordo com a interpolação por IDW.
+&lt;br&gt;
+&lt;br&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:100%;height:500px;&#34; class=&#34;leaflet html-widget&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;options&#34;:{&#34;crs&#34;:{&#34;crsClass&#34;:&#34;L.CRS.EPSG3857&#34;,&#34;code&#34;:null,&#34;proj4def&#34;:null,&#34;projectedBounds&#34;:null,&#34;options&#34;:{}}},&#34;calls&#34;:[{&#34;method&#34;:&#34;addTiles&#34;,&#34;args&#34;:[&#34;//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#34;,null,null,{&#34;minZoom&#34;:0,&#34;maxZoom&#34;:18,&#34;tileSize&#34;:256,&#34;subdomains&#34;:&#34;abc&#34;,&#34;errorTileUrl&#34;:&#34;&#34;,&#34;tms&#34;:false,&#34;noWrap&#34;:false,&#34;zoomOffset&#34;:0,&#34;zoomReverse&#34;:false,&#34;opacity&#34;:1,&#34;zIndex&#34;:1,&#34;detectRetina&#34;:false,&#34;attribution&#34;:&#34;&amp;copy; &lt;a href=\&#34;http://openstreetmap.org\&#34;&gt;OpenStreetMap&lt;\/a&gt; contributors, &lt;a href=\&#34;http://creativecommons.org/licenses/by-sa/2.0/\&#34;&gt;CC-BY-SA&lt;\/a&gt;&#34;}]},{&#34;method&#34;:&#34;addCircleMarkers&#34;,&#34;args&#34;:[[-23.426035,-23.981918,-23.852022,-23.101749,-22.703132,-22.471205,-23.59167],[-47.585552,-48.885818,-48.164817,-48.940997,-47.623317,-48.557573,-48.05306],[27,33.4,34.6,18.2,30.8,42.8,32.1],null,null,{&#34;interactive&#34;:true,&#34;className&#34;:&#34;&#34;,&#34;stroke&#34;:true,&#34;color&#34;:&#34;#03F&#34;,&#34;weight&#34;:5,&#34;opacity&#34;:0.5,&#34;fill&#34;:true,&#34;fillColor&#34;:&#34;#03F&#34;,&#34;fillOpacity&#34;:0.6},null,null,[&#34;Sorocaba&#34;,&#34;Itapeva&#34;,&#34;Sao Miguel Arcanjo&#34;,&#34;Avare&#34;,&#34;Piracicaba&#34;,&#34;Barra Bonita&#34;,&#34;Itapetininga&#34;],null,[&#34;27&#34;,&#34;33.4&#34;,&#34;34.6&#34;,&#34;18.2&#34;,&#34;30.8&#34;,&#34;42.8&#34;,&#34;32.1&#34;],{&#34;interactive&#34;:false,&#34;permanent&#34;:true,&#34;direction&#34;:&#34;bottom&#34;,&#34;opacity&#34;:1,&#34;offset&#34;:[5,-10],&#34;textsize&#34;:&#34;10px&#34;,&#34;textOnly&#34;:true,&#34;style&#34;:{&#34;color&#34;:&#34;white&#34;},&#34;className&#34;:&#34;&#34;,&#34;sticky&#34;:true},null]}],&#34;limits&#34;:{&#34;lat&#34;:[-23.981918,-22.471205],&#34;lng&#34;:[-48.940997,-47.585552]}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;leaflet&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -150,76 +153,78 @@ dados_itape&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
 ##  base64enc      0.1-3    2015-07-28 [1] CRAN (R 3.5.0)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
 ##  crosstalk      1.0.0    2016-12-21 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2        3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
+##  ggplot2        3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
 ##  gridExtra      2.3      2017-09-09 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  htmltools      0.3.6    2017-04-28 [1] CRAN (R 3.5.1)
 ##  htmlwidgets    1.3      2018-09-30 [1] CRAN (R 3.5.1)
-##  httpuv         1.4.5    2018-07-19 [1] CRAN (R 3.5.1)
+##  httpuv         1.5.1    2019-04-05 [1] CRAN (R 3.5.3)
 ##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  later          0.7.5    2018-09-18 [1] CRAN (R 3.5.1)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  later          0.8.0    2019-02-11 [1] CRAN (R 3.5.2)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  leaflet      * 2.0.2    2018-08-27 [1] CRAN (R 3.5.1)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  markdown       0.8      2017-04-20 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
-##  mime           0.6      2018-10-05 [1] CRAN (R 3.5.1)
+##  markdown       1.0      2019-06-07 [1] CRAN (R 3.5.3)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
+##  mime           0.7      2019-06-11 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
 ##  png            0.1-7    2013-12-03 [1] CRAN (R 3.5.0)
 ##  promises       1.0.1    2018-04-13 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
-##  raster         2.8-4    2018-11-03 [1] CRAN (R 3.5.1)
+##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
+##  raster         2.9-5    2019-05-14 [1] CRAN (R 3.5.3)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
-##  readr        * 1.2.1    2018-11-22 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  shiny          1.2.0    2018-11-02 [1] CRAN (R 3.5.1)
+##  shiny          1.3.2    2019-04-22 [1] CRAN (R 3.5.3)
 ##  sourcetools    0.1.7    2018-04-25 [1] CRAN (R 3.5.1)
 ##  sp             1.3-1    2018-06-05 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridis        0.5.1    2018-03-29 [1] CRAN (R 3.5.1)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
-##  xtable         1.8-3    2018-08-29 [1] CRAN (R 3.5.1)
+##  xtable         1.8-4    2019-04-21 [1] CRAN (R 3.5.3)
 ##  yaml           2.2.0    2018-07-25 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>

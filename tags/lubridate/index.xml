@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Lubridate on Italo Cegatta</title>
-    <link>/tags/lubridate/</link>
+    <link>https://italocegatta.github.io/tags/lubridate/</link>
     <description>Recent content in Lubridate on Italo Cegatta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Sun, 15 Jul 2018 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/lubridate/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://italocegatta.github.io/tags/lubridate/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Risco de incêndio pela Fórmula de Monte Alegre</title>
-      <link>/risco-de-incendio-pela-formula-de-monte-alegre/</link>
+      <link>https://italocegatta.github.io/risco-de-incendio-pela-formula-de-monte-alegre/</link>
       <pubDate>Sun, 15 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/risco-de-incendio-pela-formula-de-monte-alegre/</guid>
+      <guid>https://italocegatta.github.io/risco-de-incendio-pela-formula-de-monte-alegre/</guid>
       <description>No setor florestal o fogo é uma questão recorrente e preocupante. Utilizar um índice de risco ou perigo de incêndio ajuda, no mínimo, no planejamento e no alerta para quem mora no entorno de maciços florestais como parques, hortos e plantios florestais.
 A Fórmula de Monte Alegre (FMA) é um índice bastante simples, foi proposta em 1972 por Soares (1972) e utiliza apenas a umidade relativa do ar às 13h e a precipitação para calcular o risco de incêndio.</description>
       <content:encoded>
@@ -104,7 +104,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
     ) +
     theme_bw(16) +
     theme(legend.position = &amp;quot;top&amp;quot;, panel.grid.minor.x = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Olhando para a distribuição da umidade relativa em cada mês, podemos ver que em junho a mediana ainda está próximo dos 50% de umidade. E só em julho que os dias mais secos começam a ter mais frequência e essa tendência aumenta até setembro, depois retorna gradativamente até a mediana de 57% de umidade em dezembro.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;base_fma %&amp;gt;% 
   filter(!is.na(ur13)) %&amp;gt;% 
@@ -115,7 +115,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
     scale_x_continuous(breaks = seq(10, 100, 10)) +
     scale_y_discrete(labels = format(ISOdate(2000, 1:12, 1), &amp;quot;%b&amp;quot;)) +
     theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Sobre a Fórmula de Monte Alegre, o contexto que motivou seu desenvolvimento foi bastante trágico. Em 1963 um grande incêndio atingiu o estado do Paraná, com centenas de mortes e cerca de 2 milhões de hectares de florestas queimadas. Em 1972 o Professor Ronaldo Soares, da UFPR, defendeu sua tese de mestrado propondo a Fórmula de Monte Alegre com base em registros de incêndios florestais coletados a partir de 1965 na fazenda Monte Alegre (Klabin), em Telêmaco Borba-PR.&lt;/p&gt;
 &lt;p&gt;A cálculo do índice é bastante simples, basta calcular o valor FMA do dia corrente e somar com o valor do dia anterior. O FMA é calculado através da seguinte expressão:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://www.sciweavers.org/tex2img.php?eq=FMA%20%3D%20%20%5Csum_%7Bi%3D1%7D%5En%20%20%5Cfrac%7B100%7D%7BURi_%7B13h%7D%7D%20&amp;bc=White&amp;fc=Black&amp;im=jpg&amp;fs=12&amp;ff=arev&amp;edit=0&#34; align=&#34;center&#34; border=&#34;0&#34; alt=&#34;FMA =  \sum_{i=1}^n  \frac{100}{URi_{13h}} &#34; width=&#34;139&#34; height=&#34;62&#34; /&gt;&lt;/p&gt;
@@ -123,7 +123,7 @@ base_fma&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;colgroup&gt;
 &lt;col width=&#34;14%&#34; /&gt;
-&lt;col width=&#34;85%&#34; /&gt;
+&lt;col width=&#34;86%&#34; /&gt;
 &lt;/colgroup&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -270,7 +270,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_fill_viridis_c(option = &amp;quot;viridis&amp;quot;) +
   scale_x_continuous(breaks = seq(20, 360, 20), expand = c(0, 0)) +
   theme_bw()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Calculando a frequência das classes dentro de cada ano, podemos ver que predomina o risco Muito Alto, seguido do risco Alto. O risco nulo, ocorre em aproximadamente 10% dos dias do ano.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_fma  %&amp;gt;% 
   filter(!is.na(risco)) %&amp;gt;% 
@@ -282,7 +282,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent) +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;, direction = -1) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Olhando para a frequência de risco dentro dos meses, fica claro o maior risco próximo do mês de agosto, como sugeriram os gráficos de frequências de chuva e umidade relativa.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dados_fma  %&amp;gt;% 
   filter(!is.na(risco)) %&amp;gt;% 
@@ -295,13 +295,13 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
   scale_y_continuous(labels = scales::percent) +
   scale_fill_brewer(palette = &amp;quot;Spectral&amp;quot;, direction = -1) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2018-07-15-risco-de-incendio-pela-formula-de-monte-alegre_files/figure-html/unnamed-chunk-10-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Bom, de maneira geral os gráficos não mostraram muita coisa nova. Todo mundo sabe que nos meses mais secos do ano o risco de incêndio é maior. De fato, o índice apenas dá um respaldo quantitativo para o senso comum. Uma vez calculado o índice, é possível confrontar com dados reais de incêndios e propor novos valores para as classes de risco com o objetivo de deixá-lo mais assertivo para uma certa região.&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;forcats&amp;quot;, &amp;quot;lubridate&amp;quot;, &amp;quot;ggridges&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -309,60 +309,62 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-01-01                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  forcats      * 0.3.0    2018-02-19 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
 ##  ggridges     * 0.5.1    2018-09-27 [1] CRAN (R 3.5.2)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  lubridate    * 1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr        1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
-##  tidyr        * 0.8.2    2018-10-28 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr        1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;referencias&#34; class=&#34;section level1 unnumbered&#34;&gt;
 &lt;h1&gt;Referências&lt;/h1&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
@@ -370,7 +372,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Alvares, Clayton Alcarde, Italo Ramos Cegatta, Lucas Augusto Abra Vieira, Rafaela de Freitas Pavani, Eduardo Moré Mattos, Paulo Cesar Sentelhas, José Luiz Stape, and Ronaldo Viana Soares. 2014. “Perigo de Incêndio Florestal: Aplicação Da Fórmula de Monte Alegre E Avaliação Do Histórico Para Piracicaba, Sp.” &lt;em&gt;Scientia Forestalis, Piracicaba&lt;/em&gt; 42 (104): 511–22.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-soares1972&#34;&gt;
-&lt;p&gt;Soares, Ronaldo Viana. 1972. “Determinação de Um índice de Perigo de Incêndio Para a Região Centro Paranaense, Brasil. Turrialba, Costa Rica, Catie/Iica,. 72 P.” PhD thesis, Tese de Mestrado.&lt;/p&gt;
+&lt;p&gt;Soares, Ronaldo Viana. 1972. “Determinação de Um ı́ndice de Perigo de Incêndio Para a Região Centro Paranaense, Brasil. Turrialba, Costa Rica, Catie/Iica,. 72 P.” PhD thesis, Tese de Mestrado.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -380,17 +382,17 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>100 anos do posto meteorológico da ESALQ</title>
-      <link>/100-anos-do-posto-meteorologico-da-esalq/</link>
+      <link>https://italocegatta.github.io/100-anos-do-posto-meteorologico-da-esalq/</link>
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/100-anos-do-posto-meteorologico-da-esalq/</guid>
-      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&amp;quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+      <guid>https://italocegatta.github.io/100-anos-do-posto-meteorologico-da-esalq/</guid>
+      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</description>
       <content:encoded>
         
 
 
-&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração”&amp;quot; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
+&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
 &lt;p&gt;No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/postocon.html&#34;&gt;dados mensais&lt;/a&gt; para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise. Não considerei nenhuma consistência e preenchimento de falhas (tem bastante, o que é completamente compreensível!).&lt;/p&gt;
 &lt;p&gt;Minha primeira movimentação é criar colunas para identificar o ano e as décadas, precisaremos delas mais para frente.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
@@ -432,7 +434,7 @@ clima&lt;/code&gt;&lt;/pre&gt;
   scale_y_discrete(labels = format(ISOdate(2000, 12:1, 1), &amp;quot;%b&amp;quot;)) +
   theme_bw(16) +
   theme(panel.grid.minor = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-3-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;E qual a década que mais choveu? Como variou a chuva anual ao longo desses 100 anos? Primeiro precisamos calcular quanto choveu em cada década. Em seguida vamos calcular quanto choveu em cada ano e juntar as duas informações. No gráfico abaixo, representei a média da década numa linha de tendência suavizada. Notem que a seca de 2014 Não foi a maior do século, houveram outros 4 anos mais secos desde de 1917.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;prec_decada &amp;lt;- clima %&amp;gt;% 
   group_by(decada, ano) %&amp;gt;% 
@@ -457,7 +459,7 @@ clima %&amp;gt;%
     ) +
     scale_x_continuous(breaks = seq(1917, 2017, 10)) +
     theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-4-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Passando para a temperatura média, podemos construir um painel com a densidade de probabilidade para valores que variam entre 12,5 a 27,7 (amplitude dos dados).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(clima, aes(t_med)) +
   geom_density(fill = &amp;quot;cadetblue&amp;quot;, alpha = 0.8) +
@@ -467,7 +469,7 @@ clima %&amp;gt;%
     y = &amp;quot;Densidade&amp;quot;
   ) +
   theme_bw(9)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-5-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Considerando as décadas, podemos fazer um gráfico um pouco mais simples para facilitar a visualização. Agora, cada década tem sua distribuição de probabilidade. Aparentemente, a calda da direita está se deslocando para maiores temperaturas.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(clima, aes(t_med, factor(decada), fill = ..x..)) +
   geom_density_ridges_gradient(show.legend = FALSE, color = &amp;quot;white&amp;quot;) +
@@ -477,7 +479,7 @@ clima %&amp;gt;%
   ) +
   scale_fill_viridis_c() +
   theme_bw(9)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;E quanto a variação da temperatura nos meses do ano? Quanto podemos esperar de frio ou calor em cada mês?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;clima %&amp;gt;% 
   mutate(mes = month(data)) %&amp;gt;% 
@@ -491,7 +493,7 @@ clima %&amp;gt;%
   scale_x_continuous(breaks = seq(0,40, 4)) +
   scale_y_discrete(labels = format(ISOdate(2000, 12:1, 1), &amp;quot;%b&amp;quot;)) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Podemos também visualizar a amplitude da temperatura máxima e mínima ao longo dos anos.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(clima, aes(month(data))) +
   geom_ribbon(aes(ymax = t_max, ymin = t_min), alpha = 0.8) +
@@ -505,7 +507,7 @@ clima %&amp;gt;%
     labels = format(ISOdate(2000, seq(1, 12, 2), 1), &amp;quot;%b&amp;quot;)
   ) +
   theme_bw(10)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-8-1.svg&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Para finalizar, vamos calcular a média móvel de 30 anos para a temperatura média. Sem dúvida, dos anos 90 pra cá a temperatura média só vem subindo. A minha grande dúvida é: como será que a produção de alimentos e biomassa vai se comportar com essa mudança de clima? Será um grande desafio para a nossa geração, sem dúvida.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;clima_normal &amp;lt;- clima %&amp;gt;%
   filter(!is.na(t_med)) %&amp;gt;% 
@@ -524,12 +526,12 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
   ) +
   scale_y_reverse(breaks = seq(1940, 2017, by = 5)) +
   theme_bw(16)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://italocegatta.github.io/post/2017-10-14-100-anos-do-posto-meteorologico-da-esalq_files/figure-html/unnamed-chunk-9-1.svg&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Caso tenha alguma dúvida ou sugestão sobre o post, fique à vontade para fazer um comentário ou me contatar por E-mail.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sessioninfo::session_info(c(&amp;quot;readr&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;, &amp;quot;RcppRoll&amp;quot;, &amp;quot;lubridate&amp;quot;, &amp;quot;stringr&amp;quot;, &amp;quot;ggridges&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## - Session info ----------------------------------------------------------
 ##  setting  value                       
-##  version  R version 3.5.1 (2018-07-02)
+##  version  R version 3.5.3 (2019-03-11)
 ##  os       Windows 10 x64              
 ##  system   x86_64, mingw32             
 ##  ui       RTerm                       
@@ -537,59 +539,61 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2018-12-31                  
+##  date     2019-07-08                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
-##  assertthat     0.2.0    2017-04-11 [1] CRAN (R 3.5.1)
-##  BH             1.66.0-1 2018-02-13 [1] CRAN (R 3.5.0)
-##  bindr          0.1.1    2018-03-13 [1] CRAN (R 3.5.1)
-##  bindrcpp     * 0.2.2    2018-03-29 [1] CRAN (R 3.5.1)
-##  cli            1.0.1    2018-09-25 [1] CRAN (R 3.5.1)
-##  clipr          0.4.1    2018-06-23 [1] CRAN (R 3.5.1)
-##  colorspace     1.3-2    2016-12-14 [1] CRAN (R 3.5.1)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
-##  digest         0.6.18   2018-10-10 [1] CRAN (R 3.5.1)
-##  dplyr        * 0.7.8    2018-11-10 [1] CRAN (R 3.5.1)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.1.0    2018-10-25 [1] CRAN (R 3.5.1)
+##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
 ##  ggridges     * 0.5.1    2018-09-27 [1] CRAN (R 3.5.2)
-##  glue           1.3.0    2018-07-17 [1] CRAN (R 3.5.1)
-##  gtable         0.2.0    2016-02-26 [1] CRAN (R 3.5.1)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
 ##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
-##  lattice        0.20-35  2017-03-25 [2] CRAN (R 3.5.1)
-##  lazyeval       0.2.1    2017-10-29 [1] CRAN (R 3.5.1)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  lubridate    * 1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
 ##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
-##  MASS           7.3-50   2018-04-30 [2] CRAN (R 3.5.1)
-##  Matrix         1.2-14   2018-04-13 [2] CRAN (R 3.5.1)
-##  mgcv           1.8-24   2018-06-23 [2] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
 ##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.1)
-##  pillar         1.3.1    2018-12-15 [1] CRAN (R 3.5.2)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
 ##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
-##  purrr          0.2.5    2018-05-29 [1] CRAN (R 3.5.1)
-##  R6             2.3.0    2018-10-04 [1] CRAN (R 3.5.1)
+##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.0    2018-11-07 [1] CRAN (R 3.5.1)
+##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
 ##  RcppRoll     * 0.3.0    2018-06-05 [1] CRAN (R 3.5.2)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
-##  rlang          0.3.0.1  2018-10-25 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
 ##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
-##  stringi        1.2.4    2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr      * 1.3.1    2018-05-10 [1] CRAN (R 3.5.1)
-##  tibble         1.4.2    2018-01-22 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr      * 1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
 ##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
 ##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
 ##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
-## [2] C:/Program Files/R/R-3.5.1/library&lt;/code&gt;&lt;/pre&gt;
+## [2] C:/Program Files/R/R-3.5.3/library&lt;/code&gt;&lt;/pre&gt;
 
       </content:encoded>
     </item>
