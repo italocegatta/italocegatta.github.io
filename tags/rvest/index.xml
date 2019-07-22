@@ -43,8 +43,8 @@ scene_days &amp;lt;- page_root %&amp;gt;%
   str_replace_all(&amp;quot;\\/&amp;quot;, &amp;quot;&amp;quot;)
 
 glimpse(scene_days)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  chr [1:445] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; &amp;quot;2000.04.06&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bem, temos até a data da última atualização deste post 445 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##  chr [1:446] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; &amp;quot;2000.04.06&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Muito bem, temos até a data da última atualização deste post 446 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -92,7 +92,7 @@ for (i in seq_along(scene_days)) {
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package    * version  date       lib source        

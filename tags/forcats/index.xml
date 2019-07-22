@@ -198,7 +198,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
@@ -642,7 +642,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -936,7 +936,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib source        
@@ -1106,7 +1106,7 @@ bmw_x6&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source                            
@@ -1476,7 +1476,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        

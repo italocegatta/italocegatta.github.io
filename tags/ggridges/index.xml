@@ -309,7 +309,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -386,13 +386,13 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://italocegatta.github.io/100-anos-do-posto-meteorologico-da-esalq/</guid>
-      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração” a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</description>
       <content:encoded>
         
 
 
-&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
+&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração” a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
 &lt;p&gt;No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/postocon.html&#34;&gt;dados mensais&lt;/a&gt; para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise. Não considerei nenhuma consistência e preenchimento de falhas (tem bastante, o que é completamente compreensível!).&lt;/p&gt;
 &lt;p&gt;Minha primeira movimentação é criar colunas para identificar o ano e as décadas, precisaremos delas mais para frente.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
@@ -539,7 +539,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        

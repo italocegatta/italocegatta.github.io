@@ -198,7 +198,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
@@ -642,7 +642,7 @@ dados_fma&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -936,7 +936,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib source        
@@ -1027,13 +1027,13 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Sat, 14 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://italocegatta.github.io/100-anos-do-posto-meteorologico-da-esalq/</guid>
-      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+      <description>No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração” a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</description>
       <content:encoded>
         
 
 
-&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração”&#34; a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
+&lt;p&gt;No dia 31 de dezembro de 2016 o Posto Meteorológico da &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/posto/&#34;&gt;ESALQ/USP&lt;/a&gt; completou 100 anos de funcionamento. Em “comemoração” a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.&lt;/p&gt;
 &lt;p&gt;No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os &lt;a href=&#34;http://www.esalq.usp.br/departamentos/leb/postocon.html&#34;&gt;dados mensais&lt;/a&gt; para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise. Não considerei nenhuma consistência e preenchimento de falhas (tem bastante, o que é completamente compreensível!).&lt;/p&gt;
 &lt;p&gt;Minha primeira movimentação é criar colunas para identificar o ano e as décadas, precisaremos delas mais para frente.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;)
@@ -1180,7 +1180,7 @@ ggplot(clima_normal, aes(t_med_movel, ano)) +
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -1353,7 +1353,7 @@ bmw_x6&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source                            
@@ -1538,7 +1538,7 @@ Figura  2: Representação em painel utilizando cores.
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib source        
@@ -1767,7 +1767,7 @@ dados_itape&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -1875,8 +1875,8 @@ scene_days &amp;lt;- page_root %&amp;gt;%
   str_replace_all(&amp;quot;\\/&amp;quot;, &amp;quot;&amp;quot;)
 
 glimpse(scene_days)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  chr [1:445] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; &amp;quot;2000.04.06&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Muito bem, temos até a data da última atualização deste post 445 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##  chr [1:446] &amp;quot;2000.02.18&amp;quot; &amp;quot;2000.03.05&amp;quot; &amp;quot;2000.03.21&amp;quot; &amp;quot;2000.04.06&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Muito bem, temos até a data da última atualização deste post 446 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os &lt;a href=&#34;https://modis-land.gsfc.nasa.gov/MODLAND_grid.html&#34;&gt;tiles&lt;/a&gt; de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este &lt;a href=&#34;https://urs.earthdata.nasa.gov/users/new/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -1924,7 +1924,7 @@ for (i in seq_along(scene_days)) {
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package    * version  date       lib source        
@@ -2273,7 +2273,7 @@ Figura  4: Crescimento do volume em função da idade, com informação do PV50 
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -2476,7 +2476,7 @@ Figura  2: Médias dos tratamentos. As letras indicam médias estatisticamente i
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version   date       lib source        
@@ -2796,7 +2796,7 @@ dados_compl&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -2984,7 +2984,7 @@ Figura  2: Representação gráfica dos componentes principais com classificaç�
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source                       
@@ -3152,7 +3152,7 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -3330,7 +3330,7 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -3679,7 +3679,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -3907,7 +3907,7 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version date       lib source        
@@ -4113,7 +4113,7 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package     * version date       lib source        

@@ -307,8 +307,8 @@ scene_days &lt;- page_root %&gt;%
   str_replace_all(&quot;\\/&quot;, &quot;&quot;)
 
 glimpse(scene_days)</code></pre>
-<pre><code>##  chr [1:445] &quot;2000.02.18&quot; &quot;2000.03.05&quot; &quot;2000.03.21&quot; &quot;2000.04.06&quot; ...</code></pre>
-<p>Muito bem, temos até a data da última atualização deste post 445 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os <a href="https://modis-land.gsfc.nasa.gov/MODLAND_grid.html">tiles</a> de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este <a href="https://urs.earthdata.nasa.gov/users/new/">link</a>.</p>
+<pre><code>##  chr [1:446] &quot;2000.02.18&quot; &quot;2000.03.05&quot; &quot;2000.03.21&quot; &quot;2000.04.06&quot; ...</code></pre>
+<p>Muito bem, temos até a data da última atualização deste post 446 cenas disponíveis. O script abaixo cria a pasta com a data da cena e coloca lá os <a href="https://modis-land.gsfc.nasa.gov/MODLAND_grid.html">tiles</a> de seu interesse. Como exemplo vamos pegar os tiles que cobrem os estados de São Paulo e Bahia. Note que é preciso ter um cadastro para autorizar o download dos arquivos. É simples e rápido de fazer acessando este <a href="https://urs.earthdata.nasa.gov/users/new/">link</a>.</p>
 <pre class="r"><code># inicio do 1º loop - dias
 for (i in seq_along(scene_days)) {
   # cria a pasta para receber os tiles
@@ -356,7 +356,7 @@ for (i in seq_along(scene_days)) {
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-08                  
+##  date     2019-07-21                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package    * version  date       lib source        
@@ -667,7 +667,7 @@ Muito bem, meu interesse com este post é analisar o comportamento dos fluxos mi
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração”" a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
+              <div class="media-content hide-xs font-merryweather">No dia 31 de dezembro de 2016 o Posto Meteorológico da ESALQ/USP completou 100 anos de funcionamento. Em “comemoração” a este belo banco de dados, pretendo fazer alguns gráficos para analisar, sem muita pretensão, como o clima variou de lá pra cá.
 No site do Posto podemos encontrar os dados nas escalas diária e mensal. Separei apenas os dados mensais para vermos aqui. Fiz algumas poucas adaptações no banco para poder pelo menos iniciar a análise.</div>
             </div>
             <div style="clear:both;"></div>
