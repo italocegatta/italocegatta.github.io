@@ -77,7 +77,7 @@ Figura  1: Programadores versus não-programadores quando fazem tarefas repetiti
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/online-learning/&#34;&gt;RStudio.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.r-tutor.com/%22%20target=%22_blank&#34;&gt;R tutor.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/&#34;&gt;Quik R.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/&#34;&gt;Quick R.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://rstatistics.net/&#34;&gt;R Statistics.net.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.r-bloggers.com/&#34;&gt;R-bloggers.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/tags/r&#34;&gt;Stackoverflow.&lt;/a&gt;&lt;/li&gt;
@@ -139,10 +139,10 @@ Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisbo
 
 
 &lt;p&gt;Algumas situações me motivaram a criar esse site e alimentá-lo como um blog. Provavelmente os motivos para que eu o continue atualizando vão mudar e na medida que isso acontecer, atualizarei esse post.&lt;/p&gt;
-&lt;p&gt;Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais.Para um florestal essa não é uma tarefa fácil, pois meu curso não tem relação com tecnologia da informações ou ciência da computação.&lt;/p&gt;
-&lt;p&gt;Tiva ideia de criar o blog numa terça-feira, na quarta ele já estava online. As principais motivações foram:&lt;/p&gt;
+&lt;p&gt;Quando este blog começou, eu estava em um intercâmbio na Universidade de Lisboa e aproveitando para iniciar o desenvolvimento do meu Trabalho de Conclusão de Curso. A proposta do TCC foi construir um pacote no R para cálculo de índices de competição de árvores individuais. Para um florestal essa não é uma tarefa fácil, pois meu curso não tem relação com tecnologia da informações ou ciência da computação.&lt;/p&gt;
+&lt;p&gt;Tive a ideia de criar o blog numa terça-feira, na quarta ele já estava online. As principais motivações foram:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Eu acumulei durante os anos da graduação muitos códigos em R para resolver problemas meus e de amigos, entretanto a maioria desses códigos estavam desorganizados. Sempre que começo um novo projeto no R eu me lembro que já fiz algo parececido anteriormente, mas ou não consigo encontrar o código ou ele está tão bagunçado que não é possível aproveitá-lo. Pretendo organizar todos os meus códigos em forma de posts para facilitar a minha vida no futuro.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Eu acumulei durante os anos da graduação muitos códigos em R para resolver problemas meus e de amigos, entretanto a maioria desses códigos estavam desorganizados. Sempre que começo um novo projeto no R eu me lembro que já fiz algo parecido anteriormente, mas ou não consigo encontrar o código ou ele está tão bagunçado que não é possível aproveitá-lo. Pretendo organizar todos os meus códigos em forma de posts para facilitar a minha vida no futuro.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Organizar as ideias no papel nunca foi o meu forte. Penso que o hábito de escrever e estruturar um post sobre problemas resolvidos com o R vai ser um exercício e tanto para melhorar esse ponto.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Eu sempre quis programar com o R Markdown. Escrever os posts no R com o RStudio vão me ajudar a adquirir experiencia com essa linguagem.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Eu já havia criado alguns sites no Wix e DokuWiki, mas queira conhecer outras plataformas. Comecei o blog no Wordpress.com, mas a publicação de códigos é muito limitada e não pode ser automatizada. Com Hugo, Blogdown e Github Pages eu consigo editar e publicar os posts diretamente do R, sem muito esforço e com muita flexibilidade.&lt;/p&gt;&lt;/li&gt;

@@ -28,15 +28,15 @@
     
 
     
-    <meta name="description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
-    <meta property="og:description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
+    <meta name="description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever o pacote fipe no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
+    <meta property="og:description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever o pacote fipe no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Como um cientista de dados pesquisa o carro que quer comprar?">
     <meta property="og:url" content="/como-um-cientista-de-dados-pesquisa-o-carro-que-quer-comprar/">
     <meta property="og:site_name" content="Italo Cegatta">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Italo Cegatta">
-    <meta name="twitter:description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
+    <meta name="twitter:description" content="Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever o pacote fipe no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.">
     
     
 
@@ -282,57 +282,55 @@ if (!doNotTrack) {
               
 
 
-<p>Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela <a href="http://veiculos.fipe.org.br/">FIPE</a>.</p>
+<p>Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever o pacote <a href="https://cran.r-project.org/web/packages/fipe/index.html">fipe</a> no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela <a href="http://veiculos.fipe.org.br/">FIPE</a>.</p>
 <p>Para aqueles que já passaram pela etapa de compra ou venda de um carro, provavelmente já consultaram a famosa tabela. Nas palavras do próprio site da FIPE:</p>
 <blockquote>
 <p>A Tabela Fipe expressa preços médios de veículos no mercado nacional, servindo apenas como um parâmetro para negociações ou avaliações. Os preços efetivamente praticados variam em função da região, conservação, cor, acessórios ou qualquer outro fator que possa influenciar as condições de oferta e procura por um veículo específico.</p>
 </blockquote>
-<p>A motivação para este pacote foi exclusivamente pessoal e por isso a utilização das funções está bastante restrita. Por isso, se alguém quiser ajudar no desenvolvimento do pacote é só chegar e mandar um <a href="https://github.com/italocegatta/fipe">Pull Request</a> no Github, contribuições serão muito bem-vindas.</p>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2)
-pacman::p_load_gh(&quot;italocegatta/fipe&quot;)</code></pre>
+pacman::p_load(dplyr, purrr, stringr, tidyr, forcats, ggplot2, fipe)</code></pre>
 <p>Primeiro vou mostrar as funções e o workflow idealizado para o pacote. Queremos saber, por enquanto, o preço de uma BMW X6 M ano 2015 em julho de 2017.</p>
 <pre class="r"><code># acesso aos dados no site da fipe
-bmw_x6_m_2015 &lt;- fipe_carro(
-  modelo = &quot;x6 m&quot;, marca = &quot;bmw&quot;, 
-  ano = 2015,  data_referencia = &quot;2017-07-01&quot;
+bmw_x6_m_2015 &lt;- fipe_vehicle(
+  model = &quot;x6 m&quot;, make = &quot;bmw&quot;, 
+  year = 2015,  date = &quot;2017-07-01&quot;
 )
 
 bmw_x6_m_2015</code></pre>
 <pre><code>## # A tibble: 1 x 5
-##   modelo                            marca ano   data_referencia  valor
-##   &lt;chr&gt;                             &lt;chr&gt; &lt;fct&gt; &lt;date&gt;           &lt;dbl&gt;
-## 1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   2015  2017-07-01      368603</code></pre>
+##   model                             make  year  date        price
+##   &lt;chr&gt;                             &lt;chr&gt; &lt;fct&gt; &lt;date&gt;      &lt;dbl&gt;
+## 1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   2015  2017-07-01 368603</code></pre>
 <p>Achamos o preço do carro que eu queria. Apenas R$ 368 mil. Uma pechincha. Obviamente, saber quanto vale uma BMW X6 não faz diferença alguma no meu dia. Um abraço pra quem tem condições de comprar um carro desse sem precisar vender um rim.</p>
 <p>Agora que já conhecemos a função que pega o valor dos carros, vamos ampliar a consulta e justificar as horas que passamos aprendendo a programar. Já sabemos o preço do X6 M em julho/2017, mas e nos meses anteriores? Como foi a depreciação média do carro usado nos últimos meses? E os outros modelos X6, quanto será que estão valendo?</p>
 <p>Digamos que, agora, estas questões podem ser respondidas de forma bem rápida. Calma que eu mostro. Modificando a consulta anterior, iremos simplificar o nome do modelo para apenas x6, assim serão retornadas todas as versões do mesmo. A segunda alteração é a ausência do ano de fabricação, o que significa que serão retornados todos os anos na consulta. E por último, definimos os meses de referência para poder acompanhar a variação do preço ao longo nos anos.</p>
-<pre class="r"><code>bmw_x6 &lt;- fipe_carro(
-  modelo = &quot;x6&quot;, marca = &quot;bmw&quot;, 
-  data_referencia = seq.Date(as.Date(&quot;2009-01-01&quot;), as.Date(&quot;2017-07-01&quot;), by = &quot;4 months&quot;)
+<pre class="r"><code>bmw_x6 &lt;- fipe_vehicle(
+  model = &quot;x6&quot;, make = &quot;bmw&quot;, 
+  date = seq.Date(as.Date(&quot;2009-01-01&quot;), as.Date(&quot;2017-07-01&quot;), by = &quot;4 months&quot;)
 )
 
 bmw_x6</code></pre>
 <pre><code>## # A tibble: 480 x 5
-##    modelo                            marca ano   data_referencia  valor
-##    &lt;chr&gt;                             &lt;chr&gt; &lt;fct&gt; &lt;date&gt;           &lt;dbl&gt;
-##  1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-05-01      477030
-##  2 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-09-01      465300
-##  3 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-01-01      468543
-##  4 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-05-01      459500
-##  5 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-09-01      462000
-##  6 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-01-01      464510
-##  7 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-05-01      558789
-##  8 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-09-01      573333
-##  9 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-01-01      550000
-## 10 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-05-01      494950
+##    model                             make  year  date        price
+##    &lt;chr&gt;                             &lt;chr&gt; &lt;fct&gt; &lt;date&gt;      &lt;dbl&gt;
+##  1 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-05-01 477030
+##  2 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2010-09-01 465300
+##  3 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-01-01 468543
+##  4 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-05-01 459500
+##  5 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2011-09-01 462000
+##  6 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-01-01 464510
+##  7 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-05-01 558789
+##  8 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2012-09-01 573333
+##  9 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-01-01 550000
+## 10 X6 M 4.4 4x4 V8 32V Bi-Turbo Aut. BMW   0 km  2013-05-01 494950
 ## # ... with 470 more rows</code></pre>
 <p>Lembrando que o pacote não possui nenhum banco de dados armazenado, todas as informações são consultadas no site da tabela FIPE no ato da execução da função. Se sua internet não for muito rápida, pode ser que tenha demorado um pouquinho. Mas agora temos o banco de dados desejado. Imagina coletar estes dados, na mão, pelo site oficial!?!</p>
 <p>Bom agora o pacote está apresentado. Pretendo fazer outros posts com estudos de casos mais específicos, portanto vou deixar apenas um gráfico que resume a consulta que acabamos de fazer.</p>
 <pre class="r"><code>bmw_x6 %&gt;%
-  ggplot(aes(data_referencia, valor, color = ano, group = ano)) +
+  ggplot(aes(date, price, color = year, group = year)) +
     geom_line(color = &quot;grey30&quot;) +
     geom_point(size = 3) +
-    facet_wrap(~modelo) +
+    facet_wrap(~model) +
     labs(
       x = &quot;Mês de refêrencia&quot;,
       y = &quot;Valor (R$)&quot;,
@@ -356,66 +354,71 @@ bmw_x6</code></pre>
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
-##  package      * version  date       lib source                            
-##  askpass        1.1      2019-01-13 [1] CRAN (R 3.5.2)                    
-##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)                    
-##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)                    
-##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)                    
-##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)                    
-##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)                    
-##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)                    
-##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)                    
-##  curl           3.3      2019-01-10 [1] CRAN (R 3.5.2)                    
-##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)                    
-##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)                    
-##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)                    
-##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)                    
-##  fipe         * 0.0.1    2019-06-20 [1] Github (italocegatta/fipe@56db15e)
-##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)                    
-##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)                    
-##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)                    
-##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)                    
-##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)                    
-##  httr           1.4.0    2018-12-11 [1] CRAN (R 3.5.2)                    
-##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)                    
-##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)                    
-##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)                    
-##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)                    
-##  lubridate      1.7.4    2018-04-11 [1] CRAN (R 3.5.1)                    
-##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)                    
-##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)                    
-##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)                    
-##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)                    
-##  mime           0.7      2019-06-11 [1] CRAN (R 3.5.3)                    
-##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)                    
-##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)                    
-##  openssl        1.4      2019-05-31 [1] CRAN (R 3.5.3)                    
-##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)                    
-##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)                    
-##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)                    
-##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)                    
-##  purrr        * 0.3.2    2019-03-15 [1] CRAN (R 3.5.3)                    
-##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)                    
-##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)                    
-##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)                    
-##  readr          1.3.1    2018-12-21 [1] CRAN (R 3.5.2)                    
-##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)                    
-##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)                    
-##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)                    
-##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)                    
-##  stringr      * 1.4.0    2019-02-10 [1] CRAN (R 3.5.2)                    
-##  sys            3.2      2019-04-23 [1] CRAN (R 3.5.3)                    
-##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)                    
-##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)                    
-##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)                    
-##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)                    
-##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)                    
-##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)                    
-##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)                    
-##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)                    
+##  package      * version  date       lib source        
+##  askpass        1.1      2019-01-13 [1] CRAN (R 3.5.2)
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 3.5.3)
+##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
+##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
+##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
+##  clipr          0.7.0    2019-07-23 [1] CRAN (R 3.5.3)
+##  codetools      0.2-16   2018-12-24 [2] CRAN (R 3.5.3)
+##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
+##  curl           4.0      2019-07-22 [1] CRAN (R 3.5.3)
+##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
+##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
+##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
+##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
+##  fipe         * 0.0.1    2019-08-25 [1] CRAN (R 3.5.3)
+##  forcats      * 0.4.0    2019-02-17 [1] CRAN (R 3.5.2)
+##  furrr          0.1.0    2018-05-16 [1] CRAN (R 3.5.1)
+##  future         1.14.0   2019-07-02 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.1    2019-08-10 [1] CRAN (R 3.5.3)
+##  globals        0.12.4   2018-10-11 [1] CRAN (R 3.5.1)
+##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
+##  hms            0.5.0    2019-07-09 [1] CRAN (R 3.5.3)
+##  httr           1.4.1    2019-08-05 [1] CRAN (R 3.5.3)
+##  jsonlite       1.6      2018-12-07 [1] CRAN (R 3.5.2)
+##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
+##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
+##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  listenv        0.7.0    2018-01-21 [1] CRAN (R 3.5.1)
+##  lubridate      1.7.4    2018-04-11 [1] CRAN (R 3.5.1)
+##  magrittr       1.5      2014-11-22 [1] CRAN (R 3.5.1)
+##  MASS           7.3-51.1 2018-11-01 [2] CRAN (R 3.5.3)
+##  Matrix         1.2-17   2019-03-22 [1] CRAN (R 3.5.3)
+##  mgcv           1.8-28   2019-03-21 [1] CRAN (R 3.5.3)
+##  mime           0.7      2019-06-11 [1] CRAN (R 3.5.3)
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 3.5.1)
+##  nlme           3.1-137  2018-04-07 [2] CRAN (R 3.5.3)
+##  openssl        1.4.1    2019-07-18 [1] CRAN (R 3.5.3)
+##  pillar         1.4.2    2019-06-29 [1] CRAN (R 3.5.3)
+##  pkgconfig      2.0.2    2018-08-16 [1] CRAN (R 3.5.1)
+##  plogr          0.2.0    2018-03-25 [1] CRAN (R 3.5.1)
+##  plyr           1.8.4    2016-06-08 [1] CRAN (R 3.5.1)
+##  purrr        * 0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
+##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
+##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
+##  Rcpp           1.0.2    2019-07-25 [1] CRAN (R 3.5.3)
+##  readr          1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
+##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
+##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
+##  scales         1.0.0    2018-08-09 [1] CRAN (R 3.5.1)
+##  stringi        1.4.3    2019-03-12 [1] CRAN (R 3.5.3)
+##  stringr      * 1.4.0    2019-02-10 [1] CRAN (R 3.5.2)
+##  sys            3.2      2019-04-23 [1] CRAN (R 3.5.3)
+##  tibble         2.1.3    2019-06-06 [1] CRAN (R 3.5.3)
+##  tidyr        * 0.8.3    2019-03-01 [1] CRAN (R 3.5.3)
+##  tidyselect     0.2.5    2018-10-11 [1] CRAN (R 3.5.1)
+##  utf8           1.1.4    2018-05-24 [1] CRAN (R 3.5.1)
+##  vctrs          0.2.0    2019-07-05 [1] CRAN (R 3.5.3)
+##  viridisLite    0.3.0    2018-02-01 [1] CRAN (R 3.5.1)
+##  withr          2.1.2    2018-03-15 [1] CRAN (R 3.5.1)
+##  zeallot        0.1.0    2018-01-28 [1] CRAN (R 3.5.2)
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
 ## [2] C:/Program Files/R/R-3.5.3/library</code></pre>
@@ -728,7 +731,7 @@ Chegando na ESALQ para o curso de Eng. Florestal, a primeira coisa que eu fiz fo
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever um pacote no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.</div>
+              <div class="media-content hide-xs font-merryweather">Estou naquela parte da vida em que se planeja comprar um carro. Como eu sou, acima de todos os sonhos, pão duro, decidir qual marca, modelo, versão e ano do veículo não vai ser fácil. Pensando nisso resolvi escrever o pacote fipe no R para me ajudar a tomar esta decisão. O objetivo deste post é apresentar o pacote e as funções que auxiliam na coleta das informações da tabela FIPE.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>

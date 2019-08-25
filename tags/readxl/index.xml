@@ -121,7 +121,7 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -129,17 +129,17 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 ##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
 ##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
 ##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
-##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  clipr          0.7.0    2019-07-23 [1] CRAN (R 3.5.3)
 ##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
 ##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
 ##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
 ##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.1    2019-08-10 [1] CRAN (R 3.5.3)
 ##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
 ##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
-##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  hms            0.5.0    2019-07-09 [1] CRAN (R 3.5.3)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
 ##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
 ##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
@@ -156,7 +156,7 @@ Figura  4: Histograma com a frequência relativa por classes de volume individua
 ##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  Rcpp           1.0.2    2019-07-25 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
 ##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
@@ -299,7 +299,7 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -307,17 +307,17 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 ##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
 ##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
 ##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
-##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  clipr          0.7.0    2019-07-23 [1] CRAN (R 3.5.3)
 ##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
 ##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
 ##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
 ##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.1    2019-08-10 [1] CRAN (R 3.5.3)
 ##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
 ##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
-##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  hms            0.5.0    2019-07-09 [1] CRAN (R 3.5.3)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
 ##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
 ##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
@@ -334,7 +334,7 @@ Figura  4: Aumento da altura dominante utilizando heatmap com escala de cor disc
 ##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  Rcpp           1.0.2    2019-07-25 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
 ##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
@@ -648,7 +648,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version  date       lib source        
@@ -656,17 +656,17 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
 ##  backports      1.1.4    2019-04-10 [1] CRAN (R 3.5.3)
 ##  BH             1.69.0-1 2019-01-07 [1] CRAN (R 3.5.2)
 ##  cli            1.1.0    2019-03-19 [1] CRAN (R 3.5.3)
-##  clipr          0.6.0    2019-04-15 [1] CRAN (R 3.5.3)
+##  clipr          0.7.0    2019-07-23 [1] CRAN (R 3.5.3)
 ##  colorspace     1.4-1    2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4    2017-09-16 [1] CRAN (R 3.5.1)
 ##  digest         0.6.20   2019-07-04 [1] CRAN (R 3.5.3)
 ##  dplyr        * 0.8.3    2019-07-04 [1] CRAN (R 3.5.3)
 ##  ellipsis       0.2.0.1  2019-07-02 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0    2018-10-05 [1] CRAN (R 3.5.1)
-##  ggplot2      * 3.2.0    2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.1    2019-08-10 [1] CRAN (R 3.5.3)
 ##  glue           1.3.1    2019-03-12 [1] CRAN (R 3.5.3)
 ##  gtable         0.3.0    2019-03-25 [1] CRAN (R 3.5.3)
-##  hms            0.4.2    2018-03-10 [1] CRAN (R 3.5.1)
+##  hms            0.5.0    2019-07-09 [1] CRAN (R 3.5.3)
 ##  labeling       0.3      2014-08-23 [1] CRAN (R 3.5.0)
 ##  lattice        0.20-38  2018-11-04 [2] CRAN (R 3.5.3)
 ##  lazyeval       0.2.2    2019-03-15 [1] CRAN (R 3.5.3)
@@ -683,7 +683,7 @@ Figura  11: Número total de galhas de cada tratamento em diferentes locais com 
 ##  purrr          0.3.2    2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6             2.4.0    2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2    2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.1    2019-03-17 [1] CRAN (R 3.5.3)
+##  Rcpp           1.0.2    2019-07-25 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1    2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2       1.4.3    2017-12-11 [1] CRAN (R 3.5.1)
 ##  rlang          0.4.0    2019-06-25 [1] CRAN (R 3.5.3)
@@ -876,19 +876,19 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version date       lib source        
 ##  assertthat     0.2.1   2019-03-21 [1] CRAN (R 3.5.3)
 ##  backports      1.1.4   2019-04-10 [1] CRAN (R 3.5.3)
-##  blogdown       0.13    2019-06-11 [1] CRAN (R 3.5.3)
-##  bookdown       0.11    2019-05-28 [1] CRAN (R 3.5.3)
-##  callr          3.3.0   2019-07-04 [1] CRAN (R 3.5.3)
+##  blogdown       0.14    2019-07-13 [1] CRAN (R 3.5.3)
+##  bookdown       0.12    2019-07-11 [1] CRAN (R 3.5.3)
+##  callr          3.3.1   2019-07-18 [1] CRAN (R 3.5.3)
 ##  cli            1.1.0   2019-03-19 [1] CRAN (R 3.5.3)
 ##  colorspace     1.4-1   2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon         1.3.4   2017-09-16 [1] CRAN (R 3.5.1)
-##  curl           3.3     2019-01-10 [1] CRAN (R 3.5.2)
+##  curl           4.0     2019-07-22 [1] CRAN (R 3.5.3)
 ##  desc           1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
 ##  devtools       2.1.0   2019-07-06 [1] CRAN (R 3.5.3)
 ##  digest         0.6.20  2019-07-04 [1] CRAN (R 3.5.3)
@@ -896,14 +896,14 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  evaluate       0.14    2019-05-28 [1] CRAN (R 3.5.3)
 ##  fansi          0.4.0   2018-10-05 [1] CRAN (R 3.5.1)
 ##  fs             1.3.1   2019-05-06 [1] CRAN (R 3.5.3)
-##  ggplot2      * 3.2.0   2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2      * 3.2.1   2019-08-10 [1] CRAN (R 3.5.3)
 ##  ggthemes     * 4.2.0   2019-05-13 [1] CRAN (R 3.5.3)
 ##  glue           1.3.1   2019-03-12 [1] CRAN (R 3.5.3)
 ##  gtable         0.3.0   2019-03-25 [1] CRAN (R 3.5.3)
 ##  highr          0.8     2019-03-20 [1] CRAN (R 3.5.3)
-##  hms            0.4.2   2018-03-10 [1] CRAN (R 3.5.1)
+##  hms            0.5.0   2019-07-09 [1] CRAN (R 3.5.3)
 ##  htmltools      0.3.6   2017-04-28 [1] CRAN (R 3.5.1)
-##  knitr          1.23    2019-05-18 [1] CRAN (R 3.5.3)
+##  knitr          1.24    2019-08-08 [1] CRAN (R 3.5.3)
 ##  labeling       0.3     2014-08-23 [1] CRAN (R 3.5.0)
 ##  lazyeval       0.2.2   2019-03-15 [1] CRAN (R 3.5.3)
 ##  magrittr       1.5     2014-11-22 [1] CRAN (R 3.5.1)
@@ -911,26 +911,26 @@ Figura  4: Boxplot que mostra a dispersão do total de galhas por tratamento e c
 ##  munsell        0.5.0   2018-06-12 [1] CRAN (R 3.5.1)
 ##  pacman       * 0.5.1   2019-03-11 [1] CRAN (R 3.5.3)
 ##  pillar         1.4.2   2019-06-29 [1] CRAN (R 3.5.3)
-##  pkgbuild       1.0.3   2019-03-20 [1] CRAN (R 3.5.3)
+##  pkgbuild       1.0.4   2019-08-05 [1] CRAN (R 3.5.3)
 ##  pkgconfig      2.0.2   2018-08-16 [1] CRAN (R 3.5.1)
 ##  pkgload        1.0.2   2018-10-29 [1] CRAN (R 3.5.1)
 ##  prettyunits    1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
-##  processx       3.4.0   2019-07-03 [1] CRAN (R 3.5.3)
+##  processx       3.4.1   2019-07-18 [1] CRAN (R 3.5.3)
 ##  ps             1.3.0   2018-12-21 [1] CRAN (R 3.5.2)
 ##  purrr          0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6             2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer   1.1-2   2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp           1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
+##  Rcpp           1.0.2   2019-07-25 [1] CRAN (R 3.5.3)
 ##  readr        * 1.3.1   2018-12-21 [1] CRAN (R 3.5.2)
 ##  remotes        2.1.0   2019-06-24 [1] CRAN (R 3.5.3)
 ##  rlang          0.4.0   2019-06-25 [1] CRAN (R 3.5.3)
-##  rmarkdown      1.13    2019-05-22 [1] CRAN (R 3.5.3)
+##  rmarkdown      1.14    2019-07-12 [1] CRAN (R 3.5.3)
 ##  rprojroot      1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
 ##  scales         1.0.0   2018-08-09 [1] CRAN (R 3.5.1)
 ##  sessioninfo    1.1.1   2018-11-05 [1] CRAN (R 3.5.2)
 ##  stringi        1.4.3   2019-03-12 [1] CRAN (R 3.5.3)
 ##  stringr        1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
-##  testthat       2.1.1   2019-04-23 [1] CRAN (R 3.5.3)
+##  testthat       2.2.1   2019-07-25 [1] CRAN (R 3.5.3)
 ##  tibble         2.1.3   2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyr        * 0.8.3   2019-03-01 [1] CRAN (R 3.5.3)
 ##  tidyselect     0.2.5   2018-10-11 [1] CRAN (R 3.5.1)
@@ -1082,19 +1082,19 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package     * version date       lib source        
 ##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.5.3)
 ##  backports     1.1.4   2019-04-10 [1] CRAN (R 3.5.3)
-##  blogdown      0.13    2019-06-11 [1] CRAN (R 3.5.3)
-##  bookdown      0.11    2019-05-28 [1] CRAN (R 3.5.3)
-##  callr         3.3.0   2019-07-04 [1] CRAN (R 3.5.3)
+##  blogdown      0.14    2019-07-13 [1] CRAN (R 3.5.3)
+##  bookdown      0.12    2019-07-11 [1] CRAN (R 3.5.3)
+##  callr         3.3.1   2019-07-18 [1] CRAN (R 3.5.3)
 ##  cellranger    1.1.0   2016-07-27 [1] CRAN (R 3.5.1)
 ##  cli           1.1.0   2019-03-19 [1] CRAN (R 3.5.3)
 ##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.5.1)
-##  curl          3.3     2019-01-10 [1] CRAN (R 3.5.2)
+##  curl          4.0     2019-07-22 [1] CRAN (R 3.5.3)
 ##  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
 ##  devtools      2.1.0   2019-07-06 [1] CRAN (R 3.5.3)
 ##  digest        0.6.20  2019-07-04 [1] CRAN (R 3.5.3)
@@ -1105,30 +1105,30 @@ dados2&lt;/code&gt;&lt;/pre&gt;
 ##  glue          1.3.1   2019-03-12 [1] CRAN (R 3.5.3)
 ##  highr         0.8     2019-03-20 [1] CRAN (R 3.5.3)
 ##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.1)
-##  httr        * 1.4.0   2018-12-11 [1] CRAN (R 3.5.2)
-##  knitr         1.23    2019-05-18 [1] CRAN (R 3.5.3)
+##  httr        * 1.4.1   2019-08-05 [1] CRAN (R 3.5.3)
+##  knitr         1.24    2019-08-08 [1] CRAN (R 3.5.3)
 ##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.5.1)
 ##  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.5.1)
 ##  pacman      * 0.5.1   2019-03-11 [1] CRAN (R 3.5.3)
 ##  pillar        1.4.2   2019-06-29 [1] CRAN (R 3.5.3)
-##  pkgbuild      1.0.3   2019-03-20 [1] CRAN (R 3.5.3)
+##  pkgbuild      1.0.4   2019-08-05 [1] CRAN (R 3.5.3)
 ##  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.1)
 ##  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.1)
 ##  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
-##  processx      3.4.0   2019-07-03 [1] CRAN (R 3.5.3)
+##  processx      3.4.1   2019-07-18 [1] CRAN (R 3.5.3)
 ##  ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.2)
 ##  purrr         0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6            2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
-##  Rcpp          1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
+##  Rcpp          1.0.2   2019-07-25 [1] CRAN (R 3.5.3)
 ##  readxl      * 1.3.1   2019-03-13 [1] CRAN (R 3.5.3)
 ##  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.5.3)
 ##  rlang         0.4.0   2019-06-25 [1] CRAN (R 3.5.3)
-##  rmarkdown     1.13    2019-05-22 [1] CRAN (R 3.5.3)
+##  rmarkdown     1.14    2019-07-12 [1] CRAN (R 3.5.3)
 ##  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
 ##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.2)
 ##  stringi       1.4.3   2019-03-12 [1] CRAN (R 3.5.3)
 ##  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
-##  testthat      2.1.1   2019-04-23 [1] CRAN (R 3.5.3)
+##  testthat      2.2.1   2019-07-25 [1] CRAN (R 3.5.3)
 ##  tibble        2.1.3   2019-06-06 [1] CRAN (R 3.5.3)
 ##  tidyr       * 0.8.3   2019-03-01 [1] CRAN (R 3.5.3)
 ##  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.1)

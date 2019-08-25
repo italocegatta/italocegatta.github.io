@@ -198,7 +198,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package      * version    date       lib
@@ -209,12 +209,12 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  brmap        * 0.1.0      2019-03-04 [1]
 ##  brnome       * 0.0.0.9000 2019-07-08 [1]
 ##  class          7.3-15     2019-01-01 [2]
-##  classInt       0.3-3      2019-04-26 [1]
+##  classInt       0.4-1      2019-08-06 [1]
 ##  cli            1.1.0      2019-03-19 [1]
-##  clipr          0.6.0      2019-04-15 [1]
+##  clipr          0.7.0      2019-07-23 [1]
 ##  colorspace     1.4-1      2019-03-18 [1]
 ##  crayon         1.3.4      2017-09-16 [1]
-##  curl           3.3        2019-01-10 [1]
+##  curl           4.0        2019-07-22 [1]
 ##  DBI            1.0.0      2018-05-02 [1]
 ##  digest         0.6.20     2019-07-04 [1]
 ##  dplyr        * 0.8.3      2019-07-04 [1]
@@ -222,11 +222,11 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  ellipsis       0.2.0.1    2019-07-02 [1]
 ##  fansi          0.4.0      2018-10-05 [1]
 ##  forcats      * 0.4.0      2019-02-17 [1]
-##  ggplot2      * 3.2.0      2019-06-16 [1]
+##  ggplot2      * 3.2.1      2019-08-10 [1]
 ##  glue           1.3.1      2019-03-12 [1]
 ##  gtable         0.3.0      2019-03-25 [1]
-##  hms            0.4.2      2018-03-10 [1]
-##  httr           1.4.0      2018-12-11 [1]
+##  hms            0.5.0      2019-07-09 [1]
+##  httr           1.4.1      2019-08-05 [1]
 ##  jsonlite       1.6        2018-12-07 [1]
 ##  KernSmooth     2.23-15    2015-06-29 [2]
 ##  labeling       0.3        2014-08-23 [1]
@@ -239,7 +239,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  mime           0.7        2019-06-11 [1]
 ##  munsell        0.5.0      2018-06-12 [1]
 ##  nlme           3.1-137    2018-04-07 [2]
-##  openssl        1.4        2019-05-31 [1]
+##  openssl        1.4.1      2019-07-18 [1]
 ##  pillar         1.4.2      2019-06-29 [1]
 ##  pkgconfig      2.0.2      2018-08-16 [1]
 ##  plogr          0.2.0      2018-03-25 [1]
@@ -247,14 +247,14 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  purrr        * 0.3.2      2019-03-15 [1]
 ##  R6             2.4.0      2019-02-14 [1]
 ##  RColorBrewer * 1.1-2      2014-12-07 [1]
-##  Rcpp           1.0.1      2019-03-17 [1]
+##  Rcpp           1.0.2      2019-07-25 [1]
 ##  readr        * 1.3.1      2018-12-21 [1]
 ##  reshape2       1.4.3      2017-12-11 [1]
 ##  rlang          0.4.0      2019-06-25 [1]
 ##  rvest          0.3.4      2019-05-15 [1]
 ##  scales         1.0.0      2018-08-09 [1]
 ##  selectr        0.4-1      2018-04-06 [1]
-##  sf           * 0.7-6      2019-07-05 [1]
+##  sf           * 0.7-7      2019-07-24 [1]
 ##  stringi        1.4.3      2019-03-12 [1]
 ##  stringr        1.4.0      2019-02-10 [1]
 ##  sys            3.2        2019-04-23 [1]
@@ -267,7 +267,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  viridisLite    0.3.0      2018-02-01 [1]
 ##  withr          2.1.2      2018-03-15 [1]
 ##  wordcloud    * 2.6        2018-08-24 [1]
-##  xml2           1.2.0      2018-01-24 [1]
+##  xml2           1.2.2      2019-08-09 [1]
 ##  zeallot        0.1.0      2018-01-28 [1]
 ##  source                              
 ##  CRAN (R 3.5.2)                      
@@ -282,19 +282,19 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.3)                      
-##  CRAN (R 3.5.3)                      
-##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.1)                      
-##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.1)                      
 ##  CRAN (R 3.5.2)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
+##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.2)                      
 ##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.0)                      
@@ -335,7 +335,7 @@ wordcloud(top_nomes$nome, top_nomes$frequencia, scale=c(8, 1))&lt;/code&gt;&lt;/
 ##  CRAN (R 3.5.1)                      
 ##  CRAN (R 3.5.1)                      
 ##  CRAN (R 3.5.2)                      
-##  CRAN (R 3.5.1)                      
+##  CRAN (R 3.5.3)                      
 ##  CRAN (R 3.5.2)                      
 ## 
 ## [1] C:/Users/Italo/Documents/R/win-library/3.5
@@ -567,7 +567,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib source        
@@ -577,12 +577,12 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  BH              1.69.0-1    2019-01-07 [1] CRAN (R 3.5.2)
 ##  brmap         * 0.1.0       2019-03-04 [1] local         
 ##  class           7.3-15      2019-01-01 [2] CRAN (R 3.5.3)
-##  classInt        0.3-3       2019-04-26 [1] CRAN (R 3.5.3)
+##  classInt        0.4-1       2019-08-06 [1] CRAN (R 3.5.3)
 ##  cli             1.1.0       2019-03-19 [1] CRAN (R 3.5.3)
-##  clipr           0.6.0       2019-04-15 [1] CRAN (R 3.5.3)
+##  clipr           0.7.0       2019-07-23 [1] CRAN (R 3.5.3)
 ##  colorspace      1.4-1       2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon          1.3.4       2017-09-16 [1] CRAN (R 3.5.1)
-##  curl            3.3         2019-01-10 [1] CRAN (R 3.5.2)
+##  curl            4.0         2019-07-22 [1] CRAN (R 3.5.3)
 ##  DBI             1.0.0       2018-05-02 [1] CRAN (R 3.5.1)
 ##  digest          0.6.20      2019-07-04 [1] CRAN (R 3.5.3)
 ##  dplyr         * 0.8.3       2019-07-04 [1] CRAN (R 3.5.3)
@@ -593,13 +593,13 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  geofacet      * 0.1.10      2019-03-13 [1] CRAN (R 3.5.3)
 ##  geogrid         0.1.1       2018-12-11 [1] CRAN (R 3.5.2)
 ##  geosphere     * 1.5-10      2019-05-26 [1] CRAN (R 3.5.3)
-##  ggplot2       * 3.2.0       2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2       * 3.2.1       2019-08-10 [1] CRAN (R 3.5.3)
 ##  ggrepel       * 0.8.1       2019-05-07 [1] CRAN (R 3.5.3)
 ##  glue            1.3.1       2019-03-12 [1] CRAN (R 3.5.3)
 ##  gridExtra       2.3         2017-09-09 [1] CRAN (R 3.5.1)
 ##  gtable          0.3.0       2019-03-25 [1] CRAN (R 3.5.3)
-##  hms             0.4.2       2018-03-10 [1] CRAN (R 3.5.1)
-##  httr            1.4.0       2018-12-11 [1] CRAN (R 3.5.2)
+##  hms             0.5.0       2019-07-09 [1] CRAN (R 3.5.3)
+##  httr            1.4.1       2019-08-05 [1] CRAN (R 3.5.3)
 ##  imguR           1.0.3       2016-03-29 [1] CRAN (R 3.5.1)
 ##  jpeg            0.1-8       2014-01-23 [1] CRAN (R 3.5.0)
 ##  jsonlite        1.6         2018-12-07 [1] CRAN (R 3.5.2)
@@ -614,7 +614,7 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  mime            0.7         2019-06-11 [1] CRAN (R 3.5.3)
 ##  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)
 ##  nlme            3.1-137     2018-04-07 [2] CRAN (R 3.5.3)
-##  openssl         1.4         2019-05-31 [1] CRAN (R 3.5.3)
+##  openssl         1.4.1       2019-07-18 [1] CRAN (R 3.5.3)
 ##  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig       2.0.2       2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr           0.2.0       2018-03-25 [1] CRAN (R 3.5.1)
@@ -623,15 +623,15 @@ fluxo_poligono&lt;/code&gt;&lt;/pre&gt;
 ##  purrr           0.3.2       2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6              2.4.0       2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer    1.1-2       2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp            1.0.1       2019-03-17 [1] CRAN (R 3.5.3)
-##  RcppArmadillo   0.9.500.2.0 2019-06-12 [1] CRAN (R 3.5.3)
+##  Rcpp            1.0.2       2019-07-25 [1] CRAN (R 3.5.3)
+##  RcppArmadillo   0.9.600.4.0 2019-07-15 [1] CRAN (R 3.5.3)
 ##  readr         * 1.3.1       2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2        1.4.3       2017-12-11 [1] CRAN (R 3.5.1)
-##  rgeos           0.4-3       2019-04-24 [1] CRAN (R 3.5.3)
+##  rgeos           0.5-1       2019-08-05 [1] CRAN (R 3.5.3)
 ##  rlang           0.4.0       2019-06-25 [1] CRAN (R 3.5.3)
 ##  rnaturalearth   0.1.0       2017-03-21 [1] CRAN (R 3.5.1)
 ##  scales          1.0.0       2018-08-09 [1] CRAN (R 3.5.1)
-##  sf            * 0.7-6       2019-07-05 [1] CRAN (R 3.5.3)
+##  sf            * 0.7-7       2019-07-24 [1] CRAN (R 3.5.3)
 ##  sp              1.3-1       2018-06-05 [1] CRAN (R 3.5.1)
 ##  stringi         1.4.3       2019-03-12 [1] CRAN (R 3.5.3)
 ##  stringr         1.4.0       2019-02-10 [1] CRAN (R 3.5.2)
@@ -770,7 +770,7 @@ Figura  2: Representação em painel utilizando cores.
 ##  collate  Portuguese_Brazil.1252      
 ##  ctype    Portuguese_Brazil.1252      
 ##  tz       America/Sao_Paulo           
-##  date     2019-07-21                  
+##  date     2019-08-25                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package       * version     date       lib source        
@@ -780,12 +780,12 @@ Figura  2: Representação em painel utilizando cores.
 ##  BH              1.69.0-1    2019-01-07 [1] CRAN (R 3.5.2)
 ##  brmap         * 0.1.0       2019-03-04 [1] local         
 ##  class           7.3-15      2019-01-01 [2] CRAN (R 3.5.3)
-##  classInt        0.3-3       2019-04-26 [1] CRAN (R 3.5.3)
+##  classInt        0.4-1       2019-08-06 [1] CRAN (R 3.5.3)
 ##  cli             1.1.0       2019-03-19 [1] CRAN (R 3.5.3)
-##  clipr           0.6.0       2019-04-15 [1] CRAN (R 3.5.3)
+##  clipr           0.7.0       2019-07-23 [1] CRAN (R 3.5.3)
 ##  colorspace      1.4-1       2019-03-18 [1] CRAN (R 3.5.3)
 ##  crayon          1.3.4       2017-09-16 [1] CRAN (R 3.5.1)
-##  curl            3.3         2019-01-10 [1] CRAN (R 3.5.2)
+##  curl            4.0         2019-07-22 [1] CRAN (R 3.5.3)
 ##  DBI             1.0.0       2018-05-02 [1] CRAN (R 3.5.1)
 ##  digest          0.6.20      2019-07-04 [1] CRAN (R 3.5.3)
 ##  dplyr         * 0.8.3       2019-07-04 [1] CRAN (R 3.5.3)
@@ -796,13 +796,13 @@ Figura  2: Representação em painel utilizando cores.
 ##  geofacet      * 0.1.10      2019-03-13 [1] CRAN (R 3.5.3)
 ##  geogrid         0.1.1       2018-12-11 [1] CRAN (R 3.5.2)
 ##  gganimate     * 1.0.3       2019-04-02 [1] CRAN (R 3.5.3)
-##  ggplot2       * 3.2.0       2019-06-16 [1] CRAN (R 3.5.3)
+##  ggplot2       * 3.2.1       2019-08-10 [1] CRAN (R 3.5.3)
 ##  ggrepel         0.8.1       2019-05-07 [1] CRAN (R 3.5.3)
 ##  glue            1.3.1       2019-03-12 [1] CRAN (R 3.5.3)
 ##  gridExtra       2.3         2017-09-09 [1] CRAN (R 3.5.1)
 ##  gtable          0.3.0       2019-03-25 [1] CRAN (R 3.5.3)
-##  hms             0.4.2       2018-03-10 [1] CRAN (R 3.5.1)
-##  httr            1.4.0       2018-12-11 [1] CRAN (R 3.5.2)
+##  hms             0.5.0       2019-07-09 [1] CRAN (R 3.5.3)
+##  httr            1.4.1       2019-08-05 [1] CRAN (R 3.5.3)
 ##  imguR           1.0.3       2016-03-29 [1] CRAN (R 3.5.1)
 ##  jpeg            0.1-8       2014-01-23 [1] CRAN (R 3.5.0)
 ##  jsonlite        1.6         2018-12-07 [1] CRAN (R 3.5.2)
@@ -817,7 +817,7 @@ Figura  2: Representação em painel utilizando cores.
 ##  mime            0.7         2019-06-11 [1] CRAN (R 3.5.3)
 ##  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)
 ##  nlme            3.1-137     2018-04-07 [2] CRAN (R 3.5.3)
-##  openssl         1.4         2019-05-31 [1] CRAN (R 3.5.3)
+##  openssl         1.4.1       2019-07-18 [1] CRAN (R 3.5.3)
 ##  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.3)
 ##  pkgconfig       2.0.2       2018-08-16 [1] CRAN (R 3.5.1)
 ##  plogr           0.2.0       2018-03-25 [1] CRAN (R 3.5.1)
@@ -828,15 +828,15 @@ Figura  2: Representação em painel utilizando cores.
 ##  purrr           0.3.2       2019-03-15 [1] CRAN (R 3.5.3)
 ##  R6              2.4.0       2019-02-14 [1] CRAN (R 3.5.2)
 ##  RColorBrewer    1.1-2       2014-12-07 [1] CRAN (R 3.5.0)
-##  Rcpp            1.0.1       2019-03-17 [1] CRAN (R 3.5.3)
-##  RcppArmadillo   0.9.500.2.0 2019-06-12 [1] CRAN (R 3.5.3)
+##  Rcpp            1.0.2       2019-07-25 [1] CRAN (R 3.5.3)
+##  RcppArmadillo   0.9.600.4.0 2019-07-15 [1] CRAN (R 3.5.3)
 ##  readr         * 1.3.1       2018-12-21 [1] CRAN (R 3.5.2)
 ##  reshape2        1.4.3       2017-12-11 [1] CRAN (R 3.5.1)
-##  rgeos           0.4-3       2019-04-24 [1] CRAN (R 3.5.3)
+##  rgeos           0.5-1       2019-08-05 [1] CRAN (R 3.5.3)
 ##  rlang           0.4.0       2019-06-25 [1] CRAN (R 3.5.3)
 ##  rnaturalearth   0.1.0       2017-03-21 [1] CRAN (R 3.5.1)
 ##  scales        * 1.0.0       2018-08-09 [1] CRAN (R 3.5.1)
-##  sf            * 0.7-6       2019-07-05 [1] CRAN (R 3.5.3)
+##  sf            * 0.7-7       2019-07-24 [1] CRAN (R 3.5.3)
 ##  sp              1.3-1       2018-06-05 [1] CRAN (R 3.5.1)
 ##  stringi         1.4.3       2019-03-12 [1] CRAN (R 3.5.3)
 ##  stringr         1.4.0       2019-02-10 [1] CRAN (R 3.5.2)
